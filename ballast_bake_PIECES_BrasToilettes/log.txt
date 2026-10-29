@@ -1,0 +1,38 @@
+>> BrasToilettes : 502920 faces, chemin 4.40 m
+>> BrasToilettes léger importé : 72000 triangles
+Blender 4.2.3 LTS (hash 0e22e4fcea03 built 2024-10-14 23:31:34)
+Fra:1 Mem:1724.10M (Peak 1842.88M) | Time:498143:08:37.85 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesBrasToilettes
+Fra:1 Mem:1724.26M (Peak 1842.88M) | Time:498143:08:37.85 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | BrasToilettes
+Fra:1 Mem:1763.59M (Peak 1842.88M) | Time:498143:08:37.89 | Mem:0.00M, Peak:0.00M | Scene | Initializing
+Fra:1 Mem:1763.58M (Peak 1842.88M) | Time:498143:08:37.89 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading BrasToilettes_Couleur
+Fra:1 Mem:1724.10M (Peak 4028.07M) | Time:498143:25:46.46 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesBrasToilettes
+Fra:1 Mem:1724.10M (Peak 4028.07M) | Time:498143:25:46.46 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | BrasToilettes
+Fra:1 Mem:1763.59M (Peak 4028.07M) | Time:498143:25:46.50 | Mem:0.00M, Peak:0.00M | Scene | Initializing
+Fra:1 Mem:1763.58M (Peak 4028.07M) | Time:498143:25:46.50 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading BrasToilettes_Couleur
+Info: Baking map saved to internal image, save it externally or pack it
+>>   cuit BrasToilettes Couleur
+Fra:1 Mem:1724.11M (Peak 4028.07M) | Time:498143:26:06.45 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | BrasToilettes
+Fra:1 Mem:1724.11M (Peak 4028.07M) | Time:498143:26:06.45 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesBrasToilettes
+Fra:1 Mem:1763.59M (Peak 4028.07M) | Time:498143:26:06.49 | Mem:0.00M, Peak:0.00M | Scene | Initializing
+Fra:1 Mem:1763.58M (Peak 4028.07M) | Time:498143:26:06.49 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading BrasToilettes_Normale
+Fra:1 Mem:1724.11M (Peak 4028.08M) | Time:498143:27:33.87 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | BrasToilettes
+Fra:1 Mem:1724.11M (Peak 4028.08M) | Time:498143:27:33.87 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesBrasToilettes
+Fra:1 Mem:1763.59M (Peak 4028.08M) | Time:498143:27:33.90 | Mem:0.00M, Peak:0.00M | Scene | Initializing
+Fra:1 Mem:1763.58M (Peak 4028.08M) | Time:498143:27:33.90 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading BrasToilettes_Normale
+Info: Baking map saved to internal image, save it externally or pack it
+>>   cuit BrasToilettes Normale
+Fra:1 Mem:1724.11M (Peak 4028.08M) | Time:498143:27:51.87 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | BrasToilettes
+Fra:1 Mem:1724.11M (Peak 4028.08M) | Time:498143:27:51.87 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesBrasToilettes
+Fra:1 Mem:1763.59M (Peak 4028.08M) | Time:498143:27:51.91 | Mem:0.00M, Peak:0.00M | Scene | Initializing
+Fra:1 Mem:1763.59M (Peak 4028.08M) | Time:498143:27:51.91 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading BrasToilettes_Rugosite
+Fra:1 Mem:1724.11M (Peak 4028.08M) | Time:498143:33:10.03 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | BrasToilettes
+Fra:1 Mem:1748.09M (Peak 4028.08M) | Time:498143:33:10.03 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesBrasToilettes
+Fra:1 Mem:1763.59M (Peak 4028.08M) | Time:498143:33:10.07 | Mem:0.00M, Peak:0.00M | Scene | Initializing
+Fra:1 Mem:1763.59M (Peak 4028.08M) | Time:498143:33:10.07 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading BrasToilettes_Rugosite
+Info: Baking map saved to internal image, save it externally or pack it
+>>   cuit BrasToilettes Rugosite
+>>   exporté BrasToilettes : 41825 sommets, 72000 triangles
+>> fin
+
+Blender quit
+duree_s=1495
