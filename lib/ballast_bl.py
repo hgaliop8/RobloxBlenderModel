@@ -268,7 +268,7 @@ def mat_chair(name='Chair', grime=0.8, scale=1.0):
         return R
     # base : gris cadavre, marbrures violacées, jaunissements
     n1 = noise((-900, 400), 4.0, 5, 0.6, 0.4)
-    r1 = ramp(nt, (-650, 400), [(0.3, (0.21, 0.19, 0.165, 1)), (0.7, (0.135, 0.105, 0.108, 1))])
+    r1 = ramp(nt, (-650, 400), [(0.3, (0.15, 0.135, 0.112, 1)), (0.7, (0.095, 0.075, 0.074, 1))])
     L.new(n1.outputs['Fac'], r1.inputs[0])
     n2 = noise((-900, 150), 9.0, 3, 0.5)
     r2 = ramp(nt, (-650, 150), [(0.55, (0, 0, 0, 1)), (0.75, (1, 1, 1, 1))])
@@ -285,7 +285,7 @@ def mat_chair(name='Chair', grime=0.8, scale=1.0):
     vm = _n(nt, 'ShaderNodeMath', (-400, -200), operation='MULTIPLY'); L.new(rv.outputs['Color'], vm.inputs[0]); L.new(rm.outputs['Color'], vm.inputs[1])
     c = mix((-150, 200), c, (0.06, 0.06, 0.09, 1), vm.outputs[0])
     # crasse : creux (occlusion), coulures, dessous
-    ao = _n(nt, 'ShaderNodeAmbientOcclusion', (-900, -600)); ao.inputs['Distance'].default_value = 0.035; ao.samples = 8
+    ao = _n(nt, 'ShaderNodeAmbientOcclusion', (-900, -600)); ao.inputs['Distance'].default_value = 0.06; ao.samples = 8
     ra = ramp(nt, (-650, -600), [(0.35, (1, 1, 1, 1)), (0.9, (0, 0, 0, 1))])
     L.new(ao.outputs['AO'], ra.inputs[0])
     sm = _n(nt, 'ShaderNodeMapping', (-1000, -850)); sm.inputs['Scale'].default_value = (1, 1, 0.25); L.new(co, sm.inputs['Vector'])
@@ -293,7 +293,7 @@ def mat_chair(name='Chair', grime=0.8, scale=1.0):
     rs = ramp(nt, (-560, -850), [(0.42, (0, 0, 0, 1)), (0.68, (1, 1, 1, 1))])
     L.new(ns.outputs['Fac'], rs.inputs[0])
     gm0 = _n(nt, 'ShaderNodeMath', (-400, -700), operation='ADD', use_clamp=True); L.new(ra.outputs['Color'], gm0.inputs[0]); L.new(rs.outputs['Color'], gm0.inputs[1])
-    nb = noise((-800, -1050), 3.2, 4, 0.6, 0.6); rb = ramp(nt, (-560, -1050), [(0.45, (0, 0, 0, 1)), (0.65, (0.7, 0.7, 0.7, 1))]); L.new(nb.outputs['Fac'], rb.inputs[0])
+    nb = noise((-800, -1050), 3.2, 4, 0.6, 0.6); rb = ramp(nt, (-560, -1050), [(0.4, (0, 0, 0, 1)), (0.62, (0.85, 0.85, 0.85, 1))]); L.new(nb.outputs['Fac'], rb.inputs[0])
     gm = _n(nt, 'ShaderNodeMath', (-300, -700), operation='ADD', use_clamp=True); L.new(gm0.outputs[0], gm.inputs[0]); L.new(rb.outputs['Color'], gm.inputs[1])
     gk = _n(nt, 'ShaderNodeMath', (-150, -700), operation='MULTIPLY', use_clamp=True); L.new(gm.outputs[0], gk.inputs[0]); gk.inputs[1].default_value = grime
     c = mix((100, 100), c, (0.010, 0.008, 0.006, 1), gk.outputs[0])
@@ -326,7 +326,7 @@ def mat_simple(name, col, rough=0.5, metal=0.0, noise_scale=0, noise_col=None, b
     return m
 
 def mat_ongle():
-    return mat_simple('Ongle', (0.24, 0.18, 0.085), 0.42, noise_scale=120, noise_col=(0.12, 0.08, 0.04), bump=0.3)
+    return mat_simple('Ongle', (0.11, 0.085, 0.045), 0.5, noise_scale=120, noise_col=(0.12, 0.08, 0.04), bump=0.3)
 
 # ------------------------------------------------------------------ rendu
 def setup_render(res=(1280, 720), samples=128, exposure=0.0):

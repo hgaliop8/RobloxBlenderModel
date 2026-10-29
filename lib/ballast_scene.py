@@ -150,7 +150,7 @@ def amas(seed=42, n_arms=195, log=print):
     B.bake_mods(ob); bpy.data.objects.remove(cutter); B.shade_smooth(ob)
     log(f'amas final : {len(ob.data.polygons)} faces')
     # fond de gorge et doigts qui la bordent
-    bm = bmesh.new(); ell_bm(bm, MO - MN*0.17, (0.1, 0.07, 0.09)); fond = mesh_obj('Gorge', bm)
+    bm = bmesh.new(); ell_bm(bm, MO - MN*0.2, (0.11, 0.08, 0.1)); fond = mesh_obj('Gorge', bm)
     rim = []
     t1 = MN.cross(Vector((0, 0, 1))).normalized(); t2 = MN.cross(t1)
     for k in range(11):
@@ -194,8 +194,12 @@ PATHS = {
 }
 HAND_KW = {'BrasGrille': dict(curl=0.3, spread=0.65), 'BrasFenetre': dict(curl=0.45, spread=0.5), 'BrasToilettes': dict(curl=0.85, spread=0.3)}
 
-def bras_scene(name, seed, log=print):
-    path = B.Path([W(*p) for p in PATHS[name]])
+ARM_LEN = {'BrasGrille': 3.2, 'BrasFenetre': 6.3, 'BrasToilettes': 4.3}
+
+def bras_scene(name, seed, log=print, droit=False):
+    """droit=True : bras modélisé droit le long de +X (racine en x = -0.2, bout des doigts vers x = longueur), dos vers +Z,
+    pour la visionneuse qui le plie le long de son chemin"""
+    path = B.Path([(-0.2, 0, 0), (ARM_LEN[name] - 0.1, 0, 0)]) if droit else B.Path([W(*p) for p in PATHS[name]])
     parts, NL = B.arm_chain(path, r_start=0.05, r_end=0.043, seed=seed, up=(0, 0, 1), hand_scale=1.45, hand_kw=HAND_KW[name])
     for p in parts: B.bake_mods(p)
     ob = B.remesh(B.join(parts, name), voxel=0.0024, smooth=4)
@@ -315,9 +319,9 @@ def materiaux():
     M['rouille'] = S('Rouille', (0.16, 0.06, 0.025), 0.8, 0.2, noise_scale=14, noise_col=(0.04, 0.025, 0.018), bump=0.3)
     M['rail'] = S('Rail', (0.5, 0.5, 0.52), 0.28, 1.0, noise_scale=30, noise_col=(0.15, 0.08, 0.04), bump=0.05)
     M['bois'] = S('Bois', (0.06, 0.042, 0.03), 0.85, noise_scale=8, noise_col=(0.02, 0.015, 0.01), bump=0.4)
-    M['caillou'] = S('Caillou', (0.2, 0.195, 0.185), 0.8, noise_scale=40, noise_col=(0.07, 0.068, 0.065), bump=0.5)
+    M['caillou'] = S('Caillou', (0.075, 0.072, 0.068), 0.8, noise_scale=40, noise_col=(0.07, 0.068, 0.065), bump=0.5)
     M['gravier'] = S('Gravier', (0.05, 0.045, 0.04), 0.9, noise_scale=12, noise_col=(0.015, 0.013, 0.012))
-    M['moquette'] = S('Moquette', (0.11, 0.045, 0.04), 0.95, noise_scale=60, noise_col=(0.04, 0.02, 0.018), bump=0.25)
+    M['moquette'] = S('Moquette', (0.11, 0.045, 0.04), 0.95, noise_scale=60, noise_col=(0.04, 0.02, 0.018), bump=0.08)
     M['plafond'] = S('Plafond', (0.35, 0.36, 0.34), 0.7, noise_scale=4, noise_col=(0.15, 0.15, 0.13))
     M['caisse'] = _peinture('Caisse', (0.06, 0.12, 0.1), (0.12, 0.05, 0.02))
     M['paroi'] = _paroi()
@@ -329,7 +333,7 @@ def materiaux():
     M['neon'] = n
     M['chair'] = B.mat_chair('Chair', grime=0.8); M['ongle'] = B.mat_ongle()
     g = bpy.data.materials.new('Gorge'); g.use_nodes = True; b = g.node_tree.nodes['Principled BSDF']
-    b.inputs['Base Color'].default_value = (0.05, 0.004, 0.004, 1); b.inputs['Roughness'].default_value = 0.15; b.inputs['Subsurface Weight'].default_value = 0.4
+    b.inputs['Base Color'].default_value = (0.022, 0.003, 0.003, 1); b.inputs['Roughness'].default_value = 0.4; b.inputs['Subsurface Weight'].default_value = 0.2
     M['gorge'] = g
     return M
 
