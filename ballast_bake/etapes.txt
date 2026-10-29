@@ -1,0 +1,29 @@
+    0.1s  nid : 179 objets
+    0.1s  mains : 208 objets au total
+    2.1s  joint : 234650 sommets
+   14.9s  remaillé : 2579450 sommets
+   20.6s  amas final : 2579508 faces
+   65.6s  Amas : 180000 triangles
+  238.0s    cuit Amas Couleur
+  307.0s    cuit Amas Normale
+  400.1s    cuit Amas Rugosite
+  401.0s    exporté Amas : 164924 sommets, 180000 triangles
+  402.1s  BrasGrille : 212592 faces, chemin 3.30 m
+  404.1s  BrasGrille : 60000 triangles
+  434.9s    cuit BrasGrille Couleur
+  439.1s    cuit BrasGrille Normale
+  450.0s    cuit BrasGrille Rugosite
+  450.2s    exporté BrasGrille : 35623 sommets, 60000 triangles
+  452.3s  BrasFenetre : 402440 faces, chemin 6.40 m
+  456.2s  BrasFenetre : 60000 triangles
+  474.5s    cuit BrasFenetre Couleur
+  478.0s    cuit BrasFenetre Normale
+  485.3s    cuit BrasFenetre Rugosite
+  485.5s    exporté BrasFenetre : 37728 sommets, 60000 triangles
+  486.9s  BrasToilettes : 280894 faces, chemin 4.40 m
+  489.6s  BrasToilettes : 60000 triangles
+  515.2s    cuit BrasToilettes Couleur
+  519.1s    cuit BrasToilettes Normale
+  528.4s    cuit BrasToilettes Rugosite
+  528.6s    exporté BrasToilettes : 36572 sommets, 60000 triangles
+  528.6s  fin
