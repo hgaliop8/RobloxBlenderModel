@@ -34,12 +34,36 @@ def low_from(objs, name, voxel, target):
 def low_import(name):
     """maillage léger déplié dans le pipeline maison (data/ballast/<nom>_uv.npz), normales lisses imposées"""
     d = np.load(os.path.join(os.getcwd(), 'data', 'ballast', f'{name}_uv.npz'))
-    me = bpy.data.meshes.new(name + '_bas'); me.from_pydata(d['V'].tolist(), [], d['F'].tolist()); me.update()
-    uv = me.uv_layers.new(name='UV'); uv.data.foreach_set('uv', d['UV'][d['F']].reshape(-1))
+    return low_from_arrays(name, d['V'], d['F'], d['UV'], d['N'])
+
+def low_from_arrays(name, V, F, UV, N):
+    me = bpy.data.meshes.new(name + '_bas'); me.from_pydata(V.tolist(), [], F.tolist()); me.update()
+    uv = me.uv_layers.new(name='UV'); uv.data.foreach_set('uv', UV[F].reshape(-1))
     for p in me.polygons: p.use_smooth = True
-    me.normals_split_custom_set_from_vertices(d['N'].tolist())
+    me.normals_split_custom_set_from_vertices(N.tolist())
     ob = bpy.data.objects.new(name + '_bas', me); B.coll().objects.link(ob)
-    log(f'{name} léger importé : {len(me.polygons)} triangles'); return ob
+    log(f'{name} léger : {len(me.polygons)} triangles'); return ob
+
+def low_build(objs, name, voxel, target, res, seg):
+    """maillage léger : remaillage + décimation dans Blender, dépliage par cartes + rangement skyline (pipeline maison)"""
+    from bakecommon import unwrap_split, pack_skyline, apply_pack
+    lo = B.join([dup(o) for o in objs], name + '_tmp'); lo = B.remesh(lo, voxel=voxel, smooth=2)
+    n = len(lo.data.polygons)
+    if n > target:
+        d = lo.modifiers.new('dec', 'DECIMATE'); d.ratio = target/n; d.use_collapse_triangulate = True
+    lo.modifiers.new('tri', 'TRIANGULATE'); B.bake_mods(lo)
+    me = lo.data; V = np.zeros(len(me.vertices)*3); me.vertices.foreach_get('co', V); V = V.reshape(-1, 3)
+    F = np.zeros(len(me.polygons)*3, np.int64); me.polygons.foreach_get('vertices', F); F = F.reshape(-1, 3)
+    bpy.data.objects.remove(lo)
+    fn = np.cross(V[F[:, 1]] - V[F[:, 0]], V[F[:, 2]] - V[F[:, 0]]); Nv = np.zeros_like(V)
+    for k in range(3): np.add.at(Nv, F[:, k], fn)
+    Nv /= np.maximum(np.linalg.norm(Nv, axis=1, keepdims=True), 1e-12)
+    Vu, UV, Fu, src, charts = unwrap_split(V, F, 62.0, 0.0006 if name == 'Amas' else 0.0004, seg)
+    for c in charts: c['piece'] = name
+    s_, pos, rot = pack_skyline(charts, pad_px=6, res=res)
+    geo = {name: dict(UV=UV)}; apply_pack(geo, charts, s_, pos, rot)
+    log(f'{name} : {len(charts)} cartes, {s_*res:.0f} texels/m')
+    return low_from_arrays(name, Vu, Fu, geo[name]['UV'], Nv[src])
 
 def bake(lo, highs, name, size):
     imgs = {}
@@ -76,13 +100,12 @@ def export_npz(lo, name):
 
 PIECES = os.environ.get('PIECES', 'Amas,Dents,BrasGrille,BrasFenetre,BrasToilettes').split(',')
 
-def low_teeth(hi, target=20000):
-    lo = dup(hi); lo.name = 'Dents_bas'; n = len(lo.data.polygons)
-    d = lo.modifiers.new('dec', 'DECIMATE'); d.ratio = min(1.0, target/2/n); d.use_collapse_triangulate = True
+def low_teeth():
+    lo = S.mouth_teeth('Dents_bas', sub=1)
     lo.modifiers.new('tri', 'TRIANGULATE'); B.bake_mods(lo); B.shade_smooth(lo)
     bpy.ops.object.select_all(action='DESELECT'); lo.select_set(True); bpy.context.view_layer.objects.active = lo
     bpy.ops.object.mode_set(mode='EDIT'); bpy.ops.mesh.select_all(action='SELECT')
-    bpy.ops.uv.smart_project(angle_limit=math.radians(70), island_margin=0.004, area_weight=0.0)
+    bpy.ops.uv.smart_project(angle_limit=math.radians(80), island_margin=0.004, area_weight=0.0)
     bpy.ops.uv.pack_islands(rotate=True, margin=0.003)
     bpy.ops.object.mode_set(mode='OBJECT')
     log(f'Dents légères : {len(lo.data.polygons)} triangles'); return lo
@@ -94,10 +117,10 @@ if 'Amas' in PIECES or 'Dents' in PIECES:
     fond.data.materials.append(M['gorge']); ongles.data.materials.append(M['ongle'])
     cailloux.data.materials.append(M['caillou']); tirefonds.data.materials.append(M['rouille']); dents.data.materials.append(M['dents'])
     if 'Amas' in PIECES:
-        lo = low_import('Amas'); bake(lo, [amas, levres, fond, ongles, cailloux, tirefonds], 'Amas', 4096); export_npz(lo, 'Amas'); bpy.data.objects.remove(lo)
+        lo = low_build([amas, levres, fond, cailloux, tirefonds], 'Amas', 0.0036, 100000, 4096, 0.5); bake(lo, [amas, levres, fond, ongles, cailloux, tirefonds], 'Amas', 4096); export_npz(lo, 'Amas'); bpy.data.objects.remove(lo)
     if 'Dents' in PIECES:
         sc.render.bake.cage_extrusion = 0.004; sc.render.bake.max_ray_distance = 0.01
-        lo = low_teeth(dents); bake(lo, [dents], 'Dents', 2048); export_npz(lo, 'Dents')
+        lo = low_teeth(); bake(lo, [dents], 'Dents', 2048); export_npz(lo, 'Dents')
         sc.render.bake.cage_extrusion = 0.02; sc.render.bake.max_ray_distance = 0.06
     for o in list(bpy.data.objects): bpy.data.objects.remove(o)
 
@@ -106,7 +129,7 @@ for name, seed in (('BrasGrille', 1), ('BrasFenetre', 2), ('BrasToilettes', 3)):
     if name not in PIECES: continue
     hi, nails = S.bras_scene(name, seed, log=log, droit=True)
     hi.data.materials.append(M['chair']); nails.data.materials.append(M['ongle'])
-    lo = low_import(name)
+    lo = low_build([hi], name, 0.0035, 36000, 4096, 0.36)
     bake(lo, [hi, nails], name, 4096)
     export_npz(lo, name)
     for o in (hi, nails, lo): bpy.data.objects.remove(o)

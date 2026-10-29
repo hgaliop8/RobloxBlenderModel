@@ -150,7 +150,7 @@ def amas(seed=42, n_arms=195, log=print):
     B.bake_mods(ob); bpy.data.objects.remove(cutter); B.shade_smooth(ob)
     log(f'amas final : {len(ob.data.polygons)} faces')
     fond = mouth_gums('Gencives')
-    dents = mouth_teeth('Dents', rng)
+    dents = mouth_teeth('Dents')
     log(f'bouche : {len(fond.data.polygons)} faces de gencives, {len(dents.data.polygons)} faces de dents')
     # mains qui bordent la bouche, doigts recourbés par-dessus la lèvre
     rim = []
@@ -167,6 +167,7 @@ def amas(seed=42, n_arms=195, log=print):
     bm = bmesh.new()
     for k in range(80):
         th = rng.uniform(0, 2*math.pi); ph = rng.uniform(-1.3, -0.25); p, n = surf_point(th, ph); r = rng.uniform(0.018, 0.042)
+        if (p - MO).length < 0.4: continue
         o = bmesh.ops.create_icosphere(bm, subdivisions=2, radius=1.0)
         R = Matrix.Rotation(rng.uniform(0, 3), 3, Vector((rng.gauss(0, 1), rng.gauss(0, 1), rng.gauss(0, 1))).normalized())
         sc = Vector((r, r*rng.uniform(0.6, 0.9), r*rng.uniform(0.7, 1.0)))
@@ -244,8 +245,8 @@ def mouth_gums(name):
     B.bake_mods(ob); B.shade_smooth(ob)
     return ob
 
-def mouth_teeth(name, rng):
-    t1, t2 = mouth_axes(); sk = B.Skel()
+def mouth_teeth(name, sub=2):
+    rng = random.Random(77); t1, t2 = mouth_axes(); sk = B.Skel()
     for ri, (d, n, L, rb) in enumerate(TEETH_RINGS):
         sc = prof_at(d)*(1 - 0.06*ridge(d))
         for k in range(n):
@@ -262,7 +263,7 @@ def mouth_teeth(name, rng):
                 dd = (dv*math.cos(ang) - MN*math.sin(ang)).normalized()
                 pts.append(P - rad*0.006 + dd*ln*f if j else P - rad*0.006); rads.append(max(rb*rr, 0.0007))
             i0 = sk.v(pts[0], rads[0]); sk.chain(i0, pts[1:], rads[1:])
-    ob = B.skin_object(name, sk, sub=2); B.bake_mods(ob); B.shade_smooth(ob)
+    ob = B.skin_object(name, sk, sub=sub); B.bake_mods(ob); B.shade_smooth(ob)
     return ob
 
 def mat_dents():
@@ -277,10 +278,10 @@ def mat_dents():
     return m
 
 def mat_gencive():
-    m = B.mat_simple('Gencive', (0.14, 0.018, 0.02), 0.22, noise_scale=25, noise_col=(0.05, 0.004, 0.006), bump=0.35)
+    m = B.mat_simple('Gencive', (0.065, 0.012, 0.014), 0.3, noise_scale=18, noise_col=(0.02, 0.003, 0.006), bump=0.25)
     b = m.node_tree.nodes['Principled BSDF']
-    b.inputs['Subsurface Weight'].default_value = 0.35; b.inputs['Subsurface Radius'].default_value = (1.0, 0.2, 0.1); b.inputs['Subsurface Scale'].default_value = 0.01
-    b.inputs['Coat Weight'].default_value = 0.4; b.inputs['Coat Roughness'].default_value = 0.08     # salive
+    b.inputs['Subsurface Weight'].default_value = 0.2; b.inputs['Subsurface Radius'].default_value = (1.0, 0.2, 0.1); b.inputs['Subsurface Scale'].default_value = 0.006
+    b.inputs['Coat Weight'].default_value = 0.25; b.inputs['Coat Roughness'].default_value = 0.08     # salive
     return m
 
 # ================================================================ bras posés dans la scène

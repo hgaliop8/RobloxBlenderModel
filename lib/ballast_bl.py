@@ -44,8 +44,20 @@ def skin_object(name, sk, sub=2, root=0):
     ob = bpy.data.objects.new(name, me); coll().objects.link(ob)
     m = ob.modifiers.new('skin', 'SKIN'); m.use_smooth_shade = True; m.branch_smoothing = 0.6
     if not me.skin_vertices: me.skin_vertices.new()
+    # une racine par morceau connexe (sinon le modificateur Skin ignore les morceaux sans racine)
+    par = list(range(len(sk.V)))
+    def f(a):
+        while par[a] != a: par[a] = par[par[a]]; a = par[a]
+        return a
+    for a, b in sk.E: par[f(a)] = f(b)
+    seen = set(); roots = set()
+    for i in range(len(sk.V)):
+        c = f(i)
+        if c not in seen: seen.add(c); roots.add(i)
+    if root in range(len(sk.V)):
+        roots = {i for i in roots if f(i) != f(root)} | {root}
     for i, r in enumerate(sk.R):
-        sv = me.skin_vertices[0].data[i]; sv.radius = r; sv.use_root = (i == root)
+        sv = me.skin_vertices[0].data[i]; sv.radius = r; sv.use_root = (i in roots)
     if sub:
         ss = ob.modifiers.new('sub', 'SUBSURF'); ss.levels = sub; ss.render_levels = sub
     return ob
