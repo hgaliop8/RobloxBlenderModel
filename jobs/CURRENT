@@ -1,2 +1,5 @@
-ballast_bas
-ballast_scene VUES=bouche,gorge
+ballast_bake PIECES=Amas
+ballast_bake PIECES=Dents
+ballast_bake PIECES=BrasGrille
+ballast_bake PIECES=BrasFenetre
+ballast_bake PIECES=BrasToilettes

@@ -74,22 +74,40 @@ def export_npz(lo, name):
     np.savez_compressed(os.path.join(out, f'{name}.npz'), V=P[vi[first]], N=N[first], T=T[first], W=Ws[first], UV=UV[first], F=inv.reshape(-1, 3).astype(np.int32))
     log(f'  exporté {name} : {len(first)} sommets, {nl//3} triangles')
 
-# ------------------------------------------------------------------ l'amas
-amas, levres, fond, ongles, cailloux, tirefonds = S.amas(log=log)
-for o in (amas, levres): o.data.materials.append(M['chair'])
-fond.data.materials.append(M['gorge']); ongles.data.materials.append(M['ongle'])
-cailloux.data.materials.append(M['caillou']); tirefonds.data.materials.append(M['rouille'])
-lo = low_import('Amas')
-bake(lo, [amas, levres, fond, ongles, cailloux, tirefonds], 'Amas', 4096)
-export_npz(lo, 'Amas')
-for o in (amas, levres, fond, ongles, cailloux, tirefonds, lo): bpy.data.objects.remove(o)
+PIECES = os.environ.get('PIECES', 'Amas,Dents,BrasGrille,BrasFenetre,BrasToilettes').split(',')
+
+def low_teeth(hi, target=20000):
+    lo = dup(hi); lo.name = 'Dents_bas'; n = len(lo.data.polygons)
+    d = lo.modifiers.new('dec', 'DECIMATE'); d.ratio = min(1.0, target/2/n); d.use_collapse_triangulate = True
+    lo.modifiers.new('tri', 'TRIANGULATE'); B.bake_mods(lo); B.shade_smooth(lo)
+    bpy.ops.object.select_all(action='DESELECT'); lo.select_set(True); bpy.context.view_layer.objects.active = lo
+    bpy.ops.object.mode_set(mode='EDIT'); bpy.ops.mesh.select_all(action='SELECT')
+    bpy.ops.uv.smart_project(angle_limit=math.radians(70), island_margin=0.004, area_weight=0.0)
+    bpy.ops.uv.pack_islands(rotate=True, margin=0.003)
+    bpy.ops.object.mode_set(mode='OBJECT')
+    log(f'Dents légères : {len(lo.data.polygons)} triangles'); return lo
+
+# ------------------------------------------------------------------ l'amas et sa bouche
+if 'Amas' in PIECES or 'Dents' in PIECES:
+    amas, levres, fond, ongles, cailloux, tirefonds, dents = S.amas(log=log)
+    for o in (amas, levres): o.data.materials.append(M['chair'])
+    fond.data.materials.append(M['gorge']); ongles.data.materials.append(M['ongle'])
+    cailloux.data.materials.append(M['caillou']); tirefonds.data.materials.append(M['rouille']); dents.data.materials.append(M['dents'])
+    if 'Amas' in PIECES:
+        lo = low_import('Amas'); bake(lo, [amas, levres, fond, ongles, cailloux, tirefonds], 'Amas', 4096); export_npz(lo, 'Amas'); bpy.data.objects.remove(lo)
+    if 'Dents' in PIECES:
+        sc.render.bake.cage_extrusion = 0.004; sc.render.bake.max_ray_distance = 0.01
+        lo = low_teeth(dents); bake(lo, [dents], 'Dents', 2048); export_npz(lo, 'Dents')
+        sc.render.bake.cage_extrusion = 0.02; sc.render.bake.max_ray_distance = 0.06
+    for o in list(bpy.data.objects): bpy.data.objects.remove(o)
 
 # ------------------------------------------------------------------ les bras, modélisés droits
 for name, seed in (('BrasGrille', 1), ('BrasFenetre', 2), ('BrasToilettes', 3)):
+    if name not in PIECES: continue
     hi, nails = S.bras_scene(name, seed, log=log, droit=True)
     hi.data.materials.append(M['chair']); nails.data.materials.append(M['ongle'])
     lo = low_import(name)
-    bake(lo, [hi, nails], name, 2048)
+    bake(lo, [hi, nails], name, 4096)
     export_npz(lo, name)
     for o in (hi, nails, lo): bpy.data.objects.remove(o)
 log('fin')
