@@ -1,0 +1,38 @@
+>> BrasFenetre : 719770 faces, chemin 6.40 m
+>> BrasFenetre léger importé : 72000 triangles
+Blender 4.2.3 LTS (hash 0e22e4fcea03 built 2024-10-14 23:31:34)
+Fra:1 Mem:1821.16M (Peak 1985.93M) | Time:498143:08:35.40 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesBrasFenetre
+Fra:1 Mem:1821.39M (Peak 1985.93M) | Time:498143:08:35.40 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | BrasFenetre
+Fra:1 Mem:1877.67M (Peak 1985.93M) | Time:498143:08:35.42 | Mem:0.00M, Peak:0.00M | Scene | Initializing
+Fra:1 Mem:1877.67M (Peak 1985.93M) | Time:498143:08:35.42 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading BrasFenetre_Couleur
+Fra:1 Mem:1821.16M (Peak 4125.13M) | Time:498143:21:48.73 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | BrasFenetre
+Fra:1 Mem:1855.48M (Peak 4125.13M) | Time:498143:21:48.73 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesBrasFenetre
+Fra:1 Mem:1877.67M (Peak 4125.13M) | Time:498143:21:48.75 | Mem:0.00M, Peak:0.00M | Scene | Initializing
+Fra:1 Mem:1877.67M (Peak 4125.13M) | Time:498143:21:48.75 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading BrasFenetre_Couleur
+Info: Baking map saved to internal image, save it externally or pack it
+>>   cuit BrasFenetre Couleur
+Fra:1 Mem:1821.16M (Peak 4125.13M) | Time:498143:22:04.00 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | BrasFenetre
+Fra:1 Mem:1821.16M (Peak 4125.13M) | Time:498143:22:04.00 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesBrasFenetre
+Fra:1 Mem:1877.68M (Peak 4125.13M) | Time:498143:22:04.02 | Mem:0.00M, Peak:0.00M | Scene | Initializing
+Fra:1 Mem:1877.67M (Peak 4125.13M) | Time:498143:22:04.02 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading BrasFenetre_Normale
+Fra:1 Mem:1821.16M (Peak 4125.13M) | Time:498143:23:09.02 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | BrasFenetre
+Fra:1 Mem:1855.48M (Peak 4125.13M) | Time:498143:23:09.02 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesBrasFenetre
+Fra:1 Mem:1877.68M (Peak 4125.13M) | Time:498143:23:09.04 | Mem:0.00M, Peak:0.00M | Scene | Initializing
+Fra:1 Mem:1877.67M (Peak 4125.13M) | Time:498143:23:09.04 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading BrasFenetre_Normale
+Info: Baking map saved to internal image, save it externally or pack it
+>>   cuit BrasFenetre Normale
+Fra:1 Mem:1821.16M (Peak 4125.13M) | Time:498143:23:22.82 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | BrasFenetre
+Fra:1 Mem:1821.16M (Peak 4125.13M) | Time:498143:23:22.82 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesBrasFenetre
+Fra:1 Mem:1877.68M (Peak 4125.13M) | Time:498143:23:22.84 | Mem:0.00M, Peak:0.00M | Scene | Initializing
+Fra:1 Mem:1877.67M (Peak 4125.13M) | Time:498143:23:22.84 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading BrasFenetre_Rugosite
+Fra:1 Mem:1821.16M (Peak 4125.13M) | Time:498143:27:18.78 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | BrasFenetre
+Fra:1 Mem:1821.16M (Peak 4125.13M) | Time:498143:27:18.78 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesBrasFenetre
+Fra:1 Mem:1877.68M (Peak 4125.13M) | Time:498143:27:18.80 | Mem:0.00M, Peak:0.00M | Scene | Initializing
+Fra:1 Mem:1877.67M (Peak 4125.13M) | Time:498143:27:18.80 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading BrasFenetre_Rugosite
+Info: Baking map saved to internal image, save it externally or pack it
+>>   cuit BrasFenetre Rugosite
+>>   exporté BrasFenetre : 42584 sommets, 72000 triangles
+>> fin
+
+Blender quit
+duree_s=1143
