@@ -81,9 +81,9 @@ def shade_smooth(ob):
     for p in ob.data.polygons: p.use_smooth = True
 
 # ------------------------------------------------------------------ la main (repère local : poignet à l'origine, doigts +X, dos +Z, pouce +Y)
-FING_Y = (0.026, 0.009, -0.008, -0.024)
+FING_Y = (0.029, 0.0095, -0.0095, -0.028)
 FING_L = (0.076, 0.087, 0.080, 0.063)
-FING_R = (0.0105, 0.0108, 0.0102, 0.009)
+FING_R = (0.0082, 0.0086, 0.0081, 0.0071)
 
 def hand(curl=0.35, spread=0.2, long=1.35, seed=0, thumb_curl=None, flat=False, gaunt=1.0, nails=True):
     """renvoie (squelette, ongles) ; ongles = liste de (position, direction, dos, longueur, largeur)"""
@@ -92,8 +92,8 @@ def hand(curl=0.35, spread=0.2, long=1.35, seed=0, thumb_curl=None, flat=False, 
     up = Vector((0, 0, 1))
     for k in range(4):
         y = FING_Y[k]; r = FING_R[k]
-        m = sk.v((0.045, y*0.8, 0.003), 0.0155*gaunt); sk.e(w, m)
-        K = sk.v((0.092, y, 0.004), r*1.25); sk.e(m, K)
+        m = sk.v((0.045, y*0.85, 0.003), 0.0148*gaunt); sk.e(w, m)
+        K = sk.v((0.092, y, 0.005), r*1.38); sk.e(m, K)
         d = nrm((1.0, spread*y/0.026*0.32 + rng.uniform(-0.04, 0.04), -0.06 if flat else 0.0))
         L = FING_L[k]*long*rng.uniform(0.94, 1.07); p = Vector((0.092, y, 0.004)); prev = K
         c = curl*rng.uniform(0.7, 1.3); u = up.copy()
@@ -104,7 +104,7 @@ def hand(curl=0.35, spread=0.2, long=1.35, seed=0, thumb_curl=None, flat=False, 
             q = p + d*L*fr
             rr = r*(0.98, 0.9, 0.82)[j]
             if j < 2:   # articulation légèrement noueuse
-                i = sk.v(q, rr*1.08)
+                i = sk.v(q, rr*1.14)
             else:
                 i = sk.v(q - d*rr*0.4, rr*0.92)
             sk.e(prev, i); prev = i
@@ -183,11 +183,24 @@ def arm_chain(path, r_start=0.05, r_end=0.042, seed=1, up=(0, 0, 1), hand_scale=
             else:
                 i = sk.v(p, rr); sk.e(prev, i)
             prev = i
+        # cubitus saillant et veines : chaînes fines à fleur de peau, fusionnées au remaillage
+        ex = Skel(); ph = rng.uniform(0, 6.28)
+        def off(t, ang, f):
+            p, d = path.at(x + ln*t); sd = nrm(d.cross(upv)); nn = sd.cross(d)
+            rr = r0*(1.0 + 0.18*math.exp(-((t - 0.28)/0.15)**2))*(1 - 0.44*t**1.25)
+            return p + (sd*math.cos(ang) + nn*math.sin(ang))*rr*f, rr
+        pts = [off(t, ph, 0.5) for t in (0.04, 0.3, 0.6, 0.92)]
+        ex.chain(ex.v(*[pts[0][0], pts[0][1]*0.55]), [q for q, _ in pts[1:]], [rr*0.52 for _, rr in pts[1:]])
+        for vk in range(2):
+            a0 = ph + 2.2 + vk*1.9 + rng.uniform(-0.3, 0.3); tt = [0.1 + 0.8*j/7 for j in range(8)]
+            vp = [off(t, a0 + 0.35*math.sin(t*9 + vk*2), 0.93)[0] for t in tt]
+            ex.chain(ex.v(vp[0], 0.0032), vp[1:], [0.0036]*(len(vp) - 1))
+        parts.append(skin_object(f'os{seed}_{seg}', ex, sub=1))
         # petite main atrophiée ou doigts qui pointent à certains raccords
         if extra_hands and seg % 3 == 2:
             p, d = path.at(x + ln*0.95); side = nrm(d.cross(upv))*(1 if seg % 2 else -1)
             hsk, hnl = hand(curl=0.9, spread=0.3, long=1.15, seed=seed*10 + seg, gaunt=0.9)
-            F = frame(nrm(d*0.35 + side + upv*0.3), upv).to_4x4(); M = Matrix.Translation(p + side*r1*0.5) @ F
+            F = frame(nrm(d*0.35 + side + upv*0.3), upv).to_4x4(); M = Matrix.Translation(p + side*(r1 + 0.03)) @ F
             parts.append(skin_object(f'atro{seed}_{seg}', _xf(hsk, M, 0.75)))
             NL_all.append((hnl, M, 0.75))
         x += ln + 0.03; seg += 1
@@ -254,12 +267,12 @@ def mat_chair(name='Chair', grime=0.8, scale=1.0):
         return R
     # base : gris cadavre, marbrures violacées, jaunissements
     n1 = noise((-900, 400), 4.0, 5, 0.6, 0.4)
-    r1 = ramp(nt, (-650, 400), [(0.35, (0.34, 0.31, 0.27, 1)), (0.65, (0.27, 0.22, 0.22, 1))])
+    r1 = ramp(nt, (-650, 400), [(0.35, (0.150, 0.135, 0.118, 1)), (0.65, (0.118, 0.092, 0.095, 1))])
     L.new(n1.outputs['Fac'], r1.inputs[0])
     n2 = noise((-900, 150), 9.0, 3, 0.5)
     r2 = ramp(nt, (-650, 150), [(0.55, (0, 0, 0, 1)), (0.75, (1, 1, 1, 1))])
     L.new(n2.outputs['Fac'], r2.inputs[0])
-    c = mix((-350, 300), r1.outputs['Color'], (0.40, 0.34, 0.22, 1), r2.outputs['Color'])
+    c = mix((-350, 300), r1.outputs['Color'], (0.17, 0.14, 0.08, 1), r2.outputs['Color'])
     # veines bleuâtres (bords de cellules)
     vo = _n(nt, 'ShaderNodeTexVoronoi', (-900, -100)); vo.feature = 'DISTANCE_TO_EDGE'; vo.inputs['Scale'].default_value = 14*scale
     L.new(co, vo.inputs['Vector'])
@@ -269,28 +282,32 @@ def mat_chair(name='Chair', grime=0.8, scale=1.0):
     rm = ramp(nt, (-650, -330), [(0.45, (0, 0, 0, 1)), (0.62, (0.55, 0.55, 0.55, 1))])
     L.new(nm.outputs['Fac'], rm.inputs[0])
     vm = _n(nt, 'ShaderNodeMath', (-400, -200), operation='MULTIPLY'); L.new(rv.outputs['Color'], vm.inputs[0]); L.new(rm.outputs['Color'], vm.inputs[1])
-    c = mix((-150, 200), c, (0.16, 0.16, 0.22, 1), vm.outputs[0])
+    c = mix((-150, 200), c, (0.06, 0.06, 0.09, 1), vm.outputs[0])
     # crasse : creux (occlusion), coulures, dessous
     ao = _n(nt, 'ShaderNodeAmbientOcclusion', (-900, -600)); ao.inputs['Distance'].default_value = 0.035; ao.samples = 8
     ra = ramp(nt, (-650, -600), [(0.35, (1, 1, 1, 1)), (0.9, (0, 0, 0, 1))])
     L.new(ao.outputs['AO'], ra.inputs[0])
     sm = _n(nt, 'ShaderNodeMapping', (-1000, -850)); sm.inputs['Scale'].default_value = (1, 1, 0.25); L.new(co, sm.inputs['Vector'])
     ns = _n(nt, 'ShaderNodeTexNoise', (-800, -850)); ns.inputs['Scale'].default_value = 7*scale; ns.inputs['Detail'].default_value = 4; L.new(sm.outputs[0], ns.inputs['Vector'])
-    rs = ramp(nt, (-560, -850), [(0.5, (0, 0, 0, 1)), (0.72, (1, 1, 1, 1))])
+    rs = ramp(nt, (-560, -850), [(0.42, (0, 0, 0, 1)), (0.68, (1, 1, 1, 1))])
     L.new(ns.outputs['Fac'], rs.inputs[0])
-    gm = _n(nt, 'ShaderNodeMath', (-300, -700), operation='ADD', use_clamp=True); L.new(ra.outputs['Color'], gm.inputs[0]); L.new(rs.outputs['Color'], gm.inputs[1])
+    gm0 = _n(nt, 'ShaderNodeMath', (-400, -700), operation='ADD', use_clamp=True); L.new(ra.outputs['Color'], gm0.inputs[0]); L.new(rs.outputs['Color'], gm0.inputs[1])
+    nb = noise((-800, -1050), 3.2, 4, 0.6, 0.6); rb = ramp(nt, (-560, -1050), [(0.45, (0, 0, 0, 1)), (0.65, (0.7, 0.7, 0.7, 1))]); L.new(nb.outputs['Fac'], rb.inputs[0])
+    gm = _n(nt, 'ShaderNodeMath', (-300, -700), operation='ADD', use_clamp=True); L.new(gm0.outputs[0], gm.inputs[0]); L.new(rb.outputs['Color'], gm.inputs[1])
     gk = _n(nt, 'ShaderNodeMath', (-150, -700), operation='MULTIPLY', use_clamp=True); L.new(gm.outputs[0], gk.inputs[0]); gk.inputs[1].default_value = grime
-    c = mix((100, 100), c, (0.022, 0.018, 0.014, 1), gk.outputs[0])
+    c = mix((100, 100), c, (0.010, 0.008, 0.006, 1), gk.outputs[0])
     L.new(c, b.inputs['Base Color'])
     # rugosité : gras luisant dans la crasse
     rr = _n(nt, 'ShaderNodeMapRange', (300, -400)); rr.inputs['To Min'].default_value = 0.62; rr.inputs['To Max'].default_value = 0.3
     L.new(gk.outputs[0], rr.inputs['Value']); L.new(rr.outputs[0], b.inputs['Roughness'])
     # relief : pores + rides
     np_ = noise((-500, -1100), 380.0, 2, 0.5)
-    wv = _n(nt, 'ShaderNodeTexWave', (-500, -1300)); wv.wave_type = 'BANDS'; wv.inputs['Scale'].default_value = 90*scale; wv.inputs['Distortion'].default_value = 6
+    wv = _n(nt, 'ShaderNodeTexVoronoi', (-500, -1300)); wv.feature = 'DISTANCE_TO_EDGE'; wv.inputs['Scale'].default_value = 70*scale
     L.new(co, wv.inputs['Vector'])
-    hb = _n(nt, 'ShaderNodeMath', (-250, -1200), operation='ADD'); L.new(np_.outputs['Fac'], hb.inputs[0]); L.new(wv.outputs['Fac'], hb.inputs[1])
-    bp = _n(nt, 'ShaderNodeBump', (700, -600)); bp.inputs['Strength'].default_value = 0.22; bp.inputs['Distance'].default_value = 0.0006
+    wr = ramp(nt, (-350, -1300), [(0.0, (0, 0, 0, 1)), (0.06, (1, 1, 1, 1))]); L.new(wv.outputs['Distance'], wr.inputs[0])
+    wm = _n(nt, 'ShaderNodeMath', (-200, -1300), operation='MULTIPLY'); L.new(wr.outputs['Color'], wm.inputs[0]); wm.inputs[1].default_value = 0.6
+    hb = _n(nt, 'ShaderNodeMath', (-50, -1200), operation='ADD'); L.new(np_.outputs['Fac'], hb.inputs[0]); L.new(wm.outputs[0], hb.inputs[1])
+    bp = _n(nt, 'ShaderNodeBump', (700, -600)); bp.inputs['Strength'].default_value = 0.16; bp.inputs['Distance'].default_value = 0.0006
     L.new(hb.outputs[0], bp.inputs['Height']); L.new(bp.outputs[0], b.inputs['Normal'])
     return m
 
@@ -308,7 +325,7 @@ def mat_simple(name, col, rough=0.5, metal=0.0, noise_scale=0, noise_col=None, b
     return m
 
 def mat_ongle():
-    return mat_simple('Ongle', (0.42, 0.34, 0.18), 0.3, noise_scale=120, noise_col=(0.12, 0.08, 0.04), bump=0.3)
+    return mat_simple('Ongle', (0.2, 0.15, 0.07), 0.3, noise_scale=120, noise_col=(0.12, 0.08, 0.04), bump=0.3)
 
 # ------------------------------------------------------------------ rendu
 def setup_render(res=(1280, 720), samples=128, exposure=0.0):

@@ -18,7 +18,7 @@ step(f'squelettes : {len(parts)} objets, chemin {path.L:.2f} m')
 for p in parts: B.bake_mods(p)
 arm = B.join(parts, 'Bras')
 step(f'skin + subsurf : {len(arm.data.vertices)} sommets')
-arm = B.remesh(arm, voxel=0.0026, smooth=3)
+arm = B.remesh(arm, voxel=0.0021, smooth=4)
 step(f'remaillage voxel : {len(arm.data.vertices)} sommets')
 B.displace(arm, 'CLOUDS', 0.09, 0.006, 2, name='bosses')
 B.displace(arm, 'CLOUDS', 0.018, 0.0015, 1, name='peau')
@@ -39,11 +39,13 @@ acier = B.mat_simple('Acier', (0.45, 0.46, 0.47), 0.38, 0.9, noise_scale=30, noi
 # plancher troué autour de la grille (0.5 x 0.24)
 for c, h in (((-1.6, 0, -0.05), (1.35, 1.5, 0.05)), ((1.6, 0, -0.05), (1.35, 1.5, 0.05)), ((0, 0.86, -0.05), (0.25, 0.74, 0.05)), ((0, -0.86, -0.05), (0.25, 0.74, 0.05))):
     box('Plancher', c, h, lino)
+bars = []
 for k in range(9):
     y = -0.11 + k*0.0275
     if k in (4, 5):   # lames arrachées, tordues vers le haut
-        o = box('LameTordue', (0.0, y, 0.0), (0.25, 0.006, 0.0035), acier)
-        o.rotation_euler = (0, -0.9 + 0.25*(k - 4), 0.15*(k - 4.5)); o.location = (-0.33, y + 0.02*(k - 4.5), 0.17); continue
+        sk = B.Skel(); a = sk.v((-0.25, y, 0.004), 0.005)
+        sk.chain(a, [(-0.16, y + 0.01*(k - 4.5), 0.03), (-0.08, y + 0.03*(k - 4.5), 0.11), (-0.05, y + 0.05*(k - 4.5), 0.2)], [0.005]*3)
+        bars.append(B.skin_object(f'barre{k}', sk, sub=2)); bars[-1].data.materials.append(acier); continue
     box('Lame', (0, y, 0.002), (0.25, 0.0055, 0.004), acier)
 box('Cadre', (0, 0.135, 0.004), (0.27, 0.012, 0.006), acier); box('Cadre', (0, -0.135, 0.004), (0.27, 0.012, 0.006), acier)
 box('Cadre', (0.26, 0, 0.004), (0.012, 0.135, 0.006), acier); box('Cadre', (-0.26, 0, 0.004), (0.012, 0.135, 0.006), acier)
@@ -55,14 +57,14 @@ box('Assise', (1.2, 1.1, 0.48), (0.5, 0.25, 0.07), siege); box('Dossier', (1.2, 
 step('décor')
 
 # ------------------------------------------------------------------ lumière et caméras
-sc = B.setup_render((1280, 720), samples=160, exposure=0.3)
+sc = B.setup_render((1100, 620), samples=96, exposure=-0.2)
 B.world((0.002, 0.0025, 0.004))
-B.light('AREA', (0.5, 0.4, 2.3), 140, (0.75, 0.9, 0.85), size=1.4, target=(0.4, 0.1, 0), name='Neon')
-B.light('SPOT', (2.4, -2.6, 1.5), 260, (1.0, 0.86, 0.68), size=0.05, target=(0.5, 0, 0.75), name='Lampe', spot=0.5)
-B.light('AREA', (-1.2, 1.2, 1.4), 60, (0.35, 0.45, 0.9), size=1.0, target=(0.3, 0, 0.6), name='Contre')
+B.light('AREA', (0.5, 0.4, 2.3), 55, (0.7, 0.88, 0.82), size=1.4, target=(0.4, 0.1, 0), name='Neon')
+B.light('SPOT', (2.4, -2.6, 1.5), 220, (1.0, 0.86, 0.68), size=0.05, target=(0.6, 0, 0.75), name='Lampe', spot=0.45)
+B.light('AREA', (-0.6, 1.0, 1.6), 45, (0.35, 0.45, 0.9), size=1.0, target=(0.5, 0, 0.8), name='Contre')
 wide = B.camera((2.3, -2.5, 1.35), (0.38, 0.05, 0.55), 35, 'Large')
 hand_tip, _ = path.at(path.L)
-close = B.camera((1.35, -0.95, 1.12), (0.82, 0.0, 0.84), 70, 'Gros')
+close = B.camera((1.5, -0.75, 1.1), (0.93, 0.0, 0.74), 55, 'Gros')
 step('rendu large…')
 B.render(os.path.join(out, 'large.png'), wide)
 step('rendu gros plan…')
