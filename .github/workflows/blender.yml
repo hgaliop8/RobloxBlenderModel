@@ -1,18 +1,18 @@
 name: Blender
 
-# Lance Blender (sans fenêtre) sur le travail indiqué dans jobs/CURRENT,
-# puis publie les résultats (rendus, modèles, journal) sur la branche « sorties ».
+# Lance Blender (sans fenêtre) sur chaque travail listé dans jobs/CURRENT (un par ligne, « nom » ou « nom VAR=valeur »),
+# chacun sur sa propre machine en parallèle, puis publie les résultats (rendus, modèles, journal) sur la branche « sorties ».
 on:
   push:
     branches: [main]
-    paths: ['jobs/**', '.github/workflows/blender.yml']
+    paths: ['jobs/**', 'lib/**', 'data/**', '.github/workflows/blender.yml']
   workflow_dispatch:
 
 permissions:
   contents: write
 
 concurrency:
-  group: blender
+  group: blender-${{ github.sha }}
   cancel-in-progress: false
 
 env:
@@ -20,9 +20,25 @@ env:
   BLENDER_SERIES: "4.2"
 
 jobs:
-  render:
+  plan:
     runs-on: ubuntu-latest
-    timeout-minutes: 300
+    outputs:
+      list: ${{ steps.p.outputs.list }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: p
+        run: |
+          LIST=$(grep -v '^\s*#' jobs/CURRENT | sed '/^\s*$/d' | python3 -c "import sys,json; print(json.dumps([l.strip() for l in sys.stdin]))")
+          echo "list=$LIST" >> "$GITHUB_OUTPUT"
+
+  render:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    strategy:
+      fail-fast: false
+      matrix:
+        job: ${{ fromJSON(needs.plan.outputs.list) }}
     steps:
       - uses: actions/checkout@v4
 
@@ -47,14 +63,17 @@ jobs:
           sudo apt-get install -y -qq libxi6 libxxf86vm1 libxfixes3 libxrender1 libgl1 libegl1 libxkbcommon0 libsm6 > /dev/null
 
       - name: Run job
+        env:
+          SPEC: ${{ matrix.job }}
         run: |
           set -o pipefail
-          JOB=$(tr -d '[:space:]' < jobs/CURRENT)
-          echo "JOB=$JOB" >> "$GITHUB_ENV"
-          mkdir -p "/tmp/out/$JOB"
+          read -r SCRIPT ARGS <<< "$SPEC"
+          OUTNAME=$(echo "$SPEC" | tr ' =,' '___')
+          echo "OUTNAME=$OUTNAME" >> "$GITHUB_ENV"
+          mkdir -p "/tmp/out/$OUTNAME"
           START=$(date +%s)
-          ./blender/blender -b --factory-startup -noaudio -P "jobs/$JOB/main.py" -- "/tmp/out/$JOB" 2>&1 | tee "/tmp/out/$JOB/log.txt"
-          echo "duree_s=$(( $(date +%s) - START ))" >> "/tmp/out/$JOB/log.txt"
+          env $ARGS ./blender/blender -b --factory-startup -noaudio -P "jobs/$SCRIPT/main.py" -- "/tmp/out/$OUTNAME" 2>&1 | tee "/tmp/out/$OUTNAME/log.txt"
+          echo "duree_s=$(( $(date +%s) - START ))" >> "/tmp/out/$OUTNAME/log.txt"
 
       - name: Publish results
         if: always()
@@ -62,16 +81,19 @@ jobs:
           git config user.name "blender-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           SRC_SHA=$(git rev-parse --short HEAD)
-          if git ls-remote --exit-code origin sorties > /dev/null; then
-            git fetch --depth 1 origin sorties
-            git switch -f -c sorties FETCH_HEAD
-          else
-            git switch -f --orphan sorties
-            git rm -rf --quiet . || true
-          fi
-          git clean -fdxq -e blender
-          rm -rf "$JOB"
-          cp -r "/tmp/out/$JOB" "$JOB"
-          git add "$JOB"
-          git commit -q -m "Résultats $JOB (source $SRC_SHA, run $GITHUB_RUN_ID)" || echo "rien à publier"
-          git push -q origin sorties
+          for TRY in 1 2 3 4 5 6 7 8; do
+            if git ls-remote --exit-code origin sorties > /dev/null; then
+              git fetch -q --depth 1 origin sorties
+              git switch -q -f -C sorties FETCH_HEAD
+            else
+              git switch -q -f --orphan sorties
+              git rm -rf --quiet . || true
+            fi
+            git clean -fdxq -e blender
+            rm -rf "$OUTNAME"
+            cp -r "/tmp/out/$OUTNAME" "$OUTNAME"
+            git add "$OUTNAME"
+            git commit -q -m "Résultats $OUTNAME (source $SRC_SHA, run $GITHUB_RUN_ID)" || { echo "rien à publier"; break; }
+            if git push -q origin sorties; then echo "publié"; break; fi
+            echo "conflit de publication, nouvel essai"; sleep $(( RANDOM % 15 + 5 ))
+          done

@@ -13,7 +13,8 @@ ONLY = os.environ.get('VUES', '').split(',') if os.environ.get('VUES') else None
 bpy.ops.wm.read_factory_settings(use_empty=True)
 
 M = S.materiaux()
-amas, levres, fond, ongles, cailloux, tirefonds = S.amas(log=log)
+amas, levres, fond, ongles, cailloux, tirefonds, dents = S.amas(log=log)
+dents.data.materials.append(M['dents'])
 for o in (amas, levres): o.data.materials.append(M['chair'])
 fond.data.materials.append(M['gorge']); ongles.data.materials.append(M['ongle'])
 cailloux.data.materials.append(M['caillou']); tirefonds.data.materials.append(M['rouille'])
@@ -22,7 +23,7 @@ for n, seed in (('BrasGrille', 1), ('BrasFenetre', 2), ('BrasToilettes', 3)):
 S.wagon(M, log=log); S.voie(M, log=log)
 
 # ------------------------------------------------------------------ lumières
-sc = B.setup_render((1280, 720), samples=128, exposure=0.0)
+sc = B.setup_render((1600, 900), samples=160, exposure=0.0)
 sc.cycles.max_bounces = 8; sc.cycles.transmission_bounces = 8
 B.world((0.0015, 0.002, 0.0035))
 neon = B.light('AREA', (0.35, 0.55, 3.24), 90, (0.72, 0.92, 0.85), size=1.2, target=(0.35, 0.55, 0), name='Neon')
@@ -36,6 +37,8 @@ lampe = B.light('SPOT', (0, -5, 2), 120, (1.0, 0.87, 0.7), size=0.03, name='Lamp
 VUES = [
     ('ensemble', (1.36, -8.05, 1.84), (-0.1, 0.0, 1.35), 28),
     ('amas', (0.55, -1.75, 0.5), (0.1, -0.3, 0.74), 30),
+    ('bouche', tuple(S.MO + S.MN*0.85 + Vector((0.12, 0, -0.06))), tuple(S.MO - S.MN*0.12), 42),
+    ('gorge', tuple(S.MO + S.MN*0.42 + Vector((0.03, 0, 0.02))), tuple(S.MO - S.MN*0.3), 30),
     ('grille', (2.9, -2.7, 1.95), (1.35, -0.55, 1.6), 30),
     ('fenetre', (-0.69, -1.58, 2.17), (0.75, 1.05, 2.05), 28),
     ('dehors', (1.91, 5.67, 1.96), (0.4, 1.55, 1.7), 28),

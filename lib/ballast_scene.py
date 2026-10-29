@@ -92,7 +92,7 @@ def amas(seed=42, n_arms=195, log=print):
             t = (t - n*t.dot(n) + n.cross(t)*rng.gauss(0, 1)*0.35).normalized()
             kk = k0 + (0.02 + 0.025*st if lift else 0.012*math.sin(st*0.9 + i))
             pts.append(proj(pts[-1] + t*0.07, kk))
-        if min((q - MO).length for q in pts) < 0.19: continue
+        if min((q - MO).length for q in pts) < 0.3: continue
         r0 = rng.uniform(0.034, 0.058); nr = len(pts); el = rng.uniform(0.3, 0.6)
         sk = B.Skel(); prev = None
         for j, q in enumerate(pts):
@@ -113,7 +113,7 @@ def amas(seed=42, n_arms=195, log=print):
     # mains qui sortent de partout
     for i in range(16):
         th = rng.uniform(0, 2*math.pi); ph = rng.uniform(-1.2, 0.35); p, n = surf_point(th, ph)
-        if (Vector((p.x, p.z)) - Vector((MO.x, MO.z))).length < 0.32 and p.y < -0.3: continue
+        if (p - MO).length < 0.42: continue
         t = n.cross(Vector((rng.gauss(0, 1), rng.gauss(0, 1), rng.gauss(0, 1)))).normalized(); d = (n*rng.uniform(0.2, 0.8) + t).normalized()
         sc = rng.choice([0.45, 0.55, 0.65, 0.8])*1.25; curl = rng.choice([0.05, 0.3, 0.6, 1.0]); em = rng.uniform(-0.02, 0.12)
         sk = B.Skel(); O = p + n*em - d*0.06*sc
@@ -140,27 +140,28 @@ def amas(seed=42, n_arms=195, log=print):
     for o in obs: B.bake_mods(o)
     ob = B.join(obs, 'Amas')
     log(f'joint : {len(ob.data.vertices)} sommets')
-    ob = B.remesh(ob, voxel=0.0034, smooth=3)
+    ob = B.remesh(ob, voxel=VOX_AMAS, smooth=3)
     log(f'remaillé : {len(ob.data.vertices)} sommets')
-    # gorge : creusée dans la masse
-    bm = bmesh.new(); Rm = B.frame(MN, Vector((0, 0, 1))).to_3x3()
-    ell_bm(bm, MO - MN*0.05, (0.16, 0.085, 0.125), Rm, seg=32); cutter = mesh_obj('gorge_cut', bm)
-    m = ob.modifiers.new('gorge', 'BOOLEAN'); m.operation = 'DIFFERENCE'; m.object = cutter; m.solver = 'FAST'
+    # bouche : un entonnoir de gencives, rangées de dents crochues tournées vers la gorge
+    cutter = mouth_solid('bouche_cut', margin=0.012, front=0.2)
+    m = ob.modifiers.new('bouche', 'BOOLEAN'); m.operation = 'DIFFERENCE'; m.object = cutter; m.solver = 'FAST'
     B.displace(ob, 'CLOUDS', 0.2, 0.014, 2, name='plis_amas'); B.displace(ob, 'CLOUDS', 0.045, 0.004, 2, name='bourrelets_amas')
+    B.displace(ob, 'VORONOI', 0.007, 0.0009, name='peau_amas')
     B.bake_mods(ob); bpy.data.objects.remove(cutter); B.shade_smooth(ob)
     log(f'amas final : {len(ob.data.polygons)} faces')
-    # fond de gorge et doigts qui la bordent
-    bm = bmesh.new(); ell_bm(bm, MO - MN*0.2, (0.11, 0.08, 0.1)); fond = mesh_obj('Gorge', bm)
+    fond = mouth_gums('Gencives')
+    dents = mouth_teeth('Dents', rng)
+    log(f'bouche : {len(fond.data.polygons)} faces de gencives, {len(dents.data.polygons)} faces de dents')
+    # mains qui bordent la bouche, doigts recourbés par-dessus la lèvre
     rim = []
-    t1 = MN.cross(Vector((0, 0, 1))).normalized(); t2 = MN.cross(t1)
-    for k in range(11):
-        a = k/11*2*math.pi; rp = MO + (t1*math.cos(a)*0.15 + t2*math.sin(a)*0.1); inward = (MO - MN*0.09 - rp).normalized()
-        hsk, hnl = B.hand(curl=0.4, spread=0.0, long=1.25, seed=200 + k, flat=True)
-        fsk = B.Skel(); fsk.V = hsk.V; fsk.R = hsk.R; fsk.E = [e for e in hsk.E]   # main entière, enfoncée : seuls les doigts dépassent
-        M = Matrix.Translation(rp - inward*0.1 + MN*0.012) @ B.frame(inward, MN).to_4x4()
-        rim.append(B.skin_object(f'levre{k}', B._xf(fsk, M, 0.95))); NL_all.append((hnl, M, 0.95))
+    t1, t2 = mouth_axes()
+    for k in range(12):
+        a = k/12*2*math.pi + 0.13; rp = MO + (t1*math.cos(a)*MOUTH_A*1.2 + t2*math.sin(a)*MOUTH_B*1.2); inward = (MO - MN*0.05 - rp).normalized()
+        hsk, hnl = B.hand(curl=0.95, spread=0.25, long=1.15, seed=200 + k)
+        M = Matrix.Translation(rp - inward*0.12 + MN*0.02) @ B.frame(inward, MN).to_4x4()
+        rim.append(B.skin_object(f'levre{k}', B._xf(hsk, M, 0.95))); NL_all.append((hnl, M, 0.95))
     for o in rim: B.bake_mods(o)
-    rimo = B.remesh(B.join(rim, 'Levres'), voxel=0.0022, smooth=2); B.shade_smooth(rimo)
+    rimo = B.remesh(B.join(rim, 'Levres'), voxel=0.0018, smooth=2); B.shade_smooth(rimo)
     nails = B.nails_from(NL_all, 'OnglesAmas')
     # cailloux de ballast incrustés, tire-fonds rouillés
     bm = bmesh.new()
@@ -170,7 +171,7 @@ def amas(seed=42, n_arms=195, log=print):
         R = Matrix.Rotation(rng.uniform(0, 3), 3, Vector((rng.gauss(0, 1), rng.gauss(0, 1), rng.gauss(0, 1))).normalized())
         sc = Vector((r, r*rng.uniform(0.6, 0.9), r*rng.uniform(0.7, 1.0)))
         for v in o['verts']:
-            q = v.co; q = Vector((q.x*sc.x, q.y*sc.y, q.z*sc.z))*(1 + 0.18*(random.random() - 0.5)); v.co = p - n*r*0.25 + R @ q
+            q = v.co; q = Vector((q.x*sc.x, q.y*sc.y, q.z*sc.z))*(1 + 0.18*(rng.random() - 0.5)); v.co = p - n*r*0.25 + R @ q
     stones = mesh_obj('CaillouxAmas', bm)
     bm = bmesh.new()
     for k, (th, ph) in enumerate(((0.7, -0.4), (2.6, -0.6), (4.1, -0.2), (5.4, -0.7))):
@@ -182,7 +183,105 @@ def amas(seed=42, n_arms=195, log=print):
         Mh = Matrix.Translation(p - d*0.062) @ d.to_track_quat('Z', 'Y').to_matrix().to_4x4()
         for v in o['verts']: v.co = Mh @ v.co
     spikes = mesh_obj('TireFonds', bm)
-    return ob, rimo, fond, nails, stones, spikes
+    return ob, rimo, fond, nails, stones, spikes, dents
+
+# ================================================================ la bouche
+VOX_AMAS = 0.0028
+MOUTH_A, MOUTH_B = 0.21, 0.145           # demi-axes de l'ouverture (horizontal, vertical)
+# profil de l'entonnoir : (échelle de l'ellipse, profondeur sous l'ouverture)
+MOUTH_PROF = [(1.42, -0.05), (1.12, -0.012), (1.0, 0.012), (0.9, 0.04), (0.8, 0.075), (0.69, 0.11), (0.58, 0.145), (0.47, 0.18),
+              (0.37, 0.215), (0.28, 0.25), (0.2, 0.29), (0.14, 0.33), (0.09, 0.37), (0.05, 0.4), (0.0, 0.41)]
+TEETH_RINGS = [(0.03, 26, 0.062, 0.0115), (0.075, 24, 0.054, 0.0102), (0.12, 21, 0.046, 0.009), (0.165, 18, 0.038, 0.008),
+               (0.21, 15, 0.031, 0.007), (0.255, 12, 0.025, 0.006), (0.3, 9, 0.019, 0.005)]
+
+def mouth_axes():
+    t1 = MN.cross(Vector((0, 0, 1))).normalized(); t2 = MN.cross(t1).normalized()
+    if t2.z < 0: t2 = -t2
+    return t1, t2
+
+def prof_at(depth):
+    for (s0, d0), (s1, d1) in zip(MOUTH_PROF[:-1], MOUTH_PROF[1:]):
+        if d0 <= depth <= d1: return s0 + (s1 - s0)*(depth - d0)/max(d1 - d0, 1e-9)
+    return MOUTH_PROF[-1][0]
+
+def ridge(depth):
+    """bourrelet de gencive à chaque rangée de dents"""
+    return sum(math.exp(-((depth - d)/0.012)**2) for d, *_ in TEETH_RINGS)
+
+def mouth_solid(name, margin=0.0, front=0.0):
+    t1, t2 = mouth_axes(); bm = bmesh.new(); seg = 64
+    prof = ([(1.6, -front)] if front else []) + MOUTH_PROF
+    rings = []
+    for sc, d in prof:
+        ring = []
+        for j in range(seg):
+            a = j/seg*2*math.pi; k = sc + margin/MOUTH_B
+            ring.append(bm.verts.new(MO - MN*d + t1*math.cos(a)*MOUTH_A*k + t2*math.sin(a)*MOUTH_B*k))
+        rings.append(ring)
+    for r0, r1 in zip(rings[:-1], rings[1:]):
+        for j in range(seg): bm.faces.new((r0[j], r0[(j + 1) % seg], r1[(j + 1) % seg], r1[j]))
+    bm.faces.new(rings[0]); bm.faces.new(rings[-1][::-1])
+    bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
+    return mesh_obj(name, bm)
+
+def mouth_gums(name):
+    """paroi interne de la bouche (gencives), avec épaisseur, bourrelets à chaque rangée de dents, plis vers la gorge"""
+    t1, t2 = mouth_axes(); bm = bmesh.new(); seg = 96; nd = 120
+    rings = []
+    d0, d1 = MOUTH_PROF[0][1], MOUTH_PROF[-2][1]
+    for i in range(nd + 1):
+        d = d0 + (d1 - d0)*i/nd; sc = prof_at(d)*(1 - 0.06*ridge(d)); ring = []
+        for j in range(seg):
+            a = j/seg*2*math.pi; fold = 1 + 0.035*math.sin(a*14 + d*40)*min(1, d/0.15)    # plis longitudinaux
+            ring.append(bm.verts.new(MO - MN*d + (t1*math.cos(a)*MOUTH_A + t2*math.sin(a)*MOUTH_B)*sc*fold))
+        rings.append(ring)
+    for r0, r1 in zip(rings[:-1], rings[1:]):
+        for j in range(seg): bm.faces.new((r0[j], r1[j], r1[(j + 1) % seg], r0[(j + 1) % seg]))
+    bm.faces.new(rings[-1])
+    ob = mesh_obj(name, bm)
+    so = ob.modifiers.new('ep', 'SOLIDIFY'); so.thickness = 0.016; so.offset = 0.0
+    ss = ob.modifiers.new('sub', 'SUBSURF'); ss.levels = 1
+    B.bake_mods(ob); B.shade_smooth(ob)
+    return ob
+
+def mouth_teeth(name, rng):
+    t1, t2 = mouth_axes(); sk = B.Skel()
+    for ri, (d, n, L, rb) in enumerate(TEETH_RINGS):
+        sc = prof_at(d)*(1 - 0.06*ridge(d))
+        for k in range(n):
+            a = (k + 0.5*(ri % 2) + rng.uniform(-0.15, 0.15))/n*2*math.pi
+            P = MO - MN*d + (t1*math.cos(a)*MOUTH_A + t2*math.sin(a)*MOUTH_B)*sc
+            rad = -(t1*math.cos(a)*MOUTH_A + t2*math.sin(a)*MOUTH_B).normalized()
+            ln = L*rng.uniform(0.75, 1.2); broken = rng.random() < 0.08
+            if broken: ln *= 0.45
+            dv = (rad*0.8 - MN*0.55 + Vector((rng.gauss(0, 0.08), rng.gauss(0, 0.08), rng.gauss(0, 0.08)))).normalized()
+            pts = []; p = P - rad*0.006; rads = []
+            for j, (f, rr) in enumerate(((0.0, 1.0), (0.22, 0.85), (0.48, 0.6), (0.72, 0.36), (0.9, 0.16), (1.0, 0.05))):
+                if broken and f > 0.72: break
+                ang = 0.55*f*f                                   # crochet : la pointe se recourbe vers la gorge
+                dd = (dv*math.cos(ang) - MN*math.sin(ang)).normalized()
+                pts.append(P - rad*0.006 + dd*ln*f if j else P - rad*0.006); rads.append(max(rb*rr, 0.0007))
+            i0 = sk.v(pts[0], rads[0]); sk.chain(i0, pts[1:], rads[1:])
+    ob = B.skin_object(name, sk, sub=2); B.bake_mods(ob); B.shade_smooth(ob)
+    return ob
+
+def mat_dents():
+    m = B.mat_simple('Dent', (0.5, 0.44, 0.32), 0.28, noise_scale=90, noise_col=(0.2, 0.13, 0.06), bump=0.15)
+    nt = m.node_tree; b = nt.nodes['Principled BSDF']
+    b.inputs['Subsurface Weight'].default_value = 0.15; b.inputs['Subsurface Radius'].default_value = (0.8, 0.6, 0.3); b.inputs['Subsurface Scale'].default_value = 0.004
+    # base des dents plus sombre (dans la gencive), pointes plus claires
+    ao = nt.nodes.new('ShaderNodeAmbientOcclusion'); ao.inputs['Distance'].default_value = 0.02
+    mx = nt.nodes.new('ShaderNodeMix'); mx.data_type = 'RGBA'; mx.blend_type = 'MULTIPLY'; A, Bs, R = B._mix_sockets(mx)
+    src = b.inputs['Base Color'].links[0].from_socket
+    nt.links.new(src, A); nt.links.new(ao.outputs['Color'], Bs); mx.inputs[0].default_value = 0.8; nt.links.new(R, b.inputs['Base Color'])
+    return m
+
+def mat_gencive():
+    m = B.mat_simple('Gencive', (0.14, 0.018, 0.02), 0.22, noise_scale=25, noise_col=(0.05, 0.004, 0.006), bump=0.35)
+    b = m.node_tree.nodes['Principled BSDF']
+    b.inputs['Subsurface Weight'].default_value = 0.35; b.inputs['Subsurface Radius'].default_value = (1.0, 0.2, 0.1); b.inputs['Subsurface Scale'].default_value = 0.01
+    b.inputs['Coat Weight'].default_value = 0.4; b.inputs['Coat Roughness'].default_value = 0.08     # salive
+    return m
 
 # ================================================================ bras posés dans la scène
 PATHS = {
@@ -202,8 +301,9 @@ def bras_scene(name, seed, log=print, droit=False):
     path = B.Path([(-0.2, 0, 0), (ARM_LEN[name] - 0.1, 0, 0)]) if droit else B.Path([W(*p) for p in PATHS[name]])
     parts, NL = B.arm_chain(path, r_start=0.05, r_end=0.043, seed=seed, up=(0, 0, 1), hand_scale=1.45, hand_kw=HAND_KW[name])
     for p in parts: B.bake_mods(p)
-    ob = B.remesh(B.join(parts, name), voxel=0.0024, smooth=4)
+    ob = B.remesh(B.join(parts, name), voxel=0.0018, smooth=4)
     B.displace(ob, 'CLOUDS', 0.09, 0.006, 2, name=f'bosses_{name}'); B.displace(ob, 'CLOUDS', 0.018, 0.0015, 1, name=f'peau_{name}')
+    B.displace(ob, 'VORONOI', 0.0055, 0.0007, name=f'rides_{name}')
     B.bake_mods(ob); B.shade_smooth(ob)
     nails = B.nails_from(NL, f'Ongles{name}')
     log(f'{name} : {len(ob.data.polygons)} faces, chemin {path.L:.2f} m')
@@ -334,7 +434,7 @@ def materiaux():
     M['chair'] = B.mat_chair('Chair', grime=0.8); M['ongle'] = B.mat_ongle()
     g = bpy.data.materials.new('Gorge'); g.use_nodes = True; b = g.node_tree.nodes['Principled BSDF']
     b.inputs['Base Color'].default_value = (0.022, 0.003, 0.003, 1); b.inputs['Roughness'].default_value = 0.4; b.inputs['Subsurface Weight'].default_value = 0.2
-    M['gorge'] = g
+    M['gorge'] = mat_gencive(); M['dents'] = mat_dents()
     return M
 
 def _peinture(name, col, rust):
