@@ -129,12 +129,13 @@ def nail_objects(NL, M=Matrix.Identity(4), sc=1.0, name='Ongles'):
     bm = bmesh.new()
     for (p, d, u, ln, wd) in NL:
         F = frame(d, u); o = bmesh.ops.create_uvsphere(bm, u_segments=14, v_segments=8, radius=1.0)
-        S = Matrix.Diagonal((ln*0.55, wd*0.5, 0.0016)).to_4x4()
-        T = M @ Matrix.Translation(p*sc) @ F.to_4x4() @ Matrix.Diagonal((sc, sc, sc, 1)) @ Matrix.Translation((ln*0.12, 0, 0)) @ S
+        S = Matrix.Diagonal((ln*0.62, wd*0.5, 0.0017)).to_4x4()
+        T = M @ Matrix.Translation(p*sc) @ F.to_4x4() @ Matrix.Diagonal((sc, sc, sc, 1)) @ Matrix.Translation((ln*0.22, 0, 0))
         for v in o['verts']:
-            v.co = T @ v.co
-            # ongle bombé, bout recourbé vers le bas
-            pass
+            c = v.co.copy(); x = c.x
+            c.y *= (1 - 0.55*max(x, 0)**2)          # pointe effilée
+            c = S @ c; c.z -= 0.004*max(x, 0)**2 + 0.0012*(c.y/(wd*0.5 + 1e-9))**2   # bout recourbé, ongle bombé
+            v.co = T @ c
     me = bpy.data.meshes.new(name); bm.to_mesh(me); bm.free()
     ob = bpy.data.objects.new(name, me); coll().objects.link(ob); shade_smooth(ob); return ob
 
@@ -249,7 +250,7 @@ def mat_chair(name='Chair', grime=0.8, scale=1.0):
     b.inputs['Subsurface Weight'].default_value = 0.22
     b.inputs['Subsurface Radius'].default_value = (0.9, 0.35, 0.18)
     b.inputs['Subsurface Scale'].default_value = 0.012
-    b.inputs['Specular IOR Level'].default_value = 0.45
+    b.inputs['Specular IOR Level'].default_value = 0.32
     L.new(b.outputs[0], out.inputs['Surface'])
     tc = _n(nt, 'ShaderNodeTexCoord', (-1200, 0))
     co = tc.outputs['Object']
@@ -267,7 +268,7 @@ def mat_chair(name='Chair', grime=0.8, scale=1.0):
         return R
     # base : gris cadavre, marbrures violacées, jaunissements
     n1 = noise((-900, 400), 4.0, 5, 0.6, 0.4)
-    r1 = ramp(nt, (-650, 400), [(0.35, (0.150, 0.135, 0.118, 1)), (0.65, (0.118, 0.092, 0.095, 1))])
+    r1 = ramp(nt, (-650, 400), [(0.3, (0.21, 0.19, 0.165, 1)), (0.7, (0.135, 0.105, 0.108, 1))])
     L.new(n1.outputs['Fac'], r1.inputs[0])
     n2 = noise((-900, 150), 9.0, 3, 0.5)
     r2 = ramp(nt, (-650, 150), [(0.55, (0, 0, 0, 1)), (0.75, (1, 1, 1, 1))])
@@ -298,7 +299,7 @@ def mat_chair(name='Chair', grime=0.8, scale=1.0):
     c = mix((100, 100), c, (0.010, 0.008, 0.006, 1), gk.outputs[0])
     L.new(c, b.inputs['Base Color'])
     # rugosité : gras luisant dans la crasse
-    rr = _n(nt, 'ShaderNodeMapRange', (300, -400)); rr.inputs['To Min'].default_value = 0.62; rr.inputs['To Max'].default_value = 0.3
+    rr = _n(nt, 'ShaderNodeMapRange', (300, -400)); rr.inputs['To Min'].default_value = 0.72; rr.inputs['To Max'].default_value = 0.38
     L.new(gk.outputs[0], rr.inputs['Value']); L.new(rr.outputs[0], b.inputs['Roughness'])
     # relief : pores + rides
     np_ = noise((-500, -1100), 380.0, 2, 0.5)
@@ -325,7 +326,7 @@ def mat_simple(name, col, rough=0.5, metal=0.0, noise_scale=0, noise_col=None, b
     return m
 
 def mat_ongle():
-    return mat_simple('Ongle', (0.2, 0.15, 0.07), 0.3, noise_scale=120, noise_col=(0.12, 0.08, 0.04), bump=0.3)
+    return mat_simple('Ongle', (0.24, 0.18, 0.085), 0.42, noise_scale=120, noise_col=(0.12, 0.08, 0.04), bump=0.3)
 
 # ------------------------------------------------------------------ rendu
 def setup_render(res=(1280, 720), samples=128, exposure=0.0):
