@@ -31,6 +31,16 @@ def low_from(objs, name, voxel, target):
     log(f'{name} : {len(lo.data.polygons)} triangles')
     return lo
 
+def low_import(name):
+    """maillage léger déplié dans le pipeline maison (data/ballast/<nom>_uv.npz), normales lisses imposées"""
+    d = np.load(os.path.join(os.getcwd(), 'data', 'ballast', f'{name}_uv.npz'))
+    me = bpy.data.meshes.new(name + '_bas'); me.from_pydata(d['V'].tolist(), [], d['F'].tolist()); me.update()
+    uv = me.uv_layers.new(name='UV'); uv.data.foreach_set('uv', d['UV'][d['F']].reshape(-1))
+    for p in me.polygons: p.use_smooth = True
+    me.normals_split_custom_set_from_vertices(d['N'].tolist())
+    ob = bpy.data.objects.new(name + '_bas', me); B.coll().objects.link(ob)
+    log(f'{name} léger importé : {len(me.polygons)} triangles'); return ob
+
 def bake(lo, highs, name, size):
     imgs = {}
     mat = bpy.data.materials.new('cuisson_' + name); mat.use_nodes = True; nt = mat.node_tree
@@ -69,7 +79,7 @@ amas, levres, fond, ongles, cailloux, tirefonds = S.amas(log=log)
 for o in (amas, levres): o.data.materials.append(M['chair'])
 fond.data.materials.append(M['gorge']); ongles.data.materials.append(M['ongle'])
 cailloux.data.materials.append(M['caillou']); tirefonds.data.materials.append(M['rouille'])
-lo = low_from([amas, levres, fond, cailloux, tirefonds], 'Amas', 0.0045, 90000)
+lo = low_import('Amas')
 bake(lo, [amas, levres, fond, ongles, cailloux, tirefonds], 'Amas', 4096)
 export_npz(lo, 'Amas')
 for o in (amas, levres, fond, ongles, cailloux, tirefonds, lo): bpy.data.objects.remove(o)
@@ -78,7 +88,7 @@ for o in (amas, levres, fond, ongles, cailloux, tirefonds, lo): bpy.data.objects
 for name, seed in (('BrasGrille', 1), ('BrasFenetre', 2), ('BrasToilettes', 3)):
     hi, nails = S.bras_scene(name, seed, log=log, droit=True)
     hi.data.materials.append(M['chair']); nails.data.materials.append(M['ongle'])
-    lo = low_from([hi], name, 0.0045, 30000)
+    lo = low_import(name)
     bake(lo, [hi, nails], name, 2048)
     export_npz(lo, name)
     for o in (hi, nails, lo): bpy.data.objects.remove(o)
