@@ -1,0 +1,77 @@
+name: Blender
+
+# Lance Blender (sans fenêtre) sur le travail indiqué dans jobs/CURRENT,
+# puis publie les résultats (rendus, modèles, journal) sur la branche « sorties ».
+on:
+  push:
+    branches: [main]
+    paths: ['jobs/**', '.github/workflows/blender.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: blender
+  cancel-in-progress: false
+
+env:
+  BLENDER_VERSION: "4.2.3"
+  BLENDER_SERIES: "4.2"
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Cache Blender
+        id: cache
+        uses: actions/cache@v4
+        with:
+          path: blender
+          key: blender-${{ env.BLENDER_VERSION }}-linux-x64
+
+      - name: Download Blender
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          curl -fL -o b.tar.xz "https://download.blender.org/release/Blender${BLENDER_SERIES}/blender-${BLENDER_VERSION}-linux-x64.tar.xz"
+          mkdir blender
+          tar -xf b.tar.xz -C blender --strip-components=1
+          rm b.tar.xz
+
+      - name: System libraries
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq libxi6 libxxf86vm1 libxfixes3 libxrender1 libgl1 libegl1 libxkbcommon0 libsm6 > /dev/null
+
+      - name: Run job
+        run: |
+          set -o pipefail
+          JOB=$(tr -d '[:space:]' < jobs/CURRENT)
+          echo "JOB=$JOB" >> "$GITHUB_ENV"
+          mkdir -p "/tmp/out/$JOB"
+          START=$(date +%s)
+          ./blender/blender -b --factory-startup -noaudio -P "jobs/$JOB/main.py" -- "/tmp/out/$JOB" 2>&1 | tee "/tmp/out/$JOB/log.txt"
+          echo "duree_s=$(( $(date +%s) - START ))" >> "/tmp/out/$JOB/log.txt"
+
+      - name: Publish results
+        if: always()
+        run: |
+          git config user.name "blender-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          SRC_SHA=$(git rev-parse --short HEAD)
+          if git ls-remote --exit-code origin sorties > /dev/null; then
+            git fetch --depth 1 origin sorties
+            git switch -f -c sorties FETCH_HEAD
+          else
+            git switch -f --orphan sorties
+            git rm -rf --quiet . || true
+          fi
+          git clean -fdxq -e blender
+          rm -rf "$JOB"
+          cp -r "/tmp/out/$JOB" "$JOB"
+          git add "$JOB"
+          git commit -q -m "Résultats $JOB (source $SRC_SHA, run $GITHUB_RUN_ID)" || echo "rien à publier"
+          git push -q origin sorties
