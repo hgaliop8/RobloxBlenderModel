@@ -71,7 +71,7 @@ elif VUE == 'nuit':
 if VUE == 'plafond':
     MA = A.mats(); A.coursive(MA, alarme=10)
     A.eau_trouble('Brouillard', (-4, -1.6, -0.9), (12, 1.6, 1.6), (0.5, 0.6, 0.6), 0.02, 0.4)
-    V.wrap_ceiling(parts, x0=3.6)
+    V.wrap_ceiling(parts, x0=3.6, rot=-math.pi/2)
     B.world((0.0008, 0.0012, 0.0016))
     CAMS['plafond'] = ((-1.2, -0.35, -0.3), (3.3, 0.05, 0.9), 26, True); vues = ['plafond']
 for o in bpy.data.objects:

@@ -436,12 +436,14 @@ def assign(parts, M):
     for k, o in parts.items(): o.data.materials.clear(); o.data.materials.append(M[pairs[k]])
 
 # ================================================================ poses
-def wrap_ceiling(parts, R=1.5, x0=3.5, gap=0.02):
-    """enroule le poulpe (repère sol) sur le plafond cylindrique d'une coursive d'axe X : le sol local devient le plafond"""
+def wrap_ceiling(parts, R=1.5, x0=3.5, gap=0.02, rot=0.0):
+    """enroule le poulpe (repère sol) sur le plafond cylindrique d'une coursive d'axe X : le sol local devient le plafond ;
+    rot = rotation préalable autour de la verticale locale (pour orienter un œil vers la caméra)"""
+    c, s_ = math.cos(rot), math.sin(rot)
     for o in parts.values():
         me = o.data
         for v in me.vertices:
-            x, y, h = v.co
+            x0_, y0_, h = v.co; x, y = c*x0_ - s_*y0_, s_*x0_ + c*y0_
             th = -y/R; r = R - gap - h      # rotation de 180° autour de X (pas de miroir)
             v.co = Vector((x0 + x, r*math.sin(th), r*math.cos(th)))
         me.update()
