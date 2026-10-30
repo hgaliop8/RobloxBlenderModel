@@ -2,181 +2,181 @@
 >> mains : 181 objets au total
 >> joint : 213043 sommets
 >> remaillé : 3715148 sommets
->> amas final : 3708580 faces
+>> amas final : 3708784 faces
 >> bouche : 92736 faces de gencives, 71584 faces de dents
->> Amas : 3493 cartes, 600 texels/m
+>> Amas : 3486 cartes, 604 texels/m
 >> Amas léger : 200000 triangles
 Blender 4.2.3 LTS (hash 0e22e4fcea03 built 2024-10-14 23:31:34)
-Fra:1 Mem:3334.83M (Peak 6254.96M) | Time:498143:52:25.97 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | TireFonds
-Fra:1 Mem:3334.84M (Peak 6254.96M) | Time:498143:52:25.97 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Amas
-Fra:1 Mem:3334.85M (Peak 6254.96M) | Time:498143:52:25.97 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CaillouxAmas
-Fra:1 Mem:3335.08M (Peak 6254.96M) | Time:498143:52:25.97 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesAmas
-Fra:1 Mem:3517.06M (Peak 6254.96M) | Time:498143:52:25.98 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Levres
-Fra:1 Mem:3586.59M (Peak 6254.96M) | Time:498143:52:25.99 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Dents
-Fra:1 Mem:3597.39M (Peak 6254.96M) | Time:498143:52:26.01 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Gencives
-Fra:1 Mem:3661.25M (Peak 6254.96M) | Time:498143:52:26.16 | Mem:0.00M, Peak:0.00M | Scene | Initializing
-Fra:1 Mem:3661.24M (Peak 6254.96M) | Time:498143:52:26.16 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Amas_Couleur
-Fra:1 Mem:3340.03M (Peak 6254.96M) | Time:498144:04:44.09 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Amas
-Fra:1 Mem:3340.03M (Peak 6254.96M) | Time:498144:04:44.09 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | TireFonds
-Fra:1 Mem:3340.04M (Peak 6254.96M) | Time:498144:04:44.09 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CaillouxAmas
-Fra:1 Mem:3340.27M (Peak 6254.96M) | Time:498144:04:44.09 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesAmas
-Fra:1 Mem:3522.25M (Peak 6254.96M) | Time:498144:04:44.09 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Levres
-Fra:1 Mem:3591.78M (Peak 6254.96M) | Time:498144:04:44.10 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Dents
-Fra:1 Mem:3597.39M (Peak 6254.96M) | Time:498144:04:44.10 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Gencives
-Fra:1 Mem:3661.25M (Peak 6254.96M) | Time:498144:04:44.27 | Mem:0.00M, Peak:0.00M | Scene | Initializing
-Fra:1 Mem:3661.24M (Peak 6254.96M) | Time:498144:04:44.27 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Amas_Couleur
-Fra:1 Mem:3340.03M (Peak 6254.96M) | Time:498144:05:05.33 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Amas
-Fra:1 Mem:3340.03M (Peak 6254.96M) | Time:498144:05:05.33 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | TireFonds
-Fra:1 Mem:3340.04M (Peak 6254.96M) | Time:498144:05:05.33 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CaillouxAmas
-Fra:1 Mem:3340.27M (Peak 6254.96M) | Time:498144:05:05.33 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesAmas
-Fra:1 Mem:3522.25M (Peak 6254.96M) | Time:498144:05:05.33 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Levres
-Fra:1 Mem:3591.78M (Peak 6254.96M) | Time:498144:05:05.34 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Dents
-Fra:1 Mem:3597.39M (Peak 6254.96M) | Time:498144:05:05.34 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Gencives
-Fra:1 Mem:3661.25M (Peak 6254.96M) | Time:498144:05:05.51 | Mem:0.00M, Peak:0.00M | Scene | Initializing
-Fra:1 Mem:3661.24M (Peak 6254.96M) | Time:498144:05:05.51 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Amas_Couleur
-Fra:1 Mem:3340.03M (Peak 6254.96M) | Time:498144:05:27.33 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Amas
-Fra:1 Mem:3340.03M (Peak 6254.96M) | Time:498144:05:27.33 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | TireFonds
-Fra:1 Mem:3340.04M (Peak 6254.96M) | Time:498144:05:27.33 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CaillouxAmas
-Fra:1 Mem:3340.27M (Peak 6254.96M) | Time:498144:05:27.33 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesAmas
-Fra:1 Mem:3522.25M (Peak 6254.96M) | Time:498144:05:27.33 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Levres
-Fra:1 Mem:3591.78M (Peak 6254.96M) | Time:498144:05:27.34 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Dents
-Fra:1 Mem:3597.39M (Peak 6254.96M) | Time:498144:05:27.35 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Gencives
-Fra:1 Mem:3661.25M (Peak 6254.96M) | Time:498144:05:27.51 | Mem:0.00M, Peak:0.00M | Scene | Initializing
-Fra:1 Mem:3661.24M (Peak 6254.96M) | Time:498144:05:27.51 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Amas_Couleur
-Fra:1 Mem:3340.03M (Peak 6254.96M) | Time:498144:05:38.86 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Amas
-Fra:1 Mem:3340.03M (Peak 6254.96M) | Time:498144:05:38.86 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | TireFonds
-Fra:1 Mem:3340.04M (Peak 6254.96M) | Time:498144:05:38.86 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CaillouxAmas
-Fra:1 Mem:3340.27M (Peak 6254.96M) | Time:498144:05:38.86 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesAmas
-Fra:1 Mem:3522.25M (Peak 6254.96M) | Time:498144:05:38.87 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Levres
-Fra:1 Mem:3591.78M (Peak 6254.96M) | Time:498144:05:38.88 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Dents
-Fra:1 Mem:3597.39M (Peak 6254.96M) | Time:498144:05:38.88 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Gencives
-Fra:1 Mem:3661.25M (Peak 6254.96M) | Time:498144:05:39.04 | Mem:0.00M, Peak:0.00M | Scene | Initializing
-Fra:1 Mem:3661.24M (Peak 6254.96M) | Time:498144:05:39.04 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Amas_Couleur
-Fra:1 Mem:3340.03M (Peak 6254.96M) | Time:498144:05:53.77 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Amas
-Fra:1 Mem:3340.03M (Peak 6254.96M) | Time:498144:05:53.77 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | TireFonds
-Fra:1 Mem:3340.04M (Peak 6254.96M) | Time:498144:05:53.77 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CaillouxAmas
-Fra:1 Mem:3340.27M (Peak 6254.96M) | Time:498144:05:53.77 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesAmas
-Fra:1 Mem:3522.25M (Peak 6254.96M) | Time:498144:05:53.77 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Levres
-Fra:1 Mem:3591.78M (Peak 6254.96M) | Time:498144:05:53.79 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Dents
-Fra:1 Mem:3597.39M (Peak 6254.96M) | Time:498144:05:53.79 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Gencives
-Fra:1 Mem:3661.25M (Peak 6254.96M) | Time:498144:05:53.95 | Mem:0.00M, Peak:0.00M | Scene | Initializing
-Fra:1 Mem:3661.24M (Peak 6254.96M) | Time:498144:05:53.95 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Amas_Couleur
+Fra:1 Mem:3366.45M (Peak 6254.93M) | Time:498144:27:36.02 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Amas
+Fra:1 Mem:3366.45M (Peak 6254.93M) | Time:498144:27:36.02 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | TireFonds
+Fra:1 Mem:3366.46M (Peak 6254.93M) | Time:498144:27:36.02 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CaillouxAmas
+Fra:1 Mem:3366.69M (Peak 6254.93M) | Time:498144:27:36.02 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesAmas
+Fra:1 Mem:3548.68M (Peak 6254.93M) | Time:498144:27:36.02 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Levres
+Fra:1 Mem:3623.79M (Peak 6254.93M) | Time:498144:27:36.04 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Dents
+Fra:1 Mem:3691.19M (Peak 6254.93M) | Time:498144:27:36.05 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Gencives
+Fra:1 Mem:3698.44M (Peak 6254.93M) | Time:498144:27:36.13 | Mem:0.00M, Peak:0.00M | Scene | Initializing
+Fra:1 Mem:3698.44M (Peak 6254.93M) | Time:498144:27:36.13 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Amas_Couleur
+Fra:1 Mem:3371.64M (Peak 6254.93M) | Time:498144:38:27.76 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Amas
+Fra:1 Mem:3371.64M (Peak 6254.93M) | Time:498144:38:27.76 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | TireFonds
+Fra:1 Mem:3371.65M (Peak 6254.93M) | Time:498144:38:27.76 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CaillouxAmas
+Fra:1 Mem:3371.89M (Peak 6254.93M) | Time:498144:38:27.76 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesAmas
+Fra:1 Mem:3553.87M (Peak 6254.93M) | Time:498144:38:27.76 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Levres
+Fra:1 Mem:3628.98M (Peak 6254.93M) | Time:498144:38:27.77 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Dents
+Fra:1 Mem:3634.59M (Peak 6254.93M) | Time:498144:38:27.78 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Gencives
+Fra:1 Mem:3698.44M (Peak 6254.93M) | Time:498144:38:27.87 | Mem:0.00M, Peak:0.00M | Scene | Initializing
+Fra:1 Mem:3698.44M (Peak 6254.93M) | Time:498144:38:27.87 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Amas_Couleur
+Fra:1 Mem:3371.64M (Peak 6254.93M) | Time:498144:38:42.39 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Amas
+Fra:1 Mem:3371.64M (Peak 6254.93M) | Time:498144:38:42.39 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | TireFonds
+Fra:1 Mem:3371.65M (Peak 6254.93M) | Time:498144:38:42.39 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CaillouxAmas
+Fra:1 Mem:3371.89M (Peak 6254.93M) | Time:498144:38:42.39 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesAmas
+Fra:1 Mem:3553.87M (Peak 6254.93M) | Time:498144:38:42.39 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Levres
+Fra:1 Mem:3572.38M (Peak 6254.93M) | Time:498144:38:42.40 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Dents
+Fra:1 Mem:3634.59M (Peak 6254.93M) | Time:498144:38:42.40 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Gencives
+Fra:1 Mem:3698.44M (Peak 6254.93M) | Time:498144:38:42.51 | Mem:0.00M, Peak:0.00M | Scene | Initializing
+Fra:1 Mem:3698.44M (Peak 6254.93M) | Time:498144:38:42.51 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Amas_Couleur
+Fra:1 Mem:3371.64M (Peak 6254.93M) | Time:498144:39:07.33 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Amas
+Fra:1 Mem:3371.64M (Peak 6254.93M) | Time:498144:39:07.33 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | TireFonds
+Fra:1 Mem:3371.65M (Peak 6254.93M) | Time:498144:39:07.33 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CaillouxAmas
+Fra:1 Mem:3371.89M (Peak 6254.93M) | Time:498144:39:07.33 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesAmas
+Fra:1 Mem:3553.87M (Peak 6254.93M) | Time:498144:39:07.34 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Levres
+Fra:1 Mem:3628.98M (Peak 6254.93M) | Time:498144:39:07.35 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Dents
+Fra:1 Mem:3634.59M (Peak 6254.93M) | Time:498144:39:07.35 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Gencives
+Fra:1 Mem:3698.44M (Peak 6254.93M) | Time:498144:39:07.47 | Mem:0.00M, Peak:0.00M | Scene | Initializing
+Fra:1 Mem:3698.44M (Peak 6254.93M) | Time:498144:39:07.47 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Amas_Couleur
+Fra:1 Mem:3371.64M (Peak 6254.93M) | Time:498144:39:16.45 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Amas
+Fra:1 Mem:3371.64M (Peak 6254.93M) | Time:498144:39:16.45 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | TireFonds
+Fra:1 Mem:3371.65M (Peak 6254.93M) | Time:498144:39:16.45 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CaillouxAmas
+Fra:1 Mem:3371.89M (Peak 6254.93M) | Time:498144:39:16.45 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesAmas
+Fra:1 Mem:3553.87M (Peak 6254.93M) | Time:498144:39:16.45 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Levres
+Fra:1 Mem:3628.98M (Peak 6254.93M) | Time:498144:39:16.46 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Dents
+Fra:1 Mem:3634.59M (Peak 6254.93M) | Time:498144:39:16.46 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Gencives
+Fra:1 Mem:3698.44M (Peak 6254.93M) | Time:498144:39:16.56 | Mem:0.00M, Peak:0.00M | Scene | Initializing
+Fra:1 Mem:3698.44M (Peak 6254.93M) | Time:498144:39:16.56 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Amas_Couleur
+Fra:1 Mem:3371.64M (Peak 6254.93M) | Time:498144:39:28.65 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Amas
+Fra:1 Mem:3371.64M (Peak 6254.93M) | Time:498144:39:28.65 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | TireFonds
+Fra:1 Mem:3371.65M (Peak 6254.93M) | Time:498144:39:28.65 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CaillouxAmas
+Fra:1 Mem:3371.89M (Peak 6254.93M) | Time:498144:39:28.65 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesAmas
+Fra:1 Mem:3553.87M (Peak 6254.93M) | Time:498144:39:28.65 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Levres
+Fra:1 Mem:3628.98M (Peak 6254.93M) | Time:498144:39:28.66 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Dents
+Fra:1 Mem:3634.59M (Peak 6254.93M) | Time:498144:39:28.66 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Gencives
+Fra:1 Mem:3698.44M (Peak 6254.93M) | Time:498144:39:28.77 | Mem:0.00M, Peak:0.00M | Scene | Initializing
+Fra:1 Mem:3698.44M (Peak 6254.93M) | Time:498144:39:28.77 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Amas_Couleur
 Info: Baking map saved to internal image, save it externally or pack it
 >>   cuit Amas Couleur
-Fra:1 Mem:3340.03M (Peak 6254.96M) | Time:498144:06:27.44 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Amas
-Fra:1 Mem:3516.89M (Peak 6254.96M) | Time:498144:06:27.44 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | TireFonds
-Fra:1 Mem:3516.90M (Peak 6254.96M) | Time:498144:06:27.44 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CaillouxAmas
-Fra:1 Mem:3517.14M (Peak 6254.96M) | Time:498144:06:27.44 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesAmas
-Fra:1 Mem:3522.25M (Peak 6254.96M) | Time:498144:06:27.45 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Levres
-Fra:1 Mem:3591.79M (Peak 6254.96M) | Time:498144:06:27.46 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Dents
-Fra:1 Mem:3597.40M (Peak 6254.96M) | Time:498144:06:27.47 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Gencives
-Fra:1 Mem:3661.25M (Peak 6254.96M) | Time:498144:06:27.63 | Mem:0.00M, Peak:0.00M | Scene | Initializing
-Fra:1 Mem:3661.25M (Peak 6254.96M) | Time:498144:06:27.63 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Amas_Normale
-Fra:1 Mem:3340.03M (Peak 6254.96M) | Time:498144:07:33.05 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Amas
-Fra:1 Mem:3340.03M (Peak 6254.96M) | Time:498144:07:33.05 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | TireFonds
-Fra:1 Mem:3340.04M (Peak 6254.96M) | Time:498144:07:33.05 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CaillouxAmas
-Fra:1 Mem:3340.27M (Peak 6254.96M) | Time:498144:07:33.05 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesAmas
-Fra:1 Mem:3522.25M (Peak 6254.96M) | Time:498144:07:33.06 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Levres
-Fra:1 Mem:3591.79M (Peak 6254.96M) | Time:498144:07:33.07 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Dents
-Fra:1 Mem:3597.40M (Peak 6254.96M) | Time:498144:07:33.08 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Gencives
-Fra:1 Mem:3661.25M (Peak 6254.96M) | Time:498144:07:33.24 | Mem:0.00M, Peak:0.00M | Scene | Initializing
-Fra:1 Mem:3661.25M (Peak 6254.96M) | Time:498144:07:33.24 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Amas_Normale
-Fra:1 Mem:3340.03M (Peak 6254.96M) | Time:498144:07:43.20 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Amas
-Fra:1 Mem:3340.03M (Peak 6254.96M) | Time:498144:07:43.20 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | TireFonds
-Fra:1 Mem:3340.04M (Peak 6254.96M) | Time:498144:07:43.20 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CaillouxAmas
-Fra:1 Mem:3340.27M (Peak 6254.96M) | Time:498144:07:43.20 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesAmas
-Fra:1 Mem:3522.25M (Peak 6254.96M) | Time:498144:07:43.20 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Levres
-Fra:1 Mem:3591.79M (Peak 6254.96M) | Time:498144:07:43.21 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Dents
-Fra:1 Mem:3597.40M (Peak 6254.96M) | Time:498144:07:43.22 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Gencives
-Fra:1 Mem:3661.25M (Peak 6254.96M) | Time:498144:07:43.38 | Mem:0.00M, Peak:0.00M | Scene | Initializing
-Fra:1 Mem:3661.25M (Peak 6254.96M) | Time:498144:07:43.38 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Amas_Normale
-Fra:1 Mem:3340.03M (Peak 6254.96M) | Time:498144:07:53.48 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Amas
-Fra:1 Mem:3340.03M (Peak 6254.96M) | Time:498144:07:53.48 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | TireFonds
-Fra:1 Mem:3340.04M (Peak 6254.96M) | Time:498144:07:53.48 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CaillouxAmas
-Fra:1 Mem:3340.27M (Peak 6254.96M) | Time:498144:07:53.48 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesAmas
-Fra:1 Mem:3522.25M (Peak 6254.96M) | Time:498144:07:53.48 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Levres
-Fra:1 Mem:3591.79M (Peak 6254.96M) | Time:498144:07:53.49 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Dents
-Fra:1 Mem:3597.40M (Peak 6254.96M) | Time:498144:07:53.50 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Gencives
-Fra:1 Mem:3661.25M (Peak 6254.96M) | Time:498144:07:53.67 | Mem:0.00M, Peak:0.00M | Scene | Initializing
-Fra:1 Mem:3661.25M (Peak 6254.96M) | Time:498144:07:53.67 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Amas_Normale
-Fra:1 Mem:3340.03M (Peak 6254.96M) | Time:498144:08:02.84 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Amas
-Fra:1 Mem:3340.03M (Peak 6254.96M) | Time:498144:08:02.85 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | TireFonds
-Fra:1 Mem:3340.04M (Peak 6254.96M) | Time:498144:08:02.85 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CaillouxAmas
-Fra:1 Mem:3340.27M (Peak 6254.96M) | Time:498144:08:02.85 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesAmas
-Fra:1 Mem:3522.25M (Peak 6254.96M) | Time:498144:08:02.85 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Levres
-Fra:1 Mem:3591.79M (Peak 6254.96M) | Time:498144:08:02.86 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Dents
-Fra:1 Mem:3597.40M (Peak 6254.96M) | Time:498144:08:02.86 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Gencives
-Fra:1 Mem:3661.25M (Peak 6254.96M) | Time:498144:08:03.03 | Mem:0.00M, Peak:0.00M | Scene | Initializing
-Fra:1 Mem:3661.25M (Peak 6254.96M) | Time:498144:08:03.03 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Amas_Normale
-Fra:1 Mem:3340.03M (Peak 6254.96M) | Time:498144:08:12.55 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Amas
-Fra:1 Mem:3340.03M (Peak 6254.96M) | Time:498144:08:12.55 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | TireFonds
-Fra:1 Mem:3340.04M (Peak 6254.96M) | Time:498144:08:12.55 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CaillouxAmas
-Fra:1 Mem:3340.27M (Peak 6254.96M) | Time:498144:08:12.55 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesAmas
-Fra:1 Mem:3522.25M (Peak 6254.96M) | Time:498144:08:12.55 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Levres
-Fra:1 Mem:3591.79M (Peak 6254.96M) | Time:498144:08:12.56 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Dents
-Fra:1 Mem:3597.40M (Peak 6254.96M) | Time:498144:08:12.57 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Gencives
-Fra:1 Mem:3661.25M (Peak 6254.96M) | Time:498144:08:12.73 | Mem:0.00M, Peak:0.00M | Scene | Initializing
-Fra:1 Mem:3661.25M (Peak 6254.96M) | Time:498144:08:12.73 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Amas_Normale
+Fra:1 Mem:3371.64M (Peak 6254.93M) | Time:498144:39:58.65 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Amas
+Fra:1 Mem:3371.64M (Peak 6254.93M) | Time:498144:39:58.65 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | TireFonds
+Fra:1 Mem:3371.66M (Peak 6254.93M) | Time:498144:39:58.65 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CaillouxAmas
+Fra:1 Mem:3371.89M (Peak 6254.93M) | Time:498144:39:58.65 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesAmas
+Fra:1 Mem:3553.88M (Peak 6254.93M) | Time:498144:39:58.66 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Levres
+Fra:1 Mem:3628.98M (Peak 6254.93M) | Time:498144:39:58.67 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Dents
+Fra:1 Mem:3634.59M (Peak 6254.93M) | Time:498144:39:58.68 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Gencives
+Fra:1 Mem:3698.45M (Peak 6254.93M) | Time:498144:39:58.77 | Mem:0.00M, Peak:0.00M | Scene | Initializing
+Fra:1 Mem:3698.44M (Peak 6254.93M) | Time:498144:39:58.77 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Amas_Normale
+Fra:1 Mem:3371.64M (Peak 6254.93M) | Time:498144:40:55.96 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Amas
+Fra:1 Mem:3371.64M (Peak 6254.93M) | Time:498144:40:55.96 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | TireFonds
+Fra:1 Mem:3371.66M (Peak 6254.93M) | Time:498144:40:55.96 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CaillouxAmas
+Fra:1 Mem:3371.89M (Peak 6254.93M) | Time:498144:40:55.96 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesAmas
+Fra:1 Mem:3553.88M (Peak 6254.93M) | Time:498144:40:55.97 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Levres
+Fra:1 Mem:3628.98M (Peak 6254.93M) | Time:498144:40:55.98 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Dents
+Fra:1 Mem:3634.59M (Peak 6254.93M) | Time:498144:40:55.98 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Gencives
+Fra:1 Mem:3698.45M (Peak 6254.93M) | Time:498144:40:56.08 | Mem:0.00M, Peak:0.00M | Scene | Initializing
+Fra:1 Mem:3698.44M (Peak 6254.93M) | Time:498144:40:56.08 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Amas_Normale
+Fra:1 Mem:3371.64M (Peak 6254.93M) | Time:498144:41:03.69 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Amas
+Fra:1 Mem:3371.64M (Peak 6254.93M) | Time:498144:41:03.69 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | TireFonds
+Fra:1 Mem:3371.66M (Peak 6254.93M) | Time:498144:41:03.69 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CaillouxAmas
+Fra:1 Mem:3371.89M (Peak 6254.93M) | Time:498144:41:03.69 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesAmas
+Fra:1 Mem:3553.88M (Peak 6254.93M) | Time:498144:41:03.69 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Levres
+Fra:1 Mem:3628.98M (Peak 6254.93M) | Time:498144:41:03.70 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Dents
+Fra:1 Mem:3634.59M (Peak 6254.93M) | Time:498144:41:03.70 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Gencives
+Fra:1 Mem:3698.45M (Peak 6254.93M) | Time:498144:41:03.80 | Mem:0.00M, Peak:0.00M | Scene | Initializing
+Fra:1 Mem:3698.44M (Peak 6254.93M) | Time:498144:41:03.80 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Amas_Normale
+Fra:1 Mem:3371.64M (Peak 6254.93M) | Time:498144:41:12.20 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Amas
+Fra:1 Mem:3371.64M (Peak 6254.93M) | Time:498144:41:12.20 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | TireFonds
+Fra:1 Mem:3371.66M (Peak 6254.93M) | Time:498144:41:12.20 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CaillouxAmas
+Fra:1 Mem:3371.89M (Peak 6254.93M) | Time:498144:41:12.20 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesAmas
+Fra:1 Mem:3553.88M (Peak 6254.93M) | Time:498144:41:12.20 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Levres
+Fra:1 Mem:3628.98M (Peak 6254.93M) | Time:498144:41:12.21 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Dents
+Fra:1 Mem:3634.59M (Peak 6254.93M) | Time:498144:41:12.21 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Gencives
+Fra:1 Mem:3698.45M (Peak 6254.93M) | Time:498144:41:12.31 | Mem:0.00M, Peak:0.00M | Scene | Initializing
+Fra:1 Mem:3698.44M (Peak 6254.93M) | Time:498144:41:12.31 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Amas_Normale
+Fra:1 Mem:3371.64M (Peak 6254.93M) | Time:498144:41:19.58 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Amas
+Fra:1 Mem:3548.51M (Peak 6254.93M) | Time:498144:41:19.58 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | TireFonds
+Fra:1 Mem:3548.53M (Peak 6254.93M) | Time:498144:41:19.58 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CaillouxAmas
+Fra:1 Mem:3548.76M (Peak 6254.93M) | Time:498144:41:19.58 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesAmas
+Fra:1 Mem:3553.88M (Peak 6254.93M) | Time:498144:41:19.58 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Levres
+Fra:1 Mem:3628.98M (Peak 6254.93M) | Time:498144:41:19.59 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Dents
+Fra:1 Mem:3634.59M (Peak 6254.93M) | Time:498144:41:19.59 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Gencives
+Fra:1 Mem:3698.45M (Peak 6254.93M) | Time:498144:41:19.70 | Mem:0.00M, Peak:0.00M | Scene | Initializing
+Fra:1 Mem:3698.44M (Peak 6254.93M) | Time:498144:41:19.70 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Amas_Normale
+Fra:1 Mem:3371.64M (Peak 6254.93M) | Time:498144:41:27.17 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Amas
+Fra:1 Mem:3371.64M (Peak 6254.93M) | Time:498144:41:27.17 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | TireFonds
+Fra:1 Mem:3371.66M (Peak 6254.93M) | Time:498144:41:27.17 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CaillouxAmas
+Fra:1 Mem:3371.89M (Peak 6254.93M) | Time:498144:41:27.17 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesAmas
+Fra:1 Mem:3553.88M (Peak 6254.93M) | Time:498144:41:27.17 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Levres
+Fra:1 Mem:3572.38M (Peak 6254.93M) | Time:498144:41:27.18 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Dents
+Fra:1 Mem:3634.59M (Peak 6254.93M) | Time:498144:41:27.18 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Gencives
+Fra:1 Mem:3698.45M (Peak 6254.93M) | Time:498144:41:27.29 | Mem:0.00M, Peak:0.00M | Scene | Initializing
+Fra:1 Mem:3698.44M (Peak 6254.93M) | Time:498144:41:27.29 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Amas_Normale
 Info: Baking map saved to internal image, save it externally or pack it
 >>   cuit Amas Normale
-Fra:1 Mem:3340.03M (Peak 6254.96M) | Time:498144:08:42.41 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Amas
-Fra:1 Mem:3340.03M (Peak 6254.96M) | Time:498144:08:42.41 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | TireFonds
-Fra:1 Mem:3340.04M (Peak 6254.96M) | Time:498144:08:42.41 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CaillouxAmas
-Fra:1 Mem:3340.28M (Peak 6254.96M) | Time:498144:08:42.41 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesAmas
-Fra:1 Mem:3522.26M (Peak 6254.96M) | Time:498144:08:42.42 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Levres
-Fra:1 Mem:3591.79M (Peak 6254.96M) | Time:498144:08:42.43 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Dents
-Fra:1 Mem:3597.40M (Peak 6254.96M) | Time:498144:08:42.43 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Gencives
-Fra:1 Mem:3661.25M (Peak 6254.96M) | Time:498144:08:42.60 | Mem:0.00M, Peak:0.00M | Scene | Initializing
-Fra:1 Mem:3661.25M (Peak 6254.96M) | Time:498144:08:42.60 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Amas_Rugosite
-Fra:1 Mem:3340.03M (Peak 6254.96M) | Time:498144:12:31.70 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Amas
-Fra:1 Mem:3340.03M (Peak 6254.96M) | Time:498144:12:31.70 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | TireFonds
-Fra:1 Mem:3340.04M (Peak 6254.96M) | Time:498144:12:31.70 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CaillouxAmas
-Fra:1 Mem:3340.28M (Peak 6254.96M) | Time:498144:12:31.70 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesAmas
-Fra:1 Mem:3522.26M (Peak 6254.96M) | Time:498144:12:31.71 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Levres
-Fra:1 Mem:3591.79M (Peak 6254.96M) | Time:498144:12:31.71 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Dents
-Fra:1 Mem:3597.40M (Peak 6254.96M) | Time:498144:12:31.72 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Gencives
-Fra:1 Mem:3661.25M (Peak 6254.96M) | Time:498144:12:31.88 | Mem:0.00M, Peak:0.00M | Scene | Initializing
-Fra:1 Mem:3661.25M (Peak 6254.96M) | Time:498144:12:31.88 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Amas_Rugosite
-Fra:1 Mem:3340.03M (Peak 6254.96M) | Time:498144:12:43.96 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Amas
-Fra:1 Mem:3340.03M (Peak 6254.96M) | Time:498144:12:43.96 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | TireFonds
-Fra:1 Mem:3340.04M (Peak 6254.96M) | Time:498144:12:43.96 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CaillouxAmas
-Fra:1 Mem:3340.28M (Peak 6254.96M) | Time:498144:12:43.96 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesAmas
-Fra:1 Mem:3522.26M (Peak 6254.96M) | Time:498144:12:43.96 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Levres
-Fra:1 Mem:3591.79M (Peak 6254.96M) | Time:498144:12:43.98 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Dents
-Fra:1 Mem:3597.40M (Peak 6254.96M) | Time:498144:12:43.98 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Gencives
-Fra:1 Mem:3661.25M (Peak 6254.96M) | Time:498144:12:44.15 | Mem:0.00M, Peak:0.00M | Scene | Initializing
-Fra:1 Mem:3661.25M (Peak 6254.96M) | Time:498144:12:44.15 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Amas_Rugosite
-Fra:1 Mem:3340.03M (Peak 6254.96M) | Time:498144:12:56.70 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Amas
-Fra:1 Mem:3340.03M (Peak 6254.96M) | Time:498144:12:56.70 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | TireFonds
-Fra:1 Mem:3340.04M (Peak 6254.96M) | Time:498144:12:56.70 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CaillouxAmas
-Fra:1 Mem:3340.28M (Peak 6254.96M) | Time:498144:12:56.70 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesAmas
-Fra:1 Mem:3522.26M (Peak 6254.96M) | Time:498144:12:56.70 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Levres
-Fra:1 Mem:3591.79M (Peak 6254.96M) | Time:498144:12:56.71 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Dents
-Fra:1 Mem:3597.40M (Peak 6254.96M) | Time:498144:12:56.72 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Gencives
-Fra:1 Mem:3661.25M (Peak 6254.96M) | Time:498144:12:56.88 | Mem:0.00M, Peak:0.00M | Scene | Initializing
-Fra:1 Mem:3661.25M (Peak 6254.96M) | Time:498144:12:56.88 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Amas_Rugosite
-Fra:1 Mem:3340.03M (Peak 6254.96M) | Time:498144:13:06.09 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Amas
-Fra:1 Mem:3340.03M (Peak 6254.96M) | Time:498144:13:06.09 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | TireFonds
-Fra:1 Mem:3340.04M (Peak 6254.96M) | Time:498144:13:06.09 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CaillouxAmas
-Fra:1 Mem:3340.28M (Peak 6254.96M) | Time:498144:13:06.09 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesAmas
-Fra:1 Mem:3522.26M (Peak 6254.96M) | Time:498144:13:06.10 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Levres
-Fra:1 Mem:3591.79M (Peak 6254.96M) | Time:498144:13:06.10 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Dents
-Fra:1 Mem:3597.40M (Peak 6254.96M) | Time:498144:13:06.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Gencives
-Fra:1 Mem:3661.25M (Peak 6254.96M) | Time:498144:13:06.27 | Mem:0.00M, Peak:0.00M | Scene | Initializing
-Fra:1 Mem:3661.25M (Peak 6254.96M) | Time:498144:13:06.27 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Amas_Rugosite
-Fra:1 Mem:3340.03M (Peak 6254.96M) | Time:498144:13:16.65 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Amas
-Fra:1 Mem:3340.03M (Peak 6254.96M) | Time:498144:13:16.65 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | TireFonds
-Fra:1 Mem:3340.04M (Peak 6254.96M) | Time:498144:13:16.65 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CaillouxAmas
-Fra:1 Mem:3340.28M (Peak 6254.96M) | Time:498144:13:16.65 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesAmas
-Fra:1 Mem:3522.26M (Peak 6254.96M) | Time:498144:13:16.66 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Levres
-Fra:1 Mem:3591.79M (Peak 6254.96M) | Time:498144:13:16.67 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Dents
-Fra:1 Mem:3597.40M (Peak 6254.96M) | Time:498144:13:16.67 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Gencives
-Fra:1 Mem:3661.25M (Peak 6254.96M) | Time:498144:13:16.84 | Mem:0.00M, Peak:0.00M | Scene | Initializing
-Fra:1 Mem:3661.25M (Peak 6254.96M) | Time:498144:13:16.84 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Amas_Rugosite
+Fra:1 Mem:3371.64M (Peak 6254.93M) | Time:498144:41:54.24 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Amas
+Fra:1 Mem:3371.65M (Peak 6254.93M) | Time:498144:41:54.24 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | TireFonds
+Fra:1 Mem:3371.66M (Peak 6254.93M) | Time:498144:41:54.24 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CaillouxAmas
+Fra:1 Mem:3371.89M (Peak 6254.93M) | Time:498144:41:54.24 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesAmas
+Fra:1 Mem:3553.88M (Peak 6254.93M) | Time:498144:41:54.25 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Levres
+Fra:1 Mem:3628.98M (Peak 6254.93M) | Time:498144:41:54.26 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Dents
+Fra:1 Mem:3634.59M (Peak 6254.93M) | Time:498144:41:54.26 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Gencives
+Fra:1 Mem:3698.45M (Peak 6254.93M) | Time:498144:41:54.36 | Mem:0.00M, Peak:0.00M | Scene | Initializing
+Fra:1 Mem:3698.45M (Peak 6254.93M) | Time:498144:41:54.36 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Amas_Rugosite
+Fra:1 Mem:3371.65M (Peak 6254.93M) | Time:498144:45:16.80 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Amas
+Fra:1 Mem:3371.65M (Peak 6254.93M) | Time:498144:45:16.80 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | TireFonds
+Fra:1 Mem:3371.66M (Peak 6254.93M) | Time:498144:45:16.80 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CaillouxAmas
+Fra:1 Mem:3371.89M (Peak 6254.93M) | Time:498144:45:16.80 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesAmas
+Fra:1 Mem:3553.88M (Peak 6254.93M) | Time:498144:45:16.80 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Levres
+Fra:1 Mem:3628.98M (Peak 6254.93M) | Time:498144:45:16.81 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Dents
+Fra:1 Mem:3634.59M (Peak 6254.93M) | Time:498144:45:16.81 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Gencives
+Fra:1 Mem:3698.45M (Peak 6254.93M) | Time:498144:45:16.91 | Mem:0.00M, Peak:0.00M | Scene | Initializing
+Fra:1 Mem:3698.45M (Peak 6254.93M) | Time:498144:45:16.91 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Amas_Rugosite
+Fra:1 Mem:3371.65M (Peak 6254.93M) | Time:498144:45:25.86 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Amas
+Fra:1 Mem:3371.65M (Peak 6254.93M) | Time:498144:45:25.86 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | TireFonds
+Fra:1 Mem:3371.66M (Peak 6254.93M) | Time:498144:45:25.86 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CaillouxAmas
+Fra:1 Mem:3371.89M (Peak 6254.93M) | Time:498144:45:25.86 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesAmas
+Fra:1 Mem:3553.88M (Peak 6254.93M) | Time:498144:45:25.86 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Levres
+Fra:1 Mem:3628.98M (Peak 6254.93M) | Time:498144:45:25.87 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Dents
+Fra:1 Mem:3634.59M (Peak 6254.93M) | Time:498144:45:25.87 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Gencives
+Fra:1 Mem:3698.45M (Peak 6254.93M) | Time:498144:45:25.97 | Mem:0.00M, Peak:0.00M | Scene | Initializing
+Fra:1 Mem:3698.45M (Peak 6254.93M) | Time:498144:45:25.97 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Amas_Rugosite
+Fra:1 Mem:3371.65M (Peak 6254.93M) | Time:498144:45:38.32 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Amas
+Fra:1 Mem:3371.65M (Peak 6254.93M) | Time:498144:45:38.32 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | TireFonds
+Fra:1 Mem:3371.66M (Peak 6254.93M) | Time:498144:45:38.32 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CaillouxAmas
+Fra:1 Mem:3371.89M (Peak 6254.93M) | Time:498144:45:38.32 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesAmas
+Fra:1 Mem:3553.88M (Peak 6254.93M) | Time:498144:45:38.32 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Levres
+Fra:1 Mem:3628.98M (Peak 6254.93M) | Time:498144:45:38.33 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Dents
+Fra:1 Mem:3634.59M (Peak 6254.93M) | Time:498144:45:38.33 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Gencives
+Fra:1 Mem:3698.45M (Peak 6254.93M) | Time:498144:45:38.43 | Mem:0.00M, Peak:0.00M | Scene | Initializing
+Fra:1 Mem:3698.45M (Peak 6254.93M) | Time:498144:45:38.43 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Amas_Rugosite
+Fra:1 Mem:3371.65M (Peak 6254.93M) | Time:498144:45:45.70 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Amas
+Fra:1 Mem:3371.65M (Peak 6254.93M) | Time:498144:45:45.70 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | TireFonds
+Fra:1 Mem:3371.66M (Peak 6254.93M) | Time:498144:45:45.70 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CaillouxAmas
+Fra:1 Mem:3371.89M (Peak 6254.93M) | Time:498144:45:45.70 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesAmas
+Fra:1 Mem:3553.88M (Peak 6254.93M) | Time:498144:45:45.70 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Levres
+Fra:1 Mem:3628.98M (Peak 6254.93M) | Time:498144:45:45.71 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Dents
+Fra:1 Mem:3634.59M (Peak 6254.93M) | Time:498144:45:45.71 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Gencives
+Fra:1 Mem:3698.45M (Peak 6254.93M) | Time:498144:45:45.82 | Mem:0.00M, Peak:0.00M | Scene | Initializing
+Fra:1 Mem:3698.45M (Peak 6254.93M) | Time:498144:45:45.82 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Amas_Rugosite
+Fra:1 Mem:3371.65M (Peak 6254.93M) | Time:498144:45:54.22 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Amas
+Fra:1 Mem:3371.65M (Peak 6254.93M) | Time:498144:45:54.22 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | TireFonds
+Fra:1 Mem:3371.66M (Peak 6254.93M) | Time:498144:45:54.22 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CaillouxAmas
+Fra:1 Mem:3371.89M (Peak 6254.93M) | Time:498144:45:54.22 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesAmas
+Fra:1 Mem:3553.88M (Peak 6254.93M) | Time:498144:45:54.22 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Levres
+Fra:1 Mem:3628.98M (Peak 6254.93M) | Time:498144:45:54.23 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Dents
+Fra:1 Mem:3634.59M (Peak 6254.93M) | Time:498144:45:54.23 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Gencives
+Fra:1 Mem:3698.45M (Peak 6254.93M) | Time:498144:45:54.33 | Mem:0.00M, Peak:0.00M | Scene | Initializing
+Fra:1 Mem:3698.45M (Peak 6254.93M) | Time:498144:45:54.33 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Amas_Rugosite
 Info: Baking map saved to internal image, save it externally or pack it
 >>   cuit Amas Rugosite
->>   exporté Amas : 151608 sommets, 200000 triangles
+>>   exporté Amas : 151303 sommets, 200000 triangles
 >> fin
 
 Blender quit
-duree_s=1411
+duree_s=1239
