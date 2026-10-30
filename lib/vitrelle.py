@@ -11,7 +11,7 @@ from abysse import mesh_obj, xf_verts, tube_bm, ell_bm, box_bm, torus_bm
 UP = Vector((0, 0, 1))
 CROWN = Vector((0.05, 0.0, 0.13))
 EYE_BASE = {s: Vector((0.06, s*0.17, 0.42)) for s in (-1, 1)}
-EYE_AX = {s: Vector((0.4, s*0.75, 0.5)).normalized() for s in (-1, 1)}
+EYE_AX = {s: Vector((0.3, s*0.9, 0.25)).normalized() for s in (-1, 1)}
 EYE_R = 0.07                                    # rayon du globe oculaire
 EYE_C = {s: EYE_BASE[s] + EYE_AX[s]*0.075 for s in (-1, 1)}
 
@@ -70,6 +70,18 @@ def smooth_body(ob, iters=24, r0=0.42, r1=0.62):
         if w > 0: vg.add([v.index], w*w*(3 - 2*w), 'REPLACE')
     m = ob.modifiers.new('lisse', 'LAPLACIANSMOOTH'); m.iterations = iters; m.lambda_factor = 0.5; m.use_volume_preserve = True; m.vertex_group = 'corps'
     B.bake_mods(ob)
+
+def pigment(ob):
+    """attribut « pigment » : masque de chromatophores sombres autour des yeux, plus dense sur l'arcade"""
+    at = ob.data.attributes.new('pigment', 'FLOAT', 'POINT')
+    ss = lambda e0, e1, x: (lambda t: t*t*(3 - 2*t))(max(0.0, min(1.0, (x - e0)/(e1 - e0))))
+    Fi = {sg: eye_frame(sg).transposed() for sg in (-1, 1)}
+    for v in ob.data.vertices:
+        w = 0.0
+        for sg in (-1, 1):
+            q = Fi[sg] @ ((v.co - EYE_C[sg])/EYE_R); d = q.length
+            if d < 2.6: w = max(w, (1 - ss(1.2, 2.4, d))*(0.5 + 0.5*ss(-0.3, 0.8, q.y)))
+        at.data[v.index].value = w
 
 def spindle_bm(bm, c, half_len, rad, R, seg=48):
     """fuseau : section (1-u²)^0.85, bouts effilés"""
@@ -150,12 +162,14 @@ def build(log=print, seed=21, raised=(1, 6)):
         b0 = EYE_BASE[sg]; e = EYE_AX[sg]
         tube_bm(bm, b0 - e*0.04, b0 + e*0.06, 0.066, 40)                        # orbite : le globe dépasse de la peau
         torus_bm(bm, b0 + e*0.066, e, 0.069, 0.015, 48, 14)                     # bourrelet autour de l'œil
+        F = eye_frame(sg); xl, yl, zl = F.col[0], F.col[1], F.col[2]
+        ell_bm(bm, EYE_C[sg] + yl*EYE_R*0.82 + zl*EYE_R*0.1, (EYE_R*1.3, EYE_R*0.42, EYE_R*0.78), F @ Matrix.Rotation(sg*0.35, 3, 'Z'), 40)   # arcade qui retombe vers l'avant
     tube_bm(bm, Vector((-0.04, -0.24, 0.24)), Vector((0.06, -0.33, 0.17)), 0.04, 20)
     skin.append(mesh_obj('corps', bm))
     for o in skin: B.bake_mods(o)
     body = B.remesh(B.join(skin, 'Vitrelle'), voxel=0.0034, smooth=6)
     smooth_body(body, iters=24)
-    B.shade_smooth(body)
+    B.shade_smooth(body); pigment(body)
     log(f'peau : {len(body.data.polygons)} faces')
     parts = dict(peau=body)
     # ventouses : deux rangées alternées sur la face orale
@@ -187,11 +201,6 @@ def build(log=print, seed=21, raised=(1, 6)):
         sg = -1 if v.co.y < 0 else 1
         at.data[v.index].vector = eye_frame(sg).transposed() @ ((v.co - EYE_C[sg])/EYE_R)
     parts['yeux'] = eye; parts['cornees'] = mesh_obj('Cornees', bmk, smooth=True)
-    # paupière supérieure pigmentée, abaissée vers l'avant : regard lourd, menaçant
-    bm = bmesh.new()
-    for sg in (-1, 1): lid_bm(bm, sg)
-    lid = mesh_obj('Paupieres', bm, smooth=True); so = lid.modifiers.new('ep', 'SOLIDIFY'); so.thickness = 0.007; so.offset = 1.0
-    sb = lid.modifiers.new('sub', 'SUBSURF'); sb.levels = 1; B.bake_mods(lid); B.shade_smooth(lid); parts['paupieres'] = lid
     # organes visibles par transparence
     bm_g, bm_h, bm_b, bm_n, bm_br = bmesh.new(), bmesh.new(), bmesh.new(), bmesh.new(), bmesh.new()
     Rm = B.frame(MANTLE_AX, UP).to_3x3()
@@ -251,13 +260,13 @@ def build(log=print, seed=21, raised=(1, 6)):
 # ================================================================ matériaux
 def mats(glow=6.0):
     M = {}
-    M['peau'] = _verre_vivant('PeauVerre', density=1.2, spots=True)
+    M['peau'] = _verre_vivant('PeauVerre', density=1.2, spots=True, pig=True)
     M['ventouse'] = _verre_vivant('Ventouse', density=6.0, milk=0.55, spots=False)
     m = bpy.data.materials.new('Cornee'); m.use_nodes = True; b = m.node_tree.nodes['Principled BSDF']
     b.inputs['Base Color'].default_value = (1, 1, 1, 1); b.inputs['Roughness'].default_value = 0.0; b.inputs['Transmission Weight'].default_value = 1; b.inputs['IOR'].default_value = 1.376
+    m.node_tree.links.new(_ombre_claire(m.node_tree, b.outputs[0]), m.node_tree.nodes['Material Output'].inputs['Surface'])
     M['cornee'] = m
     M['oeil'] = _oeil(glow)
-    M['paupiere'] = _paupiere()
     M['glande'] = _argent()
     M['coeur'] = _organe('Coeur', (0.35, 0.03, 0.04), 1.2, (1.0, 0.1, 0.1))
     M['branchie'] = _organe('Branchie', (0.85, 0.62, 0.62), 0.0)
@@ -335,16 +344,6 @@ def _oeil(glow):
     L.new(math('ADD', math('MULTIPLY', core, gv.outputs[0]), math('MULTIPLY', iris, math('MULTIPLY', gv.outputs[0], 0.06))), b.inputs['Emission Strength'])
     return m
 
-def _paupiere():
-    """peau pigmentée (chromatophores serrés brun-rouge), humide, à peine translucide"""
-    m = bpy.data.materials.new('Paupiere'); m.use_nodes = True; nt = m.node_tree; b = nt.nodes['Principled BSDF']; L = nt.links
-    tc = nt.nodes.new('ShaderNodeTexCoord'); vo = nt.nodes.new('ShaderNodeTexVoronoi'); vo.inputs['Scale'].default_value = 140; L.new(tc.outputs['Object'], vo.inputs['Vector'])
-    r = B.ramp(nt, (0, 0), [(0.0, (0.07, 0.012, 0.006, 1)), (0.35, (0.3, 0.08, 0.04, 1)), (0.8, (0.55, 0.32, 0.22, 1))]); L.new(vo.outputs['Distance'], r.inputs[0])
-    L.new(r.outputs['Color'], b.inputs['Base Color'])
-    b.inputs['Roughness'].default_value = 0.4; b.inputs['Coat Weight'].default_value = 0.8; b.inputs['Coat Roughness'].default_value = 0.05
-    b.inputs['Transmission Weight'].default_value = 0.25; b.inputs['Subsurface Weight'].default_value = 0.3; b.inputs['Subsurface Scale'].default_value = 0.01
-    return m
-
 def _argent():
     """glande digestive : fuseau couvert de cellules réfléchissantes (camouflage du poulpe de verre), irisé"""
     m = bpy.data.materials.new('GlandeArgent'); m.use_nodes = True; nt = m.node_tree; b = nt.nodes['Principled BSDF']; L = nt.links
@@ -375,11 +374,17 @@ def _organe(name, col, emi, ecol=(1, 0.2, 0.2)):
     if emi: b.inputs['Emission Color'].default_value = (*ecol, 1); b.inputs['Emission Strength'].default_value = emi
     return m
 
-def _verre_vivant(name, density=1.2, milk=0.12, spots=True):
+def _ombre_claire(nt, surf):
+    """les rayons d'ombre traversent le verre : les organes à l'intérieur reçoivent la lumière directe (pas de caustiques à calculer)"""
+    lp = nt.nodes.new('ShaderNodeLightPath'); tr = nt.nodes.new('ShaderNodeBsdfTransparent'); mx = nt.nodes.new('ShaderNodeMixShader')
+    nt.links.new(lp.outputs['Is Shadow Ray'], mx.inputs[0]); nt.links.new(surf, mx.inputs[1]); nt.links.new(tr.outputs[0], mx.inputs[2])
+    return mx.outputs[0]
+
+def _verre_vivant(name, density=1.2, milk=0.12, spots=True, pig=False, ior=1.15):
     """chair de verre : transmission, film mince irisé, gel légèrement laiteux à l'intérieur, chromatophores épars"""
     m = bpy.data.materials.new(name); m.use_nodes = True; nt = m.node_tree; L = nt.links
     out = nt.nodes['Material Output']; g = nt.nodes['Principled BSDF']
-    g.inputs['Base Color'].default_value = (0.9, 0.95, 0.97, 1); g.inputs['Roughness'].default_value = 0.07; g.inputs['IOR'].default_value = 1.35
+    g.inputs['Base Color'].default_value = (0.9, 0.95, 0.97, 1); g.inputs['Roughness'].default_value = 0.07; g.inputs['IOR'].default_value = ior
     g.inputs['Transmission Weight'].default_value = 1.0; g.inputs['Coat Weight'].default_value = 0.25; g.inputs['Coat Roughness'].default_value = 0.03
     if 'Thin Film Thickness' in g.inputs: g.inputs['Thin Film Thickness'].default_value = 320.0; g.inputs['Thin Film IOR'].default_value = 1.38
     tc = nt.nodes.new('ShaderNodeTexCoord')
@@ -393,15 +398,24 @@ def _verre_vivant(name, density=1.2, milk=0.12, spots=True):
         rm = B.ramp(nt, (0, -200), [(0.5, (0, 0, 0, 1)), (0.7, (0.8, 0.8, 0.8, 1))]); L.new(ns.outputs['Fac'], rm.inputs[0])
         mm = nt.nodes.new('ShaderNodeMath'); mm.operation = 'MULTIPLY'; L.new(rr.outputs['Color'], mm.inputs[0]); L.new(rm.outputs['Color'], mm.inputs[1])
         d = nt.nodes.new('ShaderNodeBsdfPrincipled'); d.inputs['Base Color'].default_value = (0.25, 0.06, 0.04, 1); d.inputs['Roughness'].default_value = 0.4
-        mix = nt.nodes.new('ShaderNodeMixShader'); L.new(mm.outputs[0], mix.inputs[0]); L.new(surf, mix.inputs[1]); L.new(d.outputs[0], mix.inputs[2]); surf = mix.outputs[0]
-    L.new(surf, out.inputs['Surface'])
+        fac = mm.outputs[0]
+        if pig:                                          # masque sombre autour des yeux : chromatophores serrés
+            at = nt.nodes.new('ShaderNodeAttribute'); at.attribute_name = 'pigment'
+            d.inputs['Base Color'].default_value = (0.11, 0.022, 0.012, 1); d.inputs['Coat Weight'].default_value = 0.7; d.inputs['Coat Roughness'].default_value = 0.05
+            pm = nt.nodes.new('ShaderNodeMath'); pm.operation = 'MULTIPLY'; L.new(at.outputs['Fac'], pm.inputs[0]); pm.inputs[1].default_value = 0.9
+            sp = nt.nodes.new('ShaderNodeMath'); sp.operation = 'MULTIPLY'; L.new(rr.outputs['Color'], sp.inputs[0]); L.new(at.outputs['Fac'], sp.inputs[1])
+            a1 = nt.nodes.new('ShaderNodeMath'); a1.operation = 'ADD'; a1.use_clamp = True; L.new(fac, a1.inputs[0]); L.new(pm.outputs[0], a1.inputs[1])
+            a2 = nt.nodes.new('ShaderNodeMath'); a2.operation = 'ADD'; a2.use_clamp = True; L.new(a1.outputs[0], a2.inputs[0]); L.new(sp.outputs[0], a2.inputs[1])
+            fac = a2.outputs[0]
+        mix = nt.nodes.new('ShaderNodeMixShader'); L.new(fac, mix.inputs[0]); L.new(surf, mix.inputs[1]); L.new(d.outputs[0], mix.inputs[2]); surf = mix.outputs[0]
+    L.new(_ombre_claire(nt, surf), out.inputs['Surface'])
     va = nt.nodes.new('ShaderNodeVolumeAbsorption'); va.inputs['Color'].default_value = (0.88, 0.95, 0.97, 1); va.inputs['Density'].default_value = density
     vs = nt.nodes.new('ShaderNodeVolumeScatter'); vs.inputs['Color'].default_value = (0.9, 0.95, 1, 1); vs.inputs['Density'].default_value = milk; vs.inputs['Anisotropy'].default_value = 0.4
     av = nt.nodes.new('ShaderNodeAddShader'); L.new(va.outputs[0], av.inputs[0]); L.new(vs.outputs[0], av.inputs[1]); L.new(av.outputs[0], out.inputs['Volume'])
     return m
 
 def assign(parts, M):
-    pairs = dict(paupieres='paupiere', peau='peau', ventouses='ventouse', pores='pore', yeux='oeil', cornees='cornee', glande='glande', cordon='cordon',
+    pairs = dict(peau='peau', ventouses='ventouse', pores='pore', yeux='oeil', cornees='cornee', glande='glande', cordon='cordon',
                  coeurs='coeur', branchies='branchie', nerfs='nerf', badge='badge', bec='bec', photo_v='photo_v', photo_r='photo_r')
     for k, o in parts.items(): o.data.materials.clear(); o.data.materials.append(M[pairs[k]])
 
