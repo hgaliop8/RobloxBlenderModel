@@ -35,10 +35,10 @@ elif CREA == 'echo':
     A.echo(M, c=(0.9, 0.3, 0.7), yaw=math.pi - 0.15, pitch=0.32)
     A.eau_trouble('Brume', (-4.6, -4.6, 0.01), (4.6, 4.6, 5.4), (0.5, 0.55, 0.55), 0.018, 0.3)
     A.eau_trouble('EauNoire', (-4.6, -4.6, -4.0), (4.6, 4.6, -0.01), (0.03, 0.12, 0.1), 0.6, 0.2)
-    A.neige_marine((-4, -4, 0.1), (4, 4, 5), 1800)
+    A.neige_marine((-4, -4, 0.1), (4, 4, 5), 1800, avoid=[(-3.9, -0.9, 3.55), (-2.4, -1.4, 1.1)], avoid_r=1.6)
     B.light('AREA', (0, 0, 5.3), 300, (0.6, 0.75, 0.9), size=1.0, target=(0.5, 0.2, 0), name='Trappe')
     B.light('POINT', (-2.8, 3.2, 3.0), 60, (1.0, 0.08, 0.04), size=0.1, name='Alarme')
-    VUES = [('echo_citerne', (-3.9, -0.9, 3.55), (0.0, 0.2, 0.6), 26), ('echo_gueule', (-2.6, -1.2, 1.2), (-0.3, 0.35, 0.3), 30)]
+    VUES = [('echo_citerne', (-3.9, -0.9, 3.55), (0.0, 0.2, 0.6), 26), ('echo_gueule', (-2.4, -1.4, 1.1), (-0.2, 0.3, 0.15), 26)]
 elif CREA == 'scaph':
     A.coursive(M, alarme=14)
     bpy.ops.mesh.primitive_plane_add(size=1); w = bpy.context.object; w.scale = (16, 3, 1); w.location = (4, 0, -0.86); w.data.materials.append(M['eau'])

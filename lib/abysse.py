@@ -66,7 +66,7 @@ def mats():
     M['gelee'] = _gelee('Gelee', (0.62, 0.82, 0.86), 0.06)
     M['filament'] = _gelee('Filament', (0.95, 0.55, 0.65), 0.35)
     M['tige'] = _gelee('Tige', (0.9, 0.6, 0.7), 0.15)
-    M['peau_echo'] = _peau('PeauEcho', (0.2, 0.21, 0.23), (0.09, 0.085, 0.09))
+    M['peau_echo'] = _peau_baleine()
     M['oeil'] = _verre('OeilLaiteux', 0.35, (0.85, 0.9, 0.92))
     M['langue'] = _peau('Langue', (0.28, 0.12, 0.13), (0.12, 0.04, 0.05), sss=0.3)
     M['fanon'] = S('Fanon', (0.07, 0.06, 0.05), 0.45, noise_scale=60, noise_col=(0.02, 0.018, 0.015), bump=0.4)
@@ -122,6 +122,27 @@ def _gelee(name='Gelee', col=(0.6, 0.8, 0.85), emi=0.25):
     nt.links.new(lw.outputs['Facing'], b.inputs['Coat Weight'])
     return m
 
+def _peau_baleine():
+    m = bpy.data.materials.new('PeauEcho'); m.use_nodes = True; nt = m.node_tree; b = nt.nodes['Principled BSDF']
+    tc = nt.nodes.new('ShaderNodeTexCoord')
+    n = nt.nodes.new('ShaderNodeTexNoise'); n.inputs['Scale'].default_value = 1.6; n.inputs['Detail'].default_value = 8; nt.links.new(tc.outputs['Object'], n.inputs['Vector'])
+    r = B.ramp(nt, (0, 0), [(0.35, (0.05, 0.06, 0.075, 1)), (0.6, (0.13, 0.14, 0.16, 1)), (0.75, (0.24, 0.22, 0.22, 1))]); nt.links.new(n.outputs['Fac'], r.inputs[0])
+    # cicatrices : longues griffures pâles (bandes étirées)
+    mp = nt.nodes.new('ShaderNodeMapping'); mp.inputs['Scale'].default_value = (6, 0.6, 0.6); mp.inputs['Rotation'].default_value = (0.3, 0.5, 0.2)
+    nt.links.new(tc.outputs['Object'], mp.inputs['Vector'])
+    w = nt.nodes.new('ShaderNodeTexWave'); w.inputs['Scale'].default_value = 3; w.inputs['Distortion'].default_value = 4; nt.links.new(mp.outputs[0], w.inputs['Vector'])
+    rs = B.ramp(nt, (0, -200), [(0.0, (1, 1, 1, 1)), (0.06, (0, 0, 0, 1))]); nt.links.new(w.outputs['Fac'], rs.inputs[0])
+    n2 = nt.nodes.new('ShaderNodeTexNoise'); n2.inputs['Scale'].default_value = 2.5; nt.links.new(tc.outputs['Object'], n2.inputs['Vector'])
+    rm = B.ramp(nt, (0, -400), [(0.55, (0, 0, 0, 1)), (0.65, (1, 1, 1, 1))]); nt.links.new(n2.outputs['Fac'], rm.inputs[0])
+    mm = nt.nodes.new('ShaderNodeMath'); mm.operation = 'MULTIPLY'; nt.links.new(rs.outputs['Color'], mm.inputs[0]); nt.links.new(rm.outputs['Color'], mm.inputs[1])
+    mx = nt.nodes.new('ShaderNodeMix'); mx.data_type = 'RGBA'; A_, B_, R_ = B._mix_sockets(mx)
+    nt.links.new(mm.outputs[0], mx.inputs[0]); nt.links.new(r.outputs['Color'], A_); B_.default_value = (0.42, 0.4, 0.38, 1); nt.links.new(R_, b.inputs['Base Color'])
+    b.inputs['Roughness'].default_value = 0.28; b.inputs['Coat Weight'].default_value = 0.5; b.inputs['Coat Roughness'].default_value = 0.1
+    b.inputs['Subsurface Weight'].default_value = 0.08; b.inputs['Subsurface Radius'].default_value = (1.0, 0.4, 0.3); b.inputs['Subsurface Scale'].default_value = 0.05
+    n3 = nt.nodes.new('ShaderNodeTexNoise'); n3.inputs['Scale'].default_value = 40; nt.links.new(tc.outputs['Object'], n3.inputs['Vector'])
+    bp = nt.nodes.new('ShaderNodeBump'); bp.inputs['Strength'].default_value = 0.15; nt.links.new(n3.outputs['Fac'], bp.inputs['Height']); nt.links.new(bp.outputs[0], b.inputs['Normal'])
+    return m
+
 def _peau(name, col, col2, sss=0.15):
     m = B.mat_simple(name, col, 0.5, noise_scale=3, noise_col=col2, bump=0.35); b = m.node_tree.nodes['Principled BSDF']
     b.inputs['Subsurface Weight'].default_value = sss; b.inputs['Subsurface Radius'].default_value = (1.0, 0.4, 0.3); b.inputs['Subsurface Scale'].default_value = 0.05
@@ -135,11 +156,12 @@ def eau_trouble(name, lo, hi, col=(0.1, 0.45, 0.42), dens=0.06, aniso=0.5):
     nt.links.new(v.outputs[0], nt.nodes['Material Output'].inputs['Volume']); ob.data.materials.append(m)
     return ob
 
-def neige_marine(lo, hi, n=2500, seed=3):
+def neige_marine(lo, hi, n=2500, seed=3, avoid=(), avoid_r=1.2):
     """particules en suspension (neige marine)"""
     rng = random.Random(seed); bm = bmesh.new()
     for k in range(n):
         p = Vector([rng.uniform(lo[i], hi[i]) for i in range(3)]); s = rng.uniform(0.002, 0.006)
+        if any((p - Vector(a)).length < avoid_r for a in avoid): continue
         o = bmesh.ops.create_icosphere(bm, subdivisions=1, radius=s); xf_verts(o['verts'], Matrix.Translation(p))
     m = B.mat_simple('Neige', (0.7, 0.75, 0.72), 0.8); b = m.node_tree.nodes['Principled BSDF']
     b.inputs['Emission Color'].default_value = (0.5, 0.7, 0.65, 1); b.inputs['Emission Strength'].default_value = 0.15
@@ -262,8 +284,8 @@ def echo(M, c=(0, 0, 0.0), yaw=0.0, pitch=0.0, seed=11):
     bm = bmesh.new(); ell_bm(bm, P(1.55, 0, -0.55), (1.05, 0.66, 0.33), R @ Matrix.Rotation(0.18, 3, 'Y'), 32); cut = mesh_obj('cut', bm)
     m = head.modifiers.new('bouche', 'BOOLEAN'); m.operation = 'DIFFERENCE'; m.object = cut; m.solver = 'FAST'
     t = bpy.data.textures.new('plis_echo', 'WOOD'); t.wood_type = 'BANDNOISE'; t.noise_scale = 0.35; t.turbulence = 9
-    d1 = head.modifiers.new('plis', 'DISPLACE'); d1.texture = t; d1.strength = 0.05; d1.texture_coords = 'LOCAL'
-    B.displace(head, 'CLOUDS', 0.5, 0.07, 2, name='echo_bosses'); B.displace(head, 'VORONOI', 0.07, 0.014, name='echo_rides')
+    d1 = head.modifiers.new('plis', 'DISPLACE'); d1.texture = t; d1.strength = 0.03; d1.texture_coords = 'LOCAL'
+    B.displace(head, 'CLOUDS', 0.7, 0.025, 2, name='echo_bosses'); B.displace(head, 'VORONOI', 0.06, 0.004, name='echo_rides')
     B.bake_mods(head); bpy.data.objects.remove(cut); B.shade_smooth(head); head.data.materials.append(M['peau_echo'])
     # langue grasse au fond de la gueule
     bm = bmesh.new(); ell_bm(bm, P(1.15, 0, -0.68), (0.75, 0.42, 0.14), Rj, 32); lg = mesh_obj('Langue', bm, M['langue'], True)
@@ -277,6 +299,14 @@ def echo(M, c=(0, 0, 0.0), yaw=0.0, pitch=0.0, seed=11):
         box_bm(bm, base - R @ Vector((0, 0, hh/2)), (0.028, 0.004, hh/2), Rb)
         if rng.random() < 0.5: box_bm(bm, base - R @ Vector((0.02, 0, hh*0.9)), (0.012, 0.003, hh*0.25), Rb)   # franges
     mesh_obj('Fanons', bm, M['fanon'], True)
+    # barbillons pâles qui pendent de la mâchoire dans l'eau
+    bm = bmesh.new()
+    for k in range(36):
+        a = (k/35 - 0.5)*2.6; base = P(1.0 + 1.15*math.cos(a), 0.78*math.sin(a), -1.0)
+        ln = rng.uniform(0.6, 1.4); ph = rng.uniform(0, 6.28)
+        pts = [base + Vector((math.sin(t*5 + ph)*0.06, math.cos(t*4 + ph)*0.06, -ln*t)) for t in [j/12 for j in range(13)]]
+        for j, (a_, b_) in enumerate(zip(pts[:-1], pts[1:])): tube_bm(bm, a_, b_, 0.018*(1 - j/13) + 0.003, 8)
+    mesh_obj('Barbillons', bm, M['anguille'], True)
     # yeux laiteux enfoncés, et rangées de pores sur le melon
     bm = bmesh.new(); bmp = bmesh.new()
     for sg in (-1, 1):
