@@ -57,15 +57,18 @@ def mats():
     M['tuyau'] = _rouille_peinte('Tuyau', (0.22, 0.2, 0.12), (0.13, 0.05, 0.02))
     M['caillebotis'] = S('Caillebotis', (0.18, 0.18, 0.18), 0.5, 0.9, noise_scale=30, noise_col=(0.08, 0.04, 0.02), bump=0.2)
     M['verre'] = _verre('Hublot', 0.05)
-    M['verre_buee'] = _verre('Buee', 0.45, (0.75, 0.82, 0.8))
+    M['verre_buee'] = _verre('Buee', 0.22, (0.7, 0.85, 0.8))
     M['rouge'] = _emission('Alarme', (1.0, 0.06, 0.03), 18)
     M['vert'] = _emission('Sortie', (0.15, 1.0, 0.35), 9)
     M['noir'] = S('Noir', (0.01, 0.012, 0.015), 0.6)
     M['eau'] = _eau()
     M['laiton'] = _laiton()
-    M['gelee'] = _gelee()
-    M['filament'] = _gelee('Filament', (0.9, 0.5, 0.6), 0.6)
-    M['peau_echo'] = _peau('PeauEcho', (0.36, 0.33, 0.32), (0.2, 0.17, 0.17))
+    M['gelee'] = _gelee('Gelee', (0.62, 0.82, 0.86), 0.06)
+    M['filament'] = _gelee('Filament', (0.95, 0.55, 0.65), 0.35)
+    M['tige'] = _gelee('Tige', (0.9, 0.6, 0.7), 0.15)
+    M['peau_echo'] = _peau('PeauEcho', (0.2, 0.21, 0.23), (0.09, 0.085, 0.09))
+    M['oeil'] = _verre('OeilLaiteux', 0.35, (0.85, 0.9, 0.92))
+    M['langue'] = _peau('Langue', (0.28, 0.12, 0.13), (0.12, 0.04, 0.05), sss=0.3)
     M['fanon'] = S('Fanon', (0.07, 0.06, 0.05), 0.45, noise_scale=60, noise_col=(0.02, 0.018, 0.015), bump=0.4)
     M['anguille'] = _peau('Anguille', (0.25, 0.27, 0.22), (0.08, 0.09, 0.07), sss=0.3)
     M['bernacle'] = S('Bernacle', (0.45, 0.43, 0.38), 0.85, noise_scale=80, noise_col=(0.15, 0.14, 0.12), bump=0.6)
@@ -102,13 +105,13 @@ def _eau():
 def _laiton():
     m = bpy.data.materials.new('Laiton'); m.use_nodes = True; nt = m.node_tree; b = nt.nodes['Principled BSDF']
     b.inputs['Metallic'].default_value = 1.0
-    tc = nt.nodes.new('ShaderNodeTexCoord'); n = nt.nodes.new('ShaderNodeTexNoise'); n.inputs['Scale'].default_value = 9; n.inputs['Detail'].default_value = 10
+    tc = nt.nodes.new('ShaderNodeTexCoord'); n = nt.nodes.new('ShaderNodeTexNoise'); n.inputs['Scale'].default_value = 4; n.inputs['Detail'].default_value = 6
     nt.links.new(tc.outputs['Object'], n.inputs['Vector'])
     r = B.ramp(nt, (0, 0), [(0.45, (0.55, 0.37, 0.15, 1)), (0.6, (0.32, 0.2, 0.08, 1)), (0.7, (0.12, 0.3, 0.24, 1))])   # laiton, terni, vert-de-gris
     nt.links.new(n.outputs['Fac'], r.inputs[0]); nt.links.new(r.outputs['Color'], b.inputs['Base Color'])
     rr = B.ramp(nt, (0, -200), [(0.45, (0.3, 0.3, 0.3, 1)), (0.7, (0.75, 0.75, 0.75, 1))]); nt.links.new(n.outputs['Fac'], rr.inputs[0]); nt.links.new(rr.outputs['Color'], b.inputs['Roughness'])
     mt = B.ramp(nt, (0, -400), [(0.6, (1, 1, 1, 1)), (0.7, (0.1, 0.1, 0.1, 1))]); nt.links.new(n.outputs['Fac'], mt.inputs[0]); nt.links.new(mt.outputs['Color'], b.inputs['Metallic'])
-    bp = nt.nodes.new('ShaderNodeBump'); bp.inputs['Strength'].default_value = 0.25; nt.links.new(n.outputs['Fac'], bp.inputs['Height']); nt.links.new(bp.outputs[0], b.inputs['Normal'])
+    bp = nt.nodes.new('ShaderNodeBump'); bp.inputs['Strength'].default_value = 0.06; nt.links.new(n.outputs['Fac'], bp.inputs['Height']); nt.links.new(bp.outputs[0], b.inputs['Normal'])
     return m
 
 def _gelee(name='Gelee', col=(0.6, 0.8, 0.85), emi=0.25):
@@ -143,7 +146,7 @@ def neige_marine(lo, hi, n=2500, seed=3):
     return mesh_obj('NeigeMarine', bm, m)
 
 # ================================================================ décor : coursive cylindrique
-def coursive(M, L=16.0, R=1.5, x0=-4.0, porte=True, rng_seed=1):
+def coursive(M, L=16.0, R=1.5, x0=-4.0, porte=True, rng_seed=1, alarme=25):
     rng = random.Random(rng_seed)
     bm = bmesh.new(); o = bmesh.ops.create_cone(bm, cap_ends=False, segments=64, radius1=R, radius2=R, depth=L)
     xf_verts(o['verts'], Matrix.Translation((x0 + L/2, 0, 0)) @ Matrix.Rotation(math.pi/2, 4, 'Y'))
@@ -174,7 +177,7 @@ def coursive(M, L=16.0, R=1.5, x0=-4.0, porte=True, rng_seed=1):
     for x in (x0 + 1.4, x0 + 6.2, x0 + 11.0):
         box_bm(bm, (x, 0, 1.43), (0.12, 0.05, 0.03)); lamps.append(Vector((x, 0, 1.3)))
     mesh_obj('Alarmes', bm, M['rouge'])
-    for p in lamps: B.light('POINT', tuple(p), 25, (1.0, 0.08, 0.04), size=0.08, name='LumAlarme')
+    for p in lamps: B.light('POINT', tuple(p), alarme, (1.0, 0.08, 0.04), size=0.08, name='LumAlarme')
     # sas au fond
     if porte:
         bm = bmesh.new(); torus_bm(bm, (x0 + L - 0.3, 0, 0), (1, 0, 0), 0.75, 0.08); ell_bm(bm, (x0 + L - 0.25, 0, 0), (0.03, 0.72, 0.72))
@@ -189,28 +192,32 @@ def siphon(M, path_pts, n=64, seed=7, lure_at=None):
     """colonie : chaîne de cloches translucides (nectophores), organes lumineux, filaments urticants qui pendent"""
     rng = random.Random(seed); path = B.Path(path_pts)
     bm_b = bmesh.new(); bm_o_r = bmesh.new(); bm_o_v = bmesh.new(); bm_f = bmesh.new(); bm_t = bmesh.new()
-    for i in range(n):
-        f = i/(n - 1); x = path.L*f; p, d = path.at(x)
-        s = (1.0 - 0.65*f)*(1.35 if i < 3 else 1.0)
+    stem = [path.at(path.L*k/120)[0] for k in range(121)]
+    for a, b in zip(stem[:-1], stem[1:]): tube_bm(bm_f, a, b, 0.011, 10, cap=False)
+    i = 0; x = 0.0
+    while x < path.L:
+        f = x/path.L; p, d = path.at(x)
+        s = (1.0 - 0.6*f)*(1.35 if i < 3 else 1.0)*rng.uniform(0.7, 1.3)
         up = Vector((0, 0, 1)); Fm = B.frame(d, up).to_3x3()
-        wob = Matrix.Rotation(math.sin(i*1.7)*0.35, 3, d)
-        # cloche : demi-ellipsoïde creuse vue de l'extérieur
-        ell_bm(bm_b, p, (0.11*s, 0.085*s, 0.08*s), wob @ Fm, 24)
-        ell_bm(bm_b, p + d*0.05*s, (0.06*s, 0.06*s, 0.055*s), wob @ Fm, 16)
-        # organe lumineux : vert près de la tête (le leurre « sortie »), rouge ailleurs (le leurre « alarme »)
-        green = (i % 5 == 0) or (i < 8)
-        ell_bm(bm_o_v if green else bm_o_r, p - Fm.col[2]*0.02*s, (0.025*s, 0.02*s, 0.02*s), Fm, 10)
-        # filaments
-        for k in range(rng.choice([1, 2, 2, 3])):
-            q = p - Fm.col[2]*0.06*s; sk = []
-            ln = rng.uniform(0.5, 1.3)*(1.2 - 0.5*f); drift = Vector((rng.uniform(-0.3, 0.3), rng.uniform(-0.3, 0.3), 0))
-            pts = [q + (Vector((0, 0, -1)) + drift*t + Vector((math.sin(t*9 + i), math.cos(t*7 + k), 0))*0.04)*ln*t for t in [j/14 for j in range(15)]]
-            for a, b in zip(pts[:-1], pts[1:]): tube_bm(bm_f, a, b, 0.0025, 6, cap=False)
-            for t in (0.35, 0.6, 0.85, 1.0):     # petites perles urticantes
-                ell_bm(bm_t, pts[int(t*14)], (0.008, 0.008, 0.011), Matrix.Identity(3), 8)
+        wob = Matrix.Rotation(rng.uniform(-1.2, 1.2), 3, d) @ Matrix.Rotation(rng.uniform(-0.3, 0.3), 3, Fm.col[1])
+        off = (Fm.col[1]*rng.uniform(-1, 1) + Fm.col[2]*rng.uniform(-1, 1))*0.03*s
+        # cloche : forme irrégulière, ouverture vers l'arrière, paroi double
+        ell_bm(bm_b, p + off, (0.12*s*rng.uniform(0.8, 1.25), 0.085*s, 0.075*s*rng.uniform(0.8, 1.2)), wob @ Fm, 24)
+        ell_bm(bm_b, p + off + d*0.04*s, (0.055*s, 0.05*s, 0.045*s), wob @ Fm, 16)
+        green = (i % 6 == 0) or (i < 6)
+        if rng.random() < 0.8:
+            ell_bm(bm_o_v if green else bm_o_r, p + off - Fm.col[2]*0.02*s, (0.02*s, 0.016*s, 0.016*s), Fm, 10)
+        for k in range(rng.choice([1, 2, 2, 3, 4])):
+            q = p + off - Fm.col[2]*0.06*s
+            ln = rng.uniform(0.6, 1.7)*(1.25 - 0.5*f); drift = Vector((rng.uniform(-0.4, 0.4), rng.uniform(-0.4, 0.4), 0)); ph = rng.uniform(0, 6.28)
+            pts = [q + (Vector((0, 0, -1)) + drift*t)*ln*t + Vector((math.sin(t*11 + ph), math.cos(t*8 + ph*1.3), 0))*0.05*t for t in [j/20 for j in range(21)]]
+            for a, b in zip(pts[:-1], pts[1:]): tube_bm(bm_f, a, b, 0.0014*(1.2 - 0.5*(pts.index(a)/20)), 6, cap=False)
+            for t in (0.4, 0.7, 1.0):
+                ell_bm(bm_t, pts[int(t*20)], (0.006, 0.006, 0.009), Matrix.Identity(3), 8)
+        x += rng.uniform(0.07, 0.22)*(1.0 - 0.4*f); i += 1
     obs = [mesh_obj('SiphonCloches', bm_b, M['gelee'], True), mesh_obj('SiphonFilaments', bm_f, M['filament'], True),
            mesh_obj('SiphonPerles', bm_t, _emission('Perle', (0.9, 0.3, 0.5), 1.5), True),
-           mesh_obj('SiphonOrganesR', bm_o_r, _emission('OrganeR', (1.0, 0.08, 0.04), 14), True),
+           mesh_obj('SiphonOrganesR', bm_o_r, _emission('OrganeR', (1.0, 0.08, 0.04), 9), True),
            mesh_obj('SiphonOrganesV', bm_o_v, _emission('OrganeV', (0.2, 1.0, 0.35), 16), True)]
     # flotteur de tête : grosse cloche nacrée
     p, d = path.at(0.0); bm = bmesh.new(); ell_bm(bm, p - d*0.2, (0.26, 0.2, 0.2), B.frame(d, (0, 0, 1)).to_3x3(), 32)
@@ -229,47 +236,63 @@ def siphon(M, path_pts, n=64, seed=7, lure_at=None):
     return obs
 
 # ================================================================ 2. L'ÉCHO
-def echo(M, c=(0, 0, 0.0), yaw=0.0, seed=11):
-    """tête aveugle énorme : melon de graisse, mâchoire à fanons, yeux recouverts de peau, bernacles ; corps qui plonge"""
-    rng = random.Random(seed); c = Vector(c); R = Matrix.Rotation(yaw, 3, 'Z')
+def echo(M, c=(0, 0, 0.0), yaw=0.0, pitch=0.0, seed=11):
+    """tête aveugle énorme : front de graisse plissé, gueule béante à fanons en lambeaux, langue, yeux laiteux enfoncés,
+    rangées de pores sur le melon (ses « oreilles »), bernacles ; un dos énorme qui plonge sous l'eau"""
+    rng = random.Random(seed); c = Vector(c); R = Matrix.Rotation(yaw, 3, 'Z') @ Matrix.Rotation(-pitch, 3, 'Y')
     def P(x, y, z): return c + R @ Vector((x, y, z))
     sk = B.Skel(); prev = None
-    # corps : un dos énorme qui plonge sous l'eau en s'enroulant
-    body = [(-0.2, 0, -0.2, 1.05), (-1.6, 0.3, -0.9, 1.15), (-3.0, 1.0, -1.8, 1.05), (-3.6, 2.6, -2.6, 0.9), (-2.6, 3.8, -3.2, 0.75), (-0.8, 3.6, -3.6, 0.6)]
-    for (x, y, z, r) in body:
-        i = sk.v(P(x, y, z), r)
-        if prev is not None: sk.e(prev, i)
-        prev = i
+    for (x, y, z, r) in [(-0.4, 0, -0.3, 1.0), (-1.8, 0.2, -1.1, 1.15), (-3.2, 0.9, -2.0, 1.05), (-3.8, 2.5, -2.8, 0.9), (-2.8, 3.7, -3.4, 0.75), (-1.0, 3.6, -3.8, 0.6)]:
+        i_ = sk.v(P(x, y, z), r)
+        if prev is not None: sk.e(prev, i_)
+        prev = i_
     objs = [B.skin_object('EchoCorps', sk, sub=2)]
     bm = bmesh.new()
-    ell_bm(bm, P(0.9, 0, 0.35), (1.25, 0.95, 0.95), R, 48)          # melon
-    ell_bm(bm, P(0.5, 0, -0.15), (1.2, 1.05, 0.8), R, 48)            # crâne
-    ell_bm(bm, P(1.25, 0, -0.62), (1.2, 0.78, 0.26), R @ Matrix.Rotation(0.12, 3, 'Y'), 40)   # mâchoire basse, entrouverte
-    for sg in (-1, 1):
-        ell_bm(bm, P(0.35, sg*0.82, 0.05), (0.16, 0.08, 0.12), R, 20)   # yeux atrophiés sous la peau
-        for k in range(5): ell_bm(bm, P(rng.uniform(-0.3, 0.9), sg*rng.uniform(0.5, 0.9), rng.uniform(-0.2, 0.7)), (0.09, 0.06, 0.07), R, 12)
+    ell_bm(bm, P(0.75, 0, 0.45), (1.15, 1.0, 1.05), R, 48)            # melon bombé
+    ell_bm(bm, P(1.3, 0, 0.2), (0.75, 0.85, 0.75), R, 40)             # front qui avance
+    ell_bm(bm, P(0.3, 0, -0.15), (1.1, 1.05, 0.85), R, 48)            # crâne
+    Rj = R @ Matrix.Rotation(0.38, 3, 'Y')                            # mâchoire basse, grande ouverte
+    ell_bm(bm, P(1.1, 0, -0.95), (1.25, 0.8, 0.24), Rj, 40)
+    for sg in (-1, 1):                                                # joues tombantes
+        ell_bm(bm, P(1.0, sg*0.78, -0.45), (0.7, 0.25, 0.45), R, 24)
     objs.append(mesh_obj('EchoTete', bm))
     for o in objs: B.bake_mods(o)
-    head = B.remesh(B.join(objs, 'Echo'), voxel=0.018, smooth=3)
-    B.displace(head, 'CLOUDS', 0.6, 0.06, 2, name='echo_bosses'); B.displace(head, 'VORONOI', 0.08, 0.012, name='echo_rides')
-    B.bake_mods(head); B.shade_smooth(head); head.data.materials.append(M['peau_echo'])
-    # bouche ouverte : creusée entre melon et mâchoire
-    bm = bmesh.new(); ell_bm(bm, P(1.55, 0, -0.36), (0.95, 0.62, 0.12), R, 32); cut = mesh_obj('cut', bm)
-    m = head.modifiers.new('bouche', 'BOOLEAN'); m.operation = 'DIFFERENCE'; m.object = cut; m.solver = 'FAST'; B.bake_mods(head); bpy.data.objects.remove(cut)
-    # fanons : peigne de lames noires qui pendent de la mâchoire haute
+    head = B.remesh(B.join(objs, 'Echo'), voxel=0.016, smooth=3)
+    # gueule : creusée entre le front et la mâchoire
+    bm = bmesh.new(); ell_bm(bm, P(1.55, 0, -0.55), (1.05, 0.66, 0.33), R @ Matrix.Rotation(0.18, 3, 'Y'), 32); cut = mesh_obj('cut', bm)
+    m = head.modifiers.new('bouche', 'BOOLEAN'); m.operation = 'DIFFERENCE'; m.object = cut; m.solver = 'FAST'
+    t = bpy.data.textures.new('plis_echo', 'WOOD'); t.wood_type = 'BANDNOISE'; t.noise_scale = 0.35; t.turbulence = 9
+    d1 = head.modifiers.new('plis', 'DISPLACE'); d1.texture = t; d1.strength = 0.05; d1.texture_coords = 'LOCAL'
+    B.displace(head, 'CLOUDS', 0.5, 0.07, 2, name='echo_bosses'); B.displace(head, 'VORONOI', 0.07, 0.014, name='echo_rides')
+    B.bake_mods(head); bpy.data.objects.remove(cut); B.shade_smooth(head); head.data.materials.append(M['peau_echo'])
+    # langue grasse au fond de la gueule
+    bm = bmesh.new(); ell_bm(bm, P(1.15, 0, -0.68), (0.75, 0.42, 0.14), Rj, 32); lg = mesh_obj('Langue', bm, M['langue'], True)
+    # fanons : lames noires en lambeaux qui pendent du palais, longues et irrégulières
     bm = bmesh.new()
-    for k in range(70):
-        u = k/69; a = (u - 0.5)*2.4
-        base = P(1.55 + 0.75*math.cos(a)*0.95 - 0.55, 0.62*math.sin(a), -0.27)
-        hh = 0.24 + 0.08*rng.random()
-        box_bm(bm, base - Vector((0, 0, hh/2)), (0.035, 0.006, hh/2), R @ Matrix.Rotation(a, 3, 'Z'))
+    for k in range(110):
+        u = k/109; a = (u - 0.5)*2.5; side = 1 if a > 0 else -1
+        base = P(1.0 + 0.95*math.cos(a), 0.64*math.sin(a), -0.28)
+        hh = rng.uniform(0.25, 0.6)*(1.0 - 0.35*abs(a)/1.25)
+        Rb = R @ Matrix.Rotation(a, 3, 'Z') @ Matrix.Rotation(rng.uniform(-0.15, 0.15), 3, 'X')
+        box_bm(bm, base - R @ Vector((0, 0, hh/2)), (0.028, 0.004, hh/2), Rb)
+        if rng.random() < 0.5: box_bm(bm, base - R @ Vector((0.02, 0, hh*0.9)), (0.012, 0.003, hh*0.25), Rb)   # franges
     mesh_obj('Fanons', bm, M['fanon'], True)
-    # bernacles en grappes sur le melon
+    # yeux laiteux enfoncés, et rangées de pores sur le melon
+    bm = bmesh.new(); bmp = bmesh.new()
+    for sg in (-1, 1):
+        ell_bm(bm, P(1.15, sg*0.86, 0.08), (0.09, 0.05, 0.08), R, 20)
+        for row in range(3):
+            for k in range(7):
+                a_ = 0.25 + k*0.16; z_ = 0.35 + row*0.22
+                n = Vector((math.cos(a_)*0.8, sg*math.sin(a_), (z_ - 0.45)/1.05)).normalized()
+                pp = P(0.75 + n.x*1.12, n.y*0.98, 0.45 + n.z*1.02); ell_bm(bmp, pp, (0.03, 0.03, 0.03), R, 10)
+    mesh_obj('Yeux', bm, M['oeil'], True); mesh_obj('Pores', bmp, M['noir'], True)
+    # bernacles en grappes sur le dessus
     bm = bmesh.new()
-    for k in range(140):
-        th = rng.uniform(-1.2, 1.2); ph = rng.uniform(0.0, 1.2)
+    for k in range(160):
+        th = rng.uniform(-2.4, 2.4); ph = rng.uniform(0.3, 1.3)
         n = Vector((math.cos(ph)*math.cos(th), math.cos(ph)*math.sin(th), math.sin(ph)))
-        p = P(0.9 + n.x*1.2, n.y*0.92, 0.35 + n.z*0.92); r = rng.uniform(0.02, 0.06)
+        p = P(0.5 + n.x*1.12, n.y*0.98, 0.45 + n.z*1.02); r = rng.uniform(0.02, 0.06)
         o = bmesh.ops.create_cone(bm, cap_ends=True, segments=10, radius1=r, radius2=r*0.45, depth=r*1.2)
         xf_verts(o['verts'], Matrix.Translation(p) @ (R @ n).to_track_quat('Z', 'Y').to_matrix().to_4x4())
     mesh_obj('Bernacles', bm, M['bernacle'], True)
@@ -369,9 +392,9 @@ def scaphandrier(M, base=(0, 0, -0.9), yaw=math.pi, seed=5):
         pts = []
         for j in range(9):
             t = j/8; a = k*0.7 + t*5.5
-            q = hc + R @ Vector((0.17*math.cos(a*0.9 + k), 0.17*math.sin(a + k*0.3), 0.17*math.cos(a*0.6 + k*1.1)))
+            q = hc + R @ Vector((0.1 + 0.12*abs(math.cos(a*0.9 + k)), 0.16*math.sin(a + k*0.3), 0.16*math.cos(a*0.6 + k*1.1)))
             pts.append(q)
         i0 = sk.v(pts[0], 0.022); sk.chain(i0, pts[1:], [0.022*(1 - 0.08*j) for j in range(1, 9)])
     eels = B.skin_object('Anguilles', sk, sub=2); B.bake_mods(eels); B.shade_smooth(eels); eels.data.materials.append(M['anguille'])
-    # bulles de buée et gouttes
+    B.light('POINT', tuple(hc), 3, (0.4, 0.9, 0.7), size=0.05, name='LueurCasque')
     return dict(body=body, helmet=helmet, glass=glass, eels=eels, head=hc)
