@@ -141,12 +141,13 @@ def build(log=print, seed=21, raised=(1, 6)):
     # palmure entre les bras (bords festonnés)
     bm = bmesh.new()
     for k in range(8):
-        A, Bc = arms[k][0], arms[(k + 1) % 8][0]; nu, nv = 16, 10; grid = []
+        A, Bc = arms[k][0], arms[(k + 1) % 8][0]; nu, nv = 50, 30; grid = []
         for iu in range(nu + 1):
             row = []
             for iv in range(nv + 1):
-                v = iv/nv; smax = 0.55*(1 - 0.55*math.sin(math.pi*v)); s = smax*iu/nu; j = int(s/0.022)
-                p = A[min(j, len(A) - 1)].lerp(Bc[min(j, len(Bc) - 1)], v) + UP*(0.025*math.sin(math.pi*v))
+                v = iv/nv; smax = 0.55*(1 - 0.55*math.sin(math.pi*v)); s = smax*iu/nu; j = int(s/0.022); f = s/0.022 - j
+                pa = A[j].lerp(A[j + 1], f); pb = Bc[j].lerp(Bc[j + 1], f)
+                p = pa.lerp(pb, v) + UP*(0.025*math.sin(math.pi*v))
                 row.append(bm.verts.new(p))
             grid.append(row)
         for iu in range(nu):
@@ -154,17 +155,18 @@ def build(log=print, seed=21, raised=(1, 6)):
     web = mesh_obj('palmure', bm); so = web.modifiers.new('ep', 'SOLIDIFY'); so.thickness = 0.014; so.offset = 0; B.bake_mods(web); skin.append(web)
     # corps : couronne, tête, cou, manteau, yeux tubulaires, entonnoir
     bm = bmesh.new()
-    ell_bm(bm, CROWN, (0.21, 0.21, 0.1))
-    ell_bm(bm, Vector((0.02, 0, 0.34)), (0.25, 0.3, 0.22))
-    ell_bm(bm, Vector((-0.12, 0, 0.45)), (0.25, 0.28, 0.24))
-    ell_bm(bm, MANTLE_C, (0.56, 0.37, 0.34), B.frame(MANTLE_AX, UP).to_3x3(), 48)
+    HD = 192                                   # primitives très fines : sinon leurs facettes survivent au remaillage et font miroir dans le verre
+    ell_bm(bm, CROWN, (0.21, 0.21, 0.1), Matrix.Identity(3), HD)
+    ell_bm(bm, Vector((0.02, 0, 0.34)), (0.25, 0.3, 0.22), Matrix.Identity(3), HD)
+    ell_bm(bm, Vector((-0.12, 0, 0.45)), (0.25, 0.28, 0.24), Matrix.Identity(3), HD)
+    ell_bm(bm, MANTLE_C, (0.56, 0.37, 0.34), B.frame(MANTLE_AX, UP).to_3x3(), HD)
     for sg in (-1, 1):
         b0 = EYE_BASE[sg]; e = EYE_AX[sg]
-        tube_bm(bm, b0 - e*0.04, b0 + e*0.075, 0.064, 40)                       # orbite : seul l'iris dépasse de la peau
-        torus_bm(bm, b0 + e*0.093, e, 0.056, 0.012, 48, 14)                     # paupière serrée sur le bord de l'iris
+        tube_bm(bm, b0 - e*0.04, b0 + e*0.075, 0.064, 128)                       # orbite : seul l'iris dépasse de la peau
+        torus_bm(bm, b0 + e*0.093, e, 0.056, 0.012, 128, 32)                     # paupière serrée sur le bord de l'iris
         F = eye_frame(sg); xl, yl, zl = F.col[0], F.col[1], F.col[2]
-        ell_bm(bm, EYE_C[sg] + yl*EYE_R*0.78 + zl*EYE_R*0.25, (EYE_R*1.3, EYE_R*0.4, EYE_R*0.7), F @ Matrix.Rotation(sg*0.35, 3, 'Z'), 40)   # arcade qui retombe vers l'avant
-    tube_bm(bm, Vector((-0.04, -0.24, 0.24)), Vector((0.06, -0.33, 0.17)), 0.04, 20)
+        ell_bm(bm, EYE_C[sg] + yl*EYE_R*0.78 + zl*EYE_R*0.25, (EYE_R*1.3, EYE_R*0.4, EYE_R*0.7), F @ Matrix.Rotation(sg*0.35, 3, 'Z'), 128)   # arcade qui retombe vers l'avant
+    tube_bm(bm, Vector((-0.04, -0.24, 0.24)), Vector((0.06, -0.33, 0.17)), 0.04, 96)
     skin.append(mesh_obj('corps', bm))
     for o in skin: B.bake_mods(o)
     body = B.remesh(B.join(skin, 'Vitrelle'), voxel=0.0034, smooth=6)
