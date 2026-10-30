@@ -55,8 +55,8 @@ CAMS = {
     'studio': ((3.3, -2.9, 1.45), (-0.2, 0.05, 0.55), 38, True),
     'profil': ((-0.7, -4.2, 1.0), (-0.25, 0.0, 0.55), 42, True),
     'oeil':   (tuple(eC + eA*0.7 + Vector((0.22, 0.0, -0.12))), tuple(eC - eA*0.03 + Vector((0, 0, 0.01))), 55, True),
-    'tete':   ((1.55, -1.75, 0.95), (-0.12, -0.04, 0.5), 50, True),
-    'nuit':   ((1.75, -1.0, 0.22), (0.0, -0.05, 0.55), 30, False),
+    'tete':   (tuple(eC + eA*1.55 + Vector((0.35, 0.0, 0.06))), tuple(eC + Vector((-0.22, 0.0, 0.06))), 50, True),
+    'nuit':   (tuple(eC + eA*1.2 + Vector((0.35, 0.0, -0.32))), tuple(eC + Vector((-0.12, 0.0, 0.04))), 35, False),
 }
 vues = []
 if VUE in ('studio', 'profil', 'oeil', 'tete', 'apercu'):
@@ -70,6 +70,8 @@ if VUE == 'plafond':
     V.wrap_ceiling(parts, x0=3.6)
     B.world((0.0008, 0.0012, 0.0016))
     CAMS['plafond'] = ((-1.2, -0.35, -0.3), (3.3, 0.05, 0.9), 26, True); vues = ['plafond']
+for o in bpy.data.objects:
+    if o.type == 'LIGHT' and o.data.type == 'AREA': o.data.shape = 'DISK'
 log('scène prête')
 
 tuile = os.environ.get('TUILE')
@@ -85,7 +87,7 @@ for name in vues:
         e = Vector(eye); t = Vector(tgt)
         lp = B.light('SPOT', tuple(e + Vector((0.1, 0, 0.15))), 60 if name == 'plafond' else 25, (1.0, 0.92, 0.8), size=0.02, name='Lampe', spot=0.55)
         lp.rotation_euler = (t - lp.location).to_track_quat('-Z', 'Y').to_euler()
-    bpy.data.materials['Oeil'].node_tree.nodes['Lueur'].outputs[0].default_value = float(os.environ.get('LUEUR', '8' if name in ('nuit', 'plafond') else '0.8'))
+    bpy.data.materials['Oeil'].node_tree.nodes['Lueur'].outputs[0].default_value = float(os.environ.get('LUEUR', '8' if name in ('nuit', 'plafond') else '0.12'))
     fn = f'witness_{name}'
     r = sc.render
     if tuile:
