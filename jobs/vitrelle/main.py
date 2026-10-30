@@ -21,7 +21,9 @@ sc = B.setup_render(res, samples=ech, exposure=0.0)
 c = sc.cycles; c.max_bounces = 32; c.transmission_bounces = 32; c.transparent_max_bounces = 16; c.glossy_bounces = 8; c.volume_bounces = 2
 c.caustics_reflective = False; c.caustics_refractive = False; c.blur_glossy = 0.3; c.adaptive_threshold = 0.006 if not TEST else 0.03
 c.volume_step_rate = 1.0
-for k, v in (('use_guiding', True), ('use_surface_guiding', True), ('use_volume_guiding', True)):
+GUIDE = os.environ.get('GUIDAGE', '1') == '1'
+sc.cycles.use_denoising = os.environ.get('DEBRUIT', '1') == '1'
+for k, v in (('use_guiding', GUIDE), ('use_surface_guiding', GUIDE), ('use_volume_guiding', GUIDE)):
     if hasattr(c, k): setattr(c, k, v)
 if hasattr(c, 'denoiser'): c.denoiser = 'OPENIMAGEDENOISE'
 if hasattr(c, 'denoising_prefilter'): c.denoising_prefilter = 'ACCURATE'
@@ -61,7 +63,7 @@ CAMS = {
 vues = []
 if VUE in ('studio', 'profil', 'oeil', 'tete', 'apercu'):
     studio()
-    vues = ['oeil', 'tete', 'nuit'] if TEST else [VUE]
+    vues = os.environ.get('VUES', 'oeil,tete,nuit').split(',') if TEST else [VUE]
 elif VUE == 'nuit':
     studio(lampes=False); vues = ['nuit']
 if VUE == 'plafond':
@@ -82,9 +84,7 @@ for name in vues:
     if name == 'nuit':                                           # tout éteint sauf un liseré froid très faible
         for o in studio_l: o.hide_render = True
         rim = B.light('AREA', (-2.0, 1.2, 1.4), 35, (0.3, 0.7, 1.0), size=1.5, target=(0, 0, 0.5), name='Liseré')
-        fond = bpy.data.materials['Fond'].node_tree.nodes['Principled BSDF']; fond_col = tuple(fond.inputs['Base Color'].default_value); fond.inputs['Base Color'].default_value = (0.002, 0.002, 0.0025, 1)
-        for nd in bpy.data.materials['Fond'].node_tree.nodes:
-            if nd.type == 'MIX': nd.mute = True
+        bpy.data.objects['Cyclo'].hide_render = True
     lp = None
     if lampe:
         e = Vector(eye); t = Vector(tgt)
@@ -103,6 +103,6 @@ for name in vues:
     if lp: bpy.data.objects.remove(lp)
     if name == 'nuit':
         for o in studio_l: o.hide_render = False
-        bpy.data.objects.remove(rim)
+        bpy.data.objects.remove(rim); bpy.data.objects['Cyclo'].hide_render = False
     log(f'rendu {fn}')
 log('fin')

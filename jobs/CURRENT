@@ -1,1 +1,3 @@
-vitrelle VUE=apercu
+vitrelle VUE=apercu VUES=oeil GUIDAGE=0
+vitrelle VUE=apercu VUES=oeil DEBRUIT=0
+vitrelle VUE=apercu VUES=oeil GUIDAGE=0 DEBRUIT=0
