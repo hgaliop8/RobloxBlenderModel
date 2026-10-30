@@ -12,9 +12,9 @@ def log(msg): logf.write(f'{time.time() - T0:7.1f}s  {msg}\n'); logf.flush(); pr
 VUE = os.environ.get('VUE', 'test'); TEST = VUE == 'test'
 bpy.ops.wm.read_factory_settings(use_empty=True)
 
-sc = B.setup_render((480, 270) if TEST else (1600, 900), samples=24 if TEST else 320, exposure=0.0)
+sc = B.setup_render((480, 270) if TEST else (1600, 900), samples=24 if TEST else 160, exposure=0.0)
 c = sc.cycles; c.max_bounces = 24; c.transmission_bounces = 24; c.transparent_max_bounces = 16; c.glossy_bounces = 8; c.volume_bounces = 2
-c.caustics_reflective = False; c.caustics_refractive = False; c.blur_glossy = 0.6; c.adaptive_threshold = 0.012
+c.caustics_reflective = False; c.caustics_refractive = False; c.blur_glossy = 0.6; c.adaptive_threshold = 0.02
 c.volume_step_rate = 1.0
 
 def studio():
