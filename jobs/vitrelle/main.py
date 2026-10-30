@@ -73,7 +73,10 @@ if VUE == 'plafond':
     B.world((0.0008, 0.0012, 0.0016))
     CAMS['plafond'] = ((-1.2, -0.35, -0.3), (3.3, 0.05, 0.9), 26, True); vues = ['plafond']
 for o in bpy.data.objects:
-    if o.type == 'LIGHT' and o.data.type == 'AREA': o.data.shape = 'DISK'
+    if o.type == 'LIGHT' and o.data.type == 'AREA':
+        o.data.shape = 'DISK'
+        if hasattr(o, 'visible_transmission'): o.visible_transmission = False     # pas d'images des lampes à travers le verre
+        log(f'lampe {o.name} {o.data.shape} transmission={getattr(o, "visible_transmission", None)}')
 for nm in [x for x in os.environ.get('CACHER', '').split(',') if x]:
     for o in bpy.data.objects:
         if o.name.startswith(nm): o.hide_render = True
