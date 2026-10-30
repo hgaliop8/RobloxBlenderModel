@@ -74,6 +74,12 @@ if VUE == 'plafond':
     CAMS['plafond'] = ((-1.2, -0.35, -0.3), (3.3, 0.05, 0.9), 26, True); vues = ['plafond']
 for o in bpy.data.objects:
     if o.type == 'LIGHT' and o.data.type == 'AREA': o.data.shape = 'DISK'
+for nm in [x for x in os.environ.get('CACHER', '').split(',') if x]:
+    for o in bpy.data.objects:
+        if o.name.startswith(nm): o.hide_render = True
+if os.environ.get('LAMPES', '1') == '0':
+    for o in bpy.data.objects:
+        if o.type == 'LIGHT': o.hide_render = True
 log('scène prête')
 
 tuile = os.environ.get('TUILE')
