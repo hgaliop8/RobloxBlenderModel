@@ -1,6 +1,3 @@
-vitrelle VUE=apercu VUES=oeil CACHER=Nerfs
-vitrelle VUE=apercu VUES=oeil CACHER=Branchies
-vitrelle VUE=apercu VUES=oeil CACHER=Glande
-vitrelle VUE=apercu VUES=oeil CACHER=Coeurs,Bec
-vitrelle VUE=apercu VUES=oeil CACHER=Cornees
-vitrelle VUE=apercu VUES=oeil CACHER=Vitrelle
+vitrelle VUE=apercu VUES=oeil LAIT=0
+vitrelle VUE=apercu VUES=oeil LAIT=0 ABSORB=0
+vitrelle VUE=apercu VUES=oeil TACHES=0

@@ -271,7 +271,9 @@ def build(log=print, seed=21, raised=(1, 6)):
 # ================================================================ matériaux
 def mats(glow=6.0):
     M = {}
-    M['peau'] = _verre_vivant('PeauVerre', density=1.2, spots=True, pig=True, ior=1.07)
+    import os
+    E = os.environ.get
+    M['peau'] = _verre_vivant('PeauVerre', density=float(E('ABSORB', '1.2')), milk=float(E('LAIT', '0.12')), spots=E('TACHES', '1') == '1', pig=E('TACHES', '1') == '1', ior=1.07)
     M['ventouse'] = _verre_vivant('Ventouse', density=6.0, milk=0.55, spots=False)
     m = bpy.data.materials.new('Cornee'); m.use_nodes = True; b = m.node_tree.nodes['Principled BSDF']
     b.inputs['Base Color'].default_value = (1, 1, 1, 1); b.inputs['Roughness'].default_value = 0.0; b.inputs['Transmission Weight'].default_value = 1; b.inputs['IOR'].default_value = 1.376
