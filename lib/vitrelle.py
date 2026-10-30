@@ -28,8 +28,8 @@ def arm_curve(k, rng, raised=False, L=None):
         if s < tip0: kap = bend + amp*math.sin(s*om + ph)*min(1, s/0.6)
         else: kap = (s - tip0)/(L - tip0)*14*curl_r*(1 if bend >= 0 else -1)     # bout qui s'enroule
         if raised:
-            alt = 1.45*min(1, max(0, (s - 0.35)/1.0))
-            al = alt if s < tip0 else alt + (s - tip0)/(L - tip0)*2.8              # crochet par-dessus
+            alt = 1.05*min(1, max(0, (s - 0.4)/1.1))
+            al = alt if s < tip0 else alt + (s - tip0)/(L - tip0)*3.2              # crochet par-dessus
             th += kap*ds*0.5
         else:
             th += kap*ds
@@ -153,11 +153,11 @@ def build(log=print, seed=21, raised=(1, 6)):
     # photophores : rangée dorsale le long des bras, couronne autour des yeux, deux lignes sur le manteau
     bm_v, bm_r = bmesh.new(), bmesh.new()
     for ai, (P, L) in enumerate(arms):
-        T, N = rmf(P); s = 0.25; j = 0
+        T, N = rmf(P); s = 0.3; j = 0
         while s < L - 0.15:
             i = int(s/0.022); r = rad_at(s, L)
-            ell_bm(bm_r if (j % 5 == 4) else bm_v, P[i] + N[i]*r*0.9, (0.005 + r*0.12,)*3, Matrix.Identity(3), 8)
-            s += 0.11; j += 1
+            ell_bm(bm_r if (j % 7 == 6) else bm_v, P[i] + N[i]*r*0.86, (0.004 + r*0.09,)*3, Matrix.Identity(3), 8)
+            s += 0.19; j += 1
     for sg in (-1, 1):
         b0 = EYE_BASE[sg]; e = EYE_AX[sg]; t1 = e.cross(UP).normalized(); t2 = e.cross(t1)
         for k in range(10):
@@ -187,7 +187,7 @@ def mats():
     M['nerf'] = _organe('Nerf', (0.6, 0.55, 0.5), 0.0)
     M['badge'] = B.mat_simple('Badge', (0.7, 0.68, 0.62), 0.4)
     M['bec'] = B.mat_simple('Bec', (0.015, 0.01, 0.008), 0.25)
-    M['photo_v'] = _emi('PhotoV', (0.3, 1.0, 0.75), 10)
+    M['photo_v'] = _emi('PhotoV', (0.15, 1.0, 0.7), 14)
     M['photo_r'] = _emi('PhotoR', (1.0, 0.15, 0.08), 8)
     return M
 

@@ -40,10 +40,10 @@ vues = []
 eyeR = V.EYE_BASE[-1] + V.EYE_AX[-1]*0.16
 if VUE in ('studio', 'profil', 'oeil', 'test', 'apercu'):
     studio()
-    if VUE in ('studio', 'test'): vues.append(('vitrelle_studio', (2.9, -2.5, 1.25), (-0.15, 0.05, 0.45), 40))
-    if VUE == 'apercu': vues += [('vitrelle_studio', (2.9, -2.5, 1.25), (-0.15, 0.05, 0.45), 40), ('vitrelle_profil', (-0.6, -3.8, 0.9), (-0.25, 0.0, 0.45), 45), ('vitrelle_oeil', tuple(eyeR + Vector((0.42, -0.3, 0.12))), tuple(eyeR - Vector((0.02, 0, 0.02))), 85)]
-    if VUE == 'profil': vues.append(('vitrelle_profil', (-0.6, -3.8, 0.9), (-0.25, 0.0, 0.45), 45))
-    if VUE == 'oeil': vues.append(('vitrelle_oeil', tuple(eyeR + Vector((0.42, -0.3, 0.12))), tuple(eyeR - Vector((0.02, 0, 0.02))), 85))
+    if VUE in ('studio', 'test'): vues.append(('vitrelle_studio', (3.3, -2.9, 1.45), (-0.2, 0.05, 0.55), 38))
+    if VUE == 'apercu': vues += [('vitrelle_studio', (3.3, -2.9, 1.45), (-0.2, 0.05, 0.55), 38), ('vitrelle_profil', (-0.7, -4.2, 1.0), (-0.25, 0.0, 0.55), 42), ('vitrelle_oeil', tuple(eyeR + Vector((0.75, -0.55, 0.22))), tuple(eyeR - Vector((0.1, 0, 0.06))), 70)]
+    if VUE == 'profil': vues.append(('vitrelle_profil', (-0.7, -4.2, 1.0), (-0.25, 0.0, 0.55), 42))
+    if VUE == 'oeil': vues.append(('vitrelle_oeil', tuple(eyeR + Vector((0.75, -0.55, 0.22))), tuple(eyeR - Vector((0.1, 0, 0.06))), 70))
 if VUE in ('plafond', 'test'):
     if VUE == 'test':
         for o in list(bpy.data.objects):
