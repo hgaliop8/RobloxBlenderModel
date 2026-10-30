@@ -95,6 +95,7 @@ for name in vues:
     if name == 'nuit':                                           # tout éteint sauf un liseré froid très faible
         for o in studio_l: o.hide_render = True
         rim = B.light('AREA', (-2.0, 1.2, 1.4), 35, (0.3, 0.7, 1.0), size=1.5, target=(0, 0, 0.5), name='Liseré')
+        rim.data.shape = 'DISK'; rim.visible_transmission = False; rim.visible_glossy = True
         bpy.data.objects['Cyclo'].hide_render = True
     lp = None
     if lampe:

@@ -1,2 +1,3 @@
-vitrelle VUE=apercu VUES=oeil,tete PEAU=miroir
-vitrelle VUE=apercu
+vitrelle VUE=apercu VUES=studio,profil
+vitrelle VUE=apercu VUES=nuit
+vitrelle VUE=plafond RES=640x360 ECH=48
