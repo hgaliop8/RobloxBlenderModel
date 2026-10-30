@@ -19,7 +19,7 @@ bpy.ops.wm.read_factory_settings(use_empty=True)
 
 sc = B.setup_render(res, samples=ech, exposure=0.0)
 c = sc.cycles; c.max_bounces = 32; c.transmission_bounces = 32; c.transparent_max_bounces = 16; c.glossy_bounces = 8; c.volume_bounces = 2
-c.caustics_reflective = False; c.caustics_refractive = False; c.blur_glossy = 0.3; c.adaptive_threshold = 0.006 if not TEST else 0.03
+c.caustics_reflective = False; c.caustics_refractive = False; c.blur_glossy = 0.3; c.adaptive_threshold = float(os.environ.get('SEUIL', '0.01')) if not TEST else 0.03
 c.volume_step_rate = 1.0
 GUIDE = os.environ.get('GUIDAGE', '1') == '1'
 sc.cycles.use_denoising = os.environ.get('DEBRUIT', '1') == '1'
@@ -73,7 +73,7 @@ if VUE == 'plafond':
     A.eau_trouble('Brouillard', (-4, -1.6, -0.9), (12, 1.6, 1.6), (0.5, 0.6, 0.6), 0.02, 0.4)
     V.wrap_ceiling(parts, x0=3.6, rot=-math.pi/2)
     B.world((0.0008, 0.0012, 0.0016))
-    CAMS['plafond'] = ((-1.2, -0.35, -0.3), (3.3, 0.05, 0.9), 26, True); vues = ['plafond']
+    CAMS['plafond'] = ((-1.2, -0.35, -0.3), (3.4, 0.05, 0.85), 30, True); vues = ['plafond']
 for o in bpy.data.objects:
     if o.type == 'LIGHT' and o.data.type == 'AREA':
         o.data.shape = 'DISK'
