@@ -2,45 +2,45 @@
 >> mains : 181 objets au total
 >> joint : 213043 sommets
 >> remaillé : 3715148 sommets
->> amas final : 3708580 faces
+>> amas final : 3708784 faces
 >> bouche : 92736 faces de gencives, 71584 faces de dents
 >> Dents légères : 35792 triangles
 Blender 4.2.3 LTS (hash 0e22e4fcea03 built 2024-10-14 23:31:34)
-Fra:1 Mem:691.79M (Peak 6254.96M) | Time:498143:50:37.87 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Amas
-Fra:1 Mem:691.80M (Peak 6254.96M) | Time:498143:50:37.87 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | TireFonds
-Fra:1 Mem:691.82M (Peak 6254.96M) | Time:498143:50:37.87 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CaillouxAmas
-Fra:1 Mem:777.22M (Peak 6254.96M) | Time:498143:50:37.87 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesAmas
-Fra:1 Mem:787.23M (Peak 6254.96M) | Time:498143:50:37.89 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Levres
-Fra:1 Mem:812.14M (Peak 6254.96M) | Time:498143:50:37.94 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Dents
-Fra:1 Mem:817.74M (Peak 6254.96M) | Time:498143:50:37.95 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Gencives
-Fra:1 Mem:1305.70M (Peak 6254.96M) | Time:498143:50:38.63 | Mem:0.00M, Peak:0.00M | Scene | Initializing
-Fra:1 Mem:1305.70M (Peak 6254.96M) | Time:498143:50:38.63 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Dents_Couleur
+Fra:1 Mem:696.44M (Peak 6254.93M) | Time:498144:26:02.84 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Amas
+Fra:1 Mem:696.44M (Peak 6254.93M) | Time:498144:26:02.84 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | TireFonds
+Fra:1 Mem:696.47M (Peak 6254.93M) | Time:498144:26:02.84 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CaillouxAmas
+Fra:1 Mem:781.87M (Peak 6254.93M) | Time:498144:26:02.84 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesAmas
+Fra:1 Mem:791.88M (Peak 6254.93M) | Time:498144:26:02.88 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Levres
+Fra:1 Mem:1103.42M (Peak 6254.93M) | Time:498144:26:02.98 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Dents
+Fra:1 Mem:1109.03M (Peak 6254.93M) | Time:498144:26:02.98 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Gencives
+Fra:1 Mem:1321.11M (Peak 6254.93M) | Time:498144:26:03.62 | Mem:0.00M, Peak:0.00M | Scene | Initializing
+Fra:1 Mem:1321.10M (Peak 6254.93M) | Time:498144:26:03.62 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Dents_Couleur
 Info: Baking map saved to internal image, save it externally or pack it
 >>   cuit Dents Couleur
-Fra:1 Mem:984.48M (Peak 6254.96M) | Time:498143:53:21.99 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Amas
-Fra:1 Mem:984.48M (Peak 6254.96M) | Time:498143:53:21.99 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | TireFonds
-Fra:1 Mem:984.49M (Peak 6254.96M) | Time:498143:53:21.99 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CaillouxAmas
-Fra:1 Mem:984.73M (Peak 6254.96M) | Time:498143:53:21.99 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesAmas
-Fra:1 Mem:1166.71M (Peak 6254.96M) | Time:498143:53:21.99 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Levres
-Fra:1 Mem:1236.24M (Peak 6254.96M) | Time:498143:53:22.01 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Dents
-Fra:1 Mem:1241.85M (Peak 6254.96M) | Time:498143:53:22.01 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Gencives
-Fra:1 Mem:1305.70M (Peak 6254.96M) | Time:498143:53:22.21 | Mem:0.00M, Peak:0.00M | Scene | Initializing
-Fra:1 Mem:1305.70M (Peak 6254.96M) | Time:498143:53:22.21 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Dents_Normale
+Fra:1 Mem:994.30M (Peak 6254.93M) | Time:498144:28:48.45 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Amas
+Fra:1 Mem:994.30M (Peak 6254.93M) | Time:498144:28:48.45 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | TireFonds
+Fra:1 Mem:994.32M (Peak 6254.93M) | Time:498144:28:48.45 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CaillouxAmas
+Fra:1 Mem:994.55M (Peak 6254.93M) | Time:498144:28:48.45 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesAmas
+Fra:1 Mem:1176.54M (Peak 6254.93M) | Time:498144:28:48.46 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Levres
+Fra:1 Mem:1251.64M (Peak 6254.93M) | Time:498144:28:48.47 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Dents
+Fra:1 Mem:1257.25M (Peak 6254.93M) | Time:498144:28:48.48 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Gencives
+Fra:1 Mem:1321.11M (Peak 6254.93M) | Time:498144:28:48.70 | Mem:0.00M, Peak:0.00M | Scene | Initializing
+Fra:1 Mem:1321.10M (Peak 6254.93M) | Time:498144:28:48.70 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Dents_Normale
 Info: Baking map saved to internal image, save it externally or pack it
 >>   cuit Dents Normale
-Fra:1 Mem:984.48M (Peak 6254.96M) | Time:498143:53:39.26 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Amas
-Fra:1 Mem:984.48M (Peak 6254.96M) | Time:498143:53:39.26 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | TireFonds
-Fra:1 Mem:984.50M (Peak 6254.96M) | Time:498143:53:39.26 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CaillouxAmas
-Fra:1 Mem:984.73M (Peak 6254.96M) | Time:498143:53:39.26 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesAmas
-Fra:1 Mem:1166.71M (Peak 6254.96M) | Time:498143:53:39.27 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Levres
-Fra:1 Mem:1236.24M (Peak 6254.96M) | Time:498143:53:39.28 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Dents
-Fra:1 Mem:1241.85M (Peak 6254.96M) | Time:498143:53:39.28 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Gencives
-Fra:1 Mem:1305.71M (Peak 6254.96M) | Time:498143:53:39.49 | Mem:0.00M, Peak:0.00M | Scene | Initializing
-Fra:1 Mem:1305.70M (Peak 6254.96M) | Time:498143:53:39.49 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Dents_Rugosite
+Fra:1 Mem:994.31M (Peak 6254.93M) | Time:498144:29:06.14 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Amas
+Fra:1 Mem:994.31M (Peak 6254.93M) | Time:498144:29:06.14 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | TireFonds
+Fra:1 Mem:994.32M (Peak 6254.93M) | Time:498144:29:06.14 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CaillouxAmas
+Fra:1 Mem:994.55M (Peak 6254.93M) | Time:498144:29:06.14 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | OnglesAmas
+Fra:1 Mem:1176.54M (Peak 6254.93M) | Time:498144:29:06.14 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Levres
+Fra:1 Mem:1251.65M (Peak 6254.93M) | Time:498144:29:06.16 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Dents
+Fra:1 Mem:1257.26M (Peak 6254.93M) | Time:498144:29:06.16 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Gencives
+Fra:1 Mem:1321.11M (Peak 6254.93M) | Time:498144:29:06.39 | Mem:0.00M, Peak:0.00M | Scene | Initializing
+Fra:1 Mem:1321.11M (Peak 6254.93M) | Time:498144:29:06.39 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Dents_Rugosite
 Info: Baking map saved to internal image, save it externally or pack it
 >>   cuit Dents Rugosite
 >>   exporté Dents : 30693 sommets, 35792 triangles
 >> fin
 
 Blender quit
-duree_s=277
+duree_s=278
