@@ -89,13 +89,13 @@ def build(log=print, seed=21, raised=(1, 6)):
     ell_bm(bm, MANTLE_C, (0.56, 0.37, 0.34), B.frame(MANTLE_AX, UP).to_3x3(), 48)
     for sg in (-1, 1):
         b0 = EYE_BASE[sg]; e = EYE_AX[sg]
-        tube_bm(bm, b0, b0 + e*0.12, 0.068, 32)
-        ell_bm(bm, b0 + e*0.12, (0.07, 0.07, 0.07))
+        tube_bm(bm, b0, b0 + e*0.14, 0.07, 32)
+        ell_bm(bm, b0 + e*0.14, (0.072, 0.072, 0.072))
     tube_bm(bm, Vector((-0.04, -0.24, 0.24)), Vector((0.06, -0.33, 0.17)), 0.04, 20)
     skin.append(mesh_obj('corps', bm))
     for o in skin: B.bake_mods(o)
-    body = B.remesh(B.join(skin, 'Vitrelle'), voxel=0.0042, smooth=3)
-    B.displace(body, 'CLOUDS', 0.12, 0.004, 2, name='vit_plis'); B.displace(body, 'VORONOI', 0.012, 0.0007, name='vit_grain')
+    body = B.remesh(B.join(skin, 'Vitrelle'), voxel=0.0038, smooth=6)
+    B.displace(body, 'CLOUDS', 0.18, 0.0018, 2, name='vit_plis')
     B.bake_mods(body); B.shade_smooth(body)
     log(f'peau : {len(body.data.polygons)} faces')
     parts = dict(peau=body)
@@ -116,15 +116,17 @@ def build(log=print, seed=21, raised=(1, 6)):
             side = -side; s += max(rs*1.25, 0.012)
     parts['ventouses'] = mesh_obj('Ventouses', bm, smooth=True); parts['pores'] = mesh_obj('Pores', bmc, smooth=True)
     log(f'ventouses : {len(parts["ventouses"].data.polygons)} faces')
-    # yeux : cristallin, pupille en fente horizontale, tapis réfléchissant (reflet dans la lampe)
-    bml, bmp, bmt = bmesh.new(), bmesh.new(), bmesh.new()
+    # yeux : gaine argentée sombre, iris doré à pupille en fente horizontale (qui luit dans le noir), cristallin bombé
+    bml, bmt, bmi = bmesh.new(), bmesh.new(), bmesh.new(); uvl = bmi.loops.layers.uv.new()
     for sg in (-1, 1):
         b0 = EYE_BASE[sg]; e = EYE_AX[sg]; Re = B.frame(e, UP).to_3x3()
-        ell_bm(bml, b0 + e*0.118, (0.042, 0.042, 0.042), Re)
-        box_bm(bmp, b0 + e*0.158, (0.003, 0.034, 0.0055), Re)
-        ell_bm(bmt, b0 + e*0.05, (0.045, 0.058, 0.058), Re)
-    parts['cristallins'] = mesh_obj('Cristallins', bml, smooth=True); parts['pupilles'] = mesh_obj('Pupilles', bmp)
-    parts['tapis'] = mesh_obj('TapisOeil', bmt, smooth=True)
+        ell_bm(bml, b0 + e*0.15, (0.03, 0.05, 0.05), Re)                                     # cristallin (lentille bombée)
+        tube_bm(bmt, b0 - e*0.02, b0 + e*0.128, 0.056, 32)                                     # gaine de l'œil
+        Mi = Matrix.Translation(b0 + e*0.13) @ (Re @ Matrix(((0, 0, 1), (1, 0, 0), (0, 1, 0)))).to_4x4()   # disque : x = côté, y = haut
+        o = bmesh.ops.create_circle(bmi, cap_ends=True, segments=48, radius=0.055, calc_uvs=True)
+        xf_verts(o['verts'], Mi)
+    parts['cristallins'] = mesh_obj('Cristallins', bml, smooth=True); parts['tapis'] = mesh_obj('GaineOeil', bmt, smooth=True)
+    parts['pupilles'] = mesh_obj('Iris', bmi, smooth=True)
     # organes visibles par transparence
     bm_g, bm_h, bm_b, bm_n, bm_br = bmesh.new(), bmesh.new(), bmesh.new(), bmesh.new(), bmesh.new()
     Rm = B.frame(MANTLE_AX, UP).to_3x3()
@@ -156,8 +158,9 @@ def build(log=print, seed=21, raised=(1, 6)):
         T, N = rmf(P); s = 0.3; j = 0
         while s < L - 0.15:
             i = int(s/0.022); r = rad_at(s, L)
-            ell_bm(bm_r if (j % 7 == 6) else bm_v, P[i] + N[i]*r*0.86, (0.004 + r*0.09,)*3, Matrix.Identity(3), 8)
-            s += 0.19; j += 1
+            sz = (0.003 + r*0.08)*rng.uniform(0.6, 1.5)
+            ell_bm(bm_r if rng.random() < 0.12 else bm_v, P[i] + N[i]*r*0.86, (sz,)*3, Matrix.Identity(3), 8)
+            s += rng.uniform(0.14, 0.34); j += 1
     for sg in (-1, 1):
         b0 = EYE_BASE[sg]; e = EYE_AX[sg]; t1 = e.cross(UP).normalized(); t2 = e.cross(t1)
         for k in range(10):
@@ -176,10 +179,9 @@ def mats():
     m = bpy.data.materials.new('Cristallin'); m.use_nodes = True; b = m.node_tree.nodes['Principled BSDF']
     b.inputs['Base Color'].default_value = (0.95, 0.97, 1, 1); b.inputs['Roughness'].default_value = 0.0; b.inputs['Transmission Weight'].default_value = 1; b.inputs['IOR'].default_value = 1.6
     M['cristallin'] = m
-    M['pupille'] = B.mat_simple('Pupille', (0.002, 0.002, 0.003), 0.2)
+    M['pupille'] = _iris()
     m = bpy.data.materials.new('Tapis'); m.use_nodes = True; b = m.node_tree.nodes['Principled BSDF']
-    b.inputs['Base Color'].default_value = (0.55, 0.75, 0.35, 1); b.inputs['Metallic'].default_value = 1.0; b.inputs['Roughness'].default_value = 0.18
-    b.inputs['Emission Color'].default_value = (0.5, 0.95, 0.45, 1); b.inputs['Emission Strength'].default_value = 0.6
+    b.inputs['Base Color'].default_value = (0.25, 0.27, 0.28, 1); b.inputs['Metallic'].default_value = 1.0; b.inputs['Roughness'].default_value = 0.25
     M['tapis'] = m
     M['glande'] = _organe('Glande', (0.1, 0.035, 0.025), 0.0)
     M['coeur'] = _organe('Coeur', (0.35, 0.03, 0.04), 1.2, (1.0, 0.1, 0.1))
@@ -190,6 +192,32 @@ def mats():
     M['photo_v'] = _emi('PhotoV', (0.15, 1.0, 0.7), 14)
     M['photo_r'] = _emi('PhotoR', (1.0, 0.15, 0.08), 8)
     return M
+
+def _iris():
+    """iris doré strié, anneau sombre, pupille en fente horizontale qui luit (reflet du tapis au fond de l'œil)"""
+    m = bpy.data.materials.new('Iris'); m.use_nodes = True; nt = m.node_tree; L = nt.links; b = nt.nodes['Principled BSDF']
+    uv = nt.nodes.new('ShaderNodeUVMap'); sep = nt.nodes.new('ShaderNodeSeparateXYZ'); L.new(uv.outputs[0], sep.inputs[0])
+    def math(op, a, b_=None):
+        n = nt.nodes.new('ShaderNodeMath'); n.operation = op
+        for i, v in enumerate((a, b_)):
+            if v is None: continue
+            if isinstance(v, (int, float)): n.inputs[i].default_value = v
+            else: L.new(v, n.inputs[i])
+        return n.outputs[0]
+    dx = math('SUBTRACT', sep.outputs['X'], 0.5); dy = math('SUBTRACT', sep.outputs['Y'], 0.5)
+    ex = math('POWER', math('DIVIDE', dx, 0.36), 2.0); ey = math('POWER', math('DIVIDE', dy, 0.075), 2.0)
+    pup = math('LESS_THAN', math('ADD', ex, ey), 1.0)                                  # fente horizontale
+    rr = math('SQRT', math('ADD', math('MULTIPLY', dx, dx), math('MULTIPLY', dy, dy)))
+    ring = math('GREATER_THAN', rr, 0.43)
+    ang = math('ARCTAN2', dy, dx)
+    cmb = nt.nodes.new('ShaderNodeCombineXYZ'); L.new(math('MULTIPLY', ang, 6.0), cmb.inputs[0]); L.new(math('MULTIPLY', rr, 40.0), cmb.inputs[1])
+    nz = nt.nodes.new('ShaderNodeTexNoise'); nz.inputs['Scale'].default_value = 3.0; nz.inputs['Detail'].default_value = 8; L.new(cmb.outputs[0], nz.inputs['Vector'])
+    col = B.ramp(nt, (0, 0), [(0.3, (0.18, 0.1, 0.02, 1)), (0.55, (0.62, 0.45, 0.12, 1)), (0.75, (0.85, 0.72, 0.35, 1))]); L.new(nz.outputs['Fac'], col.inputs[0])
+    m1 = nt.nodes.new('ShaderNodeMix'); m1.data_type = 'RGBA'; A_, B_, R_ = B._mix_sockets(m1); L.new(ring, m1.inputs[0]); L.new(col.outputs['Color'], A_); B_.default_value = (0.02, 0.015, 0.01, 1)
+    m2 = nt.nodes.new('ShaderNodeMix'); m2.data_type = 'RGBA'; A2, B2, R2 = B._mix_sockets(m2); L.new(pup, m2.inputs[0]); L.new(R_, A2); B2.default_value = (0.0, 0.0, 0.0, 1)
+    L.new(R2, b.inputs['Base Color']); b.inputs['Roughness'].default_value = 0.35
+    b.inputs['Emission Color'].default_value = (0.55, 1.0, 0.45, 1); L.new(math('MULTIPLY', pup, 3.0), b.inputs['Emission Strength'])
+    return m
 
 def _emi(name, col, s):
     m = bpy.data.materials.new(name); m.use_nodes = True; b = m.node_tree.nodes['Principled BSDF']
@@ -211,8 +239,8 @@ def _verre_vivant(name, density=1.2, milk=0.12, spots=True):
     g.inputs['Transmission Weight'].default_value = 1.0; g.inputs['Coat Weight'].default_value = 0.25; g.inputs['Coat Roughness'].default_value = 0.03
     if 'Thin Film Thickness' in g.inputs: g.inputs['Thin Film Thickness'].default_value = 320.0; g.inputs['Thin Film IOR'].default_value = 1.38
     tc = nt.nodes.new('ShaderNodeTexCoord')
-    nz = nt.nodes.new('ShaderNodeTexNoise'); nz.inputs['Scale'].default_value = 90; nz.inputs['Detail'].default_value = 6; L.new(tc.outputs['Object'], nz.inputs['Vector'])
-    bp = nt.nodes.new('ShaderNodeBump'); bp.inputs['Strength'].default_value = 0.05; L.new(nz.outputs['Fac'], bp.inputs['Height']); L.new(bp.outputs[0], g.inputs['Normal'])
+    nz = nt.nodes.new('ShaderNodeTexNoise'); nz.inputs['Scale'].default_value = 35; nz.inputs['Detail'].default_value = 3; L.new(tc.outputs['Object'], nz.inputs['Vector'])
+    bp = nt.nodes.new('ShaderNodeBump'); bp.inputs['Strength'].default_value = 0.012; L.new(nz.outputs['Fac'], bp.inputs['Height']); L.new(bp.outputs[0], g.inputs['Normal'])
     surf = g.outputs[0]
     if spots:
         vo = nt.nodes.new('ShaderNodeTexVoronoi'); vo.inputs['Scale'].default_value = 55; L.new(tc.outputs['Object'], vo.inputs['Vector'])
