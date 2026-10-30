@@ -1,9 +1,4 @@
 ballast_bake PIECES=Amas
 ballast_bake PIECES=Dents
-ballast_bake PIECES=BrasGrille
-ballast_bake PIECES=BrasFenetre
-ballast_bake PIECES=BrasToilettes
 ballast_scene VUES=bouche,amas
 ballast_scene VUES=gorge,dessous
-ballast_scene VUES=ensemble,grille
-ballast_scene VUES=fenetre,dehors,toilettes

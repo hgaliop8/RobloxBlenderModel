@@ -160,6 +160,16 @@ def amas(seed=42, n_arms=195, log=print):
         hsk, hnl = B.hand(curl=0.95, spread=0.25, long=1.15, seed=200 + k)
         M = Matrix.Translation(rp - inward*0.12 + MN*0.02) @ B.frame(inward, MN).to_4x4()
         rim.append(B.skin_object(f'levre{k}', B._xf(hsk, M, 0.95))); NL_all.append((hnl, M, 0.95))
+    # lèvres : bourrelet de chair roulé tout autour de l'ouverture
+    lsk = B.Skel(); prev = first = None; nl = 72
+    for k in range(nl):
+        a = k/nl*2*math.pi; wob = 1 + 0.05*math.sin(a*7 + 1.3) + 0.03*math.sin(a*13)
+        p = MO + MN*0.004 + (t1*math.cos(a)*MOUTH_A + t2*math.sin(a)*MOUTH_B)*1.1*wob
+        i = lsk.v(p, 0.03*(1 + 0.25*math.sin(a*5 + 0.7)))
+        if prev is not None: lsk.e(prev, i)
+        else: first = i
+        prev = i
+    lsk.e(prev, first); rim.append(B.skin_object('levre_bourrelet', lsk, sub=2))
     for o in rim: B.bake_mods(o)
     rimo = B.remesh(B.join(rim, 'Levres'), voxel=0.0018, smooth=2); B.shade_smooth(rimo)
     nails = B.nails_from(NL_all, 'OnglesAmas')
@@ -190,7 +200,7 @@ def amas(seed=42, n_arms=195, log=print):
 VOX_AMAS = 0.0028
 MOUTH_A, MOUTH_B = 0.21, 0.145           # demi-axes de l'ouverture (horizontal, vertical)
 # profil de l'entonnoir : (échelle de l'ellipse, profondeur sous l'ouverture)
-MOUTH_PROF = [(1.42, -0.05), (1.12, -0.012), (1.0, 0.012), (0.9, 0.04), (0.8, 0.075), (0.69, 0.11), (0.58, 0.145), (0.47, 0.18),
+MOUTH_PROF = [(1.14, -0.02), (1.08, 0.0), (1.0, 0.012), (0.9, 0.04), (0.8, 0.075), (0.69, 0.11), (0.58, 0.145), (0.47, 0.18),
               (0.37, 0.215), (0.28, 0.25), (0.2, 0.29), (0.14, 0.33), (0.09, 0.37), (0.05, 0.4), (0.0, 0.41)]
 TEETH_RINGS = [(0.03, 26, 0.062, 0.0115), (0.075, 24, 0.054, 0.0102), (0.12, 21, 0.046, 0.009), (0.165, 18, 0.038, 0.008),
                (0.21, 15, 0.031, 0.007), (0.255, 12, 0.025, 0.006), (0.3, 9, 0.019, 0.005)]
@@ -267,7 +277,7 @@ def mouth_teeth(name, sub=2):
     return ob
 
 def mat_dents():
-    m = B.mat_simple('Dent', (0.5, 0.44, 0.32), 0.28, noise_scale=90, noise_col=(0.2, 0.13, 0.06), bump=0.15)
+    m = B.mat_simple('Dent', (0.34, 0.29, 0.19), 0.32, noise_scale=90, noise_col=(0.13, 0.085, 0.04), bump=0.15)
     nt = m.node_tree; b = nt.nodes['Principled BSDF']
     b.inputs['Subsurface Weight'].default_value = 0.15; b.inputs['Subsurface Radius'].default_value = (0.8, 0.6, 0.3); b.inputs['Subsurface Scale'].default_value = 0.004
     # base des dents plus sombre (dans la gencive), pointes plus claires
@@ -278,10 +288,10 @@ def mat_dents():
     return m
 
 def mat_gencive():
-    m = B.mat_simple('Gencive', (0.065, 0.012, 0.014), 0.3, noise_scale=18, noise_col=(0.02, 0.003, 0.006), bump=0.25)
+    m = B.mat_simple('Gencive', (0.05, 0.011, 0.015), 0.42, noise_scale=18, noise_col=(0.016, 0.004, 0.008), bump=0.3)
     b = m.node_tree.nodes['Principled BSDF']
     b.inputs['Subsurface Weight'].default_value = 0.2; b.inputs['Subsurface Radius'].default_value = (1.0, 0.2, 0.1); b.inputs['Subsurface Scale'].default_value = 0.006
-    b.inputs['Coat Weight'].default_value = 0.25; b.inputs['Coat Roughness'].default_value = 0.08     # salive
+    b.inputs['Coat Weight'].default_value = 0.12; b.inputs['Coat Roughness'].default_value = 0.08     # salive
     return m
 
 # ================================================================ bras posés dans la scène
