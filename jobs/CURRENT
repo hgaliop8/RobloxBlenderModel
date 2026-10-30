@@ -1,4 +1,3 @@
-ballast_bake PIECES=Amas
-ballast_bake PIECES=Dents
-ballast_scene VUES=bouche,amas
-ballast_scene VUES=gorge,dessous
+apercu_abysse CREA=siphon
+apercu_abysse CREA=echo
+apercu_abysse CREA=scaph
