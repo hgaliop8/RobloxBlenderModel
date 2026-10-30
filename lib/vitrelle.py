@@ -213,8 +213,8 @@ def build(log=print, seed=21, raised=(1, 6)):
         a, b_ = Vector((-0.12, sg*0.16, 0.45)), Vector((-0.45, sg*0.21, 0.64)); ax = (b_ - a).normalized()
         sd = ax.cross(UP).normalized(); nn = sd.cross(ax)
         tube_bm(bm_br, a, b_, 0.004, 10)
-        for j in range(46):
-            t = j/45; c = a.lerp(b_, t); ln = 0.028*(1 - 0.75*t)*(0.85 + 0.3*rg.random())
+        for j in range(80):
+            t = j/79; c = a.lerp(b_, t); ln = 0.03*(1 - 0.7*t)*(0.8 + 0.4*rg.random())
             for side in (-1, 1):
                 d = (sd*side*math.cos(0.45) - ax*math.sin(0.45)).normalized()
                 ell_bm(bm_br, c + d*ln*0.55 + nn*0.003*side, (ln*0.55, 0.0012, ln*0.42), B.frame(d, nn).to_3x3(), 10)
@@ -271,7 +271,7 @@ def build(log=print, seed=21, raised=(1, 6)):
 # ================================================================ matériaux
 def mats(glow=6.0):
     M = {}
-    M['peau'] = _verre_vivant('PeauVerre', density=1.2, spots=True, pig=True)
+    M['peau'] = _verre_vivant('PeauVerre', density=1.2, spots=True, pig=True, ior=1.07)
     M['ventouse'] = _verre_vivant('Ventouse', density=6.0, milk=0.55, spots=False)
     m = bpy.data.materials.new('Cornee'); m.use_nodes = True; b = m.node_tree.nodes['Principled BSDF']
     b.inputs['Base Color'].default_value = (1, 1, 1, 1); b.inputs['Roughness'].default_value = 0.0; b.inputs['Transmission Weight'].default_value = 1; b.inputs['IOR'].default_value = 1.376
@@ -322,23 +322,23 @@ def _oeil(glow):
     rho = math('SQRT', math('ADD', math('MULTIPLY', qx, qx), math('MULTIPLY', qy, qy)))
     front = smooth(qz, 0.0, 0.08)
     iris = math('MULTIPLY', math('SUBTRACT', 1.0, smooth(rho, 0.76, 0.8)), front)
-    hx = math('DIVIDE', math('ABSOLUTE', qx), 0.5)
-    pv = math('ADD', math('POWER', hx, 4.0), math('POWER', math('DIVIDE', qy, math('ADD', 0.085, math('MULTIPLY', math('MULTIPLY', hx, hx), 0.06))), 2.0))
+    hx = math('DIVIDE', math('ABSOLUTE', qx), 0.52)
+    pv = math('ADD', math('POWER', hx, 4.0), math('POWER', math('DIVIDE', qy, math('ADD', 0.12, math('MULTIPLY', math('MULTIPLY', hx, hx), 0.07))), 2.0))
     pup = math('MULTIPLY', math('SUBTRACT', 1.0, smooth(pv, 0.85, 1.05)), front)
     ang = math('ARCTAN2', qy, qx)
     cmb = nt.nodes.new('ShaderNodeCombineXYZ')
     L.new(math('MULTIPLY', math('SINE', ang), 14.0), cmb.inputs[0]); L.new(math('MULTIPLY', math('COSINE', ang), 14.0), cmb.inputs[1]); L.new(math('MULTIPLY', rho, 2.5), cmb.inputs[2])
     nz = nt.nodes.new('ShaderNodeTexNoise'); nz.inputs['Scale'].default_value = 1.6; nz.inputs['Detail'].default_value = 12; nz.inputs['Roughness'].default_value = 0.62
     L.new(cmb.outputs[0], nz.inputs['Vector'])
-    fib = B.ramp(nt, (0, 0), [(0.28, (0.1, 0.035, 0.004, 1)), (0.45, (0.5, 0.24, 0.025, 1)), (0.6, (0.88, 0.55, 0.1, 1)), (0.75, (1.0, 0.8, 0.35, 1))])
+    fib = B.ramp(nt, (0, 0), [(0.3, (0.06, 0.018, 0.002, 1)), (0.46, (0.38, 0.15, 0.012, 1)), (0.6, (0.78, 0.42, 0.05, 1)), (0.74, (0.98, 0.7, 0.2, 1))])
     L.new(nz.outputs['Fac'], fib.inputs[0])
     cpos = nt.nodes.new('ShaderNodeCombineXYZ'); L.new(qx, cpos.inputs[0]); L.new(qy, cpos.inputs[1])
     vo = nt.nodes.new('ShaderNodeTexVoronoi'); vo.inputs['Scale'].default_value = 16; L.new(cpos.outputs[0], vo.inputs['Vector'])
     crypt = math('MULTIPLY', math('SUBTRACT', 1.0, smooth(vo.outputs['Distance'], 0.05, 0.22)), 0.55)
     col = mix(crypt, fib.outputs['Color'], (0.12, 0.04, 0.005, 1))
     coll = math('SUBTRACT', 1.0, smooth(pv, 1.3, 4.5))                                   # collerette claire autour de la fente
-    col = mix(math('MULTIPLY', coll, 0.6), col, (1.0, 0.88, 0.5, 1))
-    limb = smooth(rho, 0.6, 0.78)                                                      # limbe sombre
+    col = mix(math('MULTIPLY', coll, 0.45), col, (1.0, 0.78, 0.3, 1))
+    limb = smooth(rho, 0.5, 0.76)                                                      # limbe sombre
     col = mix(math('MULTIPLY', limb, 0.85), col, (0.03, 0.015, 0.004, 1))
     iris_col = col
     col = mix(iris, (0.06, 0.065, 0.065, 1), col)

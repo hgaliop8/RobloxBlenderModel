@@ -82,6 +82,9 @@ for name in vues:
     if name == 'nuit':                                           # tout éteint sauf un liseré froid très faible
         for o in studio_l: o.hide_render = True
         rim = B.light('AREA', (-2.0, 1.2, 1.4), 35, (0.3, 0.7, 1.0), size=1.5, target=(0, 0, 0.5), name='Liseré')
+        fond = bpy.data.materials['Fond'].node_tree.nodes['Principled BSDF']; fond_col = tuple(fond.inputs['Base Color'].default_value); fond.inputs['Base Color'].default_value = (0.002, 0.002, 0.0025, 1)
+        for nd in bpy.data.materials['Fond'].node_tree.nodes:
+            if nd.type == 'MIX': nd.mute = True
     lp = None
     if lampe:
         e = Vector(eye); t = Vector(tgt)
