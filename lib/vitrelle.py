@@ -12,8 +12,8 @@ UP = Vector((0, 0, 1))
 CROWN = Vector((0.05, 0.0, 0.13))
 EYE_BASE = {s: Vector((0.06, s*0.17, 0.42)) for s in (-1, 1)}
 EYE_AX = {s: Vector((0.4, s*0.75, 0.5)).normalized() for s in (-1, 1)}
-EYE_R = 0.088                                   # rayon du globe oculaire
-EYE_C = {s: EYE_BASE[s] + EYE_AX[s]*0.10 for s in (-1, 1)}
+EYE_R = 0.07                                    # rayon du globe oculaire
+EYE_C = {s: EYE_BASE[s] + EYE_AX[s]*0.075 for s in (-1, 1)}
 
 def eye_frame(s):
     """repère de l'œil : x = horizontal, y = haut, z = axe du regard (la fente de la pupille reste horizontale)"""
@@ -78,6 +78,22 @@ def spindle_bm(bm, c, half_len, rad, R, seg=48):
         x, y, z = v.co; f = (max(0.0, 1 - x*x))**0.85/max(1e-6, (max(0.0, 1 - x*x))**0.5) if abs(x) < 0.999 else 0.0
         v.co = R @ Vector((x*half_len, y*rad*f, z*rad*f)) + c
 
+def lid_bm(bm, sg, k=0.55, cosa=0.42, seg=72, rings=18):
+    """calotte sphérique autour de l'œil sg, centrée vers le haut et un peu vers l'avant ; son bord descend vers l'avant"""
+    F = eye_frame(sg); n = (F @ Vector((-sg*k, 1.0, 0.45))).normalized()
+    t1 = n.orthogonal().normalized(); t2 = n.cross(t1); Rr = EYE_R*1.15; al = math.acos(cosa)
+    top = bm.verts.new(EYE_C[sg] + n*Rr); prev = None
+    for i in range(1, rings + 1):
+        th = al*i/rings; ring = []
+        for j in range(seg):
+            ph = j/seg*2*math.pi; d = n*math.cos(th) + (t1*math.cos(ph) + t2*math.sin(ph))*math.sin(th)
+            ring.append(bm.verts.new(EYE_C[sg] + d*Rr))
+        if prev is None:
+            for j in range(seg): bm.faces.new((top, ring[j], ring[(j + 1) % seg]))
+        else:
+            for j in range(seg): bm.faces.new((prev[j], ring[j], ring[(j + 1) % seg], prev[(j + 1) % seg]))
+        prev = ring
+
 def card_obj(name, c, h, R):
     """carte plate (demi-dimensions h) avec UV : recto = image entière, verso = image en miroir, tranches sur un coin"""
     bm = bmesh.new(); uv = bm.loops.layers.uv.new()
@@ -132,8 +148,8 @@ def build(log=print, seed=21, raised=(1, 6)):
     ell_bm(bm, MANTLE_C, (0.56, 0.37, 0.34), B.frame(MANTLE_AX, UP).to_3x3(), 48)
     for sg in (-1, 1):
         b0 = EYE_BASE[sg]; e = EYE_AX[sg]
-        tube_bm(bm, b0 - e*0.04, b0 + e*0.085, 0.084, 40)                       # orbite : le globe dépasse de la peau
-        torus_bm(bm, b0 + e*0.088, e, 0.086, 0.017, 48, 14)                     # bourrelet de paupière autour de l'œil
+        tube_bm(bm, b0 - e*0.04, b0 + e*0.06, 0.066, 40)                        # orbite : le globe dépasse de la peau
+        torus_bm(bm, b0 + e*0.066, e, 0.069, 0.015, 48, 14)                     # bourrelet autour de l'œil
     tube_bm(bm, Vector((-0.04, -0.24, 0.24)), Vector((0.06, -0.33, 0.17)), 0.04, 20)
     skin.append(mesh_obj('corps', bm))
     for o in skin: B.bake_mods(o)
@@ -164,13 +180,18 @@ def build(log=print, seed=21, raised=(1, 6)):
     bme, bmk = bmesh.new(), bmesh.new()
     for sg in (-1, 1):
         ell_bm(bme, EYE_C[sg], (EYE_R,)*3, eye_frame(sg), 96)
-        ell_bm(bmk, EYE_C[sg] + EYE_AX[sg]*0.024, (EYE_R*0.9, EYE_R*0.9, EYE_R*0.86), eye_frame(sg), 64)
+        ell_bm(bmk, EYE_C[sg] + EYE_AX[sg]*0.016, (EYE_R*0.9, EYE_R*0.9, EYE_R*0.86), eye_frame(sg), 64)
     eye = mesh_obj('Yeux', bme, smooth=True)
     at = eye.data.attributes.new('oeil', 'FLOAT_VECTOR', 'POINT')
     for v in eye.data.vertices:
         sg = -1 if v.co.y < 0 else 1
         at.data[v.index].vector = eye_frame(sg).transposed() @ ((v.co - EYE_C[sg])/EYE_R)
     parts['yeux'] = eye; parts['cornees'] = mesh_obj('Cornees', bmk, smooth=True)
+    # paupière supérieure pigmentée, abaissée vers l'avant : regard lourd, menaçant
+    bm = bmesh.new()
+    for sg in (-1, 1): lid_bm(bm, sg)
+    lid = mesh_obj('Paupieres', bm, smooth=True); so = lid.modifiers.new('ep', 'SOLIDIFY'); so.thickness = 0.007; so.offset = 1.0
+    sb = lid.modifiers.new('sub', 'SUBSURF'); sb.levels = 1; B.bake_mods(lid); B.shade_smooth(lid); parts['paupieres'] = lid
     # organes visibles par transparence
     bm_g, bm_h, bm_b, bm_n, bm_br = bmesh.new(), bmesh.new(), bmesh.new(), bmesh.new(), bmesh.new()
     Rm = B.frame(MANTLE_AX, UP).to_3x3()
@@ -192,11 +213,15 @@ def build(log=print, seed=21, raised=(1, 6)):
     Rb = Rb @ Matrix.Rotation(-0.35, 3, 'Z') @ Matrix.Rotation(0.3, 3, 'X')
     bc = MANTLE_C + MANTLE_AX*(-0.1) + Vector((0, -0.17, -0.02))
     parts['badge'] = card_obj('Badge', bc, (0.0428, 0.027, 0.0012), Rb)
-    pts = [bc + Rb @ Vector((0, 0.03, 0))]
-    for j in range(1, 40):
-        t = j/39; pts.append(pts[0] + Rb @ Vector((0.06*math.sin(t*5.5), 0.03 + 0.2*t, 0.025*math.sin(t*9))) )
-    bm = bmesh.new()
-    for a, b_ in zip(pts[:-1], pts[1:]): box_bm(bm, (a + b_)/2, ((b_ - a).length/2 + 0.001, 0.006, 0.0008), B.frame(b_ - a, Rb.col[2]).to_3x3())
+    pts = [bc + Rb @ Vector((0.0, 0.03 + 0.24*j/47, 0.0)) + Rb @ Vector((0.035*math.sin(j/47*4.0), 0, 0.02*math.sin(j/47*6.5))) for j in range(48)]
+    bm = bmesh.new(); prev = None; nrm = Rb.col[2].copy()
+    for j, p in enumerate(pts):
+        t = (pts[min(j + 1, 47)] - pts[max(j - 1, 0)]).normalized(); w = t.cross(nrm).normalized()*0.0065
+        tw = Matrix.Rotation(0.6*math.sin(j/47*5), 3, t); w = tw @ w; n2 = t.cross(w).normalized()*0.0007
+        ring = [bm.verts.new(p + w + n2), bm.verts.new(p - w + n2), bm.verts.new(p - w - n2), bm.verts.new(p + w - n2)]
+        if prev:
+            for k in range(4): bm.faces.new((prev[k], prev[(k + 1) % 4], ring[(k + 1) % 4], ring[k]))
+        prev = ring
     parts['cordon'] = mesh_obj('Cordon', bm)
     # bec
     bm = bmesh.new()
@@ -216,7 +241,7 @@ def build(log=print, seed=21, raised=(1, 6)):
     for sg in (-1, 1):
         b0 = EYE_BASE[sg]; e = EYE_AX[sg]; t1 = e.cross(UP).normalized(); t2 = e.cross(t1)
         for k in range(10):
-            a = k/10*2*math.pi + 0.3; ell_bm(bm_v, b0 + e*0.07 + (t1*math.cos(a) + t2*math.sin(a))*0.104, (0.0065,)*3, Matrix.Identity(3), 8)
+            a = k/10*2*math.pi + 0.3; ell_bm(bm_v, b0 + e*0.05 + (t1*math.cos(a) + t2*math.sin(a))*0.088, (0.0055,)*3, Matrix.Identity(3), 8)
         for j in range(9):
             t = j/8; c = MANTLE_C + MANTLE_AX*(0.45 - 0.9*t) + Vector((0, sg*0.2*(1 - 0.5*abs(t - 0.5)), 0.24*(1 - (2*t - 1)**2) + 0.05))
             ell_bm(bm_v, c, (0.009,)*3, Matrix.Identity(3), 8)
@@ -232,13 +257,14 @@ def mats(glow=6.0):
     b.inputs['Base Color'].default_value = (1, 1, 1, 1); b.inputs['Roughness'].default_value = 0.0; b.inputs['Transmission Weight'].default_value = 1; b.inputs['IOR'].default_value = 1.376
     M['cornee'] = m
     M['oeil'] = _oeil(glow)
+    M['paupiere'] = _paupiere()
     M['glande'] = _argent()
     M['coeur'] = _organe('Coeur', (0.35, 0.03, 0.04), 1.2, (1.0, 0.1, 0.1))
     M['branchie'] = _organe('Branchie', (0.85, 0.62, 0.62), 0.0)
     M['nerf'] = _organe('Nerf', (0.75, 0.72, 0.66), 0.0)
     M['pore'] = _organe('Pore', (0.1, 0.035, 0.025), 0.0)
     M['badge'] = _badge()
-    M['cordon'] = B.mat_simple('Cordon', (0.02, 0.12, 0.15), 0.8, noise_scale=400, noise_col=(0.01, 0.07, 0.09), bump=0.2)
+    M['cordon'] = B.mat_simple('Cordon', (0.04, 0.26, 0.3), 0.75, noise_scale=400, noise_col=(0.02, 0.15, 0.18), bump=0.2)
     M['bec'] = B.mat_simple('Bec', (0.015, 0.01, 0.008), 0.25)
     M['photo_v'] = _emi('PhotoV', (0.15, 1.0, 0.7), 14)
     M['photo_r'] = _emi('PhotoR', (1.0, 0.15, 0.08), 8)
@@ -276,7 +302,8 @@ def _oeil(glow):
     rho = math('SQRT', math('ADD', math('MULTIPLY', qx, qx), math('MULTIPLY', qy, qy)))
     front = smooth(qz, 0.0, 0.08)
     iris = math('MULTIPLY', math('SUBTRACT', 1.0, smooth(rho, 0.76, 0.8)), front)
-    pv = math('ADD', math('POWER', math('DIVIDE', math('ABSOLUTE', qx), 0.36), 4.0), math('POWER', math('DIVIDE', qy, 0.075), 2.0))
+    hx = math('DIVIDE', math('ABSOLUTE', qx), 0.5)
+    pv = math('ADD', math('POWER', hx, 4.0), math('POWER', math('DIVIDE', qy, math('ADD', 0.085, math('MULTIPLY', math('MULTIPLY', hx, hx), 0.06))), 2.0))
     pup = math('MULTIPLY', math('SUBTRACT', 1.0, smooth(pv, 0.85, 1.05)), front)
     ang = math('ARCTAN2', qy, qx)
     cmb = nt.nodes.new('ShaderNodeCombineXYZ')
@@ -301,10 +328,21 @@ def _oeil(glow):
     b.inputs['Roughness'].default_value = 0.32
     if 'Thin Film Thickness' in b.inputs: b.inputs['Thin Film Thickness'].default_value = 260.0
     # émission : lueur de la pupille (plus forte au centre de la fente) + faible lueur dorée de l'iris
-    core = math('MULTIPLY', pup, math('ADD', 0.35, math('MULTIPLY', math('SUBTRACT', 1.0, smooth(pv, 0.0, 0.9)), 0.65)))
+    core = math('MULTIPLY', pup, math('POWER', math('SUBTRACT', 1.0, smooth(pv, 0.0, 0.7)), 2.0))
     ecol = mix(core, mix(iris, (0, 0, 0, 1), iris_col), (0.55, 1.0, 0.32, 1))
     L.new(ecol, b.inputs['Emission Color'])
-    L.new(math('ADD', math('MULTIPLY', core, glow), math('MULTIPLY', iris, glow*0.06)), b.inputs['Emission Strength'])
+    gv = nt.nodes.new('ShaderNodeValue'); gv.name = 'Lueur'; gv.outputs[0].default_value = glow
+    L.new(math('ADD', math('MULTIPLY', core, gv.outputs[0]), math('MULTIPLY', iris, math('MULTIPLY', gv.outputs[0], 0.06))), b.inputs['Emission Strength'])
+    return m
+
+def _paupiere():
+    """peau pigmentée (chromatophores serrés brun-rouge), humide, à peine translucide"""
+    m = bpy.data.materials.new('Paupiere'); m.use_nodes = True; nt = m.node_tree; b = nt.nodes['Principled BSDF']; L = nt.links
+    tc = nt.nodes.new('ShaderNodeTexCoord'); vo = nt.nodes.new('ShaderNodeTexVoronoi'); vo.inputs['Scale'].default_value = 140; L.new(tc.outputs['Object'], vo.inputs['Vector'])
+    r = B.ramp(nt, (0, 0), [(0.0, (0.07, 0.012, 0.006, 1)), (0.35, (0.3, 0.08, 0.04, 1)), (0.8, (0.55, 0.32, 0.22, 1))]); L.new(vo.outputs['Distance'], r.inputs[0])
+    L.new(r.outputs['Color'], b.inputs['Base Color'])
+    b.inputs['Roughness'].default_value = 0.4; b.inputs['Coat Weight'].default_value = 0.8; b.inputs['Coat Roughness'].default_value = 0.05
+    b.inputs['Transmission Weight'].default_value = 0.25; b.inputs['Subsurface Weight'].default_value = 0.3; b.inputs['Subsurface Scale'].default_value = 0.01
     return m
 
 def _argent():
@@ -363,7 +401,7 @@ def _verre_vivant(name, density=1.2, milk=0.12, spots=True):
     return m
 
 def assign(parts, M):
-    pairs = dict(peau='peau', ventouses='ventouse', pores='pore', yeux='oeil', cornees='cornee', glande='glande', cordon='cordon',
+    pairs = dict(paupieres='paupiere', peau='peau', ventouses='ventouse', pores='pore', yeux='oeil', cornees='cornee', glande='glande', cordon='cordon',
                  coeurs='coeur', branchies='branchie', nerfs='nerf', badge='badge', bec='bec', photo_v='photo_v', photo_r='photo_r')
     for k, o in parts.items(): o.data.materials.clear(); o.data.materials.append(M[pairs[k]])
 

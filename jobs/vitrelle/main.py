@@ -47,14 +47,14 @@ def studio(intensite=1.0, lampes=True):
     B.light('AREA', (0, 0, 4), 90*k, (0.8, 0.9, 1.0), size=3, target=(0, 0, 0), name='Haut')
 
 parts = V.build(log=log)
-M = V.mats(glow=float(os.environ.get('LUEUR', '6'))); V.assign(parts, M)
+M = V.mats(); V.assign(parts, M)
 log('créature construite')
 
 eC = V.EYE_C[-1]; eA = V.EYE_AX[-1]
 CAMS = {
     'studio': ((3.3, -2.9, 1.45), (-0.2, 0.05, 0.55), 38, True),
     'profil': ((-0.7, -4.2, 1.0), (-0.25, 0.0, 0.55), 42, True),
-    'oeil':   (tuple(eC + eA*0.45 + Vector((0.16, 0.0, -0.1))), tuple(eC - eA*0.02), 70, True),
+    'oeil':   (tuple(eC + eA*0.7 + Vector((0.22, 0.0, -0.12))), tuple(eC - eA*0.03 + Vector((0, 0, 0.01))), 55, True),
     'tete':   ((1.55, -1.75, 0.95), (-0.12, -0.04, 0.5), 50, True),
     'nuit':   ((1.75, -1.0, 0.22), (0.0, -0.05, 0.55), 30, False),
 }
@@ -85,6 +85,7 @@ for name in vues:
         e = Vector(eye); t = Vector(tgt)
         lp = B.light('SPOT', tuple(e + Vector((0.1, 0, 0.15))), 60 if name == 'plafond' else 25, (1.0, 0.92, 0.8), size=0.02, name='Lampe', spot=0.55)
         lp.rotation_euler = (t - lp.location).to_track_quat('-Z', 'Y').to_euler()
+    bpy.data.materials['Oeil'].node_tree.nodes['Lueur'].outputs[0].default_value = float(os.environ.get('LUEUR', '10' if name in ('nuit', 'plafond') else '3'))
     fn = f'witness_{name}'
     r = sc.render
     if tuile:
