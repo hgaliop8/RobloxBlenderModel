@@ -13,7 +13,7 @@ CROWN = Vector((0.05, 0.0, 0.13))
 EYE_BASE = {s: Vector((0.06, s*0.17, 0.42)) for s in (-1, 1)}
 EYE_AX = {s: Vector((0.3, s*0.9, 0.25)).normalized() for s in (-1, 1)}
 EYE_R = 0.07                                    # rayon du globe oculaire
-EYE_C = {s: EYE_BASE[s] + EYE_AX[s]*0.075 for s in (-1, 1)}
+EYE_C = {s: EYE_BASE[s] + EYE_AX[s]*0.05 for s in (-1, 1)}
 
 def eye_frame(s):
     """repère de l'œil : x = horizontal, y = haut, z = axe du regard (la fente de la pupille reste horizontale)"""
@@ -160,10 +160,10 @@ def build(log=print, seed=21, raised=(1, 6)):
     ell_bm(bm, MANTLE_C, (0.56, 0.37, 0.34), B.frame(MANTLE_AX, UP).to_3x3(), 48)
     for sg in (-1, 1):
         b0 = EYE_BASE[sg]; e = EYE_AX[sg]
-        tube_bm(bm, b0 - e*0.04, b0 + e*0.06, 0.066, 40)                        # orbite : le globe dépasse de la peau
-        torus_bm(bm, b0 + e*0.066, e, 0.069, 0.015, 48, 14)                     # bourrelet autour de l'œil
+        tube_bm(bm, b0 - e*0.04, b0 + e*0.075, 0.064, 40)                       # orbite : seul l'iris dépasse de la peau
+        torus_bm(bm, b0 + e*0.093, e, 0.056, 0.012, 48, 14)                     # paupière serrée sur le bord de l'iris
         F = eye_frame(sg); xl, yl, zl = F.col[0], F.col[1], F.col[2]
-        ell_bm(bm, EYE_C[sg] + yl*EYE_R*0.82 + zl*EYE_R*0.1, (EYE_R*1.3, EYE_R*0.42, EYE_R*0.78), F @ Matrix.Rotation(sg*0.35, 3, 'Z'), 40)   # arcade qui retombe vers l'avant
+        ell_bm(bm, EYE_C[sg] + yl*EYE_R*0.78 + zl*EYE_R*0.25, (EYE_R*1.3, EYE_R*0.4, EYE_R*0.7), F @ Matrix.Rotation(sg*0.35, 3, 'Z'), 40)   # arcade qui retombe vers l'avant
     tube_bm(bm, Vector((-0.04, -0.24, 0.24)), Vector((0.06, -0.33, 0.17)), 0.04, 20)
     skin.append(mesh_obj('corps', bm))
     for o in skin: B.bake_mods(o)
@@ -202,21 +202,32 @@ def build(log=print, seed=21, raised=(1, 6)):
         at.data[v.index].vector = eye_frame(sg).transposed() @ ((v.co - EYE_C[sg])/EYE_R)
     parts['yeux'] = eye; parts['cornees'] = mesh_obj('Cornees', bmk, smooth=True)
     # organes visibles par transparence
-    bm_g, bm_h, bm_b, bm_n, bm_br = bmesh.new(), bmesh.new(), bmesh.new(), bmesh.new(), bmesh.new()
-    Rm = B.frame(MANTLE_AX, UP).to_3x3()
+    bm_g, bm_h, bm_br = bmesh.new(), bmesh.new(), bmesh.new()
+    Rm = B.frame(MANTLE_AX, UP).to_3x3(); rg = random.Random(5)
     spindle_bm(bm_g, MANTLE_C + MANTLE_AX*0.04 - UP*0.03, 0.25, 0.07, Rm)                          # glande digestive (fuseau argenté)
-    ell_bm(bm_h, Vector((-0.17, 0, 0.5)), (0.038, 0.034, 0.034))                                # cœur systémique
+    ell_bm(bm_h, Vector((-0.17, 0, 0.5)), (0.034, 0.03, 0.03))                                  # cœur systémique
+    sk = B.Skel()
     for sg in (-1, 1):
-        ell_bm(bm_h, Vector((-0.22, sg*0.1, 0.47)), (0.026, 0.026, 0.026))                        # cœurs branchiaux
-        a, b_ = Vector((-0.12, sg*0.16, 0.45)), Vector((-0.45, sg*0.21, 0.64))
-        for j in range(34):                                                                        # branchies plumeuses
-            t = j/33; c = a.lerp(b_, t); ell_bm(bm_br, c, (0.0025, 0.03*(1 - 0.6*abs(t - 0.4)), 0.02), B.frame((b_ - a).normalized(), UP).to_3x3(), 12)
-        tube_bm(bm_n, EYE_BASE[sg], Vector((0.0, sg*0.05, 0.42)), 0.012, 10)                       # nerfs optiques
-    ell_bm(bm_n, Vector((0.0, 0, 0.42)), (0.07, 0.1, 0.055))                                       # cerveau
-    pts = [CROWN + Vector((0, 0, -0.04)), Vector((0.02, 0, 0.3)), Vector((-0.05, 0, 0.44)), MANTLE_C + MANTLE_AX*0.15]
-    for a, b_ in zip(pts[:-1], pts[1:]): tube_bm(bm_n, a, b_, 0.011, 10)                           # œsophage
+        ell_bm(bm_h, Vector((-0.22, sg*0.1, 0.47)), (0.022, 0.022, 0.022))                        # cœurs branchiaux
+        # branchie bipennée : un rachis, deux rangées de lamelles fines qui raccourcissent vers la pointe
+        a, b_ = Vector((-0.12, sg*0.16, 0.45)), Vector((-0.45, sg*0.21, 0.64)); ax = (b_ - a).normalized()
+        sd = ax.cross(UP).normalized(); nn = sd.cross(ax)
+        tube_bm(bm_br, a, b_, 0.004, 10)
+        for j in range(46):
+            t = j/45; c = a.lerp(b_, t); ln = 0.028*(1 - 0.75*t)*(0.85 + 0.3*rg.random())
+            for side in (-1, 1):
+                d = (sd*side*math.cos(0.45) - ax*math.sin(0.45)).normalized()
+                ell_bm(bm_br, c + d*ln*0.55 + nn*0.003*side, (ln*0.55, 0.0012, ln*0.42), B.frame(d, nn).to_3x3(), 10)
+        # nerf optique : de l'arrière de l'œil au lobe du cerveau, en courbe
+        e = EYE_AX[sg]; p0 = EYE_C[sg] - e*EYE_R*0.85; p2 = Vector((0.0, sg*0.04, 0.43))
+        P = B.catmull([p0, (p0 + p2)/2 + UP*0.025, p2], 8)
+        sk.chain(sk.v(P[0], 0.0075), P[1:], [0.0075 - 0.0025*i/len(P) for i in range(1, len(P))])
+        ell_bm(bm_br, Vector((0.0, sg*0.035, 0.43)), (0.045, 0.04, 0.036), Matrix.Rotation(sg*0.2, 3, 'Z'), 24)   # lobes du cerveau
+    P = B.catmull([CROWN + Vector((0.01, 0, -0.03)), Vector((0.02, 0, 0.3)), Vector((-0.04, 0, 0.44)), Vector((-0.14, 0, 0.5)), MANTLE_C + MANTLE_AX*0.2 - UP*0.03], 10)
+    sk.chain(sk.v(P[0], 0.006), P[1:], [0.006]*(len(P) - 1))                                       # œsophage
+    nerfs = B.skin_object('Nerfs', sk, sub=1); B.bake_mods(nerfs); B.shade_smooth(nerfs)
     parts['glande'] = mesh_obj('Glande', bm_g, smooth=True); parts['coeurs'] = mesh_obj('Coeurs', bm_h, smooth=True)
-    parts['branchies'] = mesh_obj('Branchies', bm_br, smooth=True); parts['nerfs'] = mesh_obj('Nerfs', bm_n, smooth=True)
+    parts['branchies'] = mesh_obj('Branchies', bm_br, smooth=True); parts['nerfs'] = nerfs
     # ce qu'il a avalé : le badge d'accès du Dr Aldane, avec son cordon, coincé contre la paroi du manteau (côté -Y)
     bx = Vector((1, 0, 0.25)).normalized(); bz = Vector((0, -1, 0)); Rb = Matrix((bx, bz.cross(bx), bz)).transposed()   # face imprimée vers -Y
     Rb = Rb @ Matrix.Rotation(-0.35, 3, 'Z') @ Matrix.Rotation(0.3, 3, 'X')
@@ -269,8 +280,8 @@ def mats(glow=6.0):
     M['oeil'] = _oeil(glow)
     M['glande'] = _argent()
     M['coeur'] = _organe('Coeur', (0.35, 0.03, 0.04), 1.2, (1.0, 0.1, 0.1))
-    M['branchie'] = _organe('Branchie', (0.85, 0.62, 0.62), 0.0)
-    M['nerf'] = _organe('Nerf', (0.75, 0.72, 0.66), 0.0)
+    M['branchie'] = _organe('Branchie', (0.85, 0.6, 0.58), 0.0, trans=0.45)
+    M['nerf'] = _organe('Nerf', (0.85, 0.82, 0.76), 0.0, trans=0.55)
     M['pore'] = _organe('Pore', (0.1, 0.035, 0.025), 0.0)
     M['badge'] = _badge()
     M['cordon'] = B.mat_simple('Cordon', (0.04, 0.26, 0.3), 0.75, noise_scale=400, noise_col=(0.02, 0.15, 0.18), bump=0.2)
@@ -319,7 +330,7 @@ def _oeil(glow):
     L.new(math('MULTIPLY', math('SINE', ang), 14.0), cmb.inputs[0]); L.new(math('MULTIPLY', math('COSINE', ang), 14.0), cmb.inputs[1]); L.new(math('MULTIPLY', rho, 2.5), cmb.inputs[2])
     nz = nt.nodes.new('ShaderNodeTexNoise'); nz.inputs['Scale'].default_value = 1.6; nz.inputs['Detail'].default_value = 12; nz.inputs['Roughness'].default_value = 0.62
     L.new(cmb.outputs[0], nz.inputs['Vector'])
-    fib = B.ramp(nt, (0, 0), [(0.28, (0.16, 0.06, 0.008, 1)), (0.45, (0.62, 0.33, 0.04, 1)), (0.6, (0.95, 0.66, 0.16, 1)), (0.75, (1.0, 0.86, 0.45, 1))])
+    fib = B.ramp(nt, (0, 0), [(0.28, (0.1, 0.035, 0.004, 1)), (0.45, (0.5, 0.24, 0.025, 1)), (0.6, (0.88, 0.55, 0.1, 1)), (0.75, (1.0, 0.8, 0.35, 1))])
     L.new(nz.outputs['Fac'], fib.inputs[0])
     cpos = nt.nodes.new('ShaderNodeCombineXYZ'); L.new(qx, cpos.inputs[0]); L.new(qy, cpos.inputs[1])
     vo = nt.nodes.new('ShaderNodeTexVoronoi'); vo.inputs['Scale'].default_value = 16; L.new(cpos.outputs[0], vo.inputs['Vector'])
@@ -338,7 +349,7 @@ def _oeil(glow):
     if 'Thin Film Thickness' in b.inputs: b.inputs['Thin Film Thickness'].default_value = 260.0
     # émission : lueur de la pupille (plus forte au centre de la fente) + faible lueur dorée de l'iris
     core = math('MULTIPLY', pup, math('POWER', math('SUBTRACT', 1.0, smooth(pv, 0.0, 0.7)), 2.0))
-    ecol = mix(core, mix(iris, (0, 0, 0, 1), iris_col), (0.55, 1.0, 0.32, 1))
+    ecol = mix(core, mix(iris, (0, 0, 0, 1), iris_col), (0.3, 1.0, 0.2, 1))
     L.new(ecol, b.inputs['Emission Color'])
     gv = nt.nodes.new('ShaderNodeValue'); gv.name = 'Lueur'; gv.outputs[0].default_value = glow
     L.new(math('ADD', math('MULTIPLY', core, gv.outputs[0]), math('MULTIPLY', iris, math('MULTIPLY', gv.outputs[0], 0.06))), b.inputs['Emission Strength'])
@@ -368,10 +379,11 @@ def _emi(name, col, s):
     b.inputs['Transmission Weight'].default_value = 0.5; b.inputs['Roughness'].default_value = 0.1
     return m
 
-def _organe(name, col, emi, ecol=(1, 0.2, 0.2)):
+def _organe(name, col, emi, ecol=(1, 0.2, 0.2), trans=0.0):
     m = B.mat_simple(name, col, 0.45, noise_scale=60, noise_col=tuple(c*0.5 for c in col), bump=0.3); b = m.node_tree.nodes['Principled BSDF']
     b.inputs['Subsurface Weight'].default_value = 0.4; b.inputs['Subsurface Radius'].default_value = (1, 0.3, 0.2); b.inputs['Subsurface Scale'].default_value = 0.01
     if emi: b.inputs['Emission Color'].default_value = (*ecol, 1); b.inputs['Emission Strength'].default_value = emi
+    if trans: b.inputs['Transmission Weight'].default_value = trans; b.inputs['Roughness'].default_value = 0.3
     return m
 
 def _ombre_claire(nt, surf):
@@ -402,7 +414,7 @@ def _verre_vivant(name, density=1.2, milk=0.12, spots=True, pig=False, ior=1.15)
         if pig:                                          # masque sombre autour des yeux : chromatophores serrés
             at = nt.nodes.new('ShaderNodeAttribute'); at.attribute_name = 'pigment'
             d.inputs['Base Color'].default_value = (0.11, 0.022, 0.012, 1); d.inputs['Coat Weight'].default_value = 0.7; d.inputs['Coat Roughness'].default_value = 0.05
-            pm = nt.nodes.new('ShaderNodeMath'); pm.operation = 'MULTIPLY'; L.new(at.outputs['Fac'], pm.inputs[0]); pm.inputs[1].default_value = 0.9
+            pm = nt.nodes.new('ShaderNodeMath'); pm.operation = 'MULTIPLY'; L.new(at.outputs['Fac'], pm.inputs[0]); pm.inputs[1].default_value = 0.22
             sp = nt.nodes.new('ShaderNodeMath'); sp.operation = 'MULTIPLY'; L.new(rr.outputs['Color'], sp.inputs[0]); L.new(at.outputs['Fac'], sp.inputs[1])
             a1 = nt.nodes.new('ShaderNodeMath'); a1.operation = 'ADD'; a1.use_clamp = True; L.new(fac, a1.inputs[0]); L.new(pm.outputs[0], a1.inputs[1])
             a2 = nt.nodes.new('ShaderNodeMath'); a2.operation = 'ADD'; a2.use_clamp = True; L.new(a1.outputs[0], a2.inputs[0]); L.new(sp.outputs[0], a2.inputs[1])
