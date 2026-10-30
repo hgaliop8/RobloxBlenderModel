@@ -9,7 +9,7 @@ from mathutils import Vector
 out = sys.argv[sys.argv.index('--') + 1]; os.makedirs(out, exist_ok=True)
 T0 = time.time(); logf = open(os.path.join(out, 'etapes.txt'), 'w')
 def log(msg): logf.write(f'{time.time() - T0:7.1f}s  {msg}\n'); logf.flush(); print('>>', msg, flush=True)
-VUE = os.environ.get('VUE', 'test'); TEST = VUE == 'test'
+VUE = os.environ.get('VUE', 'test'); TEST = VUE in ('test', 'apercu')
 bpy.ops.wm.read_factory_settings(use_empty=True)
 
 sc = B.setup_render((480, 270) if TEST else (1600, 900), samples=24 if TEST else 160, exposure=0.0)
@@ -38,9 +38,10 @@ parts = V.build(log=log); M = V.mats(); V.assign(parts, M)
 log('créature construite')
 vues = []
 eyeR = V.EYE_BASE[-1] + V.EYE_AX[-1]*0.16
-if VUE in ('studio', 'profil', 'oeil', 'test'):
+if VUE in ('studio', 'profil', 'oeil', 'test', 'apercu'):
     studio()
     if VUE in ('studio', 'test'): vues.append(('vitrelle_studio', (2.9, -2.5, 1.25), (-0.15, 0.05, 0.45), 40))
+    if VUE == 'apercu': vues += [('vitrelle_studio', (2.9, -2.5, 1.25), (-0.15, 0.05, 0.45), 40), ('vitrelle_profil', (-0.6, -3.8, 0.9), (-0.25, 0.0, 0.45), 45), ('vitrelle_oeil', tuple(eyeR + Vector((0.42, -0.3, 0.12))), tuple(eyeR - Vector((0.02, 0, 0.02))), 85)]
     if VUE == 'profil': vues.append(('vitrelle_profil', (-0.6, -3.8, 0.9), (-0.25, 0.0, 0.45), 45))
     if VUE == 'oeil': vues.append(('vitrelle_oeil', tuple(eyeR + Vector((0.42, -0.3, 0.12))), tuple(eyeR - Vector((0.02, 0, 0.02))), 85))
 if VUE in ('plafond', 'test'):
