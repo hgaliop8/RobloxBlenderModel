@@ -1,3 +1,1 @@
-vitrelle VUE=apercu VUES=oeil LAIT=0
-vitrelle VUE=apercu VUES=oeil LAIT=0 ABSORB=0
-vitrelle VUE=apercu VUES=oeil TACHES=0
+vitrelle VUE=apercu VUES=oeil,tete PEAU=miroir

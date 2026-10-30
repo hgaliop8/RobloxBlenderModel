@@ -50,6 +50,8 @@ def studio(intensite=1.0, lampes=True):
 
 parts = V.build(log=log)
 M = V.mats(); V.assign(parts, M)
+if os.environ.get('PEAU') == 'miroir':
+    mm = B.mat_simple('Miroir', (0.9, 0.9, 0.9), 0.04, metal=1.0); parts['peau'].data.materials.clear(); parts['peau'].data.materials.append(mm)
 log('créature construite')
 
 eC = V.EYE_C[-1]; eA = V.EYE_AX[-1]
