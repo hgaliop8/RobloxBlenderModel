@@ -1,2 +1,6 @@
-salle_temoin COURANT=1 VUES=large,lit,casiers,table ECH=48 RES=1200x675 EXPOS=-1_0_1
-salle_temoin COURANT=0 VUES=large,lit ECH=48 RES=1200x675 EXPOS=-1_0_1
+salle_temoin COURANT=1 VUES=large ECH=160 RES=1600x900
+salle_temoin COURANT=1 VUES=lit ECH=160 RES=1600x900
+salle_temoin COURANT=1 VUES=casiers ECH=160 RES=1600x900
+salle_temoin COURANT=1 VUES=table ECH=160 RES=1600x900
+salle_temoin COURANT=0 VUES=large ECH=160 RES=1600x900 EXPO=0.5
+salle_temoin COURANT=0 VUES=lit ECH=160 RES=1600x900 EXPO=0.5

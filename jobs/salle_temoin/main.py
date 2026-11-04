@@ -89,13 +89,19 @@ def point(loc, energy, col, r=0.2):
     ld = bpy.data.lights.new('P', 'POINT'); ld.energy = energy; ld.color = col; ld.shadow_soft_size = r
     ob = bpy.data.objects.new('P', ld); sc.collection.objects.link(ob); ob.location = loc; return ob
 dif = bpy.data.materials.get('Diffuseur')
+lens = K.mat_plain('LentilleSecours', (150, 20, 14), rough=0.25, emit=0.0 if COURANT else 40.0)
+for (bx, by, bz, ry) in ((38.4, Y0, 10.6, 0.0), (38.4, Y1, 13.0, math.pi)):
+    s_ = 1 if ry == 0 else -1
+    K.cube('BlocSecours', (1.6, 0.5, 0.7), (bx, by + s_*0.25, bz), K.mat('metal_peint', (200, 200, 196)), 0.05)
+    K.cube('LentilleSecours', (1.3, 0.12, 0.45), (bx, by + s_*0.55, bz - 0.05), lens, 0.04)
+    K.tube('Conduit', (bx + 0.6, by + s_*0.12, bz + 0.35), (bx + 0.6, by + s_*0.12, H), 0.08, K.mat('metal_brut', (130, 130, 130)))
 if COURANT:
     for o in bpy.data.objects:
         if o.name.startswith('Diffuseur'): area((o.location.x, o.location.y, o.location.z - 0.1), (4.0, 1.1), float(os.environ.get('PUIS', '600')), (1.0, 0.97, 0.92))
     dif.node_tree.nodes['Principled BSDF'].inputs['Emission Strength'].default_value = 6
 else:
-    point((38.4, 1.6, 10.6), 1500, (1.0, 0.12, 0.06), 0.3)                   # bloc de secours au-dessus de la porte
-    point((38.4, 50.0, 13.0), 300, (1.0, 0.12, 0.06), 0.3)
+    point((38.4, 1.3, 10.4), 1500, (1.0, 0.12, 0.06), 0.6)                   # bloc de secours au-dessus de la porte
+    point((38.4, Y1 - 1.3, 12.8), 300, (1.0, 0.12, 0.06), 0.6)
     w.node_tree.nodes['Background'].inputs['Color'].default_value = (0.0005, 0.0008, 0.001, 1)
 
 def cam(name, eye, tgt):
@@ -104,9 +110,9 @@ def cam(name, eye, tgt):
     ob.rotation_euler = (Vector(tgt) - Vector(eye)).to_track_quat('-Z', 'Y').to_euler(); return ob
 VIEWS = {
     'large': ((38.4, 2.5, 5.2), (38.4, 40, 4.0)),         # depuis la porte, hauteur des yeux d'un joueur
-    'lit':   ((35.0, 38.5, 5.4), (30.0, 29.0, 2.6)),      # gros plan sur un lit de la rangée centrale
+    'lit':   ((33.8, 37.0, 4.8), (30.2, 29.0, 2.4)),      # gros plan sur un lit de la rangée centrale
     'casiers': ((63.5, 15.0, 5.2), (76.8, 19.5, 3.8)),
-    'table': ((60.0, 16.0, 5.2), (69.3, 26.4, 2.4)),
+    'table': ((72.0, 16.5, 5.0), (68.8, 26.4, 2.4)),
 }
 for v in VUES:
     eye, tgt = VIEWS[v]; c = cam(v, eye, tgt); sc.camera = c

@@ -61,8 +61,22 @@ def lit_superpose(seed=0, couleurs=((70, 86, 112), (112, 72, 60), (84, 98, 80), 
     if rnd.random() < 0.6:
         sac = cube('Sac', (2.0, 0.9, 0.75), (rnd.uniform(-1.5, 1.0), rnd.uniform(-0.4, 0.4), 0.38), mat('tissu', rnd.choice([(60, 70, 50), (40, 44, 60), (70, 60, 50)])), 0.3, 3, rot=(0, 0, rnd.uniform(-0.3, 0.3)))
         sb = sac.modifiers.new('sub', 'SUBSURF'); sb.levels = 2; objs.append(sac)
+    if rnd.random() < 0.55:                                 # rangers sous le lit
+        bx, by, ba = rnd.uniform(0.5, 2.2), rnd.uniform(-1.0, 0.6), rnd.uniform(-0.4, 0.4)
+        for k in range(2):
+            objs += botte(rnd, (bx + rnd.uniform(-0.1, 0.1), by + k*0.45, 0), ba + rnd.uniform(-0.15, 0.15))
     parent_all(objs, root)
     return root
+
+def botte(rnd, loc, rot):
+    """ranger : semelle crantée, tige montante, bout arrondi (subdivision)"""
+    M = mat('simili_cuir', (34, 30, 28)); Ms = mat('caoutchouc', (26, 26, 26)); x, y, z = loc; c, s_ = math.cos(rot), math.sin(rot)
+    def P(dx, dz): return (x + dx*c, y + dx*s_, z + dz)
+    o = [cube('Semelle', (1.0, 0.38, 0.12), P(0, 0.06), Ms, 0.04, 2, rot=(0, 0, rot)),
+         cube('Empeigne', (0.95, 0.34, 0.32), P(0.02, 0.26), M, 0.12, 3, rot=(0, 0, rot)),
+         cube('Tige', (0.42, 0.33, 0.85), P(-0.24, 0.62), M, 0.1, 3, rot=(0, 0, rot))]
+    for ob in o[1:]: ob.modifiers.new('sub', 'SUBSURF').levels = 2
+    return o
 
 def cantine(rnd, loc, rot):
     """cantine militaire : caisse à coins renforcés, couvercle, fermoirs, poignées"""
