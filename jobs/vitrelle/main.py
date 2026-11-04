@@ -78,6 +78,8 @@ for o in bpy.data.objects:
     if o.type == 'LIGHT' and o.data.type == 'AREA':
         o.data.shape = 'DISK'
         if hasattr(o, 'visible_transmission'): o.visible_transmission = False     # pas d'images des lampes à travers le verre
+        o.data.size *= 0.5                                                         # reflets plus petits et plus nets dans le manteau
+        if o.name == 'Haut': o.visible_glossy = False
         log(f'lampe {o.name} {o.data.shape} transmission={getattr(o, "visible_transmission", None)}')
 for nm in [x for x in os.environ.get('CACHER', '').split(',') if x]:
     for o in bpy.data.objects:
@@ -102,7 +104,7 @@ for name in vues:
         e = Vector(eye); t = Vector(tgt)
         lp = B.light('SPOT', tuple(e + Vector((0.1, 0, 0.15))), 60 if name == 'plafond' else 25, (1.0, 0.92, 0.8), size=0.02, name='Lampe', spot=0.55)
         lp.rotation_euler = (t - lp.location).to_track_quat('-Z', 'Y').to_euler()
-    bpy.data.materials['Oeil'].node_tree.nodes['Lueur'].outputs[0].default_value = float(os.environ.get('LUEUR', '8' if name in ('nuit', 'plafond') else '0.12'))
+    bpy.data.materials['Oeil'].node_tree.nodes['Lueur'].outputs[0].default_value = float(os.environ.get('LUEUR', '5' if name in ('nuit', 'plafond') else '0.12'))
     fn = f'witness_{name}'
     r = sc.render
     if tuile:

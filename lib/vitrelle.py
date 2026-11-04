@@ -208,28 +208,33 @@ def build(log=print, seed=21, raised=(1, 6)):
     Rm = B.frame(MANTLE_AX, UP).to_3x3(); rg = random.Random(5)
     spindle_bm(bm_g, MANTLE_C + MANTLE_AX*0.04 - UP*0.03, 0.25, 0.07, Rm)                          # glande digestive (fuseau argenté)
     ell_bm(bm_h, Vector((-0.17, 0, 0.5)), (0.034, 0.03, 0.03))                                  # cœur systémique
-    sk = B.Skel()
+    sk = B.Skel(); sv = B.Skel(); so_ = B.Skel()
     for sg in (-1, 1):
         ell_bm(bm_h, Vector((-0.22, sg*0.1, 0.47)), (0.022, 0.022, 0.022))                        # cœurs branchiaux
         # branchie bipennée : un rachis, deux rangées de lamelles fines qui raccourcissent vers la pointe
-        a, b_ = Vector((-0.12, sg*0.16, 0.45)), Vector((-0.45, sg*0.21, 0.64)); ax = (b_ - a).normalized()
-        sd = ax.cross(UP).normalized(); nn = sd.cross(ax)
-        tube_bm(bm_br, a, b_, 0.004, 10)
-        for j in range(80):
-            t = j/79; c = a.lerp(b_, t); ln = 0.03*(1 - 0.7*t)*(0.8 + 0.4*rg.random())
+        a, b_ = Vector((-0.12, sg*0.16, 0.45)), Vector((-0.45, sg*0.21, 0.64))
+        G = B.catmull([a, a.lerp(b_, 0.5) + Vector((0, sg*0.035, -0.03)), b_], 40)
+        sv.chain(sv.v(G[0], 0.0035), G[1:], [0.0035 - 0.002*i/len(G) for i in range(1, len(G))])   # vaisseau branchial (rouge)
+        for j in range(96):
+            t = j/95; i = min(int(t*(len(G) - 1)), len(G) - 2); c = G[i]; ax = (G[i + 1] - G[i]).normalized()
+            sd = ax.cross(UP).normalized(); nn = sd.cross(ax)
+            ln = 0.032*(1 - 0.7*t)*(0.65 + 0.55*rg.random())*(1.0 if j % 2 else 0.78)
             for side in (-1, 1):
-                d = (sd*side*math.cos(0.45) - ax*math.sin(0.45)).normalized()
-                ell_bm(bm_br, c + d*ln*0.55 + nn*0.003*side, (ln*0.55, 0.0012, ln*0.42), B.frame(d, nn).to_3x3(), 10)
+                ang = 0.45 + rg.uniform(-0.18, 0.18)
+                d = (sd*side*math.cos(ang) - ax*math.sin(ang) + nn*rg.uniform(-0.15, 0.15)).normalized()
+                ell_bm(bm_br, c + d*ln*0.55 + nn*0.002*side, (ln*0.55, 0.0009, ln*0.38), B.frame(d, nn).to_3x3() @ Matrix.Rotation(rg.uniform(-0.2, 0.2), 3, 'X'), 12)
         # nerf optique : de l'arrière de l'œil au lobe du cerveau, en courbe
         e = EYE_AX[sg]; p0 = EYE_C[sg] - e*EYE_R*0.85; p2 = Vector((0.0, sg*0.04, 0.43))
         P = B.catmull([p0, (p0 + p2)/2 + UP*0.025, p2], 8)
         sk.chain(sk.v(P[0], 0.0075), P[1:], [0.0075 - 0.0025*i/len(P) for i in range(1, len(P))])
         ell_bm(bm_br, Vector((0.0, sg*0.035, 0.43)), (0.045, 0.04, 0.036), Matrix.Rotation(sg*0.2, 3, 'Z'), 24)   # lobes du cerveau
     P = B.catmull([CROWN + Vector((0.01, 0, -0.03)), Vector((0.02, 0, 0.3)), Vector((-0.04, 0, 0.44)), Vector((-0.14, 0, 0.5)), MANTLE_C + MANTLE_AX*0.2 - UP*0.03], 10)
-    sk.chain(sk.v(P[0], 0.006), P[1:], [0.006]*(len(P) - 1))                                       # œsophage
+    so_.chain(so_.v(P[0], 0.0035), P[1:], [0.0035]*(len(P) - 1))                                  # œsophage (fin, translucide)
     nerfs = B.skin_object('Nerfs', sk, sub=1); B.bake_mods(nerfs); B.shade_smooth(nerfs)
     parts['glande'] = mesh_obj('Glande', bm_g, smooth=True); parts['coeurs'] = mesh_obj('Coeurs', bm_h, smooth=True)
     parts['branchies'] = mesh_obj('Branchies', bm_br, smooth=True); parts['nerfs'] = nerfs
+    for key, sk_, nm in (('vaisseaux', sv, 'Vaisseaux'), ('oesophage', so_, 'Oesophage')):
+        o = B.skin_object(nm, sk_, sub=1); B.bake_mods(o); B.shade_smooth(o); parts[key] = o
     # ce qu'il a avalé : le badge d'accès du Dr Aldane, avec son cordon, coincé contre la paroi du manteau (côté -Y)
     bx = Vector((1, 0, 0.25)).normalized(); bz = Vector((0, -1, 0)); Rb = Matrix((bx, bz.cross(bx), bz)).transposed()   # face imprimée vers -Y
     Rb = Rb @ Matrix.Rotation(-0.35, 3, 'Z') @ Matrix.Rotation(0.3, 3, 'X')
@@ -258,15 +263,15 @@ def build(log=print, seed=21, raised=(1, 6)):
         while s < L - 0.15:
             i = int(s/0.022); r = rad_at(s, L)
             sz = (0.003 + r*0.08)*rng.uniform(0.6, 1.5)
-            ell_bm(bm_r if rng.random() < 0.12 else bm_v, P[i] + N[i]*r*0.86, (sz,)*3, Matrix.Identity(3), 8)
+            ell_bm(bm_r if rng.random() < 0.12 else bm_v, P[i] + N[i]*r*0.86, (sz,)*3, Matrix.Identity(3), 24)
             s += rng.uniform(0.14, 0.34); j += 1
     for sg in (-1, 1):
         b0 = EYE_BASE[sg]; e = EYE_AX[sg]; t1 = e.cross(UP).normalized(); t2 = e.cross(t1)
         for k in range(10):
-            a = k/10*2*math.pi + 0.3; ell_bm(bm_v, b0 + e*0.05 + (t1*math.cos(a) + t2*math.sin(a))*0.088, (0.0055,)*3, Matrix.Identity(3), 8)
+            a = k/10*2*math.pi + 0.3; ell_bm(bm_v, b0 + e*0.05 + (t1*math.cos(a) + t2*math.sin(a))*0.088, (0.0055,)*3, Matrix.Identity(3), 24)
         for j in range(9):
             t = j/8; c = MANTLE_C + MANTLE_AX*(0.45 - 0.9*t) + Vector((0, sg*0.2*(1 - 0.5*abs(t - 0.5)), 0.24*(1 - (2*t - 1)**2) + 0.05))
-            ell_bm(bm_v, c, (0.009,)*3, Matrix.Identity(3), 8)
+            ell_bm(bm_v, c, (0.009,)*3, Matrix.Identity(3), 24)
     parts['photo_v'] = mesh_obj('PhotophoresV', bm_v, smooth=True); parts['photo_r'] = mesh_obj('PhotophoresR', bm_r, smooth=True)
     return parts
 
@@ -284,9 +289,10 @@ def mats(glow=6.0):
     M['oeil'] = _oeil(glow)
     M['glande'] = _argent()
     M['coeur'] = _organe('Coeur', (0.35, 0.03, 0.04), 1.2, (1.0, 0.1, 0.1))
-    M['branchie'] = _organe('Branchie', (0.85, 0.6, 0.58), 0.0, trans=0.45)
+    M['branchie'] = _organe('Branchie', (0.9, 0.66, 0.62), 0.0, trans=0.6)
     M['nerf'] = _organe('Nerf', (0.85, 0.82, 0.76), 0.0, trans=0.55)
     M['pore'] = _organe('Pore', (0.1, 0.035, 0.025), 0.0)
+    M['oesophage'] = _organe('Oesophage', (0.9, 0.74, 0.7), 0.0, trans=0.8)
     M['badge'] = _badge()
     M['cordon'] = B.mat_simple('Cordon', (0.04, 0.26, 0.3), 0.75, noise_scale=400, noise_col=(0.02, 0.15, 0.18), bump=0.2)
     M['bec'] = B.mat_simple('Bec', (0.015, 0.01, 0.008), 0.25)
@@ -327,7 +333,10 @@ def _oeil(glow):
     front = smooth(qz, 0.0, 0.08)
     iris = math('MULTIPLY', math('SUBTRACT', 1.0, smooth(rho, 0.76, 0.8)), front)
     hx = math('DIVIDE', math('ABSOLUTE', qx), 0.52)
-    pv = math('ADD', math('POWER', hx, 4.0), math('POWER', math('DIVIDE', qy, math('ADD', 0.12, math('MULTIPLY', math('MULTIPLY', hx, hx), 0.07))), 2.0))
+    pv0 = math('ADD', math('POWER', hx, 4.0), math('POWER', math('DIVIDE', qy, math('ADD', 0.075, math('MULTIPLY', math('MULTIPLY', hx, hx), 0.1))), 2.0))
+    cpn = nt.nodes.new('ShaderNodeCombineXYZ'); L.new(qx, cpn.inputs[0]); L.new(qy, cpn.inputs[1])
+    nzp = nt.nodes.new('ShaderNodeTexNoise'); nzp.inputs['Scale'].default_value = 7.0; nzp.inputs['Detail'].default_value = 3; L.new(cpn.outputs[0], nzp.inputs['Vector'])
+    pv = math('ADD', pv0, math('MULTIPLY', math('SUBTRACT', nzp.outputs['Fac'], 0.5), 0.55))      # bord irrégulier, vivant
     pup = math('MULTIPLY', math('SUBTRACT', 1.0, smooth(pv, 0.85, 1.05)), front)
     ang = math('ARCTAN2', qy, qx)
     cmb = nt.nodes.new('ShaderNodeCombineXYZ')
@@ -352,8 +361,8 @@ def _oeil(glow):
     b.inputs['Roughness'].default_value = 0.32
     if 'Thin Film Thickness' in b.inputs: b.inputs['Thin Film Thickness'].default_value = 260.0
     # émission : lueur de la pupille (plus forte au centre de la fente) + faible lueur dorée de l'iris
-    core = math('MULTIPLY', pup, math('POWER', math('SUBTRACT', 1.0, smooth(pv, 0.0, 0.7)), 2.0))
-    ecol = mix(core, mix(iris, (0, 0, 0, 1), iris_col), (0.3, 1.0, 0.2, 1))
+    core = math('MULTIPLY', pup, math('POWER', math('SUBTRACT', 1.0, smooth(pv0, 0.0, 0.55)), 3.0))
+    ecol = mix(core, mix(iris, (0, 0, 0, 1), iris_col), (0.1, 1.0, 0.22, 1))
     L.new(ecol, b.inputs['Emission Color'])
     gv = nt.nodes.new('ShaderNodeValue'); gv.name = 'Lueur'; gv.outputs[0].default_value = glow
     L.new(math('ADD', math('MULTIPLY', core, gv.outputs[0]), math('MULTIPLY', iris, math('MULTIPLY', gv.outputs[0], 0.06))), b.inputs['Emission Strength'])
@@ -431,7 +440,7 @@ def _verre_vivant(name, density=1.2, milk=0.12, spots=True, pig=False, ior=1.15)
     return m
 
 def assign(parts, M):
-    pairs = dict(peau='peau', ventouses='ventouse', pores='pore', yeux='oeil', cornees='cornee', glande='glande', cordon='cordon',
+    pairs = dict(vaisseaux='coeur', oesophage='oesophage', peau='peau', ventouses='ventouse', pores='pore', yeux='oeil', cornees='cornee', glande='glande', cordon='cordon',
                  coeurs='coeur', branchies='branchie', nerfs='nerf', badge='badge', bec='bec', photo_v='photo_v', photo_r='photo_r')
     for k, o in parts.items(): o.data.materials.clear(); o.data.materials.append(M[pairs[k]])
 

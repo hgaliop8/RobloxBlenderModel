@@ -1,20 +1,4 @@
-vitrelle VUE=nuit TUILE=0-6 ECH=512
-vitrelle VUE=nuit TUILE=2-6 ECH=512
-vitrelle VUE=nuit TUILE=5-6 ECH=512
-vitrelle VUE=oeil TUILE=0-6 ECH=512
-vitrelle VUE=oeil TUILE=1-6 ECH=512
-vitrelle VUE=oeil TUILE=2-6 ECH=512
-vitrelle VUE=oeil TUILE=3-6 ECH=512
-vitrelle VUE=oeil TUILE=4-6 ECH=512
-vitrelle VUE=oeil TUILE=5-6 ECH=512
-vitrelle VUE=plafond TUILE=1-6 ECH=512
-vitrelle VUE=plafond TUILE=2-6 ECH=512
-vitrelle VUE=plafond TUILE=3-6 ECH=512
-vitrelle VUE=profil TUILE=1-6 ECH=512
-vitrelle VUE=profil TUILE=4-6 ECH=512
-vitrelle VUE=studio TUILE=4-6 ECH=512
-vitrelle VUE=tete TUILE=0-6 ECH=512
-vitrelle VUE=tete TUILE=2-6 ECH=512
-vitrelle VUE=tete TUILE=3-6 ECH=512
-vitrelle VUE=tete TUILE=4-6 ECH=512
-vitrelle VUE=tete TUILE=5-6 ECH=512
+vitrelle VUE=apercu VUES=oeil
+vitrelle VUE=apercu VUES=tete
+vitrelle VUE=apercu VUES=nuit
+vitrelle VUE=apercu VUES=studio
