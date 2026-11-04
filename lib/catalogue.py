@@ -89,3 +89,4 @@ REGISTRE.update({
     'table_12x4_10': lambda: Q.table_chaises(12, 4, 10, seed=3), 'table_4x4_4': lambda: Q.table_chaises(4, 4, 4, seed=4),
     'table_6x3_metal': lambda: Q.table_chaises(6, 3, 0, seed=5, metal=True),
 })
+REGISTRE['rideau_lit'] = lambda: V.rideau_lit(7.0, seed=1)

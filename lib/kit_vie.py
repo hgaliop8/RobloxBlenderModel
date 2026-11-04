@@ -388,3 +388,20 @@ def armoire_classeur(w=1.8, d=1.6, h=6.2, seed=0):
         o.append(cube('PorteEtiquette', (0.6, 0.03, 0.3), (0, d + 0.05, z + 0.55), M_inox(), 0.01))
         o.append(cube('Etiquette', (0.5, 0.02, 0.2), (0, d + 0.06, z + 0.55), mat('plastique', (230, 226, 210)), 0.0))
     parent_all(o, root); return root
+
+def rideau_lit(L=7.0, seed=0):
+    """rideau de séparation sur rail (infirmerie) : rail, suspentes, toile ondulée tirée aux deux tiers"""
+    rnd = random.Random(seed); root = empty(f'RideauLit_{seed}'); o = []; Mi = M_inox(); zr = 8.0
+    o.append(tube('Rail', (0, 0.1, zr), (0, L, zr), 0.05, Mi))
+    for y in (0.6, L - 0.6): o.append(tube('Suspente', (0, y, zr), (0, y, zr + 1.2), 0.03, Mi))
+    bm = bmesh.new(); nu, nv = 48, 24; V = {}; ext = L*rnd.uniform(0.6, 0.75)
+    for i in range(nu + 1):
+        for j in range(nv + 1):
+            u = i/nu; t = j/nv; y = 0.15 + u*ext; z = zr - 0.15 - t*5.8
+            x = 0.16*math.sin(u*math.pi*ext*1.6)*(1 - 0.25*t) + 0.05*noise.noise(Vector((u*5, t*3, seed)))*t
+            V[(i, j)] = bm.verts.new((x, y, z))
+    for i in range(nu):
+        for j in range(nv): bm.faces.new((V[(i, j)], V[(i + 1, j)], V[(i + 1, j + 1)], V[(i, j + 1)]))
+    r = obj_from_bm(bm, 'Rideau', mat('tissu', rnd.choice([(150, 186, 190), (170, 196, 176), (200, 204, 200)]))); r.modifiers.new('ep', 'SOLIDIFY').thickness = 0.03; o.append(r)
+    for k in range(int(ext/0.35)): o.append(anneau('Anneau', 0.08, 0.015, (0, 0.15 + k*0.35, zr - 0.05), Mi, 'Y', 10))
+    parent_all(o, root); return root

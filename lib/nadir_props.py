@@ -885,6 +885,7 @@ KIT_MAP = {
     'tiroirs_morgue': lambda f, a, kw: ('tiroirs_morgue', (0, 0, 0), PI),
     'table_autopsie': lambda f, a, kw: (_h16('table_autopsie'), (0, 0, 0), -PI/2),
     'chaise_simple': lambda f, a, kw: ('chaise', (0, 0, 0), 0.0),
+    'rideau_lit': lambda f, a, kw: ('rideau_lit', (0, 0, 0), PI),
 }
 def _table(a, kw):
     w, d = _arg(a, kw, 0, 'w', 6.0), _arg(a, kw, 1, 'd', 3.0); n = kw.get('chaises', 0)

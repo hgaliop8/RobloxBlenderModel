@@ -1,5 +1,3 @@
-archi VUES=quartiers_a,labo_a,cuisine SECTEURS=Vie,Recherche,Portes ECH=40
-archi VUES=centrale,infirmerie,c_rech SECTEURS=Machines,Vie,Couloirs,Portes ECH=40
-archi
-export_kit OBJETS=paillasse,hotte,aquarium,tabouret,chariot,casiers,palette_caisses,rack_bouteilles,etabli,armoire_elec_ouverte,pupitre,cuve,transformateur,cuisine,distributeur,lavabo,chaise_bureau,bibliotheque,table_basse,lit_hopital,paravent,table_autopsie,armoire_elec_h16,bac_plantes_h16,chaise,horloge,microscope,ecran_pc,casiers_1,etagere_stockage_w24,pupitre_12,cuve_petite,poubelle,table_6x3_2,table_6x3_metal,lit_superpose_2,casiers_4,table_10x3_8 FICHIER=kit_1 MATIERES=1
-export_kit OBJETS=paillasse_courte,etagere_specimens,armoire_vitree,tableau_blanc,lit_superpose,etagere_stockage,futs,extincteur,armoire_elec,rack_serveur,pompe,groupe_electrogene,vannes,frigo,wc_cabine,douche,bureau,canape,bac_plantes,potence,tiroirs_morgue,hotte_h16,armoire_elec_ouverte_h16,table_autopsie_h16,table,tableau_affichage,centrifugeuse,lit_superpose_0,armoire_classeur,etagere_flacons,paillasse_sec,caisse,bac_plantes_12,table_12x4_10,lit_superpose_1,casiers_2,bac_plantes_12_h16,table_4x4_4 FICHIER=kit_2
+export_kit OBJETS=@1/2 FICHIER=kit_1 MATIERES=1
+export_kit OBJETS=@2/2 FICHIER=kit_2
+archi VUES=infirmerie,serveurs,archives SECTEURS=Vie,Recherche ECH=40 PUIS=900

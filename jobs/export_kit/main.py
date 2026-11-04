@@ -17,6 +17,8 @@ bpy.ops.wm.read_factory_settings(use_empty=True)
 import kit_meshes as K
 import catalogue as C
 NOMS = [n for n in os.environ.get('OBJETS', ','.join(C.REGISTRE)).split(',') if n]
+if len(NOMS) == 1 and NOMS[0].startswith('@'):                 # OBJETS=@k/n : k-ième part (sur n) du registre
+    k, n = (int(x) for x in NOMS[0][1:].split('/')); NOMS = list(C.REGISTRE)[k - 1::n]
 BUDGET = {'lit_superpose': 9000, 'casiers': 6000, 'chaise': 3000, 'tabouret': 3000, 'chaise_bureau': 4000, 'etagere_specimens': 14000,
           'paillasse': 12000, 'paillasse_courte': 9000}
 BUDGET_DEFAUT = int(os.environ.get('BUDGET', '12000')); MAX_MESH = 19000

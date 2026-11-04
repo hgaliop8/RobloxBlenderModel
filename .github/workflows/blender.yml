@@ -69,7 +69,8 @@ jobs:
         run: |
           set -o pipefail
           read -r SCRIPT ARGS <<< "$SPEC"
-          OUTNAME=$(echo "$SPEC" | tr ' =,' '___')
+          OUTNAME=$(echo "$SPEC" | tr ' =,/' '____')
+          if [ ${#OUTNAME} -gt 110 ]; then OUTNAME="${OUTNAME:0:90}_$(echo "$SPEC" | md5sum | cut -c1-8)"; fi
           echo "OUTNAME=$OUTNAME" >> "$GITHUB_ENV"
           mkdir -p "/tmp/out/$OUTNAME"
           START=$(date +%s)
