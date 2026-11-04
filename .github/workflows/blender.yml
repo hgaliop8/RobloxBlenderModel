@@ -33,6 +33,7 @@ jobs:
 
   render:
     needs: plan
+    if: needs.plan.outputs.list != '[]'
     runs-on: ubuntu-latest
     timeout-minutes: 340
     strategy:
