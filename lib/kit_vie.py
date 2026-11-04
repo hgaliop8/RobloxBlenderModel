@@ -263,7 +263,7 @@ def table_basse(seed=0):
         o.append(cube('Magazine', (0.8, 1.1, 0.03), (rnd.uniform(-1, 1), rnd.uniform(-0.4, 0.4), 1.53 + k*0.03), mat('plastique', rnd.choice([(200, 60, 50), (40, 90, 160), (230, 220, 200)])), 0.0, rot=(0, 0, rnd.uniform(-0.5, 0.5))))
     parent_all(o, root); return root
 
-def bac_plantes(L=6.0, seed=0, mortes=True):
+def bac_plantes(L=6.0, seed=0, mortes=True, plafond=12.0):
     """bac de culture : caisson, terreau, plantes (feuilles en lanières), tuteurs, rampe lumineuse"""
     rnd = random.Random(seed); root = empty(f'BacPlantes_{seed}'); o = []; W = 2.2; H = 2.2
     o.append(cube('Bac', (L, W, H), (0, 0, H/2), mat('metal_peint', (60, 80, 70)), 0.05))
@@ -288,7 +288,7 @@ def bac_plantes(L=6.0, seed=0, mortes=True):
         o.append(cyl('Tuteur', 0.025, 1.6, (px + 0.1, py + 0.1, H - 0.2), mat('bois', (150, 120, 80)), 6))
     o.append(cube('Rampe', (L, 0.5, 0.15), (0, 0, H + 3.0), mat('metal_peint', (200, 200, 196)), 0.03))
     o.append(cube('Led', (L - 0.3, 0.3, 0.02), (0, 0, H + 2.92), mat_plain('LedHorticole', (220, 80, 255), 0.3, emit=0.0), 0.0))
-    for sx in (-1, 1): o.append(tube('Suspente', (sx*(L/2 - 0.3), 0, H + 3.07), (sx*(L/2 - 0.3), 0, 12.0), 0.015, mat('metal_brut', (150, 150, 150))))
+    for sx in (-1, 1): o.append(tube('Suspente', (sx*(L/2 - 0.3), 0, H + 3.07), (sx*(L/2 - 0.3), 0, plafond), 0.015, mat('metal_brut', (150, 150, 150))))
     parent_all(o, root); return root
 
 # ---------------------------------------------------------------- infirmerie, morgue
@@ -354,7 +354,7 @@ def tiroirs_morgue(w=6.0, seed=0):
                 o.append(cube('Etiquette', (0.6, 0.02, 0.35), (x, d + 0.16, z + 0.45), mat('plastique', (230, 226, 210)), 0.0))
     parent_all(o, root); return root
 
-def table_autopsie(seed=0):
+def table_autopsie(seed=0, plafond=12.0):
     rnd = random.Random(seed); root = empty(f'TableAutopsie_{seed}'); o = []; Mi = M_inox(); L, W = 7.6, 2.8; h = 3.2
     bm = bmesh.new(); nu, nv = 30, 10; V = {}
     for i in range(nu + 1):
@@ -373,7 +373,7 @@ def table_autopsie(seed=0):
     # scialytique (lampe opératoire)
     o.append(revolution('Scialytique', [(0.0, 0.0), (0.9, 0.0), (1.0, 0.15), (0.6, 0.45), (0.15, 0.5)], mat('metal_peint', (220, 222, 220)), 36, (0, 0, h + 5.6)))
     o.append(cyl('Lentille', 0.85, 0.02, (0, 0, h + 5.58), mat_plain('LentilleScialytique', (240, 244, 250), 0.1), 36))
-    o.append(tube_path('BrasLampe', [Vector((0, 0, h + 6.1)), Vector((0.4, 0, h + 6.9)), Vector((1.4, 0, h + 7.4)), Vector((1.4, 0, 12.0))], 0.07, mat('metal_peint', (220, 222, 220))))
+    o.append(tube_path('BrasLampe', [Vector((0, 0, h + 6.1)), Vector((0.4, 0, h + 6.9)), Vector((1.4, 0, h + 7.4)), Vector((1.4, 0, plafond))], 0.07, mat('metal_peint', (220, 222, 220))))
     for k in range(rnd.randint(2, 4)):                          # instruments sur desserte
         o.append(cube('Instrument', (0.04, 0.5, 0.02), (L/2 - 1.2 + k*0.15, W/2 - 0.5, h + 0.06), M_chrome(), 0.005, rot=(0, 0, rnd.uniform(-0.2, 0.2))))
     parent_all(o, root); return root

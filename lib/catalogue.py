@@ -55,3 +55,19 @@ REGISTRE.update({
     'tiroirs_morgue': lambda: V.tiroirs_morgue(6.0, seed=1),
     'table_autopsie': lambda: V.table_autopsie(1),
 })
+
+# variantes hauteur sous plafond 16 (grandes salles) pour les objets reliés au plafond
+REGISTRE.update({
+    'hotte_h16': lambda: L.hotte(5.0, seed=1, hauteur_plafond=16.0),
+    'armoire_elec_h16': lambda: T.armoire_elec(seed=1, ouverte=False, plafond=16.0),
+    'armoire_elec_ouverte_h16': lambda: T.armoire_elec(seed=2, ouverte=True, plafond=16.0),
+    'bac_plantes_h16': lambda: V.bac_plantes(6.0, seed=1, plafond=16.0),
+    'table_autopsie_h16': lambda: V.table_autopsie(1, plafond=16.0),
+    'chaise': lambda: Q.chaise(seed=0),
+    'table': lambda: Q.table(),
+    'horloge': lambda: Q.horloge(),
+    'tableau_affichage': lambda: Q.tableau_affichage(seed=3),
+    'microscope': lambda: _grp('Microscope', L.microscope((0, 0, 0))),
+    'centrifugeuse': lambda: _grp('Centrifugeuse', L.centrifugeuse((0, 0, 0))),
+    'ecran_pc': lambda: _grp('EcranPC', L.ecran_pc((0, 0, 0))),
+})

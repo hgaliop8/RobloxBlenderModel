@@ -47,6 +47,7 @@ def mat_plain(name, col, rough=0.5, metal=0.0, emit=0.0, alpha=1.0, transmission
     if emit: b.inputs['Emission Color'].default_value = (*srgb2lin(col), 1); b.inputs['Emission Strength'].default_value = emit
     if transmission: b.inputs['Transmission Weight'].default_value = transmission
     if alpha < 1: b.inputs['Alpha'].default_value = alpha; m.blend_method = 'BLEND' if hasattr(m, 'blend_method') else None
+    m['plain'] = True; m['col'] = list(col); m['rough'] = rough; m['metal'] = metal; m['emit'] = emit
     _MATS[name] = m; return m
 
 # ---------------------------------------------------------------- utilitaires maillage
@@ -117,8 +118,24 @@ def join(objs, name):
     bpy.context.view_layer.objects.active = objs[0]; bpy.ops.object.join(); ob = bpy.context.view_layer.objects.active; ob.name = name
     return ob
 
+def finir(ob, angle=35.0):
+    """applique les modificateurs (maillage final) puis lissage par angle : faces lisses, arêtes vives au-delà de `angle` degrés"""
+    if ob.type != 'MESH' or ob.data.users > 1: return
+    dg = bpy.context.evaluated_depsgraph_get()
+    if ob.modifiers:
+        me = bpy.data.meshes.new_from_object(ob.evaluated_get(dg), preserve_all_data_layers=True, depsgraph=dg)
+        old = ob.data; ob.modifiers.clear(); ob.data = me; me.name = old.name
+        if old.users == 0: bpy.data.meshes.remove(old)
+    bm = bmesh.new(); bm.from_mesh(ob.data); lim = math.radians(angle)
+    for f in bm.faces: f.smooth = True
+    for e in bm.edges:
+        e.smooth = not (len(e.link_faces) == 2 and e.calc_face_angle(0.0) > lim) and len(e.link_faces) == 2
+    bm.to_mesh(ob.data); bm.free()
+
 def parent_all(objs, root):
     bpy.context.view_layer.update()          # matrix_world des objets tout juste créés n'est valide qu'après une mise à jour
+    for o in objs:
+        if o and o is not root and o.type == 'MESH': finir(o)
     for o in objs:
         if o and o is not root:
             mw = o.matrix_world.copy(); o.parent = root; o.matrix_world = mw
@@ -191,7 +208,7 @@ def mat_verre(name='Verre', tint=(235, 245, 245), rough=0.03):
     m = bpy.data.materials.new(name); m.use_nodes = True; b = m.node_tree.nodes['Principled BSDF']
     b.inputs['Base Color'].default_value = (*srgb2lin(tint), 1); b.inputs['Roughness'].default_value = rough
     b.inputs['Transmission Weight'].default_value = 1.0; b.inputs['IOR'].default_value = 1.45
-    m['verre'] = True; _MATS[name] = m; return m
+    m['verre'] = True; m['col'] = list(tint); _MATS[name] = m; return m
 
 def mat_liquide(name, tint, dens=0.6):
     """liquide teinté (bocaux, aquarium) : volume absorbant"""

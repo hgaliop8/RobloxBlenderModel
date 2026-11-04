@@ -236,13 +236,13 @@ def aquarium(w=8.0, d=3.0, h=3.6, seed=0):
         for sy in (0, 1): o.append(cube('Arete', (w + t, t, t), (0, sy*d, sz), Mf, 0.01))
         for sx in (-1, 1): o.append(cube('Arete', (t, d + t, t), (sx*w/2, d/2, sz), Mf, 0.01))
     hw = h - rnd.uniform(0.25, 0.5)
-    o.append(cube('Eau', (w - 0.14, d - 0.14, hw), (0, d/2, z0 + 0.03 + hw/2), mat_liquide('EauAquarium', (150, 200, 200), 0.12), 0))
+    o.append(cube('Eau', (w - 0.14, d - 0.14, hw), (0, d/2, z0 + 0.03 + hw/2), mat_liquide('EauAquarium', (170, 214, 210), 0.05), 0))
     bm = bmesh.new(); bmesh.ops.create_grid(bm, x_segments=40, y_segments=16, size=0.5)
     for v in bm.verts:
         v.co = Vector((v.co.x*(w - 0.16), v.co.y*(d - 0.16), 0.25 + 0.18*noise.noise(Vector((v.co.x*6, v.co.y*6, seed))) + 0.12*(v.co.y + 0.5)))
     sable = obj_from_bm(bm, 'Sable', mat('beton', (190, 176, 150))); sable.location = (0, d/2, z0 + 0.05); o.append(sable)
     for k in range(rnd.randint(3, 6)):
-        o.append(blob('Roche', rnd.uniform(0.25, 0.55), (rnd.uniform(-w/2 + 0.8, w/2 - 0.8), rnd.uniform(0.7, d - 0.7), z0 + 0.35), mat('beton', (90, 92, 90)), seed=rnd.uniform(0, 99), amp=0.3, etire=(1.2, 1, 0.7)))
+        o.append(blob('Roche', rnd.uniform(0.25, 0.55), (rnd.uniform(-w/2 + 0.8, w/2 - 0.8), rnd.uniform(0.7, d - 0.7), z0 + 0.35), mat('beton', (150, 146, 136)), seed=rnd.uniform(0, 99), amp=0.3, etire=(1.2, 1, 0.7)))
     o.append(cube('Rampe', (w - 0.3, 0.6, 0.18), (0, d/2, z0 + h + 0.15), mat('plastique', (40, 40, 42)), 0.04))
     o.append(cube('Filtre', (0.6, 0.4, 1.4), (w/2 - 0.5, 0.35, z0 + h - 0.5), mat('plastique', (40, 40, 42)), 0.05))
     o.append(tube('Tuyau', (w/2 - 0.5, 0.35, z0 + h + 0.2), (w/2 - 0.5, 0.35, z0 + h + 0.8), 0.06, mat('caoutchouc', (40, 40, 40))))

@@ -1,6 +1,4 @@
-catalogue OBJETS=etagere_stockage,palette_caisses,futs,rack_bouteilles,extincteur
-catalogue OBJETS=etabli,armoire_elec,armoire_elec_ouverte,rack_serveur,pupitre
-catalogue OBJETS=pompe,cuve,groupe_electrogene,transformateur,vannes
-catalogue OBJETS=cuisine,frigo,distributeur,wc_cabine,lavabo,douche
-catalogue OBJETS=chaise_bureau,bureau,bibliotheque,canape,table_basse,bac_plantes
-catalogue OBJETS=lit_hopital,potence,paravent,tiroirs_morgue,table_autopsie,lit_superpose
+export_kit OBJETS=paillasse,aquarium,chariot,palette_caisses,etabli,pupitre,transformateur,distributeur,chaise_bureau,table_basse,paravent,armoire_elec_h16,chaise,microscope APERCU=1 ECH=32 MATIERES=1
+export_kit OBJETS=paillasse_courte,armoire_vitree,lit_superpose,futs,armoire_elec,pompe,vannes,wc_cabine,bureau,bac_plantes,tiroirs_morgue,armoire_elec_ouverte_h16,table,centrifugeuse APERCU=1 ECH=32
+export_kit OBJETS=hotte,tabouret,casiers,rack_bouteilles,armoire_elec_ouverte,cuve,cuisine,lavabo,bibliotheque,lit_hopital,table_autopsie,bac_plantes_h16,horloge,ecran_pc APERCU=1 ECH=32
+export_kit OBJETS=etagere_specimens,tableau_blanc,etagere_stockage,extincteur,rack_serveur,groupe_electrogene,frigo,douche,canape,potence,hotte_h16,table_autopsie_h16,tableau_affichage APERCU=1 ECH=32

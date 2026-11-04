@@ -203,7 +203,7 @@ def etabli(w=7.0, seed=0):
     parent_all(o, root); return root
 
 # ---------------------------------------------------------------- électricité, serveurs, pupitre
-def armoire_elec(w=3.0, d=1.6, h=7.0, seed=0, ouverte=None):
+def armoire_elec(w=3.0, d=1.6, h=7.0, seed=0, ouverte=None, plafond=12.0):
     rnd = random.Random(seed); root = empty(f'ArmoireElec_{seed}'); o = []; ouverte = rnd.random() < 0.35 if ouverte is None else ouverte
     Mc = mat('metal_peint', (190, 192, 186)); Mi = mat('metal_peint', (160, 164, 160))
     o.append(cube('Socle', (w, d - 0.1, 0.4), (0, d/2, 0.2), mat('metal_peint', (40, 40, 42)), 0.02))
@@ -229,7 +229,7 @@ def armoire_elec(w=3.0, d=1.6, h=7.0, seed=0, ouverte=None):
         o.append(cube('Serrure', (0.12, 0.08, 0.5), (w/2 - 0.3, d + 0.07, 0.2 + h/2), mat('plastique', (30, 30, 30)), 0.02))
         o.append(cube('Danger', (0.7, 0.01, 0.6), (0, d + 0.05, h - 1.2), mat('plastique', JAUNE), 0.0, rot=(0, 0, 0)))
         o.append(cube('Aeration', (w - 0.8, 0.02, 0.6), (0, d + 0.05, 1.0), mat('grille_vent', (150, 150, 150)), 0.0))
-    o.append(cube('Gaine', (w*0.6, 0.6, 12.0 - h), (0, 0.35, h + (12.0 - h)/2), mat('metal_peint', (130, 134, 136)), 0.02))
+    o.append(cube('Gaine', (w*0.6, 0.6, plafond - h), (0, 0.35, h + (plafond - h)/2), mat('metal_peint', (130, 134, 136)), 0.02))
     parent_all(o, root); return root
 
 def rack_serveur(seed=0):
@@ -241,11 +241,11 @@ def rack_serveur(seed=0):
     while z < h - 0.6:
         u = rnd.choice([1, 1, 2, 2, 4]); hu = u*0.155
         if rnd.random() < 0.12: z += hu; continue
-        o.append(cube('Serveur', (w - 0.16, d - 0.4, hu - 0.02), (0, d/2 - 0.1, z + hu/2), mat('metal_peint', rnd.choice([(40, 42, 46), (180, 184, 186), (60, 62, 66)])), 0.01))
-        o.append(cube('Facade', (w - 0.3, 0.02, hu - 0.05), (0, d - 0.3, z + hu/2), mat('grille_vent', (120, 120, 124)), 0.0))
+        o.append(cube('Serveur', (w - 0.16, d - 0.4, hu - 0.02), (0, d/2 - 0.1, z + hu/2), mat('metal_peint', rnd.choice([(70, 72, 76), (180, 184, 186), (110, 112, 116)])), 0.01))
+        o.append(cube('Facade', (w - 0.3, 0.02, hu - 0.05), (0, d - 0.3, z + hu/2), mat('grille_vent', (170, 170, 174)), 0.0))
         for k in range(rnd.randint(1, 4)): o.append(cube('Led', (0.04, 0.02, 0.04), (w/2 - 0.3 - k*0.08, d - 0.28, z + hu - 0.07), rnd.choice(Leds), 0.0))
         z += hu
-    o.append(cube('PorteVitree', (w - 0.1, 0.05, h - 0.5), (0, d + 0.02, h/2), mat_verre('VerreFume', (90, 96, 100), 0.08), 0.0))
+    o.append(cube('PorteVitree', (w - 0.1, 0.05, h - 0.5), (0, d + 0.02, h/2), mat_verre('VerreFume', (190, 200, 204), 0.08), 0.0))
     for sx in (-1, 1): o.append(cube('CadrePorte', (0.1, 0.07, h - 0.45), (sx*(w/2 - 0.08), d + 0.03, h/2), Mn, 0.01))
     for k in range(4): o.append(tube_path('Cable', [Vector((rnd.uniform(-0.6, 0.6), 0.3, h - 0.3)), Vector((rnd.uniform(-0.6, 0.6), 0.25, h + 0.5)), Vector((rnd.uniform(-0.6, 0.6), 0.6, h + 0.9))], 0.04, mat('caoutchouc', rnd.choice([(30, 30, 30), (40, 70, 160), (200, 160, 40)]))))
     parent_all(o, root); return root
