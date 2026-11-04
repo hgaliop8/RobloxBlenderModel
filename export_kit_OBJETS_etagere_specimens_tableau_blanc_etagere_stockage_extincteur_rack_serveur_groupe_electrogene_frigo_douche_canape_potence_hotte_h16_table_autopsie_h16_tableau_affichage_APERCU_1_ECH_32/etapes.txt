@@ -1,0 +1,27 @@
+    2.1s  etagere_specimens: 57452 -> 13987 triangles, 13 parties, 550 Ko (2s)
+    2.2s  tableau_blanc: 5208 -> 5208 triangles, 8 parties, 203 Ko (0s)
+    2.4s  etagere_stockage: 6512 -> 6512 triangles, 11 parties, 243 Ko (0s)
+    2.4s  extincteur: 1622 -> 1622 triangles, 8 parties, 67 Ko (0s)
+    2.8s  rack_serveur: 4876 -> 4876 triangles, 12 parties, 200 Ko (0s)
+    2.9s  groupe_electrogene: 2796 -> 2796 triangles, 6 parties, 104 Ko (0s)
+    3.0s  frigo: 744 -> 744 triangles, 6 parties, 31 Ko (0s)
+    3.1s  douche: 8612 -> 8612 triangles, 6 parties, 293 Ko (0s)
+    4.9s  canape: 82876 -> 11998 triangles, 3 parties, 310 Ko (2s)
+    4.9s  potence: 2736 -> 2736 triangles, 4 parties, 114 Ko (0s)
+    5.1s  hotte_h16: 3438 -> 3438 triangles, 13 parties, 129 Ko (0s)
+    5.2s  table_autopsie_h16: 3828 -> 3828 triangles, 6 parties, 142 Ko (0s)
+    5.2s  tableau_affichage: 1380 -> 1380 triangles, 7 parties, 50 Ko (0s)
+   35.8s  aperçu etagere_specimens
+   62.0s  aperçu tableau_blanc
+   88.8s  aperçu etagere_stockage
+  115.8s  aperçu extincteur
+  144.8s  aperçu rack_serveur
+  170.3s  aperçu groupe_electrogene
+  197.0s  aperçu frigo
+  224.7s  aperçu douche
+  251.2s  aperçu canape
+  278.2s  aperçu potence
+  302.4s  aperçu hotte_h16
+  326.5s  aperçu table_autopsie_h16
+  353.3s  aperçu tableau_affichage
+  353.3s  fin
