@@ -362,10 +362,10 @@ def _oeil(glow):
     if 'Thin Film Thickness' in b.inputs: b.inputs['Thin Film Thickness'].default_value = 260.0
     # émission : lueur de la pupille (plus forte au centre de la fente) + faible lueur dorée de l'iris
     core = math('MULTIPLY', pup, math('POWER', math('SUBTRACT', 1.0, smooth(pv0, 0.0, 0.55)), 3.0))
-    ecol = mix(core, mix(iris, (0, 0, 0, 1), iris_col), (0.1, 1.0, 0.22, 1))
+    ecol = mix(core, mix(iris, (0, 0, 0, 1), iris_col), (0.04, 1.0, 0.12, 1))
     L.new(ecol, b.inputs['Emission Color'])
     gv = nt.nodes.new('ShaderNodeValue'); gv.name = 'Lueur'; gv.outputs[0].default_value = glow
-    L.new(math('ADD', math('MULTIPLY', core, gv.outputs[0]), math('MULTIPLY', iris, math('MULTIPLY', gv.outputs[0], 0.06))), b.inputs['Emission Strength'])
+    L.new(math('ADD', math('MULTIPLY', core, gv.outputs[0]), math('MULTIPLY', iris, math('MULTIPLY', gv.outputs[0], 0.17))), b.inputs['Emission Strength'])
     return m
 
 def _argent():

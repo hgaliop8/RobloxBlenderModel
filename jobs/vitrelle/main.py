@@ -104,7 +104,7 @@ for name in vues:
         e = Vector(eye); t = Vector(tgt)
         lp = B.light('SPOT', tuple(e + Vector((0.1, 0, 0.15))), 60 if name == 'plafond' else 25, (1.0, 0.92, 0.8), size=0.02, name='Lampe', spot=0.55)
         lp.rotation_euler = (t - lp.location).to_track_quat('-Z', 'Y').to_euler()
-    bpy.data.materials['Oeil'].node_tree.nodes['Lueur'].outputs[0].default_value = float(os.environ.get('LUEUR', '5' if name in ('nuit', 'plafond') else '0.12'))
+    bpy.data.materials['Oeil'].node_tree.nodes['Lueur'].outputs[0].default_value = float(os.environ.get('LUEUR', '1.8' if name in ('nuit', 'plafond') else '0.05'))
     fn = f'witness_{name}'
     r = sc.render
     if tuile:
