@@ -14,7 +14,10 @@ def coll():
     return c
 
 # ---------------------------------------------------------------- matériaux PBR
-def srgb2lin(c): return tuple(((x + 0.055)/1.055)**2.4 if x > 0.04045 else x/12.92 for x in c)
+def srgb2lin(c):
+    """couleur sRGB (0-255 ou 0-1) -> linéaire 0-1"""
+    if max(c) > 1.0: c = tuple(x/255.0 for x in c)
+    return tuple(((x + 0.055)/1.055)**2.4 if x > 0.04045 else x/12.92 for x in c)
 _MATS = {}
 def mat(tex, tint=(1, 1, 1), emit=None, name=None):
     key = name or f'{tex}_{tint}_{emit}'

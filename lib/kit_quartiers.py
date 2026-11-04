@@ -71,8 +71,9 @@ def casiers(n=4, seed=0, ouvert=1):
             objs.append(cube('Interieur', (w - 0.2, 0.05, h - 0.9), (x, 0.15, 0.5 + (h - 0.9)/2 + 0.1), mat('metal_peint', (40, 44, 48)), 0.0))
             sh = cube('Etagere', (w - 0.22, d - 0.3, 0.05), (x, d/2, 5.2), Mi, 0.01); objs.append(sh)
             bpy.context.view_layer.update()
-            serv = tissu_simule('Serviette', 1.2, 1.0, 5.8, [sh], mat('tissu', rnd.choice([(200, 70, 60), (60, 100, 160), (220, 220, 210)])), seed=seed + 7, frames=30, drop_noise=0.2, res=0.1,
-                                centre=(x, d/2)); objs.append(serv)
+            tc = mat('tissu', rnd.choice([(200, 70, 60), (60, 100, 160), (220, 220, 210)]))
+            for k in range(2):                                   # serviettes pliées empilées
+                objs.append(cube('Serviette', (1.15 - k*0.06, 0.95 - k*0.04, 0.2), (x + rnd.uniform(-0.05, 0.05), d/2, 5.35 + k*0.2), tc, 0.08, 3, rot=(0, 0, rnd.uniform(-0.08, 0.08))))
             objs.append(cube('Sac', (1.1, 0.9, 1.4), (x, d/2, 1.3), mat('tissu', (60, 70, 50)), 0.25, 3))
         else:
             objs.append(cube('Porte', (w - 0.12, 0.08, h - 0.8), (x, d + 0.03, 0.5 + (h - 0.8)/2 + 0.15), M, 0.03))
