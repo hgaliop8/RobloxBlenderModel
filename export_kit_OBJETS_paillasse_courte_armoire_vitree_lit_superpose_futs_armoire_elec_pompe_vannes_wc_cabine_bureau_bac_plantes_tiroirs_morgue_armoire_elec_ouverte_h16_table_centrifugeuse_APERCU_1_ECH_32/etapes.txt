@@ -1,0 +1,29 @@
+    0.4s  paillasse_courte: 7604 -> 7604 triangles, 22 parties, 270 Ko (0s)
+    0.8s  armoire_vitree: 9144 -> 9144 triangles, 18 parties, 307 Ko (0s)
+   11.2s  lit_superpose: 87724 -> 8992 triangles, 11 parties, 366 Ko (10s)
+   11.2s  futs: 3000 -> 3000 triangles, 4 parties, 124 Ko (0s)
+   11.3s  armoire_elec: 564 -> 564 triangles, 7 parties, 26 Ko (0s)
+   11.3s  pompe: 1948 -> 1948 triangles, 5 parties, 85 Ko (0s)
+   11.6s  vannes: 8628 -> 8628 triangles, 9 parties, 351 Ko (0s)
+   11.6s  wc_cabine: 1592 -> 1592 triangles, 6 parties, 52 Ko (0s)
+   11.8s  bureau: 3200 -> 3200 triangles, 15 parties, 137 Ko (0s)
+   12.0s  bac_plantes: 2188 -> 2188 triangles, 7 parties, 86 Ko (0s)
+   12.1s  tiroirs_morgue: 3092 -> 3092 triangles, 6 parties, 99 Ko (0s)
+   13.1s  armoire_elec_ouverte_h16: 13452 -> 11994 triangles, 9 parties, 419 Ko (1s)
+   13.2s  table: 1916 -> 1916 triangles, 4 parties, 84 Ko (0s)
+   13.2s  centrifugeuse: 436 -> 436 triangles, 3 parties, 17 Ko (0s)
+   29.2s  aperçu paillasse_courte
+   45.8s  aperçu armoire_vitree
+   62.5s  aperçu lit_superpose
+   78.9s  aperçu futs
+   93.2s  aperçu armoire_elec
+  109.2s  aperçu pompe
+  125.1s  aperçu vannes
+  141.6s  aperçu wc_cabine
+  157.8s  aperçu bureau
+  172.4s  aperçu bac_plantes
+  188.2s  aperçu tiroirs_morgue
+  202.2s  aperçu armoire_elec_ouverte_h16
+  218.5s  aperçu table
+  234.6s  aperçu centrifugeuse
+  234.6s  fin
