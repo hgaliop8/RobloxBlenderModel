@@ -1,0 +1,89 @@
+{
+ "pompe": {
+  "objets": 31,
+  "triangles": 1948,
+  "dim": [
+   6.2,
+   2.7,
+   4.02
+  ],
+  "par_matiere": {
+   "metal_peint_(210, 170, 40)_None": 92,
+   "metal_peint_(70, 96, 84)_None": 1544,
+   "Chrome": 112,
+   "plastique_(230, 230, 226)_None": 92,
+   "metal_peint_(60, 62, 64)_None": 108
+  }
+ },
+ "cuve": {
+  "objets": 42,
+  "triangles": 3992,
+  "dim": [
+   8.35,
+   6.8,
+   12.9
+  ],
+  "par_matiere": {
+   "metal_peint_(210, 170, 40)_None": 704,
+   "Chrome": 336,
+   "metal_brut_(130, 130, 128)_None": 576,
+   "metal_peint_(150, 156, 150)_None": 1812,
+   "VerreNiveau": 44,
+   "metal_peint_(60, 62, 64)_None": 432,
+   "metal_brut_(200, 202, 204)_None": 88
+  }
+ },
+ "groupe_electrogene": {
+  "objets": 19,
+  "triangles": 2796,
+  "dim": [
+   14.05,
+   4.8,
+   11.5
+  ],
+  "par_matiere": {
+   "metal_peint_(70, 96, 84)_None": 1076,
+   "metal_peint_(50, 52, 54)_None": 216,
+   "metal_peint_(190, 190, 186)_None": 108,
+   "metal_rouille_(150, 110, 80)_None": 736,
+   "grille_vent_(110, 110, 110)_None": 12,
+   "caoutchouc_(30, 30, 30)_None": 648
+  }
+ },
+ "transformateur": {
+  "objets": 25,
+  "triangles": 2034,
+  "dim": [
+   4.4,
+   4.4,
+   5.75
+  ],
+  "par_matiere": {
+   "metal_peint_(120, 128, 120)_None": 324,
+   "plastique_(210, 170, 40)_None": 12,
+   "Porcelaine": 1578,
+   "metal_brut_(180, 180, 176)_None": 12,
+   "metal_peint_(50, 52, 54)_None": 108
+  }
+ },
+ "vannes": {
+  "objets": 75,
+  "triangles": 8628,
+  "dim": [
+   8.0,
+   1.54,
+   4.06
+  ],
+  "par_matiere": {
+   "metal_peint_(60, 100, 70)_None": 316,
+   "metal_peint_(70, 90, 120)_None": 316,
+   "metal_brut_(130, 130, 130)_None": 432,
+   "metal_peint_(60, 62, 64)_None": 864,
+   "plastique_(226, 220, 196)_None": 96,
+   "plastique_(230, 230, 226)_None": 460,
+   "metal_peint_(170, 34, 28)_None": 2896,
+   "metal_peint_(40, 90, 160)_None": 2896,
+   "Chrome": 352
+  }
+ }
+}
