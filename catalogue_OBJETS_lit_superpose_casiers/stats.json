@@ -1,0 +1,47 @@
+{
+ "lit_superpose": {
+  "objets": 69,
+  "triangles": 87724,
+  "dim": [
+   8.8,
+   3.76,
+   6.93
+  ],
+  "par_matiere": {
+   "metal_peint_(70, 82, 60)_None": 296,
+   "metal_brut_(150, 150, 146)_None": 1080,
+   "tissu_(84, 98, 80)_None": 34544,
+   "tissu_(96, 94, 102)_None": 36848,
+   "metal_peint_(92, 102, 116)_None": 2552,
+   "metal_brut_(150, 150, 150)_None": 2252,
+   "matelas_(232, 230, 222)_None": 2400,
+   "tissu_(238, 238, 234)_None": 4032,
+   "caoutchouc_(60, 60, 60)_None": 432,
+   "caoutchouc_(40, 40, 40)_None": 216,
+   "tissu_(40, 44, 60)_None": 3072
+  }
+ },
+ "casiers": {
+  "objets": 51,
+  "triangles": 8460,
+  "dim": [
+   6.9,
+   3.33,
+   6.72
+  ],
+  "par_matiere": {
+   "metal_peint_(24, 26, 30)_None": 288,
+   "metal_brut_(190, 170, 110)_None": 108,
+   "metal_peint_(70, 74, 80)_None": 768,
+   "plastique_(230, 226, 210)_None": 36,
+   "metal_peint_(46, 50, 54)_None": 24,
+   "metal_brut_(180, 180, 180)_None": 132,
+   "metal_peint_(84, 104, 128)_None": 432,
+   "tissu_(60, 70, 50)_None": 3072,
+   "tissu_(200, 70, 60)_None": 376,
+   "metal_peint_(40, 42, 46)_None": 108,
+   "metal_brut_(170, 170, 170)_None": 44,
+   "tissu_(50, 60, 70)_None": 3072
+  }
+ }
+}
