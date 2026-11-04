@@ -291,6 +291,58 @@ def turbine(f, L=16, diam=7):
     f.cyl((L/2 + 1.5, diam/2 + 1.2, 0), 3.0, diam*0.7, 'x', 'Metal', (60, 90, 130), name='Alternateur')
     f.pipe((-L/2 + 2, diam + 1.2, 0), (-L/2 + 2, diam + 7, 0), 1.6, 'Metal', ACIER, name='Vapeur')
 
+def transformateur(f, rng=None):
+    f.box((0, 0.3, 0), (6.4, 0.6, 4.4), 'Concrete', (110, 110, 106), name='Dalle')
+    f.box((0, 3.4, 0), (4.6, 5.6, 2.8), 'Metal', (96, 110, 96), name='Transformateur')
+    for i in range(9): f.box((-2.0 + i*0.5, 3.0, 1.6), (0.12, 4.4, 0.5), 'Metal', (86, 100, 86), name='Ailette', cc=False)
+    for i in range(3): f.cyl((-1.4 + i*1.4, 6.9, 0), 1.6, 0.6, 'y', 'Plastic', (150, 90, 60), name='Isolateur')
+    f.text((0, 4.0, -1.45), (1.6, 1.2, 0.05), 'DANGER\n11 kV', txtcol=(20, 20, 20), bg=(230, 190, 30), face='Back', name='Danger', cc=False)
+    for x in (-3.4, 3.4): f.box((x, 2.2, 0), (0.15, 4.4, 4.6), 'Metal', JAUNE, name='Garde', cc=False, tr=0.0)
+
+def armoire_vitree(f, w=3.0, d=1.6, h=7.0, rng=None):
+    rng = rng or random.Random(0)
+    f.box((0, h/2, d/2), (w, h, d), 'Metal', (226, 228, 226), name='ArmoireVitree')
+    v = f.box((0, h*0.62, d + 0.03), (w - 0.3, h*0.6, 0.05), 'Glass', (210, 225, 230), name='Vitre', cc=False); v['t'] = 0.6
+    for i in range(3):
+        y = h*0.4 + i*1.4; f.box((0, y, d/2), (w - 0.3, 0.08, d - 0.2), 'Glass', (220, 230, 230), name='Rayon', cc=False, tr=0.4)
+        for j in range(rng.randint(2, 6)):
+            f.box((-w/2 + 0.4 + j*0.45, y + 0.35, d/2), (0.3, 0.6, 0.4), 'Plastic', rng.choice([(230, 230, 226), (200, 60, 50), (60, 100, 170)]), name='Boite', cc=False)
+
+def rideau_lit(f, L=7.0):
+    f.box((0, 8.0, L/2), (0.1, 0.1, L), 'Metal', ACIER, name='Rail', cc=False)
+    f.box((0, 5.0, L*0.35), (0.08, 5.8, L*0.7), 'Fabric', (150, 186, 190), name='Rideau', cc=False, tr=0.1)
+
+def chariot(f, rng=None):
+    f.box((0, 2.8, 0), (2.4, 0.1, 1.6), 'Metal', ACIER, name='Chariot'); f.box((0, 1.4, 0), (2.4, 0.1, 1.6), 'Metal', ACIER, name='Chariot')
+    for x in (-1.1, 1.1):
+        for z in (-0.7, 0.7): f.box((x, 1.5, z), (0.1, 2.9, 0.1), 'Metal', ACIER, name='Pied', cc=False)
+    f.box((0.4, 3.0, 0.1), (0.8, 0.3, 0.6), 'Plastic', (220, 220, 214), name='Boite', cc=False)
+
+def tuyauterie_plafond(s, n=3, couleurs=((120, 128, 132), (150, 70, 50), (70, 110, 150), (60, 120, 70))):
+    """faisceau de tuyaux au plafond le long de la grande dimension, avec colliers"""
+    e = s.e; y = e.elev + e.h - 1.6; f = Frame(s.sc, s.folder, (0, 0, 0))
+    lx = s.W >= s.D
+    for i in range(n):
+        o = 2.0 + i*1.3; d = [0.9, 0.6, 1.2, 0.5][i % 4]; col = couleurs[i % len(couleurs)]
+        if lx: f.pipe((e.X0 + 1, y - i*0.2, e.Z0 + 1 + o), (e.X1 - 1, y - i*0.2, e.Z0 + 1 + o), d, 'Metal', col, name='TuyauPlafond')
+        else: f.pipe((e.X0 + 1 + o, y - i*0.2, e.Z0 + 1), (e.X0 + 1 + o, y - i*0.2, e.Z1 - 1), d, 'Metal', col, name='TuyauPlafond')
+    L = s.W if lx else s.D
+    for k in range(int(L/8)):
+        t = 4 + k*8
+        if lx: f.box((e.X0 + t, y - 0.2, e.Z0 + 1 + n*0.65 + 1.4), (0.3, 1.0, n*1.3 + 1.0), 'Metal', (60, 62, 64), name='Collier', cc=False)
+        else: f.box((e.X0 + 1 + n*0.65 + 1.4, y - 0.2, e.Z0 + t), (n*1.3 + 1.0, 1.0, 0.3), 'Metal', (60, 62, 64), name='Collier', cc=False)
+
+def chemin_cables(s):
+    e = s.e; y = e.elev + e.h - 1.0; f = Frame(s.sc, s.folder, (0, 0, 0)); lx = s.W >= s.D
+    if lx: c = ((e.X0 + e.X1)/2, y, e.Z1 - 2.4); sz = (s.W - 2, 0.12, 1.8)
+    else: c = (e.X1 - 2.4, y, (e.Z0 + e.Z1)/2); sz = (1.8, 0.12, s.D - 2)
+    f.box(c, sz, 'Metal', (100, 104, 106), name='ChemindeCables', cc=False)
+
+def marquage_sol(s, X, Z, w, d):
+    f = Frame(s.sc, s.folder, (X, s.y, Z))
+    for sx, sz, px, pz in ((w + 2, 0.3, 0, -d/2 - 1), (w + 2, 0.3, 0, d/2 + 1), (0.3, d + 2, -w/2 - 1, 0), (0.3, d + 2, w/2 + 1, 0)):
+        f.box((px, 0.02, pz), (sx, 0.04, sz), 'SmoothPlastic', JAUNE, name='Marquage', cc=False, shadow=False)
+
 def bouteilles(f, n=5, col=(40, 120, 60)):
     for i in range(n):
         x = (i - (n - 1)/2)*1.0
@@ -481,7 +533,7 @@ class Salle:
                 a, b = sorted((sd['conv'](h[0], h[0]) if k in 'NS' else sd['conv'](0, h[0]), sd['conv'](h[1], h[1]) if k in 'NS' else sd['conv'](0, h[1])))
                 sd['used'].append((a - 2.6, b + 2.6))
             for gx, gz, sid, soud in []: pass
-        s.corner = 4.4
+        s.corner = 4.4; s.pris = []
         s.W, s.D = X1 - X0, Z1 - Z0
     def frame_mur(s, side, u):
         sd = s.sides[side]; f = Frame(s.sc, s.folder, sd['o'], rot_y(sd['yaw'])); return f.sub((u, 0, 0))
@@ -512,7 +564,10 @@ class Salle:
         ox = X0 + (X1 - X0 - (nx*iw + (nx - 1)*gx))/2 + iw/2; oz = Z0 + (Z1 - Z0 - (nz*id_ + (nz - 1)*gz))/2 + id_/2
         for i in range(nx):
             for j in range(nz):
-                if len(out) < maxn: out.append((ox + i*(iw + gx), oz + j*(id_ + gz)))
+                X, Z = ox + i*(iw + gx), oz + j*(id_ + gz)
+                r = (X - iw/2 - gx/2, Z - id_/2 - gz/2, X + iw/2 + gx/2, Z + id_/2 + gz/2)
+                if any(r[0] < q[2] and r[2] > q[0] and r[1] < q[3] and r[3] > q[1] for q in s.pris): continue
+                if len(out) < maxn: out.append((X, Z)); s.pris.append(r)
         return out
     def sides_by_len(s): return sorted(s.sides, key=lambda k: -s.sides[k]['L'])
     def libres(s): return [k for k in s.sides_by_len()]
@@ -553,7 +608,8 @@ def meubler(sc, e):
         murs(3.4, douche, n=6, cotes=L[:2]); murs(2.4, lavabo, n=3, cotes=L[2:3]); murs(1.8, casiers, 1, rng=r, n=4, cotes=L[3:])
     elif k in ('quartiers',):
         murs(7.4, lit_superpose, rng=r, cotes=L[:2]); murs(3.6, casiers, 2, rng=r, cotes=L[2:])
-        for X, Z in s.grille_centre(6, 3, 6, 6, marge=9, maxn=2): table(s.fc(X, Z), 5, 2.6, chaises=2, rng=r)
+        for X, Z in s.grille_centre(7.4, 6.8, 5, 6, marge=8.5):
+            f0 = s.fc(X, Z, 0); lit_superpose(f0.sub((0, 0, 0.05)), rng=r); lit_superpose(f0.sub((0, 0, -0.05), math.pi), rng=r)
     elif k == 'vestiaire':
         murs(7.0, casiers, 4, rng=r, cotes=L[:2])
         for X, Z in s.grille_centre(8, 1.4, 3, 6, marge=7, maxn=3): s.fc(X, Z).box((0, 1.4, 0), (8, 0.3, 1.4), 'WoodPlanks', BOIS_C, name='Banc')
@@ -563,20 +619,30 @@ def meubler(sc, e):
                 for i in range(5): rack_serveur(s.fc(X + (i - 2)*2.4, Z), rng=r)
         murs(6.2, console, rng=r, n=2, cotes=L[:1]); murs(5.2, bureau, rng=r, n=4, cotes=L[1:])
     elif k in ('archives', 'imprimerie', 'scelles', 'salle_plans'):
-        murs(2.0, armoire, n=12, cotes=L[:2]); murs(6.2, etagere, 6, 1.8, 7, 5, rng=r, contenu='cartons', cotes=L[2:])
+        murs(2.0, armoire, cotes=L[:2]); murs(6.2, etagere, 6, 1.8, 7, 5, rng=r, contenu='cartons', cotes=L[2:])
+        for X, Z in s.grille_centre(10, 3.6, 5, 6, marge=8, maxn=6):
+            for i in range(5): armoire(s.fc(X - 4 + i*2, Z - 0.05, 0)); armoire(s.fc(X - 4 + i*2, Z + 0.05, math.pi))
         for X, Z in s.grille_centre(6, 3, 4, 5, marge=8, maxn=1): table(s.fc(X, Z), 6, 3, chaises=2, rng=r)
         if k == 'archives': s.fc(e.X0 + s.W*0.7, e.Z0 + s.D*0.6).box((0, 2.5, 0), (3.0, 5.0, 2.6), 'Metal', (60, 64, 70), name='Coffre', tags=['Coffre'])
     elif k in ('bureau', 'cabine_cdt', 'poste_garde', 'attente', 'local_comms'):
-        murs(5.2, bureau, rng=r, n=4 if k != 'cabine_cdt' else 1, cotes=L[:2]); murs(2.0, armoire, n=3, cotes=L[2:3]); murs(5.2, bibliotheque, rng=r, n=1, cotes=L[3:])
+        murs(5.2, bureau, rng=r, n=99 if k != 'cabine_cdt' else 1, cotes=L[:2]); murs(2.0, armoire, n=6, cotes=L[2:3]); murs(5.2, bibliotheque, rng=r, n=3, cotes=L[3:])
+        if k in ('bureau', 'local_comms', 'poste_garde'):
+            for X, Z in s.grille_centre(10.4, 5.4, 5, 8, marge=8.5):
+                for dx in (-2.6, 2.6):
+                    bureau(s.fc(X + dx, Z - 0.1, 0), 5.0, 2.6, rng=r); bureau(s.fc(X + dx, Z + 0.1, math.pi), 5.0, 2.6, rng=r)
         if k == 'attente':
             for X, Z in s.grille_centre(6, 2.6, 3, 4, marge=7): canape(s.fc(X, Z), 6, (70, 80, 96))
         if k == 'cabine_cdt': s.place(L[2], 7.4, lit_superpose, rng=r)
     elif k in ('reserve', 'stock', 'magasin', 'consigne', 'linge', 'depot_labo', 'pieces', 'outillage', 'reserve_m2'):
         murs(6.2, etagere, 6, 2.0, 7, 4, rng=r, contenu='flacons' if k == 'stock' else 'mixte')
-        for X, Z in s.grille_centre(3.4, 3.4, 3, 3, marge=7.5, maxn=6): caisse(s.fc(X, Z, r.uniform(-0.3, 0.3)), rng=r)
+        for X, Z in s.grille_centre(12.4, 4.2, 5, 6, marge=8):
+            for dx in (-3.1, 3.1):
+                etagere(s.fc(X + dx, Z - 0.1, 0), 6, 2.0, 7, 4, rng=r); etagere(s.fc(X + dx, Z + 0.1, math.pi), 6, 2.0, 7, 4, rng=r)
+        for X, Z in s.grille_centre(3.4, 3.4, 3, 3, marge=6, maxn=4): caisse(s.fc(X, Z, r.uniform(-0.3, 0.3)), rng=r)
     elif k in ('labo', 'dissection', 'quarantaine', 'laverie', 'chambre_froide'):
-        murs(8.4, paillasse, rng=r, n=4, cotes=L[:2]); murs(5.4, hotte, n=1, cotes=L[2:3]); murs(6.2, etagere, 6, 2, 7, 4, rng=r, contenu='labo', n=1, cotes=L[3:])
-        for X, Z in s.grille_centre(8, 3, 4, 6, marge=8, maxn=2): paillasse(s.fc(X, Z - 1.4), 8, 2.8, rng=r, evier=False)
+        murs(8.4, paillasse, rng=r, cotes=L[:2]); murs(5.4, hotte, n=2, cotes=L[2:3]); murs(6.2, etagere, 6, 2, 7, 4, rng=r, contenu='labo', cotes=L[2:])
+        for X, Z in s.grille_centre(8.4, 5.8, 5, 7, marge=8.5):
+            paillasse(s.fc(X, Z - 0.1, 0), 8, 2.8, rng=r, evier=r.random() < 0.3); paillasse(s.fc(X, Z + 0.1, math.pi), 8, 2.8, rng=r, evier=False)
         if k == 'dissection': table_autopsie(s.fc(e.X0 + s.W/2, e.Z0 + s.D/2, 0.2))
         if k == 'chambre_froide':
             for X, Z in s.grille_centre(2, 2, 1, 1, marge=6, maxn=4): s.fc(X, Z).box((0, 0.05, 0), (2, 0.1, 2), 'Ice', (220, 230, 240), name='Givre', cc=False)
@@ -593,21 +659,25 @@ def meubler(sc, e):
         murs(10.4, comptoir_cuisine, rng=r, cotes=L[:2]); murs(3.4, frigo, n=3, cotes=L[2:])
         for X, Z in s.grille_centre(6, 3, 4, 4, marge=7, maxn=1): table(s.fc(X, Z), 6, 3, h=3.2, mat='Metal', col=(196, 200, 202), rng=r)
     elif k in ('infirmerie', 'soins'):
-        murs(4.2, lit_hopital, rng=r, cotes=L[:2]); murs(2.0, armoire, col=(230, 232, 230), n=4, cotes=L[2:])
+        def lit_rideau(f, rng=None): lit_hopital(f, rng=rng); rideau_lit(f.sub((2.6, 0, 0)))
+        murs(5.6, lit_rideau, rng=r, cotes=L[:2]); murs(3.2, armoire_vitree, rng=r, n=4, cotes=L[2:3]); murs(5.2, bureau, rng=r, n=1, cotes=L[3:])
+        for X, Z in s.grille_centre(2.4, 1.6, 6, 6, marge=9, maxn=3): chariot(s.fc(X, Z, r.uniform(0, 3)), rng=r)
     elif k == 'pharmacie':
         murs(6.2, etagere, 6, 1.6, 7, 6, rng=r, contenu='flacons')
     elif k == 'morgue':
         murs(6.4, tiroirs_morgue, cotes=L[:1], n=2); table_autopsie(s.fc(e.X0 + s.W/2, e.Z0 + s.D/2))
     elif k in ('centrale',):
-        for X, Z in s.grille_centre(18, 8, 6, 10, marge=10, maxn=2): turbine(s.fc(X, Z), 16, 7)
+        for X, Z in s.grille_centre(18, 8, 6, 10, marge=10, maxn=2): turbine(s.fc(X, Z), 16, 7); marquage_sol(s, X, Z, 18, 8)
+        for X, Z in s.grille_centre(6.4, 4.4, 5, 5, marge=8): transformateur(s.fc(X, Z), rng=r); marquage_sol(s, X, Z, 6.4, 4.4)
         murs(3.4, armoire_elec, rng=r, ouverte=True, n=6, cotes=L[:1]); murs(6.2, console, rng=r, n=2, cotes=L[1:2])
     elif k in ('turbines',):
-        for X, Z in s.grille_centre(16, 7, 6, 8, marge=8, maxn=2): turbine(s.fc(X, Z), 14, 6)
+        for X, Z in s.grille_centre(16, 7, 6, 8, marge=8, maxn=2): turbine(s.fc(X, Z), 14, 6); marquage_sol(s, X, Z, 16, 7)
+        for X, Z in s.grille_centre(6.4, 4.4, 5, 5, marge=8): transformateur(s.fc(X, Z), rng=r)
     elif k in ('pompes', 'vannes', 'eaux_usees', 'filtration', 'reservoirs', 'oxygene', 'traitement_air', 'groupe_froid', 'compresseurs', 'chaufferie'):
         if k in ('reservoirs', 'oxygene', 'eaux_usees', 'chaufferie', 'traitement_air'):
             for X, Z in s.grille_centre(7, 7, 4, 4, marge=8): cuve(s.fc(X, Z), 7, min(e.h - 2, 12))
         else:
-            for X, Z in s.grille_centre(6, 3, 4, 4, marge=7): pompe(s.fc(X, Z, r.choice([0, math.pi/2])), rng=r)
+            for X, Z in s.grille_centre(6, 3, 6, 6, marge=7): pompe(s.fc(X, Z, r.choice([0, math.pi/2])), rng=r); marquage_sol(s, X, Z, 5, 2.6)
         murs(3.4, armoire_elec, rng=r, n=2, cotes=L[:1]); murs(5.4, bouteilles, 5, (40, 120, 60) if k == 'oxygene' else (120, 120, 120), n=2, cotes=L[1:2])
     elif k in ('ateliers', 'soudure', 'atelier_drone'):
         murs(7.4, etabli, rng=r, cotes=L[:2]); murs(6.2, etagere, 6, 2, 7, 4, rng=r, cotes=L[2:3])
@@ -621,7 +691,8 @@ def meubler(sc, e):
     elif k in ('carburant', 'huiles'):
         murs(7, futs, 3, rng=r)
     elif k in ('controle', 'radio', 'securite', 'crise', 'sonar'):
-        murs(6.2, console, rng=r, ecrans=2 if k != 'securite' else 3, cotes=L[:2]); murs(2.0, armoire, n=4, cotes=L[2:])
+        murs(6.2, console, rng=r, ecrans=2 if k != 'securite' else 3, cotes=L[:2]); murs(2.0, armoire, n=8, cotes=L[2:])
+        for X, Z in s.grille_centre(12.4, 3.2, 6, 8, marge=9): console(s.fc(X, Z - 1.5, 0), 12, 3, rng=r, ecrans=3)
         if k in ('securite', 'crise'):
             for c in L[:1]: ecran_mural(s.frame_mur(c, s.sides[c]['L']/2), min(10, s.sides[c]['L'] - 10), 4, 7.2)
         if k == 'radio': s.fc(e.X0 + s.W/2, e.Z0 + s.D/2).box((0, 3.0, 0), (1.6, 0.8, 1.2), 'Plastic', (60, 50, 40), name='Magnetophone', tags=['Enregistrement'])
@@ -683,6 +754,10 @@ def meubler(sc, e):
     else:
         murs(6.2, etagere, 6, 2, 7, 4, rng=r, n=2); murs(2.0, armoire, n=2)
     if k == 'rotonde': return
+    if e.secteur in ('machines', 'fonds') or k in ('hangar', 'entrepot', 'reserve_m2', 'pieces'):
+        tuyauterie_plafond(s, 4 if s.W*s.D > 1500 else 2)
+    if k in ('serveurs', 'salle_info', 'securite', 'controle', 'radio', 'local_elec', 'sous_station', 'batteries'):
+        chemin_cables(s)
     # ---------------------------------------------------------- détails communs : hublots, extincteur, poubelle, traces de l'incident
     if e.secteur in ('recherche', 'vie', 'arrivee') and e.elev == 0 and k not in ('placard', 'toilettes', 'serveurs', 'archives', 'navette', 'sas', 'amarrage', 'chambre_froide'):
         for c in L[:2]:

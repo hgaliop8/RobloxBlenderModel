@@ -1,5 +1,4 @@
-nadir_apercu VUES=dessus0 COURANT=1 ECH=24 RES=1920x1080
-nadir_apercu VUES=labo_c,cantine,quartiers_a COURANT=1
-nadir_apercu VUES=centrale,serveurs,infirmerie COURANT=1
-nadir_apercu VUES=rotonde,navette,hangar COURANT=1
-nadir_apercu VUES=labo_c,c_rech,specimens COURANT=0
+nadir_apercu VUES=labo_c,quartiers_a,archives COURANT=1
+nadir_apercu VUES=entrepot,centrale,securite COURANT=1
+nadir_apercu VUES=rotonde,infirmerie,bureau_cherch COURANT=1
+nadir_apercu VUES=c_rech,labo_a,c_mach COURANT=0

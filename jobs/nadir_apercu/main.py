@@ -131,9 +131,9 @@ def build(filter_fn):
             if COURANT and 'LumiereSecours' in it['tags']: b *= 0.3
             pos = rbx2bl(it['p'])
             if L['cls'] == 'PointLight':
-                ld = bpy.data.lights.new('P', 'POINT'); ld.energy = b*55*(rg/16)**2; ld.shadow_soft_size = 0.2
+                ld = bpy.data.lights.new('P', 'POINT'); ld.energy = b*55*8*(rg/16)**2; ld.shadow_soft_size = 0.2
             else:
-                ld = bpy.data.lights.new('A', 'AREA'); ld.energy = b*75*(rg/16)**2; ld.size = max(it['s'][0], it['s'][2]); ld.size_y = min(it['s'][0], it['s'][2]); ld.shape = 'RECTANGLE'
+                ld = bpy.data.lights.new('A', 'AREA'); ld.energy = b*75*8*(rg/16)**2; ld.size = max(it['s'][0], it['s'][2]); ld.size_y = min(it['s'][0], it['s'][2]); ld.shape = 'RECTANGLE'
                 if abs(it['s'][0]) < abs(it['s'][2]): ld.size, ld.size_y = ld.size_y, ld.size
             ld.color = col; ob = bpy.data.objects.new('L', ld); coll.objects.link(ob); ob.location = pos - Vector((0, 0, 0.2)) if L['cls'] != 'PointLight' else pos
     log('scène Blender prête')
@@ -151,6 +151,8 @@ def vue_espace(eid):
         if W >= D: eye = (e.X0 + 6, y, (e.Z0 + e.Z1)/2 + 0.8); tgt = (e.X1, y - 0.6, (e.Z0 + e.Z1)/2)
         else: eye = ((e.X0 + e.X1)/2 + 0.8, y, e.Z1 - 6); tgt = ((e.X0 + e.X1)/2, y - 0.6, e.Z0)
         if e.esc: eye = ((e.X0 + e.X1)/2 + 0.6, e.ymax - 3, e.Z0 + 4); tgt = ((e.X0 + e.X1)/2, e.ymin + 2, e.Z1)
+    elif e.d.get('forme') == 'octo':
+        cx, cz = (e.X0 + e.X1)/2, (e.Z0 + e.Z1)/2; eye = (cx - W*0.38, e.elev + 6.5, cz + 4); tgt = (cx + W*0.3, e.elev + 3, cz - 6)
     else:
         eye = (e.X0 + 2.2, y, e.Z1 - 2.2); tgt = (e.X1 - 3, e.elev + 2.2, e.Z0 + 3)
     return rbx2bl(eye), rbx2bl(tgt)

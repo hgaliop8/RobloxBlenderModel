@@ -132,6 +132,19 @@ def build_walls(e):
             wall_boxes(fr, axis, fixed, nrm, a, b, e.ymin, e.ymin + wy, [], *st['wains'], th=0.12, inset=WT, name='Soubassement')
             wall_boxes(fr, axis, fixed, nrm, a, b, e.ymin, e.ymin + 0.5, [], 'Metal', (40, 42, 44), th=0.2, inset=WT, name='Plinthe')
             wall_boxes(fr, axis, fixed, nrm, a, b, e.ymin + wy, e.ymin + wy + 0.18, [], *st['rib'], th=0.2, inset=WT, name='Cimaise')
+        # joints de panneaux (salles) : fines baguettes verticales au-dessus du soubassement ; raidisseurs boulonnés en zone technique
+        if not e.couloir and not e.esc:
+            tech = st['kind'] in ('machines', 'stock', 'hub')
+            pas = 8.0 if tech else 4.0
+            for a, b in free_intervals(u0, u1, H, e.ymin, e.ymax):
+                n = int((b - a)/pas)
+                for k in range(1, n + 1):
+                    u = a + (b - a)*k/(n + 1)
+                    if any(h[0] - 0.8 <= u <= h[1] + 0.8 for h in H): continue
+                    ya = e.ymin + wy + 0.2; yb = e.ymax - 0.6
+                    if axis == 'X': c = (u, (ya + yb)/2, fixed + nrm*(WT + (0.12 if tech else 0.03))); sz = (0.5 if tech else 0.08, yb - ya, 0.24 if tech else 0.06)
+                    else: c = (fixed + nrm*(WT + (0.12 if tech else 0.03)), (ya + yb)/2, u); sz = (0.24 if tech else 0.06, yb - ya, 0.5 if tech else 0.08)
+                    fr.box(c, sz, *(st['rib'] if tech else ('SmoothPlastic', tuple(max(0, x - 26) for x in st['wall'][1]))), name='Joint', cc=False, shadow=tech)
         # corniche sous plafond
         if not e.esc:
             for a, b in free_intervals(u0, u1, H, e.ymax - 0.6, e.ymax):
@@ -294,7 +307,7 @@ def build_corridor_dressing(e):
                 fr.box(P(u + step/2, v, y0 + h - 2.2), S3(0.8, 0.5, 0.5), 'Metal', (40, 40, 40), name='BoitierSecours')
                 fr.box(P(u + step/2, v + (0.3 if v < wid/2 else -0.3), y0 + h - 2.2), S3(0.6, 0.15, 0.35), 'Neon', (255, 40, 25), name='FeuSecours',
                        cc=False, shadow=False, tags=['LumiereSecours'],
-                       children=[dict(cls='PointLight', Brightness=1.6, Color=(255, 50, 30), Range=16, Shadows=True, Enabled=True)])
+                       children=[dict(cls='PointLight', Brightness=2.2, Color=(255, 50, 30), Range=20, Shadows=True, Enabled=True)])
     # tuyaux le long d'un côté, chemin de câbles de l'autre (interrompus aux jonctions)
     def runs(H):
         return free_intervals(u0, u0 + L, [h for h in H if h[4] == 'jonction'], y0 + h - 2, y0 + h)
@@ -405,7 +418,7 @@ def build_room_lights(e):
         pos = {'N': (u, yy, e.Z0 + WT + 0.35), 'S': (u, yy, e.Z1 - WT - 0.35), 'W': (e.X0 + WT + 0.35, yy, u), 'E': (e.X1 - WT - 0.35, yy, u)}[side]
         f.box(pos, (1.4, 0.6, 0.6) if side in 'NS' else (0.6, 0.6, 1.4), 'SmoothPlastic', (230, 230, 225), name='BlocSecours', cc=False)
         it = f.box((pos[0], pos[1] - 0.35, pos[2]), (1.0, 0.12, 0.4) if side in 'NS' else (0.4, 0.12, 1.0), 'Neon', (255, 70, 40), name='FeuSecours', cc=False, shadow=False,
-                   tags=['LumiereSecours'], children=[dict(cls='PointLight', Brightness=1.2, Color=(255, 60, 35), Range=max(16, min(28, max(W, D)*0.7)), Shadows=True, Enabled=True)])
+                   tags=['LumiereSecours'], children=[dict(cls='PointLight', Brightness=1.8, Color=(255, 60, 35), Range=max(20, min(32, max(W, D)*0.8)), Shadows=True, Enabled=True)])
 
 # ================================================================ extérieur : fond marin visible depuis les vitrages
 def build_exterior():
