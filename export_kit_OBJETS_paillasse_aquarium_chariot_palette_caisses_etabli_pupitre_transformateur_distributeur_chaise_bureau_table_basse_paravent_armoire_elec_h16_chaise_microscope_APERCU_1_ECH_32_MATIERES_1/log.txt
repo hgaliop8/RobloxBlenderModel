@@ -1,0 +1,1548 @@
+18:52:01 | INFO: Starting glTF 2.0 export
+18:52:01 | INFO: Extracting primitive: T_metal_peint_282A2C
+18:52:01 | INFO: Primitives created: 1
+18:52:01 | INFO: Extracting primitive: T_metal_peint_D6DAD6
+18:52:01 | INFO: Primitives created: 1
+18:52:01 | INFO: Extracting primitive: T_metal_peint_96ACBE.001
+18:52:01 | INFO: Primitives created: 1
+18:52:01 | INFO: Extracting primitive: T_plastique_242628
+18:52:01 | INFO: Primitives created: 1
+18:52:01 | INFO: Extracting primitive: T_metal_brut_C8CACC.001
+18:52:01 | INFO: Primitives created: 1
+18:52:01 | INFO: Extracting primitive: P_1E1E1E_50_0_0
+18:52:01 | INFO: Primitives created: 1
+18:52:01 | INFO: Extracting primitive: P_DCDEE2_8_100_0.001
+18:52:01 | INFO: Primitives created: 1
+18:52:01 | INFO: Extracting primitive: T_plastique_285AAA
+18:52:01 | INFO: Primitives created: 1
+18:52:01 | INFO: Extracting primitive: T_plastique_B4281E
+18:52:01 | INFO: Primitives created: 1
+18:52:01 | INFO: Extracting primitive: P_BE9646_30_100_0
+18:52:01 | INFO: Primitives created: 1
+18:52:01 | INFO: Extracting primitive: T_metal_peint_969CA0.001
+18:52:01 | INFO: Primitives created: 1
+18:52:01 | INFO: Extracting primitive: T_plastique_DCDEDC
+18:52:01 | INFO: Primitives created: 1
+18:52:01 | INFO: Extracting primitive: T_plastique_C8C8C4.001
+18:52:01 | INFO: Primitives created: 1
+18:52:01 | INFO: Extracting primitive: V_D2EBE6
+18:52:01 | INFO: Primitives created: 1
+18:52:01 | INFO: Extracting primitive: V_965A28.001
+18:52:01 | INFO: Primitives created: 1
+18:52:01 | INFO: Extracting primitive: T_plastique_E6E6E1
+18:52:01 | INFO: Primitives created: 1
+18:52:01 | INFO: Extracting primitive: L_DCC86E
+18:52:01 | INFO: Primitives created: 1
+18:52:01 | INFO: Extracting primitive: T_plastique_1E1E1E
+18:52:01 | INFO: Primitives created: 1
+18:52:01 | INFO: Extracting primitive: L_78AA5A
+18:52:01 | INFO: Primitives created: 1
+18:52:01 | INFO: Extracting primitive: T_plastique_96281E
+18:52:01 | INFO: Primitives created: 1
+18:52:01 | INFO: Extracting primitive: L_AAD6DC
+18:52:01 | INFO: Primitives created: 1
+18:52:01 | INFO: Extracting primitive: T_plastique_28468C
+18:52:01 | INFO: Primitives created: 1
+18:52:01 | INFO: Extracting primitive: T_carton_C8B48C.001
+18:52:01 | INFO: Primitives created: 1
+18:52:01 | INFO: Extracting primitive: L_9696C8
+18:52:01 | INFO: Primitives created: 1
+18:52:01 | INFO: Extracting primitive: L_C87846
+18:52:01 | INFO: Primitives created: 1
+18:52:01 | INFO: Extracting primitive: T_carton_E6E6E1
+18:52:01 | INFO: Primitives created: 1
+18:52:01 | INFO: Extracting primitive: V_EBF5F5.001
+18:52:01 | INFO: Primitives created: 1
+18:52:01 | INFO: Extracting primitive: Origine
+18:52:01 | INFO: Primitives created: 1
+18:52:02 | INFO: Finished glTF 2.0 export in 0.03099370002746582 s
+INFO Draco mesh compression is available, use library at /home/runner/work/RobloxBlenderModel/RobloxBlenderModel/blender/4.2/python/lib/python3.11/site-packages/libextern_draco.so
+
+>> paillasse: 13086 -> 11992 triangles, 27 parties, 415 Ko (1s)
+18:52:02 | INFO: Starting glTF 2.0 export
+18:52:02 | INFO: Extracting primitive: T_metal_peint_282A2C.001
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_metal_peint_32383E
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_metal_peint_3C4248
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_metal_brut_C8CACC
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: V_EBF5F5
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_metal_brut_3C3E40
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: L_AAD6D2
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_beton_BEB096
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_beton_969288
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_plastique_28282A
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_caoutchouc_282828
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_plastique_E6E2D2
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: Origine.001
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Finished glTF 2.0 export in 0.014093160629272461 s
+
+>> aquarium: 5744 -> 5744 triangles, 12 parties, 213 Ko (0s)
+18:52:02 | INFO: Starting glTF 2.0 export
+18:52:02 | INFO: Extracting primitive: T_metal_brut_C8CACC.002
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_metal_peint_3C3C3C
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_caoutchouc_282828.001
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: L_C87846.001
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: V_EBF5F5.002
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: L_9696C8.001
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_plastique_3C5A96
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: Origine.002
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Finished glTF 2.0 export in 0.009285211563110352 s
+
+>> chariot: 3670 -> 3670 triangles, 7 parties, 151 Ko (0s)
+18:52:02 | INFO: Starting glTF 2.0 export
+18:52:02 | INFO: Extracting primitive: T_bois_AA8C64
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_bois_C4A070
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_bois_A0835B
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: Origine.003
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Finished glTF 2.0 export in 0.009382486343383789 s
+
+>> palette_caisses: 7560 -> 7560 triangles, 3 parties, 262 Ko (0s)
+18:52:02 | INFO: Starting glTF 2.0 export
+18:52:02 | INFO: Extracting primitive: T_metal_peint_6E7276
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_bois_BE9664
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_metal_peint_282A2C.002
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_metal_peint_3C5678
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_metal_peint_466082
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_metal_brut_C8CACC.003
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_metal_peint_28463C
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_grille_vent_C8C8C4
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_metal_brut_AAAAA8
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_plastique_2850A0
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_bois_AA8250
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_plastique_B4281E.001
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_plastique_C8A028
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_metal_brut_828280
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_metal_peint_AA221C
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: P_DCDEE2_8_100_0
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_metal_peint_C8C8C4
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: Origine.004
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Finished glTF 2.0 export in 0.043869733810424805 s
+
+>> etabli: 5792 -> 5792 triangles, 17 parties, 229 Ko (0s)
+18:52:02 | INFO: Starting glTF 2.0 export
+18:52:02 | INFO: Extracting primitive: T_metal_peint_60686E
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_metal_peint_28282A
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_caoutchouc_282828.002
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: P_3C6E78_8_0_1
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_plastique_1E1E1E.001
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_plastique_C8C8C4
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: P_28C83C_30_0_3
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: P_DCDEE2_8_100_0.002
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: P_C81E14_30_0_3
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_plastique_AA1E18
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: P_DCB41E_30_0_3
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_plastique_285AA0
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_plastique_222224
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: Origine.005
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Finished glTF 2.0 export in 0.011540651321411133 s
+
+>> pupitre: 1980 -> 1980 triangles, 13 parties, 78 Ko (0s)
+18:52:02 | INFO: Starting glTF 2.0 export
+18:52:02 | INFO: Extracting primitive: T_metal_peint_323436
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_metal_peint_788078
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: P_825032_25_0_0
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_metal_brut_B4B4B0
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_plastique_D2AA28
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: Origine.006
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Finished glTF 2.0 export in 0.006246805191040039 s
+
+>> transformateur: 2034 -> 2034 triangles, 5 parties, 71 Ko (0s)
+18:52:02 | INFO: Starting glTF 2.0 export
+18:52:02 | INFO: Extracting primitive: T_metal_peint_961E1E
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: V_DCE6EB
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: P_DCE2E6_40_0_0
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: P_DCDEE2_8_100_0.003
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_metal_peint_DCDCDC
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_metal_peint_C81E1E
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_metal_peint_E6B41E
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_metal_peint_289646
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_metal_peint_28282C
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_plastique_C8C8C4.002
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: T_plastique_141416
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Extracting primitive: Origine.007
+18:52:02 | INFO: Primitives created: 1
+18:52:02 | INFO: Finished glTF 2.0 export in 0.010319232940673828 s
+
+>> distributeur: 3192 -> 3192 triangles, 11 parties, 134 Ko (0s)
+18:52:03 | INFO: Starting glTF 2.0 export
+18:52:03 | INFO: Extracting primitive: T_tissu_32363C.001
+18:52:03 | INFO: Primitives created: 1
+18:52:03 | INFO: Extracting primitive: T_plastique_222224.002
+18:52:03 | INFO: Primitives created: 1
+18:52:03 | INFO: Extracting primitive: P_DCDEE2_8_100_0.004
+18:52:03 | INFO: Primitives created: 1
+18:52:03 | INFO: Extracting primitive: Origine.008
+18:52:03 | INFO: Primitives created: 1
+18:52:03 | INFO: Finished glTF 2.0 export in 0.00746607780456543 s
+
+>> chaise_bureau: 23668 -> 3998 triangles, 3 parties, 131 Ko (0s)
+18:52:03 | INFO: Starting glTF 2.0 export
+18:52:03 | INFO: Extracting primitive: T_bois_8C6440
+18:52:03 | INFO: Primitives created: 1
+18:52:03 | INFO: Extracting primitive: T_metal_peint_28282A.001
+18:52:03 | INFO: Primitives created: 1
+18:52:03 | INFO: Extracting primitive: T_plastique_C83C32
+18:52:03 | INFO: Primitives created: 1
+18:52:03 | INFO: Extracting primitive: Origine.009
+18:52:03 | INFO: Primitives created: 1
+18:52:03 | INFO: Finished glTF 2.0 export in 0.0040013790130615234 s
+
+>> table_basse: 552 -> 552 triangles, 3 parties, 22 Ko (0s)
+18:52:03 | INFO: Starting glTF 2.0 export
+18:52:03 | INFO: Extracting primitive: T_tissu_BED6DC
+18:52:03 | INFO: Primitives created: 1
+18:52:03 | INFO: Extracting primitive: T_metal_brut_C8CACC.004
+18:52:03 | INFO: Primitives created: 1
+18:52:03 | INFO: Extracting primitive: T_caoutchouc_282828.003
+18:52:03 | INFO: Primitives created: 1
+18:52:03 | INFO: Extracting primitive: Origine.010
+18:52:03 | INFO: Primitives created: 1
+18:52:03 | INFO: Finished glTF 2.0 export in 0.0052602291107177734 s
+
+>> paravent: 1356 -> 1356 triangles, 3 parties, 59 Ko (0s)
+18:52:03 | INFO: Starting glTF 2.0 export
+18:52:03 | INFO: Extracting primitive: T_metal_peint_28282A.002
+18:52:03 | INFO: Primitives created: 1
+18:52:03 | INFO: Extracting primitive: T_metal_peint_BEC0BA
+18:52:03 | INFO: Primitives created: 1
+18:52:03 | INFO: Extracting primitive: T_metal_peint_A0A4A0
+18:52:03 | INFO: Primitives created: 1
+18:52:03 | INFO: Extracting primitive: T_plastique_1E1E1E.002
+18:52:03 | INFO: Primitives created: 1
+18:52:03 | INFO: Extracting primitive: T_plastique_D2AA28.001
+18:52:03 | INFO: Primitives created: 1
+18:52:03 | INFO: Extracting primitive: T_grille_vent_969696
+18:52:03 | INFO: Primitives created: 1
+18:52:03 | INFO: Extracting primitive: T_metal_peint_828688
+18:52:03 | INFO: Primitives created: 1
+18:52:03 | INFO: Extracting primitive: Origine.011
+18:52:03 | INFO: Primitives created: 1
+18:52:03 | INFO: Finished glTF 2.0 export in 0.006937980651855469 s
+
+>> armoire_elec_h16: 564 -> 564 triangles, 7 parties, 26 Ko (0s)
+18:52:03 | INFO: Starting glTF 2.0 export
+18:52:03 | INFO: Extracting primitive: T_plastique_425878.001
+18:52:03 | INFO: Primitives created: 1
+18:52:03 | INFO: Extracting primitive: T_metal_brut_AAACAE.001
+18:52:03 | INFO: Primitives created: 1
+18:52:03 | INFO: Extracting primitive: Origine.012
+18:52:03 | INFO: Primitives created: 1
+18:52:03 | INFO: Finished glTF 2.0 export in 0.005929470062255859 s
+
+>> chaise: 15640 -> 2998 triangles, 2 parties, 85 Ko (0s)
+18:52:03 | INFO: Starting glTF 2.0 export
+18:52:03 | INFO: Extracting primitive: T_plastique_E1E1DC
+18:52:03 | INFO: Primitives created: 1
+18:52:03 | INFO: Extracting primitive: P_DCDEE2_8_100_0.005
+18:52:03 | INFO: Primitives created: 1
+18:52:03 | INFO: Extracting primitive: T_plastique_28282A.001
+18:52:03 | INFO: Primitives created: 1
+18:52:03 | INFO: Extracting primitive: P_FAF0D2_20_0_0
+18:52:03 | INFO: Primitives created: 1
+18:52:03 | INFO: Extracting primitive: Origine.013
+18:52:03 | INFO: Primitives created: 1
+18:52:03 | INFO: Finished glTF 2.0 export in 0.005182504653930664 s
+
+>> microscope: 1164 -> 1164 triangles, 4 parties, 43 Ko (0s)
+18:52:03 | INFO: Data are loaded, start creating Blender stuff
+18:52:03 | INFO: Blender create Mesh node T_metal_peint_282A2C
+18:52:03 | INFO: Blender create Mesh node T_metal_peint_D6DAD6
+18:52:03 | INFO: Blender create Mesh node T_metal_peint_96ACBE.001
+18:52:03 | INFO: Blender create Mesh node T_plastique_242628
+18:52:03 | INFO: Blender create Mesh node T_metal_brut_C8CACC.001
+18:52:03 | INFO: Blender create Mesh node P_1E1E1E_50_0_0
+18:52:03 | INFO: Blender create Mesh node P_DCDEE2_8_100_0.001
+18:52:03 | INFO: Blender create Mesh node T_plastique_285AAA
+18:52:03 | INFO: Blender create Mesh node T_plastique_B4281E
+18:52:03 | INFO: Blender create Mesh node P_BE9646_30_100_0
+18:52:03 | INFO: Blender create Mesh node T_metal_peint_969CA0.001
+18:52:03 | INFO: Blender create Mesh node T_plastique_DCDEDC
+18:52:03 | INFO: Blender create Mesh node T_plastique_C8C8C4.001
+18:52:03 | INFO: Blender create Mesh node V_D2EBE6
+18:52:03 | INFO: Blender create Mesh node V_965A28.001
+18:52:03 | INFO: Blender create Mesh node T_plastique_E6E6E1
+18:52:03 | INFO: Blender create Mesh node L_DCC86E
+18:52:03 | INFO: Blender create Mesh node T_plastique_1E1E1E
+18:52:03 | INFO: Blender create Mesh node L_78AA5A
+18:52:03 | INFO: Blender create Mesh node T_plastique_96281E
+18:52:03 | INFO: Blender create Mesh node L_AAD6DC
+18:52:03 | INFO: Blender create Mesh node T_plastique_28468C
+18:52:03 | INFO: Blender create Mesh node T_carton_C8B48C.001
+18:52:03 | INFO: Blender create Mesh node L_9696C8
+18:52:03 | INFO: Blender create Mesh node L_C87846
+18:52:03 | INFO: Blender create Mesh node T_carton_E6E6E1
+18:52:03 | INFO: Blender create Mesh node V_EBF5F5.001
+18:52:03 | INFO: Blender create Mesh node Origine
+18:52:03 | INFO: glTF import finished in 0.03s
+Blender 4.2.3 LTS (hash 0e22e4fcea03 built 2024-10-14 23:31:34)
+Fra:1 Mem:35.36M (Peak 35.36M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StudioSol
+Fra:1 Mem:35.37M (Peak 35.37M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StudioMur
+Fra:1 Mem:35.37M (Peak 35.37M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_metal_peint_282A2C
+Fra:1 Mem:35.37M (Peak 35.37M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_metal_peint_D6DAD6
+Fra:1 Mem:37.38M (Peak 37.38M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_metal_peint_96ACBE
+Fra:1 Mem:37.39M (Peak 37.39M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | V_EBF5F5
+Fra:1 Mem:37.51M (Peak 37.51M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_plastique_242628
+Fra:1 Mem:37.60M (Peak 37.60M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_metal_brut_C8CACC
+Fra:1 Mem:37.95M (Peak 37.95M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | P_1E1E1E_50_0_0
+Fra:1 Mem:38.05M (Peak 38.05M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | P_DCDEE2_8_100_0
+Fra:1 Mem:38.05M (Peak 38.05M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_plastique_285AAA
+Fra:1 Mem:38.20M (Peak 38.20M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_plastique_B4281E
+Fra:1 Mem:38.37M (Peak 38.37M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | P_BE9646_30_100_0
+Fra:1 Mem:38.45M (Peak 38.45M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_metal_peint_969CA0
+Fra:1 Mem:38.11M (Peak 38.45M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_carton_E6E6E1
+Fra:1 Mem:38.31M (Peak 38.45M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_plastique_DCDEDC
+Fra:1 Mem:38.32M (Peak 38.45M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | L_C87846
+Fra:1 Mem:38.37M (Peak 38.45M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_plastique_C8C8C4
+Fra:1 Mem:38.54M (Peak 38.54M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | L_9696C8
+Fra:1 Mem:38.62M (Peak 38.62M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_carton_C8B48C
+Fra:1 Mem:38.61M (Peak 38.62M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | V_D2EBE6
+Fra:1 Mem:38.63M (Peak 38.63M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | V_965A28
+Fra:1 Mem:38.83M (Peak 38.83M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_plastique_28468C
+Fra:1 Mem:38.92M (Peak 38.92M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_plastique_E6E6E1
+Fra:1 Mem:38.94M (Peak 38.94M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | L_AAD6DC
+Fra:1 Mem:39.19M (Peak 39.19M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | L_DCC86E
+Fra:1 Mem:39.22M (Peak 39.22M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_plastique_96281E
+Fra:1 Mem:39.28M (Peak 39.28M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_plastique_1E1E1E
+Fra:1 Mem:39.32M (Peak 39.32M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | L_78AA5A
+Fra:1 Mem:39.13M (Peak 39.32M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Initializing
+Fra:1 Mem:36.20M (Peak 39.32M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Waiting for render to start
+Fra:1 Mem:36.20M (Peak 39.32M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Loading render kernels (may take a few minutes the first time)
+Fra:1 Mem:36.20M (Peak 39.32M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Scene
+Fra:1 Mem:36.20M (Peak 39.32M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Shaders
+Fra:1 Mem:36.31M (Peak 39.32M) | Time:00:00.01 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Updating Procedurals
+Fra:1 Mem:36.31M (Peak 39.32M) | Time:00:00.01 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Updating Background
+Fra:1 Mem:36.31M (Peak 39.32M) | Time:00:00.01 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Updating Camera
+Fra:1 Mem:36.31M (Peak 39.32M) | Time:00:00.01 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Updating Meshes Flags
+Fra:1 Mem:36.31M (Peak 39.32M) | Time:00:00.01 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Updating Objects
+Fra:1 Mem:36.31M (Peak 39.32M) | Time:00:00.01 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Updating Objects | Copying Transformations to device
+Fra:1 Mem:36.31M (Peak 39.32M) | Time:00:00.01 | Mem:0.03M, Peak:0.03M | Scene, ViewLayer | Updating Objects | Applying Static Transformations
+Fra:1 Mem:36.31M (Peak 39.32M) | Time:00:00.01 | Mem:0.03M, Peak:0.03M | Scene, ViewLayer | Updating Particle Systems
+Fra:1 Mem:36.31M (Peak 39.32M) | Time:00:00.01 | Mem:0.03M, Peak:0.03M | Scene, ViewLayer | Updating Particle Systems | Copying Particles to device
+Fra:1 Mem:36.31M (Peak 39.32M) | Time:00:00.01 | Mem:0.03M, Peak:0.03M | Scene, ViewLayer | Updating Meshes
+Fra:1 Mem:36.50M (Peak 39.32M) | Time:00:00.01 | Mem:0.03M, Peak:0.03M | Scene, ViewLayer | Updating Mesh | Computing attributes
+Fra:1 Mem:37.05M (Peak 39.32M) | Time:00:00.01 | Mem:0.03M, Peak:0.03M | Scene, ViewLayer | Updating Mesh | Copying Attributes to device
+Fra:1 Mem:37.04M (Peak 39.32M) | Time:00:00.01 | Mem:0.57M, Peak:0.57M | Scene, ViewLayer | Updating Scene BVH | Building
+Fra:1 Mem:37.04M (Peak 39.32M) | Time:00:00.01 | Mem:0.57M, Peak:0.57M | Scene, ViewLayer | Updating Scene BVH | Building BVH
+Fra:1 Mem:37.04M (Peak 39.32M) | Time:00:00.01 | Mem:0.94M, Peak:0.94M | Scene, ViewLayer | Updating Scene BVH | Building BVH 0%
+Fra:1 Mem:37.04M (Peak 39.32M) | Time:00:00.01 | Mem:1.38M, Peak:1.75M | Scene, ViewLayer | Updating Scene BVH | Copying BVH to device
+Fra:1 Mem:37.04M (Peak 39.32M) | Time:00:00.01 | Mem:1.38M, Peak:1.75M | Scene, ViewLayer | Updating Mesh | Computing normals
+Fra:1 Mem:37.76M (Peak 39.32M) | Time:00:00.01 | Mem:1.38M, Peak:1.75M | Scene, ViewLayer | Updating Mesh | Copying Mesh to device
+Fra:1 Mem:37.76M (Peak 39.32M) | Time:00:00.01 | Mem:2.10M, Peak:2.10M | Scene, ViewLayer | Updating Objects Flags
+Fra:1 Mem:37.76M (Peak 39.32M) | Time:00:00.01 | Mem:2.10M, Peak:2.10M | Scene, ViewLayer | Updating Primitive Offsets
+Fra:1 Mem:37.76M (Peak 39.32M) | Time:00:00.01 | Mem:2.10M, Peak:2.10M | Scene, ViewLayer | Updating Images
+Fra:1 Mem:37.76M (Peak 39.32M) | Time:00:00.01 | Mem:2.10M, Peak:2.10M | Scene, ViewLayer | Updating Images | Loading carton_Normale.png
+Fra:1 Mem:37.76M (Peak 39.32M) | Time:00:00.01 | Mem:2.10M, Peak:2.10M | Scene, ViewLayer | Updating Images | Loading carton_Couleur.png
+Fra:1 Mem:37.76M (Peak 39.32M) | Time:00:00.01 | Mem:2.10M, Peak:2.10M | Scene, ViewLayer | Updating Images | Loading vinyle_Couleur.png
+Fra:1 Mem:41.76M (Peak 41.76M) | Time:00:00.01 | Mem:2.10M, Peak:2.10M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Couleur.png
+Fra:1 Mem:53.78M (Peak 53.78M) | Time:00:00.03 | Mem:6.10M, Peak:6.10M | Scene, ViewLayer | Updating Images | Loading metal_peint_Couleur.png
+Fra:1 Mem:57.78M (Peak 57.78M) | Time:00:00.03 | Mem:10.10M, Peak:10.10M | Scene, ViewLayer | Updating Images | Loading carton_Rugosite.png
+Fra:1 Mem:58.78M (Peak 58.78M) | Time:00:00.03 | Mem:11.10M, Peak:11.10M | Scene, ViewLayer | Updating Images | Loading carton_Metal.png
+Fra:1 Mem:59.78M (Peak 59.78M) | Time:00:00.03 | Mem:12.10M, Peak:12.10M | Scene, ViewLayer | Updating Images | Loading metal_brut_Normale.png
+Fra:1 Mem:63.78M (Peak 63.78M) | Time:00:00.04 | Mem:16.10M, Peak:16.10M | Scene, ViewLayer | Updating Images | Loading vinyle_Metal.png
+Fra:1 Mem:64.78M (Peak 64.78M) | Time:00:00.05 | Mem:17.10M, Peak:17.10M | Scene, ViewLayer | Updating Images | Loading vinyle_Rugosite.png
+Fra:1 Mem:65.78M (Peak 65.78M) | Time:00:00.05 | Mem:21.10M, Peak:21.10M | Scene, ViewLayer | Updating Images | Loading vinyle_Normale.png
+Fra:1 Mem:69.78M (Peak 69.78M) | Time:00:00.05 | Mem:25.10M, Peak:25.10M | Scene, ViewLayer | Updating Images | Loading plastique_Normale.png
+Fra:1 Mem:73.78M (Peak 73.78M) | Time:00:00.06 | Mem:26.10M, Peak:26.10M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Metal.png
+Fra:1 Mem:74.78M (Peak 74.78M) | Time:00:00.06 | Mem:27.10M, Peak:27.10M | Scene, ViewLayer | Updating Images | Loading metal_peint_Metal.png
+Fra:1 Mem:75.78M (Peak 75.78M) | Time:00:00.06 | Mem:31.10M, Peak:31.10M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Rugosite.png
+Fra:1 Mem:76.78M (Peak 76.78M) | Time:00:00.06 | Mem:32.10M, Peak:32.10M | Scene, ViewLayer | Updating Images | Loading metal_peint_Rugosite.png
+Fra:1 Mem:77.78M (Peak 77.78M) | Time:00:00.07 | Mem:36.10M, Peak:36.10M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Normale.png
+Fra:1 Mem:81.78M (Peak 81.78M) | Time:00:00.07 | Mem:40.10M, Peak:40.10M | Scene, ViewLayer | Updating Images | Loading metal_brut_Rugosite.png
+Fra:1 Mem:82.78M (Peak 82.78M) | Time:00:00.07 | Mem:41.10M, Peak:41.10M | Scene, ViewLayer | Updating Images | Loading metal_peint_Normale.png
+Fra:1 Mem:86.78M (Peak 86.78M) | Time:00:00.08 | Mem:42.10M, Peak:42.10M | Scene, ViewLayer | Updating Images | Loading plastique_Couleur.png
+Fra:1 Mem:90.78M (Peak 90.78M) | Time:00:00.08 | Mem:43.10M, Peak:43.10M | Scene, ViewLayer | Updating Images | Loading plastique_Rugosite.png
+Fra:1 Mem:91.78M (Peak 91.78M) | Time:00:00.08 | Mem:47.10M, Peak:47.10M | Scene, ViewLayer | Updating Images | Loading metal_brut_Couleur.png
+Fra:1 Mem:95.78M (Peak 95.78M) | Time:00:00.09 | Mem:51.10M, Peak:51.10M | Scene, ViewLayer | Updating Images | Loading plastique_Metal.png
+Fra:1 Mem:96.78M (Peak 96.78M) | Time:00:00.09 | Mem:52.10M, Peak:52.10M | Scene, ViewLayer | Updating Images | Loading metal_brut_Metal.png
+Fra:1 Mem:97.78M (Peak 97.78M) | Time:00:00.10 | Mem:62.10M, Peak:62.10M | Scene, ViewLayer | Updating Camera Volume
+Fra:1 Mem:97.78M (Peak 97.78M) | Time:00:00.10 | Mem:62.10M, Peak:62.10M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:97.78M (Peak 97.78M) | Time:00:00.10 | Mem:62.18M, Peak:62.18M | Scene, ViewLayer | Updating Lights
+Fra:1 Mem:97.78M (Peak 97.78M) | Time:00:00.10 | Mem:62.18M, Peak:62.18M | Scene, ViewLayer | Updating Lights | Computing tree
+Fra:1 Mem:97.78M (Peak 97.78M) | Time:00:00.10 | Mem:62.19M, Peak:62.19M | Scene, ViewLayer | Updating Integrator
+Fra:1 Mem:97.78M (Peak 97.78M) | Time:00:00.10 | Mem:62.19M, Peak:62.19M | Scene, ViewLayer | Updating Film
+Fra:1 Mem:97.78M (Peak 97.78M) | Time:00:00.10 | Mem:62.10M, Peak:62.19M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:97.78M (Peak 97.78M) | Time:00:00.10 | Mem:62.19M, Peak:62.19M | Scene, ViewLayer | Updating Baking
+Fra:1 Mem:97.78M (Peak 97.78M) | Time:00:00.10 | Mem:62.19M, Peak:62.19M | Scene, ViewLayer | Updating Device | Writing constant memory
+Fra:1 Mem:97.78M (Peak 97.78M) | Time:00:00.10 | Mem:62.19M, Peak:62.19M | Scene, ViewLayer | Loading denoising kernels (may take a few minutes the first time)
+Fra:1 Mem:97.78M (Peak 97.78M) | Time:00:00.10 | Mem:62.19M, Peak:62.19M | Scene, ViewLayer | Sample 0/32
+Fra:1 Mem:127.02M (Peak 127.02M) | Time:00:00.58 | Remaining:00:14.67 | Mem:91.43M, Peak:91.43M | Scene, ViewLayer | Sample 1/32
+Fra:1 Mem:139.33M (Peak 157.79M) | Time:00:16.83 | Mem:91.43M, Peak:91.43M | Scene, ViewLayer | Sample 32/32
+Fra:1 Mem:139.33M (Peak 157.79M) | Time:00:16.83 | Mem:91.43M, Peak:91.43M | Scene, ViewLayer | Finished
+Saved: '/tmp/out/export_kit_OBJETS_paillasse_aquarium_chariot_palette_caisses_etabli_pupitre_transformateur_distributeur_chaise_bureau_table_basse_paravent_armoire_elec_h16_chaise_microscope_APERCU_1_ECH_32_MATIERES_1/apercu_paillasse.png'
+Time: 00:16.96 (Saving: 00:00.12)
+
+>> aperçu paillasse
+18:52:20 | INFO: Data are loaded, start creating Blender stuff
+18:52:20 | INFO: Blender create Mesh node T_metal_peint_282A2C.001
+18:52:20 | INFO: Blender create Mesh node T_metal_peint_32383E
+18:52:20 | INFO: Blender create Mesh node T_metal_peint_3C4248
+18:52:20 | INFO: Blender create Mesh node T_metal_brut_C8CACC
+18:52:20 | INFO: Blender create Mesh node V_EBF5F5
+18:52:20 | INFO: Blender create Mesh node T_metal_brut_3C3E40
+18:52:20 | INFO: Blender create Mesh node L_AAD6D2
+18:52:20 | INFO: Blender create Mesh node T_beton_BEB096
+18:52:20 | INFO: Blender create Mesh node T_beton_969288
+18:52:20 | INFO: Blender create Mesh node T_plastique_28282A
+18:52:20 | INFO: Blender create Mesh node T_caoutchouc_282828
+18:52:20 | INFO: Blender create Mesh node T_plastique_E6E2D2
+18:52:20 | INFO: Blender create Mesh node Origine.001
+18:52:20 | INFO: glTF import finished in 0.01s
+Fra:1 Mem:36.04M (Peak 36.04M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StudioSol
+Fra:1 Mem:36.04M (Peak 36.04M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_metal_peint_282A2C
+Fra:1 Mem:36.04M (Peak 36.04M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_metal_peint_32383E
+Fra:1 Mem:36.05M (Peak 36.05M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_metal_peint_3C4248
+Fra:1 Mem:36.05M (Peak 36.05M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_plastique_E6E2D2
+Fra:1 Mem:36.10M (Peak 36.10M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_caoutchouc_282828
+Fra:1 Mem:36.11M (Peak 36.11M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_metal_brut_C8CACC
+Fra:1 Mem:36.12M (Peak 36.12M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | V_EBF5F5
+Fra:1 Mem:36.19M (Peak 36.19M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_plastique_28282A
+Fra:1 Mem:36.25M (Peak 36.25M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_metal_brut_3C3E40
+Fra:1 Mem:36.44M (Peak 36.44M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_beton_969288
+Fra:1 Mem:36.66M (Peak 36.66M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | L_AAD6D2
+Fra:1 Mem:36.74M (Peak 36.74M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_beton_BEB096
+Fra:1 Mem:37.13M (Peak 37.13M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Initializing
+Fra:1 Mem:35.49M (Peak 37.13M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Waiting for render to start
+Fra:1 Mem:35.49M (Peak 37.13M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Loading render kernels (may take a few minutes the first time)
+Fra:1 Mem:35.49M (Peak 37.13M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Scene
+Fra:1 Mem:35.49M (Peak 37.13M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Shaders
+Fra:1 Mem:35.58M (Peak 37.13M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Procedurals
+Fra:1 Mem:35.58M (Peak 37.13M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Background
+Fra:1 Mem:35.58M (Peak 37.13M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Camera
+Fra:1 Mem:35.58M (Peak 37.13M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Meshes Flags
+Fra:1 Mem:35.58M (Peak 37.13M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Objects
+Fra:1 Mem:35.58M (Peak 37.13M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Objects | Copying Transformations to device
+Fra:1 Mem:35.58M (Peak 37.13M) | Time:00:00.00 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Updating Objects | Applying Static Transformations
+Fra:1 Mem:35.58M (Peak 37.13M) | Time:00:00.00 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Updating Particle Systems
+Fra:1 Mem:35.58M (Peak 37.13M) | Time:00:00.00 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Updating Particle Systems | Copying Particles to device
+Fra:1 Mem:35.58M (Peak 37.13M) | Time:00:00.00 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Updating Meshes
+Fra:1 Mem:35.67M (Peak 37.13M) | Time:00:00.00 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Updating Mesh | Computing attributes
+Fra:1 Mem:36.14M (Peak 37.13M) | Time:00:00.00 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Updating Mesh | Copying Attributes to device
+Fra:1 Mem:36.14M (Peak 37.13M) | Time:00:00.00 | Mem:0.48M, Peak:0.48M | Scene, ViewLayer | Updating Scene BVH | Building
+Fra:1 Mem:36.14M (Peak 37.13M) | Time:00:00.00 | Mem:0.48M, Peak:0.48M | Scene, ViewLayer | Updating Scene BVH | Building BVH
+Fra:1 Mem:36.14M (Peak 37.13M) | Time:00:00.00 | Mem:0.65M, Peak:0.65M | Scene, ViewLayer | Updating Scene BVH | Building BVH 0%
+Fra:1 Mem:36.14M (Peak 37.13M) | Time:00:00.00 | Mem:0.87M, Peak:1.04M | Scene, ViewLayer | Updating Scene BVH | Copying BVH to device
+Fra:1 Mem:36.14M (Peak 37.13M) | Time:00:00.00 | Mem:0.87M, Peak:1.04M | Scene, ViewLayer | Updating Mesh | Computing normals
+Fra:1 Mem:36.43M (Peak 37.13M) | Time:00:00.00 | Mem:0.87M, Peak:1.04M | Scene, ViewLayer | Updating Mesh | Copying Mesh to device
+Fra:1 Mem:36.43M (Peak 37.13M) | Time:00:00.00 | Mem:1.16M, Peak:1.16M | Scene, ViewLayer | Updating Objects Flags
+Fra:1 Mem:36.43M (Peak 37.13M) | Time:00:00.00 | Mem:1.16M, Peak:1.16M | Scene, ViewLayer | Updating Primitive Offsets
+Fra:1 Mem:36.43M (Peak 37.13M) | Time:00:00.00 | Mem:1.16M, Peak:1.16M | Scene, ViewLayer | Updating Images
+Fra:1 Mem:36.43M (Peak 37.13M) | Time:00:00.00 | Mem:1.16M, Peak:1.16M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Normale.png
+Fra:1 Mem:40.43M (Peak 40.43M) | Time:00:00.00 | Mem:1.16M, Peak:1.16M | Scene, ViewLayer | Updating Images | Loading plastique_Couleur.png
+Fra:1 Mem:44.43M (Peak 44.43M) | Time:00:00.00 | Mem:1.16M, Peak:1.16M | Scene, ViewLayer | Updating Images | Loading vinyle_Couleur.png
+Fra:1 Mem:48.43M (Peak 48.43M) | Time:00:00.01 | Mem:1.16M, Peak:1.16M | Scene, ViewLayer | Updating Images | Loading metal_peint_Couleur.png
+Fra:1 Mem:52.44M (Peak 52.44M) | Time:00:00.02 | Mem:5.16M, Peak:5.16M | Scene, ViewLayer | Updating Images | Loading beton_Normale.png
+Fra:1 Mem:56.44M (Peak 56.44M) | Time:00:00.02 | Mem:9.16M, Peak:9.16M | Scene, ViewLayer | Updating Images | Loading metal_peint_Metal.png
+Fra:1 Mem:57.44M (Peak 57.44M) | Time:00:00.03 | Mem:13.16M, Peak:13.16M | Scene, ViewLayer | Updating Images | Loading plastique_Metal.png
+Fra:1 Mem:58.44M (Peak 58.44M) | Time:00:00.03 | Mem:14.16M, Peak:14.16M | Scene, ViewLayer | Updating Images | Loading vinyle_Metal.png
+Fra:1 Mem:59.44M (Peak 59.44M) | Time:00:00.03 | Mem:15.16M, Peak:15.16M | Scene, ViewLayer | Updating Images | Loading metal_peint_Rugosite.png
+Fra:1 Mem:60.44M (Peak 60.44M) | Time:00:00.03 | Mem:16.16M, Peak:16.16M | Scene, ViewLayer | Updating Images | Loading plastique_Rugosite.png
+Fra:1 Mem:61.44M (Peak 61.44M) | Time:00:00.03 | Mem:20.16M, Peak:20.16M | Scene, ViewLayer | Updating Images | Loading vinyle_Rugosite.png
+Fra:1 Mem:62.44M (Peak 62.44M) | Time:00:00.04 | Mem:21.16M, Peak:21.16M | Scene, ViewLayer | Updating Images | Loading plastique_Normale.png
+Fra:1 Mem:66.44M (Peak 66.44M) | Time:00:00.04 | Mem:25.16M, Peak:25.16M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Rugosite.png
+Fra:1 Mem:67.44M (Peak 67.44M) | Time:00:00.04 | Mem:26.16M, Peak:26.16M | Scene, ViewLayer | Updating Images | Loading metal_peint_Normale.png
+Fra:1 Mem:71.44M (Peak 71.44M) | Time:00:00.04 | Mem:27.16M, Peak:27.16M | Scene, ViewLayer | Updating Images | Loading vinyle_Normale.png
+Fra:1 Mem:75.44M (Peak 75.44M) | Time:00:00.04 | Mem:28.16M, Peak:28.16M | Scene, ViewLayer | Updating Images | Loading beton_Rugosite.png
+Fra:1 Mem:76.44M (Peak 76.44M) | Time:00:00.05 | Mem:29.16M, Peak:29.16M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Metal.png
+Fra:1 Mem:77.44M (Peak 77.44M) | Time:00:00.05 | Mem:33.16M, Peak:33.16M | Scene, ViewLayer | Updating Images | Loading caoutchouc_Couleur.png
+Fra:1 Mem:81.44M (Peak 81.44M) | Time:00:00.05 | Mem:34.16M, Peak:34.16M | Scene, ViewLayer | Updating Images | Loading beton_Metal.png
+Fra:1 Mem:82.44M (Peak 82.44M) | Time:00:00.06 | Mem:35.16M, Peak:35.16M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Couleur.png
+Fra:1 Mem:86.44M (Peak 86.44M) | Time:00:00.06 | Mem:39.16M, Peak:39.16M | Scene, ViewLayer | Updating Images | Loading metal_brut_Couleur.png
+Fra:1 Mem:90.44M (Peak 90.44M) | Time:00:00.06 | Mem:43.16M, Peak:43.16M | Scene, ViewLayer | Updating Images | Loading caoutchouc_Metal.png
+Fra:1 Mem:91.44M (Peak 91.44M) | Time:00:00.06 | Mem:44.16M, Peak:44.16M | Scene, ViewLayer | Updating Images | Loading metal_brut_Metal.png
+Fra:1 Mem:92.44M (Peak 92.44M) | Time:00:00.06 | Mem:45.16M, Peak:45.16M | Scene, ViewLayer | Updating Images | Loading caoutchouc_Rugosite.png
+Fra:1 Mem:93.44M (Peak 93.44M) | Time:00:00.07 | Mem:49.16M, Peak:49.16M | Scene, ViewLayer | Updating Images | Loading beton_Couleur.png
+Fra:1 Mem:97.44M (Peak 97.44M) | Time:00:00.07 | Mem:53.16M, Peak:53.16M | Scene, ViewLayer | Updating Images | Loading metal_brut_Rugosite.png
+Fra:1 Mem:98.44M (Peak 98.44M) | Time:00:00.07 | Mem:57.16M, Peak:57.16M | Scene, ViewLayer | Updating Images | Loading caoutchouc_Normale.png
+Fra:1 Mem:102.44M (Peak 102.44M) | Time:00:00.07 | Mem:58.16M, Peak:58.16M | Scene, ViewLayer | Updating Images | Loading metal_brut_Normale.png
+Fra:1 Mem:106.44M (Peak 106.44M) | Time:00:00.09 | Mem:71.16M, Peak:71.16M | Scene, ViewLayer | Updating Camera Volume
+Fra:1 Mem:106.44M (Peak 106.44M) | Time:00:00.09 | Mem:71.16M, Peak:71.16M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:106.44M (Peak 106.44M) | Time:00:00.09 | Mem:71.24M, Peak:71.24M | Scene, ViewLayer | Updating Lights
+Fra:1 Mem:106.44M (Peak 106.44M) | Time:00:00.09 | Mem:71.24M, Peak:71.24M | Scene, ViewLayer | Updating Lights | Computing tree
+Fra:1 Mem:106.44M (Peak 106.44M) | Time:00:00.09 | Mem:71.24M, Peak:71.24M | Scene, ViewLayer | Updating Integrator
+Fra:1 Mem:106.44M (Peak 106.44M) | Time:00:00.09 | Mem:71.24M, Peak:71.24M | Scene, ViewLayer | Updating Film
+Fra:1 Mem:106.45M (Peak 106.45M) | Time:00:00.09 | Mem:71.16M, Peak:71.24M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:106.45M (Peak 106.45M) | Time:00:00.09 | Mem:71.24M, Peak:71.24M | Scene, ViewLayer | Updating Baking
+Fra:1 Mem:106.45M (Peak 106.45M) | Time:00:00.09 | Mem:71.24M, Peak:71.24M | Scene, ViewLayer | Updating Device | Writing constant memory
+Fra:1 Mem:106.45M (Peak 106.45M) | Time:00:00.09 | Mem:71.24M, Peak:71.24M | Scene, ViewLayer | Loading denoising kernels (may take a few minutes the first time)
+Fra:1 Mem:106.45M (Peak 106.45M) | Time:00:00.09 | Mem:71.24M, Peak:71.24M | Scene, ViewLayer | Sample 0/32
+Fra:1 Mem:135.69M (Peak 135.69M) | Time:00:00.61 | Remaining:00:16.14 | Mem:100.48M, Peak:100.48M | Scene, ViewLayer | Sample 1/32
+Fra:1 Mem:147.99M (Peak 166.45M) | Time:00:17.64 | Mem:100.48M, Peak:100.48M | Scene, ViewLayer | Sample 32/32
+Fra:1 Mem:147.99M (Peak 166.45M) | Time:00:17.64 | Mem:100.48M, Peak:100.48M | Scene, ViewLayer | Finished
+Saved: '/tmp/out/export_kit_OBJETS_paillasse_aquarium_chariot_palette_caisses_etabli_pupitre_transformateur_distributeur_chaise_bureau_table_basse_paravent_armoire_elec_h16_chaise_microscope_APERCU_1_ECH_32_MATIERES_1/apercu_aquarium.png'
+Time: 00:17.71 (Saving: 00:00.06)
+
+>> aperçu aquarium
+18:52:38 | INFO: Data are loaded, start creating Blender stuff
+18:52:38 | INFO: Blender create Mesh node T_metal_brut_C8CACC.002
+18:52:38 | INFO: Blender create Mesh node T_metal_peint_3C3C3C
+18:52:38 | INFO: Blender create Mesh node T_caoutchouc_282828.001
+18:52:38 | INFO: Blender create Mesh node L_C87846.001
+18:52:38 | INFO: Blender create Mesh node V_EBF5F5.002
+18:52:38 | INFO: Blender create Mesh node L_9696C8.001
+18:52:38 | INFO: Blender create Mesh node T_plastique_3C5A96
+18:52:38 | INFO: Blender create Mesh node Origine.002
+18:52:38 | INFO: glTF import finished in 0.01s
+Fra:1 Mem:35.65M (Peak 35.65M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StudioSol
+Fra:1 Mem:35.65M (Peak 35.65M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_metal_brut_C8CACC
+Fra:1 Mem:35.66M (Peak 35.66M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_metal_peint_3C3C3C
+Fra:1 Mem:35.66M (Peak 35.66M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_caoutchouc_282828
+Fra:1 Mem:35.91M (Peak 35.91M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | L_9696C8
+Fra:1 Mem:36.05M (Peak 36.05M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | V_EBF5F5
+Fra:1 Mem:36.27M (Peak 36.27M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | L_C87846
+Fra:1 Mem:36.27M (Peak 36.27M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Initializing
+Fra:1 Mem:35.21M (Peak 36.27M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Waiting for render to start
+Fra:1 Mem:35.21M (Peak 36.27M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Loading render kernels (may take a few minutes the first time)
+Fra:1 Mem:35.21M (Peak 36.27M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Scene
+Fra:1 Mem:35.21M (Peak 36.27M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Shaders
+Fra:1 Mem:35.30M (Peak 36.27M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Procedurals
+Fra:1 Mem:35.30M (Peak 36.27M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Background
+Fra:1 Mem:35.30M (Peak 36.27M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Camera
+Fra:1 Mem:35.30M (Peak 36.27M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Meshes Flags
+Fra:1 Mem:35.30M (Peak 36.27M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Objects
+Fra:1 Mem:35.30M (Peak 36.27M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Objects | Copying Transformations to device
+Fra:1 Mem:35.30M (Peak 36.27M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Objects | Applying Static Transformations
+Fra:1 Mem:35.30M (Peak 36.27M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Particle Systems
+Fra:1 Mem:35.30M (Peak 36.27M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Particle Systems | Copying Particles to device
+Fra:1 Mem:35.30M (Peak 36.27M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Meshes
+Fra:1 Mem:35.36M (Peak 36.27M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Mesh | Computing attributes
+Fra:1 Mem:35.61M (Peak 36.27M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Mesh | Copying Attributes to device
+Fra:1 Mem:35.61M (Peak 36.27M) | Time:00:00.00 | Mem:0.26M, Peak:0.26M | Scene, ViewLayer | Updating Scene BVH | Building
+Fra:1 Mem:35.61M (Peak 36.27M) | Time:00:00.00 | Mem:0.26M, Peak:0.26M | Scene, ViewLayer | Updating Scene BVH | Building BVH
+Fra:1 Mem:35.61M (Peak 36.27M) | Time:00:00.00 | Mem:0.37M, Peak:0.37M | Scene, ViewLayer | Updating Scene BVH | Building BVH 0%
+Fra:1 Mem:35.61M (Peak 36.27M) | Time:00:00.00 | Mem:0.51M, Peak:0.63M | Scene, ViewLayer | Updating Scene BVH | Copying BVH to device
+Fra:1 Mem:35.61M (Peak 36.27M) | Time:00:00.00 | Mem:0.51M, Peak:0.63M | Scene, ViewLayer | Updating Mesh | Computing normals
+Fra:1 Mem:35.82M (Peak 36.27M) | Time:00:00.00 | Mem:0.51M, Peak:0.63M | Scene, ViewLayer | Updating Mesh | Copying Mesh to device
+Fra:1 Mem:35.82M (Peak 36.27M) | Time:00:00.00 | Mem:0.73M, Peak:0.73M | Scene, ViewLayer | Updating Objects Flags
+Fra:1 Mem:35.82M (Peak 36.27M) | Time:00:00.00 | Mem:0.73M, Peak:0.73M | Scene, ViewLayer | Updating Primitive Offsets
+Fra:1 Mem:35.82M (Peak 36.27M) | Time:00:00.00 | Mem:0.73M, Peak:0.73M | Scene, ViewLayer | Updating Images
+Fra:1 Mem:35.82M (Peak 36.27M) | Time:00:00.00 | Mem:0.73M, Peak:0.73M | Scene, ViewLayer | Updating Images | Loading plastique_Normale.png
+Fra:1 Mem:35.82M (Peak 36.27M) | Time:00:00.00 | Mem:0.73M, Peak:0.73M | Scene, ViewLayer | Updating Images | Loading vinyle_Couleur.png
+Fra:1 Mem:43.82M (Peak 43.82M) | Time:00:00.00 | Mem:0.73M, Peak:0.73M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Couleur.png
+Fra:1 Mem:51.83M (Peak 51.83M) | Time:00:00.02 | Mem:4.73M, Peak:4.73M | Scene, ViewLayer | Updating Images | Loading metal_brut_Couleur.png
+Fra:1 Mem:51.83M (Peak 51.83M) | Time:00:00.02 | Mem:12.73M, Peak:12.73M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Metal.png
+Fra:1 Mem:60.83M (Peak 60.83M) | Time:00:00.02 | Mem:13.73M, Peak:13.73M | Scene, ViewLayer | Updating Images | Loading vinyle_Metal.png
+Fra:1 Mem:61.83M (Peak 61.83M) | Time:00:00.02 | Mem:17.73M, Peak:17.73M | Scene, ViewLayer | Updating Images | Loading metal_brut_Metal.png
+Fra:1 Mem:62.83M (Peak 62.83M) | Time:00:00.02 | Mem:18.73M, Peak:18.73M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Rugosite.png
+Fra:1 Mem:63.83M (Peak 63.83M) | Time:00:00.03 | Mem:22.73M, Peak:22.73M | Scene, ViewLayer | Updating Images | Loading plastique_Rugosite.png
+Fra:1 Mem:64.83M (Peak 64.83M) | Time:00:00.03 | Mem:23.73M, Peak:23.73M | Scene, ViewLayer | Updating Images | Loading vinyle_Rugosite.png
+Fra:1 Mem:65.83M (Peak 65.83M) | Time:00:00.03 | Mem:24.73M, Peak:24.73M | Scene, ViewLayer | Updating Images | Loading metal_brut_Rugosite.png
+Fra:1 Mem:66.83M (Peak 66.83M) | Time:00:00.03 | Mem:25.73M, Peak:25.73M | Scene, ViewLayer | Updating Images | Loading metal_peint_Normale.png
+Fra:1 Mem:70.83M (Peak 70.83M) | Time:00:00.03 | Mem:29.73M, Peak:29.73M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Normale.png
+Fra:1 Mem:74.83M (Peak 74.83M) | Time:00:00.04 | Mem:30.73M, Peak:30.73M | Scene, ViewLayer | Updating Images | Loading vinyle_Normale.png
+Fra:1 Mem:78.83M (Peak 78.83M) | Time:00:00.04 | Mem:31.73M, Peak:31.73M | Scene, ViewLayer | Updating Images | Loading metal_brut_Normale.png
+Fra:1 Mem:82.83M (Peak 82.83M) | Time:00:00.05 | Mem:35.73M, Peak:35.73M | Scene, ViewLayer | Updating Images | Loading caoutchouc_Rugosite.png
+Fra:1 Mem:83.83M (Peak 83.83M) | Time:00:00.05 | Mem:39.73M, Peak:39.73M | Scene, ViewLayer | Updating Images | Loading metal_peint_Couleur.png
+Fra:1 Mem:87.83M (Peak 87.83M) | Time:00:00.05 | Mem:43.73M, Peak:43.73M | Scene, ViewLayer | Updating Images | Loading caoutchouc_Couleur.png
+Fra:1 Mem:91.83M (Peak 91.83M) | Time:00:00.05 | Mem:44.73M, Peak:44.73M | Scene, ViewLayer | Updating Images | Loading plastique_Metal.png
+Fra:1 Mem:92.83M (Peak 92.83M) | Time:00:00.06 | Mem:45.73M, Peak:45.73M | Scene, ViewLayer | Updating Images | Loading metal_peint_Rugosite.png
+Fra:1 Mem:93.83M (Peak 93.83M) | Time:00:00.06 | Mem:49.73M, Peak:49.73M | Scene, ViewLayer | Updating Images | Loading metal_peint_Metal.png
+Fra:1 Mem:94.83M (Peak 94.83M) | Time:00:00.06 | Mem:50.73M, Peak:50.73M | Scene, ViewLayer | Updating Images | Loading caoutchouc_Metal.png
+Fra:1 Mem:95.83M (Peak 95.83M) | Time:00:00.07 | Mem:60.73M, Peak:60.73M | Scene, ViewLayer | Updating Camera Volume
+Fra:1 Mem:95.83M (Peak 95.83M) | Time:00:00.07 | Mem:60.73M, Peak:60.73M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:95.83M (Peak 95.83M) | Time:00:00.07 | Mem:60.81M, Peak:60.81M | Scene, ViewLayer | Updating Lights
+Fra:1 Mem:95.83M (Peak 95.83M) | Time:00:00.07 | Mem:60.81M, Peak:60.81M | Scene, ViewLayer | Updating Lights | Computing tree
+Fra:1 Mem:95.83M (Peak 95.83M) | Time:00:00.07 | Mem:60.81M, Peak:60.81M | Scene, ViewLayer | Updating Integrator
+Fra:1 Mem:95.83M (Peak 95.83M) | Time:00:00.07 | Mem:60.81M, Peak:60.81M | Scene, ViewLayer | Updating Film
+Fra:1 Mem:95.84M (Peak 95.84M) | Time:00:00.07 | Mem:60.73M, Peak:60.81M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:95.84M (Peak 95.84M) | Time:00:00.07 | Mem:60.81M, Peak:60.81M | Scene, ViewLayer | Updating Baking
+Fra:1 Mem:95.84M (Peak 95.84M) | Time:00:00.07 | Mem:60.81M, Peak:60.81M | Scene, ViewLayer | Updating Device | Writing constant memory
+Fra:1 Mem:95.84M (Peak 95.84M) | Time:00:00.07 | Mem:60.81M, Peak:60.81M | Scene, ViewLayer | Loading denoising kernels (may take a few minutes the first time)
+Fra:1 Mem:95.84M (Peak 95.84M) | Time:00:00.07 | Mem:60.81M, Peak:60.81M | Scene, ViewLayer | Sample 0/32
+Fra:1 Mem:125.08M (Peak 125.08M) | Time:00:00.52 | Remaining:00:13.95 | Mem:90.05M, Peak:90.05M | Scene, ViewLayer | Sample 1/32
+Fra:1 Mem:137.38M (Peak 155.84M) | Time:00:15.65 | Mem:90.05M, Peak:90.05M | Scene, ViewLayer | Sample 32/32
+Fra:1 Mem:137.38M (Peak 155.84M) | Time:00:15.65 | Mem:90.05M, Peak:90.05M | Scene, ViewLayer | Finished
+Saved: '/tmp/out/export_kit_OBJETS_paillasse_aquarium_chariot_palette_caisses_etabli_pupitre_transformateur_distributeur_chaise_bureau_table_basse_paravent_armoire_elec_h16_chaise_microscope_APERCU_1_ECH_32_MATIERES_1/apercu_chariot.png'
+Time: 00:15.71 (Saving: 00:00.06)
+
+>> aperçu chariot
+18:52:53 | INFO: Data are loaded, start creating Blender stuff
+18:52:53 | INFO: Blender create Mesh node T_bois_AA8C64
+18:52:53 | INFO: Blender create Mesh node T_bois_C4A070
+18:52:53 | INFO: Blender create Mesh node T_bois_A0835B
+18:52:53 | INFO: Blender create Mesh node Origine.003
+18:52:53 | INFO: glTF import finished in 0.01s
+Fra:1 Mem:36.03M (Peak 36.03M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StudioSol
+Fra:1 Mem:36.03M (Peak 36.03M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_bois_AA8C64
+Fra:1 Mem:36.04M (Peak 36.04M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_bois_A0835B
+Fra:1 Mem:36.10M (Peak 36.10M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_bois_C4A070
+Fra:1 Mem:37.54M (Peak 37.54M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Initializing
+Fra:1 Mem:36.83M (Peak 37.54M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Waiting for render to start
+Fra:1 Mem:36.83M (Peak 37.54M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Loading render kernels (may take a few minutes the first time)
+Fra:1 Mem:36.83M (Peak 37.54M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Scene
+Fra:1 Mem:36.83M (Peak 37.54M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Shaders
+Fra:1 Mem:36.92M (Peak 37.54M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Procedurals
+Fra:1 Mem:36.92M (Peak 37.54M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Background
+Fra:1 Mem:36.92M (Peak 37.54M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Camera
+Fra:1 Mem:36.92M (Peak 37.54M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Meshes Flags
+Fra:1 Mem:36.92M (Peak 37.54M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Objects
+Fra:1 Mem:36.92M (Peak 37.54M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Objects | Copying Transformations to device
+Fra:1 Mem:36.92M (Peak 37.54M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Objects | Applying Static Transformations
+Fra:1 Mem:36.92M (Peak 37.54M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Particle Systems
+Fra:1 Mem:36.92M (Peak 37.54M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Particle Systems | Copying Particles to device
+Fra:1 Mem:36.92M (Peak 37.54M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Meshes
+Fra:1 Mem:37.04M (Peak 37.54M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Mesh | Computing attributes
+Fra:1 Mem:37.64M (Peak 37.64M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Mesh | Copying Attributes to device
+Fra:1 Mem:37.64M (Peak 37.64M) | Time:00:00.00 | Mem:0.61M, Peak:0.61M | Scene, ViewLayer | Updating Scene BVH | Building
+Fra:1 Mem:37.64M (Peak 37.64M) | Time:00:00.00 | Mem:0.61M, Peak:0.61M | Scene, ViewLayer | Updating Scene BVH | Building BVH
+Fra:1 Mem:37.64M (Peak 37.64M) | Time:00:00.00 | Mem:0.84M, Peak:0.84M | Scene, ViewLayer | Updating Scene BVH | Building BVH 0%
+Fra:1 Mem:37.64M (Peak 37.64M) | Time:00:00.00 | Mem:1.09M, Peak:1.32M | Scene, ViewLayer | Updating Scene BVH | Copying BVH to device
+Fra:1 Mem:37.64M (Peak 37.64M) | Time:00:00.00 | Mem:1.09M, Peak:1.32M | Scene, ViewLayer | Updating Mesh | Computing normals
+Fra:1 Mem:37.99M (Peak 37.99M) | Time:00:00.00 | Mem:1.09M, Peak:1.32M | Scene, ViewLayer | Updating Mesh | Copying Mesh to device
+Fra:1 Mem:37.99M (Peak 37.99M) | Time:00:00.00 | Mem:1.45M, Peak:1.45M | Scene, ViewLayer | Updating Objects Flags
+Fra:1 Mem:37.99M (Peak 37.99M) | Time:00:00.00 | Mem:1.45M, Peak:1.45M | Scene, ViewLayer | Updating Primitive Offsets
+Fra:1 Mem:37.99M (Peak 37.99M) | Time:00:00.00 | Mem:1.45M, Peak:1.45M | Scene, ViewLayer | Updating Images
+Fra:1 Mem:37.99M (Peak 37.99M) | Time:00:00.00 | Mem:1.45M, Peak:1.45M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Normale.png
+Fra:1 Mem:41.99M (Peak 41.99M) | Time:00:00.00 | Mem:1.45M, Peak:1.45M | Scene, ViewLayer | Updating Images | Loading vinyle_Couleur.png
+Fra:1 Mem:49.99M (Peak 49.99M) | Time:00:00.00 | Mem:1.45M, Peak:1.45M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Couleur.png
+Fra:1 Mem:54.00M (Peak 54.00M) | Time:00:00.02 | Mem:5.45M, Peak:5.45M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Metal.png
+Fra:1 Mem:55.00M (Peak 55.00M) | Time:00:00.02 | Mem:9.45M, Peak:9.45M | Scene, ViewLayer | Updating Images | Loading vinyle_Normale.png
+Fra:1 Mem:59.00M (Peak 59.00M) | Time:00:00.02 | Mem:10.45M, Peak:10.45M | Scene, ViewLayer | Updating Images | Loading bois_Metal.png
+Fra:1 Mem:60.00M (Peak 60.00M) | Time:00:00.02 | Mem:14.45M, Peak:14.45M | Scene, ViewLayer | Updating Images | Loading vinyle_Metal.png
+Fra:1 Mem:61.00M (Peak 61.00M) | Time:00:00.02 | Mem:15.45M, Peak:15.45M | Scene, ViewLayer | Updating Images | Loading bois_Rugosite.png
+Fra:1 Mem:62.00M (Peak 62.00M) | Time:00:00.02 | Mem:16.45M, Peak:16.45M | Scene, ViewLayer | Updating Images | Loading vinyle_Rugosite.png
+Fra:1 Mem:63.00M (Peak 63.00M) | Time:00:00.02 | Mem:20.45M, Peak:20.45M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Rugosite.png
+Fra:1 Mem:64.00M (Peak 64.00M) | Time:00:00.03 | Mem:21.45M, Peak:21.45M | Scene, ViewLayer | Updating Images | Loading bois_Normale.png
+Fra:1 Mem:68.00M (Peak 68.00M) | Time:00:00.04 | Mem:31.45M, Peak:31.45M | Scene, ViewLayer | Updating Camera Volume
+Fra:1 Mem:68.00M (Peak 68.00M) | Time:00:00.04 | Mem:31.45M, Peak:31.45M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:68.00M (Peak 68.00M) | Time:00:00.04 | Mem:31.53M, Peak:31.53M | Scene, ViewLayer | Updating Lights
+Fra:1 Mem:68.00M (Peak 68.00M) | Time:00:00.04 | Mem:31.53M, Peak:31.53M | Scene, ViewLayer | Updating Lights | Computing tree
+Fra:1 Mem:68.01M (Peak 68.01M) | Time:00:00.04 | Mem:31.53M, Peak:31.53M | Scene, ViewLayer | Updating Integrator
+Fra:1 Mem:68.01M (Peak 68.01M) | Time:00:00.04 | Mem:31.53M, Peak:31.53M | Scene, ViewLayer | Updating Film
+Fra:1 Mem:68.01M (Peak 68.01M) | Time:00:00.04 | Mem:31.45M, Peak:31.53M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:68.01M (Peak 68.01M) | Time:00:00.04 | Mem:31.53M, Peak:31.53M | Scene, ViewLayer | Updating Baking
+Fra:1 Mem:68.01M (Peak 68.01M) | Time:00:00.04 | Mem:31.53M, Peak:31.53M | Scene, ViewLayer | Updating Device | Writing constant memory
+Fra:1 Mem:68.01M (Peak 68.01M) | Time:00:00.04 | Mem:31.53M, Peak:31.53M | Scene, ViewLayer | Loading denoising kernels (may take a few minutes the first time)
+Fra:1 Mem:68.01M (Peak 68.01M) | Time:00:00.04 | Mem:31.53M, Peak:31.53M | Scene, ViewLayer | Sample 0/32
+Fra:1 Mem:97.25M (Peak 97.25M) | Time:00:00.48 | Remaining:00:13.61 | Mem:60.77M, Peak:60.77M | Scene, ViewLayer | Sample 1/32
+Fra:1 Mem:109.56M (Peak 128.02M) | Time:00:15.09 | Mem:60.77M, Peak:60.77M | Scene, ViewLayer | Sample 32/32
+Fra:1 Mem:109.56M (Peak 128.02M) | Time:00:15.09 | Mem:60.77M, Peak:60.77M | Scene, ViewLayer | Finished
+Saved: '/tmp/out/export_kit_OBJETS_paillasse_aquarium_chariot_palette_caisses_etabli_pupitre_transformateur_distributeur_chaise_bureau_table_basse_paravent_armoire_elec_h16_chaise_microscope_APERCU_1_ECH_32_MATIERES_1/apercu_palette_caisses.png'
+Time: 00:15.16 (Saving: 00:00.06)
+
+>> aperçu palette_caisses
+18:53:09 | INFO: Data are loaded, start creating Blender stuff
+18:53:09 | INFO: Blender create Mesh node T_metal_peint_6E7276
+18:53:09 | INFO: Blender create Mesh node T_bois_BE9664
+18:53:09 | INFO: Blender create Mesh node T_metal_peint_282A2C.002
+18:53:09 | INFO: Blender create Mesh node T_metal_peint_3C5678
+18:53:09 | INFO: Blender create Mesh node T_metal_peint_466082
+18:53:09 | INFO: Blender create Mesh node T_metal_brut_C8CACC.003
+18:53:09 | INFO: Blender create Mesh node T_metal_peint_28463C
+18:53:09 | INFO: Blender create Mesh node T_grille_vent_C8C8C4
+18:53:09 | INFO: Blender create Mesh node T_metal_brut_AAAAA8
+18:53:09 | INFO: Blender create Mesh node T_plastique_2850A0
+18:53:09 | INFO: Blender create Mesh node T_bois_AA8250
+18:53:09 | INFO: Blender create Mesh node T_plastique_B4281E.001
+18:53:09 | INFO: Blender create Mesh node T_plastique_C8A028
+18:53:09 | INFO: Blender create Mesh node T_metal_brut_828280
+18:53:09 | INFO: Blender create Mesh node T_metal_peint_AA221C
+18:53:09 | INFO: Blender create Mesh node P_DCDEE2_8_100_0
+18:53:09 | INFO: Blender create Mesh node T_metal_peint_C8C8C4
+18:53:09 | INFO: Blender create Mesh node Origine.004
+18:53:09 | INFO: glTF import finished in 0.02s
+Fra:1 Mem:40.42M (Peak 40.42M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StudioSol
+Fra:1 Mem:40.42M (Peak 40.42M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_metal_peint_6E7276
+Fra:1 Mem:40.43M (Peak 40.43M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_bois_BE9664
+Fra:1 Mem:40.43M (Peak 40.43M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_metal_peint_C8C8C4
+Fra:1 Mem:40.50M (Peak 40.50M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_metal_peint_3C5678
+Fra:1 Mem:40.50M (Peak 40.50M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_metal_peint_466082
+Fra:1 Mem:40.57M (Peak 40.57M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | P_DCDEE2_8_100_0
+Fra:1 Mem:40.90M (Peak 40.90M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_metal_brut_C8CACC
+Fra:1 Mem:40.96M (Peak 40.96M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_metal_peint_AA221C
+Fra:1 Mem:41.03M (Peak 41.03M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_metal_brut_828280
+Fra:1 Mem:41.07M (Peak 41.07M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_metal_peint_28463C
+Fra:1 Mem:41.09M (Peak 41.09M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_grille_vent_C8C8C4
+Fra:1 Mem:41.09M (Peak 41.09M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_metal_brut_AAAAA8
+Fra:1 Mem:41.30M (Peak 41.30M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_plastique_C8A028
+Fra:1 Mem:41.29M (Peak 41.30M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_plastique_2850A0
+Fra:1 Mem:41.34M (Peak 41.34M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_plastique_B4281E
+Fra:1 Mem:41.43M (Peak 41.43M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_bois_AA8250
+Fra:1 Mem:41.50M (Peak 41.50M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Initializing
+Fra:1 Mem:39.27M (Peak 41.50M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Waiting for render to start
+Fra:1 Mem:39.27M (Peak 41.50M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Loading render kernels (may take a few minutes the first time)
+Fra:1 Mem:39.27M (Peak 41.50M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Scene
+Fra:1 Mem:39.27M (Peak 41.50M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Shaders
+Fra:1 Mem:39.37M (Peak 41.50M) | Time:00:00.00 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Updating Procedurals
+Fra:1 Mem:39.37M (Peak 41.50M) | Time:00:00.00 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Updating Background
+Fra:1 Mem:39.37M (Peak 41.50M) | Time:00:00.00 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Updating Camera
+Fra:1 Mem:39.37M (Peak 41.50M) | Time:00:00.00 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Updating Meshes Flags
+Fra:1 Mem:39.37M (Peak 41.50M) | Time:00:00.00 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Updating Objects
+Fra:1 Mem:39.37M (Peak 41.50M) | Time:00:00.00 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Updating Objects | Copying Transformations to device
+Fra:1 Mem:39.38M (Peak 41.50M) | Time:00:00.00 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Updating Objects | Applying Static Transformations
+Fra:1 Mem:39.38M (Peak 41.50M) | Time:00:00.00 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Updating Particle Systems
+Fra:1 Mem:39.38M (Peak 41.50M) | Time:00:00.00 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Updating Particle Systems | Copying Particles to device
+Fra:1 Mem:39.38M (Peak 41.50M) | Time:00:00.00 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Updating Meshes
+Fra:1 Mem:39.46M (Peak 41.50M) | Time:00:00.00 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Updating Mesh | Computing attributes
+Fra:1 Mem:39.90M (Peak 41.50M) | Time:00:00.00 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Updating Mesh | Copying Attributes to device
+Fra:1 Mem:39.89M (Peak 41.50M) | Time:00:00.00 | Mem:0.45M, Peak:0.45M | Scene, ViewLayer | Updating Scene BVH | Building
+Fra:1 Mem:39.89M (Peak 41.50M) | Time:00:00.00 | Mem:0.45M, Peak:0.45M | Scene, ViewLayer | Updating Scene BVH | Building BVH
+Fra:1 Mem:39.89M (Peak 41.50M) | Time:00:00.00 | Mem:0.62M, Peak:0.62M | Scene, ViewLayer | Updating Scene BVH | Building BVH 0%
+Fra:1 Mem:39.89M (Peak 41.50M) | Time:00:00.00 | Mem:0.82M, Peak:1.00M | Scene, ViewLayer | Updating Scene BVH | Copying BVH to device
+Fra:1 Mem:39.89M (Peak 41.50M) | Time:00:00.00 | Mem:0.82M, Peak:1.00M | Scene, ViewLayer | Updating Mesh | Computing normals
+Fra:1 Mem:40.21M (Peak 41.50M) | Time:00:00.00 | Mem:0.82M, Peak:1.00M | Scene, ViewLayer | Updating Mesh | Copying Mesh to device
+Fra:1 Mem:40.21M (Peak 41.50M) | Time:00:00.00 | Mem:1.14M, Peak:1.14M | Scene, ViewLayer | Updating Objects Flags
+Fra:1 Mem:40.21M (Peak 41.50M) | Time:00:00.00 | Mem:1.14M, Peak:1.14M | Scene, ViewLayer | Updating Primitive Offsets
+Fra:1 Mem:40.21M (Peak 41.50M) | Time:00:00.00 | Mem:1.14M, Peak:1.14M | Scene, ViewLayer | Updating Images
+Fra:1 Mem:40.21M (Peak 41.50M) | Time:00:00.00 | Mem:1.14M, Peak:1.14M | Scene, ViewLayer | Updating Images | Loading plastique_Normale.png
+Fra:1 Mem:40.21M (Peak 41.50M) | Time:00:00.00 | Mem:1.14M, Peak:1.14M | Scene, ViewLayer | Updating Images | Loading vinyle_Couleur.png
+Fra:1 Mem:56.22M (Peak 56.22M) | Time:00:00.02 | Mem:5.14M, Peak:5.14M | Scene, ViewLayer | Updating Images | Loading vinyle_Metal.png
+Fra:1 Mem:57.22M (Peak 57.22M) | Time:00:00.02 | Mem:9.14M, Peak:9.14M | Scene, ViewLayer | Updating Images | Loading plastique_Rugosite.png
+Fra:1 Mem:58.22M (Peak 58.22M) | Time:00:00.02 | Mem:10.14M, Peak:10.14M | Scene, ViewLayer | Updating Images | Loading metal_peint_Metal.png
+Fra:1 Mem:59.22M (Peak 59.22M) | Time:00:00.02 | Mem:14.14M, Peak:14.14M | Scene, ViewLayer | Updating Images | Loading vinyle_Rugosite.png
+Fra:1 Mem:60.22M (Peak 60.22M) | Time:00:00.02 | Mem:15.14M, Peak:15.14M | Scene, ViewLayer | Updating Images | Loading metal_peint_Rugosite.png
+Fra:1 Mem:61.22M (Peak 61.22M) | Time:00:00.03 | Mem:19.14M, Peak:19.14M | Scene, ViewLayer | Updating Images | Loading vinyle_Normale.png
+Fra:1 Mem:65.22M (Peak 65.22M) | Time:00:00.03 | Mem:20.14M, Peak:20.14M | Scene, ViewLayer | Updating Images | Loading grille_vent_Normale.png
+Fra:1 Mem:69.22M (Peak 69.22M) | Time:00:00.03 | Mem:21.14M, Peak:21.14M | Scene, ViewLayer | Updating Images | Loading metal_peint_Normale.png
+Fra:1 Mem:73.22M (Peak 73.22M) | Time:00:00.03 | Mem:25.14M, Peak:25.14M | Scene, ViewLayer | Updating Images | Loading plastique_Metal.png
+Fra:1 Mem:74.22M (Peak 74.22M) | Time:00:00.03 | Mem:26.14M, Peak:26.14M | Scene, ViewLayer | Updating Images | Loading bois_Couleur.png
+Fra:1 Mem:78.22M (Peak 78.22M) | Time:00:00.04 | Mem:27.14M, Peak:27.14M | Scene, ViewLayer | Updating Images | Loading grille_vent_Rugosite.png
+Fra:1 Mem:79.22M (Peak 79.22M) | Time:00:00.04 | Mem:31.14M, Peak:31.14M | Scene, ViewLayer | Updating Images | Loading bois_Metal.png
+Fra:1 Mem:80.22M (Peak 80.22M) | Time:00:00.04 | Mem:32.14M, Peak:32.14M | Scene, ViewLayer | Updating Images | Loading metal_brut_Couleur.png
+Fra:1 Mem:84.22M (Peak 84.22M) | Time:00:00.05 | Mem:33.14M, Peak:33.14M | Scene, ViewLayer | Updating Images | Loading plastique_Couleur.png
+Fra:1 Mem:88.22M (Peak 88.22M) | Time:00:00.05 | Mem:37.14M, Peak:37.14M | Scene, ViewLayer | Updating Images | Loading bois_Rugosite.png
+Fra:1 Mem:89.22M (Peak 89.22M) | Time:00:00.05 | Mem:41.14M, Peak:41.14M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Metal.png
+Fra:1 Mem:90.22M (Peak 90.22M) | Time:00:00.05 | Mem:42.14M, Peak:42.14M | Scene, ViewLayer | Updating Images | Loading bois_Normale.png
+Fra:1 Mem:94.22M (Peak 94.22M) | Time:00:00.06 | Mem:43.14M, Peak:43.14M | Scene, ViewLayer | Updating Images | Loading metal_brut_Metal.png
+Fra:1 Mem:95.22M (Peak 95.22M) | Time:00:00.06 | Mem:44.14M, Peak:44.14M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Rugosite.png
+Fra:1 Mem:96.22M (Peak 96.22M) | Time:00:00.06 | Mem:48.14M, Peak:48.14M | Scene, ViewLayer | Updating Images | Loading grille_vent_Metal.png
+Fra:1 Mem:97.22M (Peak 97.22M) | Time:00:00.06 | Mem:52.14M, Peak:52.14M | Scene, ViewLayer | Updating Images | Loading metal_brut_Rugosite.png
+Fra:1 Mem:98.22M (Peak 98.22M) | Time:00:00.06 | Mem:53.14M, Peak:53.14M | Scene, ViewLayer | Updating Images | Loading metal_brut_Normale.png
+Fra:1 Mem:102.22M (Peak 102.22M) | Time:00:00.06 | Mem:54.14M, Peak:54.14M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Normale.png
+Fra:1 Mem:106.22M (Peak 106.22M) | Time:00:00.07 | Mem:58.14M, Peak:58.14M | Scene, ViewLayer | Updating Images | Loading grille_vent_Couleur.png
+Fra:1 Mem:110.22M (Peak 110.22M) | Time:00:00.09 | Mem:71.14M, Peak:71.14M | Scene, ViewLayer | Updating Camera Volume
+Fra:1 Mem:110.22M (Peak 110.22M) | Time:00:00.09 | Mem:71.14M, Peak:71.14M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:110.22M (Peak 110.22M) | Time:00:00.09 | Mem:71.22M, Peak:71.22M | Scene, ViewLayer | Updating Lights
+Fra:1 Mem:110.22M (Peak 110.22M) | Time:00:00.09 | Mem:71.22M, Peak:71.22M | Scene, ViewLayer | Updating Lights | Computing tree
+Fra:1 Mem:110.23M (Peak 110.23M) | Time:00:00.09 | Mem:71.22M, Peak:71.22M | Scene, ViewLayer | Updating Integrator
+Fra:1 Mem:110.23M (Peak 110.23M) | Time:00:00.09 | Mem:71.22M, Peak:71.22M | Scene, ViewLayer | Updating Film
+Fra:1 Mem:110.23M (Peak 110.23M) | Time:00:00.09 | Mem:71.14M, Peak:71.22M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:110.23M (Peak 110.23M) | Time:00:00.09 | Mem:71.23M, Peak:71.23M | Scene, ViewLayer | Updating Baking
+Fra:1 Mem:110.23M (Peak 110.23M) | Time:00:00.09 | Mem:71.23M, Peak:71.23M | Scene, ViewLayer | Updating Device | Writing constant memory
+Fra:1 Mem:110.23M (Peak 110.23M) | Time:00:00.09 | Mem:71.23M, Peak:71.23M | Scene, ViewLayer | Loading denoising kernels (may take a few minutes the first time)
+Fra:1 Mem:110.23M (Peak 110.23M) | Time:00:00.09 | Mem:71.23M, Peak:71.23M | Scene, ViewLayer | Sample 0/32
+Fra:1 Mem:139.47M (Peak 139.47M) | Time:00:00.52 | Remaining:00:13.32 | Mem:100.46M, Peak:100.46M | Scene, ViewLayer | Sample 1/32
+Fra:1 Mem:151.78M (Peak 170.24M) | Time:00:14.84 | Mem:100.46M, Peak:100.46M | Scene, ViewLayer | Sample 32/32
+Fra:1 Mem:151.78M (Peak 170.24M) | Time:00:14.84 | Mem:100.46M, Peak:100.46M | Scene, ViewLayer | Finished
+Saved: '/tmp/out/export_kit_OBJETS_paillasse_aquarium_chariot_palette_caisses_etabli_pupitre_transformateur_distributeur_chaise_bureau_table_basse_paravent_armoire_elec_h16_chaise_microscope_APERCU_1_ECH_32_MATIERES_1/apercu_etabli.png'
+Time: 00:14.91 (Saving: 00:00.06)
+
+>> aperçu etabli
+18:53:24 | INFO: Data are loaded, start creating Blender stuff
+18:53:24 | INFO: Blender create Mesh node T_metal_peint_60686E
+18:53:24 | INFO: Blender create Mesh node T_metal_peint_28282A
+18:53:24 | INFO: Blender create Mesh node T_caoutchouc_282828.002
+18:53:24 | INFO: Blender create Mesh node P_3C6E78_8_0_1
+18:53:24 | INFO: Blender create Mesh node T_plastique_1E1E1E.001
+18:53:24 | INFO: Blender create Mesh node T_plastique_C8C8C4
+18:53:24 | INFO: Blender create Mesh node P_28C83C_30_0_3
+18:53:24 | INFO: Blender create Mesh node P_DCDEE2_8_100_0.002
+18:53:24 | INFO: Blender create Mesh node P_C81E14_30_0_3
+18:53:24 | INFO: Blender create Mesh node T_plastique_AA1E18
+18:53:24 | INFO: Blender create Mesh node P_DCB41E_30_0_3
+18:53:24 | INFO: Blender create Mesh node T_plastique_285AA0
+18:53:24 | INFO: Blender create Mesh node T_plastique_222224
+18:53:24 | INFO: Blender create Mesh node Origine.005
+18:53:24 | INFO: glTF import finished in 0.01s
+Fra:1 Mem:39.94M (Peak 39.94M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StudioSol
+Fra:1 Mem:39.94M (Peak 39.94M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_metal_peint_60686E
+Fra:1 Mem:39.97M (Peak 39.97M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_metal_peint_28282A
+Fra:1 Mem:40.01M (Peak 40.01M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_plastique_222224
+Fra:1 Mem:40.02M (Peak 40.02M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_caoutchouc_282828
+Fra:1 Mem:40.09M (Peak 40.09M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | P_3C6E78_8_0_1
+Fra:1 Mem:40.11M (Peak 40.11M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_plastique_1E1E1E
+Fra:1 Mem:40.12M (Peak 40.12M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_plastique_C8C8C4
+Fra:1 Mem:40.18M (Peak 40.18M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | P_28C83C_30_0_3
+Fra:1 Mem:40.21M (Peak 40.21M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_plastique_285AA0
+Fra:1 Mem:40.20M (Peak 40.21M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | P_DCDEE2_8_100_0
+Fra:1 Mem:40.23M (Peak 40.23M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | P_C81E14_30_0_3
+Fra:1 Mem:40.25M (Peak 40.25M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_plastique_AA1E18
+Fra:1 Mem:40.32M (Peak 40.32M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | P_DCB41E_30_0_3
+Fra:1 Mem:40.30M (Peak 40.32M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Initializing
+Fra:1 Mem:38.67M (Peak 40.32M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Waiting for render to start
+Fra:1 Mem:38.67M (Peak 40.32M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Loading render kernels (may take a few minutes the first time)
+Fra:1 Mem:38.67M (Peak 40.32M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Scene
+Fra:1 Mem:38.67M (Peak 40.32M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Shaders
+Fra:1 Mem:38.77M (Peak 40.32M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Procedurals
+Fra:1 Mem:38.77M (Peak 40.32M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Background
+Fra:1 Mem:38.77M (Peak 40.32M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Camera
+Fra:1 Mem:38.77M (Peak 40.32M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Meshes Flags
+Fra:1 Mem:38.77M (Peak 40.32M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Objects
+Fra:1 Mem:38.77M (Peak 40.32M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Objects | Copying Transformations to device
+Fra:1 Mem:38.77M (Peak 40.32M) | Time:00:00.00 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Updating Objects | Applying Static Transformations
+Fra:1 Mem:38.77M (Peak 40.32M) | Time:00:00.00 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Updating Particle Systems
+Fra:1 Mem:38.77M (Peak 40.32M) | Time:00:00.00 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Updating Particle Systems | Copying Particles to device
+Fra:1 Mem:38.77M (Peak 40.32M) | Time:00:00.00 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Updating Meshes
+Fra:1 Mem:38.80M (Peak 40.32M) | Time:00:00.00 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Updating Mesh | Computing attributes
+Fra:1 Mem:38.92M (Peak 40.32M) | Time:00:00.00 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Updating Mesh | Copying Attributes to device
+Fra:1 Mem:38.92M (Peak 40.32M) | Time:00:00.00 | Mem:0.14M, Peak:0.14M | Scene, ViewLayer | Updating Scene BVH | Building
+Fra:1 Mem:38.92M (Peak 40.32M) | Time:00:00.00 | Mem:0.14M, Peak:0.14M | Scene, ViewLayer | Updating Scene BVH | Building BVH
+Fra:1 Mem:38.92M (Peak 40.32M) | Time:00:00.00 | Mem:0.20M, Peak:0.20M | Scene, ViewLayer | Updating Scene BVH | Building BVH 0%
+Fra:1 Mem:38.92M (Peak 40.32M) | Time:00:00.00 | Mem:0.27M, Peak:0.33M | Scene, ViewLayer | Updating Scene BVH | Copying BVH to device
+Fra:1 Mem:38.92M (Peak 40.32M) | Time:00:00.00 | Mem:0.27M, Peak:0.33M | Scene, ViewLayer | Updating Mesh | Computing normals
+Fra:1 Mem:39.04M (Peak 40.32M) | Time:00:00.00 | Mem:0.27M, Peak:0.33M | Scene, ViewLayer | Updating Mesh | Copying Mesh to device
+Fra:1 Mem:39.04M (Peak 40.32M) | Time:00:00.00 | Mem:0.38M, Peak:0.38M | Scene, ViewLayer | Updating Objects Flags
+Fra:1 Mem:39.04M (Peak 40.32M) | Time:00:00.00 | Mem:0.38M, Peak:0.38M | Scene, ViewLayer | Updating Primitive Offsets
+Fra:1 Mem:39.04M (Peak 40.32M) | Time:00:00.00 | Mem:0.38M, Peak:0.38M | Scene, ViewLayer | Updating Images
+Fra:1 Mem:39.04M (Peak 40.32M) | Time:00:00.00 | Mem:0.38M, Peak:0.38M | Scene, ViewLayer | Updating Images | Loading caoutchouc_Normale.png
+Fra:1 Mem:39.04M (Peak 40.32M) | Time:00:00.00 | Mem:0.38M, Peak:0.38M | Scene, ViewLayer | Updating Images | Loading vinyle_Couleur.png
+Fra:1 Mem:51.04M (Peak 51.04M) | Time:00:00.00 | Mem:0.38M, Peak:0.38M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Couleur.png
+Fra:1 Mem:55.05M (Peak 55.05M) | Time:00:00.01 | Mem:4.38M, Peak:4.38M | Scene, ViewLayer | Updating Images | Loading caoutchouc_Rugosite.png
+Fra:1 Mem:56.05M (Peak 56.05M) | Time:00:00.02 | Mem:12.38M, Peak:12.38M | Scene, ViewLayer | Updating Images | Loading metal_peint_Couleur.png
+Fra:1 Mem:60.05M (Peak 60.05M) | Time:00:00.02 | Mem:12.38M, Peak:12.38M | Scene, ViewLayer | Updating Images | Loading plastique_Metal.png
+Fra:1 Mem:61.05M (Peak 61.05M) | Time:00:00.02 | Mem:13.38M, Peak:13.38M | Scene, ViewLayer | Updating Images | Loading caoutchouc_Metal.png
+Fra:1 Mem:62.05M (Peak 62.05M) | Time:00:00.02 | Mem:14.38M, Peak:14.38M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Metal.png
+Fra:1 Mem:63.05M (Peak 63.05M) | Time:00:00.02 | Mem:15.38M, Peak:15.38M | Scene, ViewLayer | Updating Images | Loading caoutchouc_Couleur.png
+Fra:1 Mem:67.05M (Peak 67.05M) | Time:00:00.02 | Mem:16.38M, Peak:16.38M | Scene, ViewLayer | Updating Images | Loading vinyle_Metal.png
+Fra:1 Mem:68.05M (Peak 68.05M) | Time:00:00.02 | Mem:20.38M, Peak:20.38M | Scene, ViewLayer | Updating Images | Loading metal_peint_Metal.png
+Fra:1 Mem:69.05M (Peak 69.05M) | Time:00:00.02 | Mem:21.38M, Peak:21.38M | Scene, ViewLayer | Updating Images | Loading plastique_Rugosite.png
+Fra:1 Mem:70.05M (Peak 70.05M) | Time:00:00.03 | Mem:22.38M, Peak:22.38M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Rugosite.png
+Fra:1 Mem:71.05M (Peak 71.05M) | Time:00:00.03 | Mem:23.38M, Peak:23.38M | Scene, ViewLayer | Updating Images | Loading vinyle_Rugosite.png
+Fra:1 Mem:72.05M (Peak 72.05M) | Time:00:00.03 | Mem:24.38M, Peak:24.38M | Scene, ViewLayer | Updating Images | Loading metal_peint_Rugosite.png
+Fra:1 Mem:73.05M (Peak 73.05M) | Time:00:00.04 | Mem:28.38M, Peak:28.38M | Scene, ViewLayer | Updating Images | Loading plastique_Normale.png
+Fra:1 Mem:77.05M (Peak 77.05M) | Time:00:00.04 | Mem:32.38M, Peak:32.38M | Scene, ViewLayer | Updating Images | Loading metal_peint_Normale.png
+Fra:1 Mem:81.05M (Peak 81.05M) | Time:00:00.04 | Mem:33.38M, Peak:33.38M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Normale.png
+Fra:1 Mem:85.05M (Peak 85.05M) | Time:00:00.04 | Mem:34.38M, Peak:34.38M | Scene, ViewLayer | Updating Images | Loading vinyle_Normale.png
+Fra:1 Mem:89.05M (Peak 89.05M) | Time:00:00.07 | Mem:50.38M, Peak:50.38M | Scene, ViewLayer | Updating Camera Volume
+Fra:1 Mem:89.05M (Peak 89.05M) | Time:00:00.07 | Mem:50.38M, Peak:50.38M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:89.05M (Peak 89.05M) | Time:00:00.07 | Mem:50.47M, Peak:50.47M | Scene, ViewLayer | Updating Lights
+Fra:1 Mem:89.05M (Peak 89.05M) | Time:00:00.07 | Mem:50.47M, Peak:50.47M | Scene, ViewLayer | Updating Lights | Computing tree
+Fra:1 Mem:89.10M (Peak 89.10M) | Time:00:00.07 | Mem:50.52M, Peak:50.52M | Scene, ViewLayer | Updating Integrator
+Fra:1 Mem:89.10M (Peak 89.10M) | Time:00:00.07 | Mem:50.52M, Peak:50.52M | Scene, ViewLayer | Updating Film
+Fra:1 Mem:89.11M (Peak 89.11M) | Time:00:00.07 | Mem:50.44M, Peak:50.52M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:89.11M (Peak 89.11M) | Time:00:00.07 | Mem:50.52M, Peak:50.52M | Scene, ViewLayer | Updating Baking
+Fra:1 Mem:89.11M (Peak 89.11M) | Time:00:00.07 | Mem:50.52M, Peak:50.52M | Scene, ViewLayer | Updating Device | Writing constant memory
+Fra:1 Mem:89.11M (Peak 89.11M) | Time:00:00.07 | Mem:50.52M, Peak:50.52M | Scene, ViewLayer | Loading denoising kernels (may take a few minutes the first time)
+Fra:1 Mem:89.11M (Peak 89.11M) | Time:00:00.07 | Mem:50.52M, Peak:50.52M | Scene, ViewLayer | Sample 0/32
+Fra:1 Mem:118.35M (Peak 118.35M) | Time:00:00.51 | Remaining:00:13.65 | Mem:79.76M, Peak:79.76M | Scene, ViewLayer | Sample 1/32
+Fra:1 Mem:130.65M (Peak 149.11M) | Time:00:15.36 | Mem:79.76M, Peak:79.76M | Scene, ViewLayer | Sample 32/32
+Fra:1 Mem:130.65M (Peak 149.11M) | Time:00:15.36 | Mem:79.76M, Peak:79.76M | Scene, ViewLayer | Finished
+Saved: '/tmp/out/export_kit_OBJETS_paillasse_aquarium_chariot_palette_caisses_etabli_pupitre_transformateur_distributeur_chaise_bureau_table_basse_paravent_armoire_elec_h16_chaise_microscope_APERCU_1_ECH_32_MATIERES_1/apercu_pupitre.png'
+Time: 00:15.43 (Saving: 00:00.06)
+
+>> aperçu pupitre
+18:53:39 | INFO: Data are loaded, start creating Blender stuff
+18:53:39 | INFO: Blender create Mesh node T_metal_peint_323436
+18:53:39 | INFO: Blender create Mesh node T_metal_peint_788078
+18:53:39 | INFO: Blender create Mesh node P_825032_25_0_0
+18:53:39 | INFO: Blender create Mesh node T_metal_brut_B4B4B0
+18:53:39 | INFO: Blender create Mesh node T_plastique_D2AA28
+18:53:39 | INFO: Blender create Mesh node Origine.006
+18:53:39 | INFO: glTF import finished in 0.01s
+Fra:1 Mem:38.89M (Peak 38.89M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StudioSol
+Fra:1 Mem:38.90M (Peak 38.90M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_plastique_D2AA28
+Fra:1 Mem:38.90M (Peak 38.90M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_metal_peint_788078
+Fra:1 Mem:38.91M (Peak 38.91M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | P_825032_25_0_0
+Fra:1 Mem:38.93M (Peak 38.93M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_metal_brut_B4B4B0
+Fra:1 Mem:39.14M (Peak 39.14M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Initializing
+Fra:1 Mem:38.23M (Peak 39.14M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Waiting for render to start
+Fra:1 Mem:38.23M (Peak 39.14M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Loading render kernels (may take a few minutes the first time)
+Fra:1 Mem:38.23M (Peak 39.14M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Scene
+Fra:1 Mem:38.23M (Peak 39.14M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Shaders
+Fra:1 Mem:38.32M (Peak 39.14M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Procedurals
+Fra:1 Mem:38.32M (Peak 39.14M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Background
+Fra:1 Mem:38.32M (Peak 39.14M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Camera
+Fra:1 Mem:38.32M (Peak 39.14M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Meshes Flags
+Fra:1 Mem:38.32M (Peak 39.14M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Objects
+Fra:1 Mem:38.32M (Peak 39.14M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Objects | Copying Transformations to device
+Fra:1 Mem:38.32M (Peak 39.14M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Objects | Applying Static Transformations
+Fra:1 Mem:38.32M (Peak 39.14M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Particle Systems
+Fra:1 Mem:38.32M (Peak 39.14M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Particle Systems | Copying Particles to device
+Fra:1 Mem:38.32M (Peak 39.14M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Meshes
+Fra:1 Mem:38.35M (Peak 39.14M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Mesh | Computing attributes
+Fra:1 Mem:38.42M (Peak 39.14M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Mesh | Copying Attributes to device
+Fra:1 Mem:38.42M (Peak 39.14M) | Time:00:00.00 | Mem:0.07M, Peak:0.07M | Scene, ViewLayer | Updating Scene BVH | Building
+Fra:1 Mem:38.42M (Peak 39.14M) | Time:00:00.00 | Mem:0.07M, Peak:0.07M | Scene, ViewLayer | Updating Scene BVH | Building BVH
+Fra:1 Mem:38.42M (Peak 39.14M) | Time:00:00.00 | Mem:0.13M, Peak:0.13M | Scene, ViewLayer | Updating Scene BVH | Building BVH 0%
+Fra:1 Mem:38.42M (Peak 39.14M) | Time:00:00.00 | Mem:0.20M, Peak:0.26M | Scene, ViewLayer | Updating Scene BVH | Copying BVH to device
+Fra:1 Mem:38.42M (Peak 39.14M) | Time:00:00.00 | Mem:0.20M, Peak:0.26M | Scene, ViewLayer | Updating Mesh | Computing normals
+Fra:1 Mem:38.53M (Peak 39.14M) | Time:00:00.00 | Mem:0.20M, Peak:0.26M | Scene, ViewLayer | Updating Mesh | Copying Mesh to device
+Fra:1 Mem:38.53M (Peak 39.14M) | Time:00:00.00 | Mem:0.31M, Peak:0.31M | Scene, ViewLayer | Updating Objects Flags
+Fra:1 Mem:38.53M (Peak 39.14M) | Time:00:00.00 | Mem:0.31M, Peak:0.31M | Scene, ViewLayer | Updating Primitive Offsets
+Fra:1 Mem:38.53M (Peak 39.14M) | Time:00:00.00 | Mem:0.31M, Peak:0.31M | Scene, ViewLayer | Updating Images
+Fra:1 Mem:38.53M (Peak 39.14M) | Time:00:00.00 | Mem:0.31M, Peak:0.31M | Scene, ViewLayer | Updating Images | Loading metal_brut_Normale.png
+Fra:1 Mem:42.53M (Peak 42.53M) | Time:00:00.00 | Mem:0.31M, Peak:0.31M | Scene, ViewLayer | Updating Images | Loading plastique_Couleur.png
+Fra:1 Mem:46.53M (Peak 46.53M) | Time:00:00.00 | Mem:0.31M, Peak:0.31M | Scene, ViewLayer | Updating Images | Loading vinyle_Couleur.png
+Fra:1 Mem:50.53M (Peak 50.53M) | Time:00:00.00 | Mem:0.31M, Peak:0.31M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Couleur.png
+Fra:1 Mem:54.54M (Peak 54.54M) | Time:00:00.02 | Mem:4.31M, Peak:4.31M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Metal.png
+Fra:1 Mem:55.54M (Peak 55.54M) | Time:00:00.02 | Mem:8.31M, Peak:8.31M | Scene, ViewLayer | Updating Images | Loading vinyle_Metal.png
+Fra:1 Mem:56.54M (Peak 56.54M) | Time:00:00.02 | Mem:12.31M, Peak:12.31M | Scene, ViewLayer | Updating Images | Loading metal_peint_Normale.png
+Fra:1 Mem:60.54M (Peak 60.54M) | Time:00:00.02 | Mem:13.31M, Peak:13.31M | Scene, ViewLayer | Updating Images | Loading plastique_Metal.png
+Fra:1 Mem:61.54M (Peak 61.54M) | Time:00:00.02 | Mem:14.31M, Peak:14.31M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Rugosite.png
+Fra:1 Mem:62.54M (Peak 62.54M) | Time:00:00.02 | Mem:15.31M, Peak:15.31M | Scene, ViewLayer | Updating Images | Loading plastique_Rugosite.png
+Fra:1 Mem:63.54M (Peak 63.54M) | Time:00:00.02 | Mem:19.31M, Peak:19.31M | Scene, ViewLayer | Updating Images | Loading vinyle_Rugosite.png
+Fra:1 Mem:64.54M (Peak 64.54M) | Time:00:00.03 | Mem:20.31M, Peak:20.31M | Scene, ViewLayer | Updating Images | Loading plastique_Normale.png
+Fra:1 Mem:68.54M (Peak 68.54M) | Time:00:00.03 | Mem:21.31M, Peak:21.31M | Scene, ViewLayer | Updating Images | Loading vinyle_Normale.png
+Fra:1 Mem:72.54M (Peak 72.54M) | Time:00:00.03 | Mem:25.31M, Peak:25.31M | Scene, ViewLayer | Updating Images | Loading metal_brut_Rugosite.png
+Fra:1 Mem:73.54M (Peak 73.54M) | Time:00:00.03 | Mem:26.31M, Peak:26.31M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Normale.png
+Fra:1 Mem:77.54M (Peak 77.54M) | Time:00:00.04 | Mem:30.31M, Peak:30.31M | Scene, ViewLayer | Updating Images | Loading metal_peint_Couleur.png
+Fra:1 Mem:81.54M (Peak 81.54M) | Time:00:00.04 | Mem:31.31M, Peak:31.31M | Scene, ViewLayer | Updating Images | Loading metal_peint_Rugosite.png
+Fra:1 Mem:82.54M (Peak 82.54M) | Time:00:00.04 | Mem:35.31M, Peak:35.31M | Scene, ViewLayer | Updating Images | Loading metal_brut_Couleur.png
+Fra:1 Mem:86.54M (Peak 86.54M) | Time:00:00.05 | Mem:39.31M, Peak:39.31M | Scene, ViewLayer | Updating Images | Loading metal_peint_Metal.png
+Fra:1 Mem:87.54M (Peak 87.54M) | Time:00:00.05 | Mem:40.31M, Peak:40.31M | Scene, ViewLayer | Updating Images | Loading metal_brut_Metal.png
+Fra:1 Mem:88.54M (Peak 88.54M) | Time:00:00.06 | Mem:50.31M, Peak:50.31M | Scene, ViewLayer | Updating Camera Volume
+Fra:1 Mem:88.54M (Peak 88.54M) | Time:00:00.06 | Mem:50.31M, Peak:50.31M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:88.54M (Peak 88.54M) | Time:00:00.06 | Mem:50.39M, Peak:50.39M | Scene, ViewLayer | Updating Lights
+Fra:1 Mem:88.55M (Peak 88.55M) | Time:00:00.06 | Mem:50.40M, Peak:50.40M | Scene, ViewLayer | Updating Lights | Computing tree
+Fra:1 Mem:88.55M (Peak 88.55M) | Time:00:00.06 | Mem:50.40M, Peak:50.40M | Scene, ViewLayer | Updating Integrator
+Fra:1 Mem:88.55M (Peak 88.55M) | Time:00:00.06 | Mem:50.40M, Peak:50.40M | Scene, ViewLayer | Updating Film
+Fra:1 Mem:88.55M (Peak 88.55M) | Time:00:00.06 | Mem:50.32M, Peak:50.40M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:88.55M (Peak 88.55M) | Time:00:00.06 | Mem:50.40M, Peak:50.40M | Scene, ViewLayer | Updating Baking
+Fra:1 Mem:88.55M (Peak 88.55M) | Time:00:00.06 | Mem:50.40M, Peak:50.40M | Scene, ViewLayer | Updating Device | Writing constant memory
+Fra:1 Mem:88.55M (Peak 88.55M) | Time:00:00.06 | Mem:50.40M, Peak:50.40M | Scene, ViewLayer | Loading denoising kernels (may take a few minutes the first time)
+Fra:1 Mem:88.55M (Peak 88.55M) | Time:00:00.06 | Mem:50.40M, Peak:50.40M | Scene, ViewLayer | Sample 0/32
+Fra:1 Mem:117.79M (Peak 117.79M) | Time:00:00.50 | Remaining:00:13.62 | Mem:79.64M, Peak:79.64M | Scene, ViewLayer | Sample 1/32
+Fra:1 Mem:130.10M (Peak 148.56M) | Time:00:15.16 | Mem:79.64M, Peak:79.64M | Scene, ViewLayer | Sample 32/32
+Fra:1 Mem:130.10M (Peak 148.56M) | Time:00:15.16 | Mem:79.64M, Peak:79.64M | Scene, ViewLayer | Finished
+Saved: '/tmp/out/export_kit_OBJETS_paillasse_aquarium_chariot_palette_caisses_etabli_pupitre_transformateur_distributeur_chaise_bureau_table_basse_paravent_armoire_elec_h16_chaise_microscope_APERCU_1_ECH_32_MATIERES_1/apercu_transformateur.png'
+Time: 00:15.23 (Saving: 00:00.06)
+
+>> aperçu transformateur
+18:53:54 | INFO: Data are loaded, start creating Blender stuff
+18:53:54 | INFO: Blender create Mesh node T_metal_peint_961E1E
+18:53:54 | INFO: Blender create Mesh node V_DCE6EB
+18:53:54 | INFO: Blender create Mesh node P_DCE2E6_40_0_0
+18:53:54 | INFO: Blender create Mesh node P_DCDEE2_8_100_0.003
+18:53:54 | INFO: Blender create Mesh node T_metal_peint_DCDCDC
+18:53:54 | INFO: Blender create Mesh node T_metal_peint_C81E1E
+18:53:54 | INFO: Blender create Mesh node T_metal_peint_E6B41E
+18:53:54 | INFO: Blender create Mesh node T_metal_peint_289646
+18:53:54 | INFO: Blender create Mesh node T_metal_peint_28282C
+18:53:54 | INFO: Blender create Mesh node T_plastique_C8C8C4.002
+18:53:54 | INFO: Blender create Mesh node T_plastique_141416
+18:53:54 | INFO: Blender create Mesh node Origine.007
+18:53:54 | INFO: glTF import finished in 0.01s
+Fra:1 Mem:40.65M (Peak 40.65M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StudioSol
+Fra:1 Mem:40.65M (Peak 40.65M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_metal_peint_961E1E
+Fra:1 Mem:40.67M (Peak 40.67M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | V_DCE6EB
+Fra:1 Mem:40.69M (Peak 40.69M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_plastique_141416
+Fra:1 Mem:40.71M (Peak 40.71M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | P_DCDEE2_8_100_0
+Fra:1 Mem:40.71M (Peak 40.71M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_metal_peint_DCDCDC
+Fra:1 Mem:40.72M (Peak 40.72M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_metal_peint_C81E1E
+Fra:1 Mem:40.85M (Peak 40.85M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_plastique_C8C8C4
+Fra:1 Mem:40.80M (Peak 40.85M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_metal_peint_E6B41E
+Fra:1 Mem:41.25M (Peak 41.25M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_metal_peint_289646
+Fra:1 Mem:41.35M (Peak 41.35M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_metal_peint_28282C
+Fra:1 Mem:41.33M (Peak 41.35M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Initializing
+Fra:1 Mem:39.86M (Peak 41.35M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Waiting for render to start
+Fra:1 Mem:39.86M (Peak 41.35M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Loading render kernels (may take a few minutes the first time)
+Fra:1 Mem:39.86M (Peak 41.35M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Scene
+Fra:1 Mem:39.86M (Peak 41.35M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Shaders
+Fra:1 Mem:39.95M (Peak 41.35M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Procedurals
+Fra:1 Mem:39.95M (Peak 41.35M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Background
+Fra:1 Mem:39.95M (Peak 41.35M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Camera
+Fra:1 Mem:39.95M (Peak 41.35M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Meshes Flags
+Fra:1 Mem:39.95M (Peak 41.35M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Objects
+Fra:1 Mem:39.95M (Peak 41.35M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Objects | Copying Transformations to device
+Fra:1 Mem:39.96M (Peak 41.35M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Objects | Applying Static Transformations
+Fra:1 Mem:39.96M (Peak 41.35M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Particle Systems
+Fra:1 Mem:39.96M (Peak 41.35M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Particle Systems | Copying Particles to device
+Fra:1 Mem:39.96M (Peak 41.35M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Meshes
+Fra:1 Mem:40.01M (Peak 41.35M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Mesh | Computing attributes
+Fra:1 Mem:40.29M (Peak 41.35M) | Time:00:00.00 | Mem:0.02M, Peak:0.02M | Scene, ViewLayer | Updating Mesh | Copying Attributes to device
+Fra:1 Mem:40.28M (Peak 41.35M) | Time:00:00.00 | Mem:0.29M, Peak:0.29M | Scene, ViewLayer | Updating Scene BVH | Building
+Fra:1 Mem:40.28M (Peak 41.35M) | Time:00:00.00 | Mem:0.29M, Peak:0.29M | Scene, ViewLayer | Updating Scene BVH | Building BVH
+Fra:1 Mem:40.28M (Peak 41.35M) | Time:00:00.00 | Mem:0.39M, Peak:0.39M | Scene, ViewLayer | Updating Scene BVH | Building BVH 0%
+Fra:1 Mem:40.28M (Peak 41.35M) | Time:00:00.00 | Mem:0.51M, Peak:0.61M | Scene, ViewLayer | Updating Scene BVH | Copying BVH to device
+Fra:1 Mem:40.28M (Peak 41.35M) | Time:00:00.00 | Mem:0.51M, Peak:0.61M | Scene, ViewLayer | Updating Mesh | Computing normals
+Fra:1 Mem:40.51M (Peak 41.35M) | Time:00:00.00 | Mem:0.51M, Peak:0.61M | Scene, ViewLayer | Updating Mesh | Copying Mesh to device
+Fra:1 Mem:40.51M (Peak 41.35M) | Time:00:00.00 | Mem:0.73M, Peak:0.73M | Scene, ViewLayer | Updating Objects Flags
+Fra:1 Mem:40.51M (Peak 41.35M) | Time:00:00.00 | Mem:0.73M, Peak:0.73M | Scene, ViewLayer | Updating Primitive Offsets
+Fra:1 Mem:40.51M (Peak 41.35M) | Time:00:00.00 | Mem:0.73M, Peak:0.73M | Scene, ViewLayer | Updating Images
+Fra:1 Mem:40.51M (Peak 41.35M) | Time:00:00.00 | Mem:0.73M, Peak:0.73M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Normale.png
+Fra:1 Mem:44.51M (Peak 44.51M) | Time:00:00.00 | Mem:0.73M, Peak:0.73M | Scene, ViewLayer | Updating Images | Loading vinyle_Couleur.png
+Fra:1 Mem:52.51M (Peak 52.51M) | Time:00:00.00 | Mem:0.73M, Peak:0.73M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Couleur.png
+Fra:1 Mem:56.52M (Peak 56.52M) | Time:00:00.02 | Mem:4.73M, Peak:4.73M | Scene, ViewLayer | Updating Images | Loading metal_peint_Couleur.png
+Fra:1 Mem:60.52M (Peak 60.52M) | Time:00:00.02 | Mem:8.73M, Peak:8.73M | Scene, ViewLayer | Updating Images | Loading metal_peint_Metal.png
+Fra:1 Mem:61.52M (Peak 61.52M) | Time:00:00.02 | Mem:12.73M, Peak:12.73M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Rugosite.png
+Fra:1 Mem:62.52M (Peak 62.52M) | Time:00:00.02 | Mem:13.73M, Peak:13.73M | Scene, ViewLayer | Updating Images | Loading vinyle_Metal.png
+Fra:1 Mem:63.52M (Peak 63.52M) | Time:00:00.02 | Mem:17.73M, Peak:17.73M | Scene, ViewLayer | Updating Images | Loading plastique_Metal.png
+Fra:1 Mem:64.52M (Peak 64.52M) | Time:00:00.02 | Mem:18.73M, Peak:18.73M | Scene, ViewLayer | Updating Images | Loading metal_peint_Rugosite.png
+Fra:1 Mem:65.52M (Peak 65.52M) | Time:00:00.03 | Mem:19.73M, Peak:19.73M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Metal.png
+Fra:1 Mem:66.52M (Peak 66.52M) | Time:00:00.03 | Mem:20.73M, Peak:20.73M | Scene, ViewLayer | Updating Images | Loading vinyle_Rugosite.png
+Fra:1 Mem:67.52M (Peak 67.52M) | Time:00:00.03 | Mem:21.73M, Peak:21.73M | Scene, ViewLayer | Updating Images | Loading plastique_Normale.png
+Fra:1 Mem:71.52M (Peak 71.52M) | Time:00:00.03 | Mem:22.73M, Peak:22.73M | Scene, ViewLayer | Updating Images | Loading plastique_Rugosite.png
+Fra:1 Mem:72.52M (Peak 72.52M) | Time:00:00.04 | Mem:23.73M, Peak:23.73M | Scene, ViewLayer | Updating Images | Loading metal_peint_Normale.png
+Fra:1 Mem:76.52M (Peak 76.52M) | Time:00:00.04 | Mem:24.73M, Peak:24.73M | Scene, ViewLayer | Updating Images | Loading vinyle_Normale.png
+Fra:1 Mem:80.52M (Peak 80.52M) | Time:00:00.06 | Mem:40.73M, Peak:40.73M | Scene, ViewLayer | Updating Camera Volume
+Fra:1 Mem:80.52M (Peak 80.52M) | Time:00:00.06 | Mem:40.73M, Peak:40.73M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:80.52M (Peak 80.52M) | Time:00:00.06 | Mem:40.81M, Peak:40.81M | Scene, ViewLayer | Updating Lights
+Fra:1 Mem:80.52M (Peak 80.52M) | Time:00:00.06 | Mem:40.82M, Peak:40.82M | Scene, ViewLayer | Updating Lights | Computing tree
+Fra:1 Mem:80.52M (Peak 80.52M) | Time:00:00.06 | Mem:40.82M, Peak:40.82M | Scene, ViewLayer | Updating Integrator
+Fra:1 Mem:80.52M (Peak 80.52M) | Time:00:00.06 | Mem:40.82M, Peak:40.82M | Scene, ViewLayer | Updating Film
+Fra:1 Mem:80.53M (Peak 80.53M) | Time:00:00.06 | Mem:40.73M, Peak:40.82M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:80.53M (Peak 80.53M) | Time:00:00.06 | Mem:40.82M, Peak:40.82M | Scene, ViewLayer | Updating Baking
+Fra:1 Mem:80.53M (Peak 80.53M) | Time:00:00.06 | Mem:40.82M, Peak:40.82M | Scene, ViewLayer | Updating Device | Writing constant memory
+Fra:1 Mem:80.53M (Peak 80.53M) | Time:00:00.06 | Mem:40.82M, Peak:40.82M | Scene, ViewLayer | Loading denoising kernels (may take a few minutes the first time)
+Fra:1 Mem:80.53M (Peak 80.53M) | Time:00:00.06 | Mem:40.82M, Peak:40.82M | Scene, ViewLayer | Sample 0/32
+Fra:1 Mem:109.77M (Peak 109.77M) | Time:00:00.49 | Remaining:00:13.46 | Mem:70.06M, Peak:70.06M | Scene, ViewLayer | Sample 1/32
+Fra:1 Mem:122.07M (Peak 140.53M) | Time:00:15.02 | Mem:70.06M, Peak:70.06M | Scene, ViewLayer | Sample 32/32
+Fra:1 Mem:122.07M (Peak 140.53M) | Time:00:15.02 | Mem:70.06M, Peak:70.06M | Scene, ViewLayer | Finished
+Saved: '/tmp/out/export_kit_OBJETS_paillasse_aquarium_chariot_palette_caisses_etabli_pupitre_transformateur_distributeur_chaise_bureau_table_basse_paravent_armoire_elec_h16_chaise_microscope_APERCU_1_ECH_32_MATIERES_1/apercu_distributeur.png'
+Time: 00:15.10 (Saving: 00:00.07)
+
+>> aperçu distributeur
+18:54:09 | INFO: Data are loaded, start creating Blender stuff
+18:54:09 | INFO: Blender create Mesh node T_tissu_32363C.001
+18:54:09 | INFO: Blender create Mesh node T_plastique_222224.002
+18:54:09 | INFO: Blender create Mesh node P_DCDEE2_8_100_0.004
+18:54:09 | INFO: Blender create Mesh node Origine.008
+18:54:09 | INFO: glTF import finished in 0.01s
+Fra:1 Mem:39.72M (Peak 39.72M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StudioSol
+Fra:1 Mem:39.72M (Peak 39.72M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_tissu_32363C
+Fra:1 Mem:39.72M (Peak 39.72M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | P_DCDEE2_8_100_0
+Fra:1 Mem:39.72M (Peak 39.72M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_plastique_222224
+Fra:1 Mem:40.47M (Peak 40.47M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Initializing
+Fra:1 Mem:39.79M (Peak 40.47M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Waiting for render to start
+Fra:1 Mem:39.80M (Peak 40.47M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Loading render kernels (may take a few minutes the first time)
+Fra:1 Mem:39.80M (Peak 40.47M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Scene
+Fra:1 Mem:39.80M (Peak 40.47M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Shaders
+Fra:1 Mem:39.88M (Peak 40.47M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Procedurals
+Fra:1 Mem:39.88M (Peak 40.47M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Background
+Fra:1 Mem:39.88M (Peak 40.47M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Camera
+Fra:1 Mem:39.88M (Peak 40.47M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Meshes Flags
+Fra:1 Mem:39.88M (Peak 40.47M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Objects
+Fra:1 Mem:39.88M (Peak 40.47M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Objects | Copying Transformations to device
+Fra:1 Mem:39.88M (Peak 40.47M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Objects | Applying Static Transformations
+Fra:1 Mem:39.88M (Peak 40.47M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Particle Systems
+Fra:1 Mem:39.88M (Peak 40.47M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Particle Systems | Copying Particles to device
+Fra:1 Mem:39.88M (Peak 40.47M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Meshes
+Fra:1 Mem:39.94M (Peak 40.47M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Mesh | Computing attributes
+Fra:1 Mem:40.26M (Peak 40.47M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Mesh | Copying Attributes to device
+Fra:1 Mem:40.26M (Peak 40.47M) | Time:00:00.00 | Mem:0.32M, Peak:0.32M | Scene, ViewLayer | Updating Scene BVH | Building
+Fra:1 Mem:40.26M (Peak 40.47M) | Time:00:00.00 | Mem:0.32M, Peak:0.32M | Scene, ViewLayer | Updating Scene BVH | Building BVH
+Fra:1 Mem:40.26M (Peak 40.47M) | Time:00:00.00 | Mem:0.44M, Peak:0.44M | Scene, ViewLayer | Updating Scene BVH | Building BVH 0%
+Fra:1 Mem:40.26M (Peak 40.47M) | Time:00:00.00 | Mem:0.59M, Peak:0.71M | Scene, ViewLayer | Updating Scene BVH | Copying BVH to device
+Fra:1 Mem:40.26M (Peak 40.47M) | Time:00:00.00 | Mem:0.59M, Peak:0.71M | Scene, ViewLayer | Updating Mesh | Computing normals
+Fra:1 Mem:40.44M (Peak 40.47M) | Time:00:00.00 | Mem:0.59M, Peak:0.71M | Scene, ViewLayer | Updating Mesh | Copying Mesh to device
+Fra:1 Mem:40.44M (Peak 40.47M) | Time:00:00.00 | Mem:0.77M, Peak:0.77M | Scene, ViewLayer | Updating Objects Flags
+Fra:1 Mem:40.44M (Peak 40.47M) | Time:00:00.00 | Mem:0.77M, Peak:0.77M | Scene, ViewLayer | Updating Primitive Offsets
+Fra:1 Mem:40.44M (Peak 40.47M) | Time:00:00.00 | Mem:0.77M, Peak:0.77M | Scene, ViewLayer | Updating Images
+Fra:1 Mem:40.44M (Peak 40.47M) | Time:00:00.00 | Mem:0.77M, Peak:0.77M | Scene, ViewLayer | Updating Images | Loading plastique_Normale.png
+Fra:1 Mem:40.44M (Peak 40.47M) | Time:00:00.00 | Mem:0.77M, Peak:0.77M | Scene, ViewLayer | Updating Images | Loading plastique_Couleur.png
+Fra:1 Mem:48.44M (Peak 48.44M) | Time:00:00.00 | Mem:0.77M, Peak:0.77M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Couleur.png
+Fra:1 Mem:56.45M (Peak 56.45M) | Time:00:00.02 | Mem:4.77M, Peak:4.77M | Scene, ViewLayer | Updating Images | Loading plastique_Rugosite.png
+Fra:1 Mem:57.45M (Peak 57.45M) | Time:00:00.02 | Mem:8.77M, Peak:8.77M | Scene, ViewLayer | Updating Images | Loading vinyle_Metal.png
+Fra:1 Mem:58.45M (Peak 58.45M) | Time:00:00.02 | Mem:12.77M, Peak:12.77M | Scene, ViewLayer | Updating Images | Loading vinyle_Rugosite.png
+Fra:1 Mem:59.45M (Peak 59.45M) | Time:00:00.02 | Mem:13.77M, Peak:13.77M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Metal.png
+Fra:1 Mem:60.45M (Peak 60.45M) | Time:00:00.02 | Mem:14.77M, Peak:14.77M | Scene, ViewLayer | Updating Images | Loading tissu_Couleur.png
+Fra:1 Mem:64.45M (Peak 64.45M) | Time:00:00.02 | Mem:15.77M, Peak:15.77M | Scene, ViewLayer | Updating Images | Loading plastique_Metal.png
+Fra:1 Mem:65.45M (Peak 65.45M) | Time:00:00.02 | Mem:19.77M, Peak:19.77M | Scene, ViewLayer | Updating Images | Loading vinyle_Normale.png
+Fra:1 Mem:69.45M (Peak 69.45M) | Time:00:00.03 | Mem:20.77M, Peak:20.77M | Scene, ViewLayer | Updating Images | Loading tissu_Normale.png
+Fra:1 Mem:73.45M (Peak 73.45M) | Time:00:00.03 | Mem:21.77M, Peak:21.77M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Rugosite.png
+Fra:1 Mem:74.45M (Peak 74.45M) | Time:00:00.03 | Mem:22.77M, Peak:22.77M | Scene, ViewLayer | Updating Images | Loading tissu_Metal.png
+Fra:1 Mem:75.45M (Peak 75.45M) | Time:00:00.04 | Mem:23.77M, Peak:23.77M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Normale.png
+Fra:1 Mem:79.45M (Peak 79.45M) | Time:00:00.04 | Mem:27.77M, Peak:27.77M | Scene, ViewLayer | Updating Images | Loading tissu_Rugosite.png
+Fra:1 Mem:80.45M (Peak 80.45M) | Time:00:00.06 | Mem:40.77M, Peak:40.77M | Scene, ViewLayer | Updating Camera Volume
+Fra:1 Mem:80.45M (Peak 80.45M) | Time:00:00.06 | Mem:40.77M, Peak:40.77M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:80.45M (Peak 80.45M) | Time:00:00.06 | Mem:40.85M, Peak:40.85M | Scene, ViewLayer | Updating Lights
+Fra:1 Mem:80.45M (Peak 80.45M) | Time:00:00.06 | Mem:40.85M, Peak:40.85M | Scene, ViewLayer | Updating Lights | Computing tree
+Fra:1 Mem:80.45M (Peak 80.45M) | Time:00:00.06 | Mem:40.85M, Peak:40.85M | Scene, ViewLayer | Updating Integrator
+Fra:1 Mem:80.45M (Peak 80.45M) | Time:00:00.06 | Mem:40.85M, Peak:40.85M | Scene, ViewLayer | Updating Film
+Fra:1 Mem:80.46M (Peak 80.46M) | Time:00:00.06 | Mem:40.77M, Peak:40.85M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:80.46M (Peak 80.46M) | Time:00:00.06 | Mem:40.86M, Peak:40.86M | Scene, ViewLayer | Updating Baking
+Fra:1 Mem:80.46M (Peak 80.46M) | Time:00:00.06 | Mem:40.86M, Peak:40.86M | Scene, ViewLayer | Updating Device | Writing constant memory
+Fra:1 Mem:80.46M (Peak 80.46M) | Time:00:00.06 | Mem:40.86M, Peak:40.86M | Scene, ViewLayer | Loading denoising kernels (may take a few minutes the first time)
+Fra:1 Mem:80.46M (Peak 80.46M) | Time:00:00.06 | Mem:40.86M, Peak:40.86M | Scene, ViewLayer | Sample 0/32
+Fra:1 Mem:109.70M (Peak 109.70M) | Time:00:00.48 | Remaining:00:13.04 | Mem:70.10M, Peak:70.10M | Scene, ViewLayer | Sample 1/32
+Fra:1 Mem:122.00M (Peak 140.46M) | Time:00:15.19 | Mem:70.10M, Peak:70.10M | Scene, ViewLayer | Sample 32/32
+Fra:1 Mem:122.00M (Peak 140.46M) | Time:00:15.19 | Mem:70.10M, Peak:70.10M | Scene, ViewLayer | Finished
+Saved: '/tmp/out/export_kit_OBJETS_paillasse_aquarium_chariot_palette_caisses_etabli_pupitre_transformateur_distributeur_chaise_bureau_table_basse_paravent_armoire_elec_h16_chaise_microscope_APERCU_1_ECH_32_MATIERES_1/apercu_chaise_bureau.png'
+Time: 00:15.26 (Saving: 00:00.06)
+
+>> aperçu chaise_bureau
+18:54:25 | INFO: Data are loaded, start creating Blender stuff
+18:54:25 | INFO: Blender create Mesh node T_bois_8C6440
+18:54:25 | INFO: Blender create Mesh node T_metal_peint_28282A.001
+18:54:25 | INFO: Blender create Mesh node T_plastique_C83C32
+18:54:25 | INFO: Blender create Mesh node Origine.009
+18:54:25 | INFO: glTF import finished in 0.00s
+Fra:1 Mem:40.12M (Peak 40.12M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StudioSol
+Fra:1 Mem:40.12M (Peak 40.12M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_bois_8C6440
+Fra:1 Mem:40.12M (Peak 40.12M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_plastique_C83C32
+Fra:1 Mem:40.12M (Peak 40.12M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_metal_peint_28282A
+Fra:1 Mem:40.23M (Peak 40.23M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Initializing
+Fra:1 Mem:39.50M (Peak 40.23M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Waiting for render to start
+Fra:1 Mem:39.51M (Peak 40.23M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Loading render kernels (may take a few minutes the first time)
+Fra:1 Mem:39.51M (Peak 40.23M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Scene
+Fra:1 Mem:39.51M (Peak 40.23M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Shaders
+Fra:1 Mem:39.59M (Peak 40.23M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Procedurals
+Fra:1 Mem:39.59M (Peak 40.23M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Background
+Fra:1 Mem:39.59M (Peak 40.23M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Camera
+Fra:1 Mem:39.59M (Peak 40.23M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Meshes Flags
+Fra:1 Mem:39.59M (Peak 40.23M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Objects
+Fra:1 Mem:39.59M (Peak 40.23M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Objects | Copying Transformations to device
+Fra:1 Mem:39.59M (Peak 40.23M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Objects | Applying Static Transformations
+Fra:1 Mem:39.59M (Peak 40.23M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Particle Systems
+Fra:1 Mem:39.59M (Peak 40.23M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Particle Systems | Copying Particles to device
+Fra:1 Mem:39.59M (Peak 40.23M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Meshes
+Fra:1 Mem:39.60M (Peak 40.23M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Mesh | Computing attributes
+Fra:1 Mem:39.65M (Peak 40.23M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Mesh | Copying Attributes to device
+Fra:1 Mem:39.65M (Peak 40.23M) | Time:00:00.00 | Mem:0.05M, Peak:0.05M | Scene, ViewLayer | Updating Scene BVH | Building
+Fra:1 Mem:39.65M (Peak 40.23M) | Time:00:00.00 | Mem:0.05M, Peak:0.05M | Scene, ViewLayer | Updating Scene BVH | Building BVH
+Fra:1 Mem:39.65M (Peak 40.23M) | Time:00:00.00 | Mem:0.07M, Peak:0.07M | Scene, ViewLayer | Updating Scene BVH | Building BVH 0%
+Fra:1 Mem:39.65M (Peak 40.23M) | Time:00:00.00 | Mem:0.09M, Peak:0.11M | Scene, ViewLayer | Updating Scene BVH | Copying BVH to device
+Fra:1 Mem:39.65M (Peak 40.23M) | Time:00:00.00 | Mem:0.09M, Peak:0.11M | Scene, ViewLayer | Updating Mesh | Computing normals
+Fra:1 Mem:39.68M (Peak 40.23M) | Time:00:00.00 | Mem:0.09M, Peak:0.11M | Scene, ViewLayer | Updating Mesh | Copying Mesh to device
+Fra:1 Mem:39.68M (Peak 40.23M) | Time:00:00.00 | Mem:0.12M, Peak:0.12M | Scene, ViewLayer | Updating Objects Flags
+Fra:1 Mem:39.68M (Peak 40.23M) | Time:00:00.00 | Mem:0.12M, Peak:0.12M | Scene, ViewLayer | Updating Primitive Offsets
+Fra:1 Mem:39.68M (Peak 40.23M) | Time:00:00.00 | Mem:0.12M, Peak:0.12M | Scene, ViewLayer | Updating Images
+Fra:1 Mem:39.68M (Peak 40.23M) | Time:00:00.00 | Mem:0.12M, Peak:0.12M | Scene, ViewLayer | Updating Images | Loading plastique_Normale.png
+Fra:1 Mem:39.68M (Peak 40.23M) | Time:00:00.00 | Mem:0.12M, Peak:0.12M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Couleur.png
+Fra:1 Mem:55.69M (Peak 55.69M) | Time:00:00.01 | Mem:4.12M, Peak:4.12M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Metal.png
+Fra:1 Mem:56.69M (Peak 56.69M) | Time:00:00.01 | Mem:8.12M, Peak:8.12M | Scene, ViewLayer | Updating Images | Loading metal_peint_Normale.png
+Fra:1 Mem:60.69M (Peak 60.69M) | Time:00:00.02 | Mem:12.12M, Peak:12.12M | Scene, ViewLayer | Updating Images | Loading vinyle_Metal.png
+Fra:1 Mem:61.69M (Peak 61.69M) | Time:00:00.02 | Mem:13.12M, Peak:13.12M | Scene, ViewLayer | Updating Images | Loading bois_Couleur.png
+Fra:1 Mem:65.69M (Peak 65.69M) | Time:00:00.02 | Mem:14.12M, Peak:14.12M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Rugosite.png
+Fra:1 Mem:66.69M (Peak 66.69M) | Time:00:00.02 | Mem:18.12M, Peak:18.12M | Scene, ViewLayer | Updating Images | Loading vinyle_Rugosite.png
+Fra:1 Mem:67.69M (Peak 67.69M) | Time:00:00.03 | Mem:19.12M, Peak:19.12M | Scene, ViewLayer | Updating Images | Loading bois_Metal.png
+Fra:1 Mem:68.69M (Peak 68.69M) | Time:00:00.03 | Mem:20.12M, Peak:20.12M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Normale.png
+Fra:1 Mem:72.69M (Peak 72.69M) | Time:00:00.03 | Mem:24.12M, Peak:24.12M | Scene, ViewLayer | Updating Images | Loading plastique_Rugosite.png
+Fra:1 Mem:73.69M (Peak 73.69M) | Time:00:00.03 | Mem:25.12M, Peak:25.12M | Scene, ViewLayer | Updating Images | Loading vinyle_Normale.png
+Fra:1 Mem:77.69M (Peak 77.69M) | Time:00:00.04 | Mem:29.12M, Peak:29.12M | Scene, ViewLayer | Updating Images | Loading bois_Rugosite.png
+Fra:1 Mem:78.69M (Peak 78.69M) | Time:00:00.04 | Mem:30.12M, Peak:30.12M | Scene, ViewLayer | Updating Images | Loading metal_peint_Rugosite.png
+Fra:1 Mem:79.69M (Peak 79.69M) | Time:00:00.04 | Mem:31.12M, Peak:31.12M | Scene, ViewLayer | Updating Images | Loading bois_Normale.png
+Fra:1 Mem:83.69M (Peak 83.69M) | Time:00:00.05 | Mem:32.12M, Peak:32.12M | Scene, ViewLayer | Updating Images | Loading plastique_Metal.png
+Fra:1 Mem:84.69M (Peak 84.69M) | Time:00:00.05 | Mem:36.12M, Peak:36.12M | Scene, ViewLayer | Updating Images | Loading metal_peint_Couleur.png
+Fra:1 Mem:88.69M (Peak 88.69M) | Time:00:00.05 | Mem:37.12M, Peak:37.12M | Scene, ViewLayer | Updating Images | Loading metal_peint_Metal.png
+Fra:1 Mem:89.69M (Peak 89.69M) | Time:00:00.07 | Mem:50.12M, Peak:50.12M | Scene, ViewLayer | Updating Camera Volume
+Fra:1 Mem:89.69M (Peak 89.69M) | Time:00:00.07 | Mem:50.12M, Peak:50.12M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:89.69M (Peak 89.69M) | Time:00:00.07 | Mem:50.20M, Peak:50.20M | Scene, ViewLayer | Updating Lights
+Fra:1 Mem:89.69M (Peak 89.69M) | Time:00:00.07 | Mem:50.20M, Peak:50.20M | Scene, ViewLayer | Updating Lights | Computing tree
+Fra:1 Mem:89.69M (Peak 89.69M) | Time:00:00.07 | Mem:50.20M, Peak:50.20M | Scene, ViewLayer | Updating Integrator
+Fra:1 Mem:89.69M (Peak 89.69M) | Time:00:00.07 | Mem:50.20M, Peak:50.20M | Scene, ViewLayer | Updating Film
+Fra:1 Mem:89.69M (Peak 89.69M) | Time:00:00.07 | Mem:50.12M, Peak:50.20M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:89.69M (Peak 89.69M) | Time:00:00.07 | Mem:50.21M, Peak:50.21M | Scene, ViewLayer | Updating Baking
+Fra:1 Mem:89.69M (Peak 89.69M) | Time:00:00.07 | Mem:50.21M, Peak:50.21M | Scene, ViewLayer | Updating Device | Writing constant memory
+Fra:1 Mem:89.69M (Peak 89.69M) | Time:00:00.07 | Mem:50.21M, Peak:50.21M | Scene, ViewLayer | Loading denoising kernels (may take a few minutes the first time)
+Fra:1 Mem:89.69M (Peak 89.69M) | Time:00:00.07 | Mem:50.21M, Peak:50.21M | Scene, ViewLayer | Sample 0/32
+Fra:1 Mem:118.93M (Peak 118.93M) | Time:00:00.50 | Remaining:00:13.28 | Mem:79.44M, Peak:79.44M | Scene, ViewLayer | Sample 1/32
+Fra:1 Mem:131.24M (Peak 149.70M) | Time:00:15.20 | Mem:79.44M, Peak:79.44M | Scene, ViewLayer | Sample 32/32
+Fra:1 Mem:131.24M (Peak 149.70M) | Time:00:15.20 | Mem:79.44M, Peak:79.44M | Scene, ViewLayer | Finished
+Saved: '/tmp/out/export_kit_OBJETS_paillasse_aquarium_chariot_palette_caisses_etabli_pupitre_transformateur_distributeur_chaise_bureau_table_basse_paravent_armoire_elec_h16_chaise_microscope_APERCU_1_ECH_32_MATIERES_1/apercu_table_basse.png'
+Time: 00:15.27 (Saving: 00:00.06)
+
+>> aperçu table_basse
+18:54:40 | INFO: Data are loaded, start creating Blender stuff
+18:54:40 | INFO: Blender create Mesh node T_tissu_BED6DC
+18:54:40 | INFO: Blender create Mesh node T_metal_brut_C8CACC.004
+18:54:40 | INFO: Blender create Mesh node T_caoutchouc_282828.003
+18:54:40 | INFO: Blender create Mesh node Origine.010
+18:54:40 | INFO: glTF import finished in 0.01s
+Fra:1 Mem:40.36M (Peak 40.36M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StudioSol
+Fra:1 Mem:40.36M (Peak 40.36M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_tissu_BED6DC
+Fra:1 Mem:40.36M (Peak 40.36M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_caoutchouc_282828
+Fra:1 Mem:40.37M (Peak 40.37M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_metal_brut_C8CACC
+Fra:1 Mem:40.63M (Peak 40.63M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Initializing
+Fra:1 Mem:39.91M (Peak 40.63M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Waiting for render to start
+Fra:1 Mem:39.91M (Peak 40.63M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Loading render kernels (may take a few minutes the first time)
+Fra:1 Mem:39.91M (Peak 40.63M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Scene
+Fra:1 Mem:39.91M (Peak 40.63M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Shaders
+Fra:1 Mem:40.00M (Peak 40.63M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Procedurals
+Fra:1 Mem:40.00M (Peak 40.63M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Background
+Fra:1 Mem:40.00M (Peak 40.63M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Camera
+Fra:1 Mem:40.00M (Peak 40.63M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Meshes Flags
+Fra:1 Mem:40.00M (Peak 40.63M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Objects
+Fra:1 Mem:40.00M (Peak 40.63M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Objects | Copying Transformations to device
+Fra:1 Mem:40.00M (Peak 40.63M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Objects | Applying Static Transformations
+Fra:1 Mem:40.00M (Peak 40.63M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Particle Systems
+Fra:1 Mem:40.00M (Peak 40.63M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Particle Systems | Copying Particles to device
+Fra:1 Mem:40.00M (Peak 40.63M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Meshes
+Fra:1 Mem:40.02M (Peak 40.63M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Mesh | Computing attributes
+Fra:1 Mem:40.14M (Peak 40.63M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Mesh | Copying Attributes to device
+Fra:1 Mem:40.14M (Peak 40.63M) | Time:00:00.00 | Mem:0.13M, Peak:0.13M | Scene, ViewLayer | Updating Scene BVH | Building
+Fra:1 Mem:40.14M (Peak 40.63M) | Time:00:00.00 | Mem:0.13M, Peak:0.13M | Scene, ViewLayer | Updating Scene BVH | Building BVH
+Fra:1 Mem:40.14M (Peak 40.63M) | Time:00:00.00 | Mem:0.17M, Peak:0.17M | Scene, ViewLayer | Updating Scene BVH | Building BVH 0%
+Fra:1 Mem:40.14M (Peak 40.63M) | Time:00:00.00 | Mem:0.23M, Peak:0.27M | Scene, ViewLayer | Updating Scene BVH | Copying BVH to device
+Fra:1 Mem:40.14M (Peak 40.63M) | Time:00:00.00 | Mem:0.23M, Peak:0.27M | Scene, ViewLayer | Updating Mesh | Computing normals
+Fra:1 Mem:40.24M (Peak 40.63M) | Time:00:00.00 | Mem:0.23M, Peak:0.27M | Scene, ViewLayer | Updating Mesh | Copying Mesh to device
+Fra:1 Mem:40.24M (Peak 40.63M) | Time:00:00.00 | Mem:0.33M, Peak:0.33M | Scene, ViewLayer | Updating Objects Flags
+Fra:1 Mem:40.24M (Peak 40.63M) | Time:00:00.00 | Mem:0.33M, Peak:0.33M | Scene, ViewLayer | Updating Primitive Offsets
+Fra:1 Mem:40.24M (Peak 40.63M) | Time:00:00.00 | Mem:0.33M, Peak:0.33M | Scene, ViewLayer | Updating Images
+Fra:1 Mem:40.24M (Peak 40.63M) | Time:00:00.00 | Mem:0.33M, Peak:0.33M | Scene, ViewLayer | Updating Images | Loading caoutchouc_Normale.png
+Fra:1 Mem:44.24M (Peak 44.24M) | Time:00:00.00 | Mem:0.33M, Peak:0.33M | Scene, ViewLayer | Updating Images | Loading vinyle_Couleur.png
+Fra:1 Mem:52.24M (Peak 52.24M) | Time:00:00.00 | Mem:0.33M, Peak:0.33M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Couleur.png
+Fra:1 Mem:56.25M (Peak 56.25M) | Time:00:00.01 | Mem:4.33M, Peak:4.33M | Scene, ViewLayer | Updating Images | Loading caoutchouc_Rugosite.png
+Fra:1 Mem:57.25M (Peak 57.25M) | Time:00:00.02 | Mem:8.33M, Peak:8.33M | Scene, ViewLayer | Updating Images | Loading tissu_Couleur.png
+Fra:1 Mem:61.25M (Peak 61.25M) | Time:00:00.02 | Mem:12.33M, Peak:12.33M | Scene, ViewLayer | Updating Images | Loading vinyle_Metal.png
+Fra:1 Mem:62.25M (Peak 62.25M) | Time:00:00.02 | Mem:13.33M, Peak:13.33M | Scene, ViewLayer | Updating Images | Loading tissu_Metal.png
+Fra:1 Mem:63.25M (Peak 63.25M) | Time:00:00.02 | Mem:17.33M, Peak:17.33M | Scene, ViewLayer | Updating Images | Loading vinyle_Rugosite.png
+Fra:1 Mem:64.25M (Peak 64.25M) | Time:00:00.02 | Mem:18.33M, Peak:18.33M | Scene, ViewLayer | Updating Images | Loading caoutchouc_Metal.png
+Fra:1 Mem:65.25M (Peak 65.25M) | Time:00:00.02 | Mem:19.33M, Peak:19.33M | Scene, ViewLayer | Updating Images | Loading tissu_Rugosite.png
+Fra:1 Mem:66.25M (Peak 66.25M) | Time:00:00.02 | Mem:20.33M, Peak:20.33M | Scene, ViewLayer | Updating Images | Loading metal_brut_Normale.png
+Fra:1 Mem:70.25M (Peak 70.25M) | Time:00:00.03 | Mem:21.33M, Peak:21.33M | Scene, ViewLayer | Updating Images | Loading vinyle_Normale.png
+Fra:1 Mem:74.25M (Peak 74.25M) | Time:00:00.03 | Mem:22.33M, Peak:22.33M | Scene, ViewLayer | Updating Images | Loading tissu_Normale.png
+Fra:1 Mem:78.25M (Peak 78.25M) | Time:00:00.04 | Mem:26.33M, Peak:26.33M | Scene, ViewLayer | Updating Images | Loading metal_brut_Couleur.png
+Fra:1 Mem:82.25M (Peak 82.25M) | Time:00:00.04 | Mem:30.33M, Peak:30.33M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Normale.png
+Fra:1 Mem:86.25M (Peak 86.25M) | Time:00:00.05 | Mem:34.33M, Peak:34.33M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Metal.png
+Fra:1 Mem:87.25M (Peak 87.25M) | Time:00:00.05 | Mem:35.33M, Peak:35.33M | Scene, ViewLayer | Updating Images | Loading metal_brut_Metal.png
+Fra:1 Mem:88.25M (Peak 88.25M) | Time:00:00.05 | Mem:39.33M, Peak:39.33M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Rugosite.png
+Fra:1 Mem:89.25M (Peak 89.25M) | Time:00:00.05 | Mem:40.33M, Peak:40.33M | Scene, ViewLayer | Updating Images | Loading metal_brut_Rugosite.png
+Fra:1 Mem:90.25M (Peak 90.25M) | Time:00:00.06 | Mem:50.33M, Peak:50.33M | Scene, ViewLayer | Updating Camera Volume
+Fra:1 Mem:90.25M (Peak 90.25M) | Time:00:00.06 | Mem:50.33M, Peak:50.33M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:90.25M (Peak 90.25M) | Time:00:00.06 | Mem:50.41M, Peak:50.41M | Scene, ViewLayer | Updating Lights
+Fra:1 Mem:90.25M (Peak 90.25M) | Time:00:00.06 | Mem:50.41M, Peak:50.41M | Scene, ViewLayer | Updating Lights | Computing tree
+Fra:1 Mem:90.25M (Peak 90.25M) | Time:00:00.06 | Mem:50.41M, Peak:50.41M | Scene, ViewLayer | Updating Integrator
+Fra:1 Mem:90.25M (Peak 90.25M) | Time:00:00.06 | Mem:50.41M, Peak:50.41M | Scene, ViewLayer | Updating Film
+Fra:1 Mem:90.25M (Peak 90.25M) | Time:00:00.06 | Mem:50.33M, Peak:50.41M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:90.25M (Peak 90.25M) | Time:00:00.06 | Mem:50.41M, Peak:50.41M | Scene, ViewLayer | Updating Baking
+Fra:1 Mem:90.25M (Peak 90.25M) | Time:00:00.06 | Mem:50.41M, Peak:50.41M | Scene, ViewLayer | Updating Device | Writing constant memory
+Fra:1 Mem:90.25M (Peak 90.25M) | Time:00:00.06 | Mem:50.41M, Peak:50.41M | Scene, ViewLayer | Loading denoising kernels (may take a few minutes the first time)
+Fra:1 Mem:90.25M (Peak 90.25M) | Time:00:00.06 | Mem:50.41M, Peak:50.41M | Scene, ViewLayer | Sample 0/32
+Fra:1 Mem:119.49M (Peak 119.49M) | Time:00:00.49 | Remaining:00:13.13 | Mem:79.65M, Peak:79.65M | Scene, ViewLayer | Sample 1/32
+Fra:1 Mem:131.80M (Peak 150.26M) | Time:00:14.69 | Mem:79.65M, Peak:79.65M | Scene, ViewLayer | Sample 32/32
+Fra:1 Mem:131.80M (Peak 150.26M) | Time:00:14.69 | Mem:79.65M, Peak:79.65M | Scene, ViewLayer | Finished
+Saved: '/tmp/out/export_kit_OBJETS_paillasse_aquarium_chariot_palette_caisses_etabli_pupitre_transformateur_distributeur_chaise_bureau_table_basse_paravent_armoire_elec_h16_chaise_microscope_APERCU_1_ECH_32_MATIERES_1/apercu_paravent.png'
+Time: 00:14.75 (Saving: 00:00.06)
+
+>> aperçu paravent
+18:54:55 | INFO: Data are loaded, start creating Blender stuff
+18:54:55 | INFO: Blender create Mesh node T_metal_peint_28282A.002
+18:54:55 | INFO: Blender create Mesh node T_metal_peint_BEC0BA
+18:54:55 | INFO: Blender create Mesh node T_metal_peint_A0A4A0
+18:54:55 | INFO: Blender create Mesh node T_plastique_1E1E1E.002
+18:54:55 | INFO: Blender create Mesh node T_plastique_D2AA28.001
+18:54:55 | INFO: Blender create Mesh node T_grille_vent_969696
+18:54:55 | INFO: Blender create Mesh node T_metal_peint_828688
+18:54:55 | INFO: Blender create Mesh node Origine.011
+18:54:55 | INFO: glTF import finished in 0.01s
+Fra:1 Mem:41.38M (Peak 41.38M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StudioSol
+Fra:1 Mem:41.38M (Peak 41.38M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_metal_peint_28282A
+Fra:1 Mem:41.39M (Peak 41.39M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_metal_peint_BEC0BA
+Fra:1 Mem:41.39M (Peak 41.39M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_metal_peint_A0A4A0
+Fra:1 Mem:41.39M (Peak 41.39M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_metal_peint_828688
+Fra:1 Mem:41.46M (Peak 41.46M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_plastique_1E1E1E
+Fra:1 Mem:41.46M (Peak 41.46M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_grille_vent_969696
+Fra:1 Mem:41.50M (Peak 41.50M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Initializing
+Fra:1 Mem:40.34M (Peak 41.50M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Waiting for render to start
+Fra:1 Mem:40.34M (Peak 41.50M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Loading render kernels (may take a few minutes the first time)
+Fra:1 Mem:40.34M (Peak 41.50M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Scene
+Fra:1 Mem:40.34M (Peak 41.50M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Shaders
+Fra:1 Mem:40.43M (Peak 41.50M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Procedurals
+Fra:1 Mem:40.43M (Peak 41.50M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Background
+Fra:1 Mem:40.43M (Peak 41.50M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Camera
+Fra:1 Mem:40.43M (Peak 41.50M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Meshes Flags
+Fra:1 Mem:40.43M (Peak 41.50M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Objects
+Fra:1 Mem:40.43M (Peak 41.50M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Objects | Copying Transformations to device
+Fra:1 Mem:40.43M (Peak 41.50M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Objects | Applying Static Transformations
+Fra:1 Mem:40.43M (Peak 41.50M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Particle Systems
+Fra:1 Mem:40.43M (Peak 41.50M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Particle Systems | Copying Particles to device
+Fra:1 Mem:40.43M (Peak 41.50M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Meshes
+Fra:1 Mem:40.44M (Peak 41.50M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Mesh | Computing attributes
+Fra:1 Mem:40.49M (Peak 41.50M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Mesh | Copying Attributes to device
+Fra:1 Mem:40.49M (Peak 41.50M) | Time:00:00.00 | Mem:0.06M, Peak:0.06M | Scene, ViewLayer | Updating Scene BVH | Building
+Fra:1 Mem:40.49M (Peak 41.50M) | Time:00:00.00 | Mem:0.06M, Peak:0.06M | Scene, ViewLayer | Updating Scene BVH | Building BVH
+Fra:1 Mem:40.49M (Peak 41.50M) | Time:00:00.00 | Mem:0.08M, Peak:0.08M | Scene, ViewLayer | Updating Scene BVH | Building BVH 0%
+Fra:1 Mem:40.49M (Peak 41.50M) | Time:00:00.00 | Mem:0.10M, Peak:0.12M | Scene, ViewLayer | Updating Scene BVH | Copying BVH to device
+Fra:1 Mem:40.49M (Peak 41.50M) | Time:00:00.00 | Mem:0.10M, Peak:0.12M | Scene, ViewLayer | Updating Mesh | Computing normals
+Fra:1 Mem:40.52M (Peak 41.50M) | Time:00:00.00 | Mem:0.10M, Peak:0.12M | Scene, ViewLayer | Updating Mesh | Copying Mesh to device
+Fra:1 Mem:40.52M (Peak 41.50M) | Time:00:00.00 | Mem:0.13M, Peak:0.13M | Scene, ViewLayer | Updating Objects Flags
+Fra:1 Mem:40.52M (Peak 41.50M) | Time:00:00.00 | Mem:0.13M, Peak:0.13M | Scene, ViewLayer | Updating Primitive Offsets
+Fra:1 Mem:40.52M (Peak 41.50M) | Time:00:00.00 | Mem:0.13M, Peak:0.13M | Scene, ViewLayer | Updating Images
+Fra:1 Mem:40.52M (Peak 41.50M) | Time:00:00.00 | Mem:0.13M, Peak:0.13M | Scene, ViewLayer | Updating Images | Loading plastique_Normale.png
+Fra:1 Mem:44.52M (Peak 44.52M) | Time:00:00.00 | Mem:0.13M, Peak:0.13M | Scene, ViewLayer | Updating Images | Loading metal_peint_Couleur.png
+Fra:1 Mem:44.52M (Peak 44.52M) | Time:00:00.00 | Mem:0.13M, Peak:0.13M | Scene, ViewLayer | Updating Images | Loading vinyle_Couleur.png
+Fra:1 Mem:52.52M (Peak 52.52M) | Time:00:00.01 | Mem:0.13M, Peak:0.13M | Scene, ViewLayer | Updating Images | Loading vinyle_Metal.png
+Fra:1 Mem:53.53M (Peak 53.53M) | Time:00:00.01 | Mem:1.13M, Peak:1.13M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Couleur.png
+Fra:1 Mem:57.53M (Peak 57.53M) | Time:00:00.01 | Mem:5.13M, Peak:5.13M | Scene, ViewLayer | Updating Images | Loading grille_vent_Normale.png
+Fra:1 Mem:61.53M (Peak 61.53M) | Time:00:00.02 | Mem:9.13M, Peak:9.13M | Scene, ViewLayer | Updating Images | Loading vinyle_Rugosite.png
+Fra:1 Mem:62.53M (Peak 62.53M) | Time:00:00.02 | Mem:13.13M, Peak:13.13M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Metal.png
+Fra:1 Mem:63.53M (Peak 63.53M) | Time:00:00.02 | Mem:14.13M, Peak:14.13M | Scene, ViewLayer | Updating Images | Loading vinyle_Normale.png
+Fra:1 Mem:67.53M (Peak 67.53M) | Time:00:00.02 | Mem:18.13M, Peak:18.13M | Scene, ViewLayer | Updating Images | Loading plastique_Rugosite.png
+Fra:1 Mem:68.53M (Peak 68.53M) | Time:00:00.02 | Mem:22.13M, Peak:22.13M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Rugosite.png
+Fra:1 Mem:69.53M (Peak 69.53M) | Time:00:00.03 | Mem:23.13M, Peak:23.13M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Normale.png
+Fra:1 Mem:73.53M (Peak 73.53M) | Time:00:00.03 | Mem:24.13M, Peak:24.13M | Scene, ViewLayer | Updating Images | Loading grille_vent_Rugosite.png
+Fra:1 Mem:74.53M (Peak 74.53M) | Time:00:00.03 | Mem:25.13M, Peak:25.13M | Scene, ViewLayer | Updating Images | Loading metal_peint_Metal.png
+Fra:1 Mem:75.53M (Peak 75.53M) | Time:00:00.03 | Mem:26.13M, Peak:26.13M | Scene, ViewLayer | Updating Images | Loading metal_peint_Rugosite.png
+Fra:1 Mem:76.53M (Peak 76.53M) | Time:00:00.04 | Mem:30.13M, Peak:30.13M | Scene, ViewLayer | Updating Images | Loading metal_peint_Normale.png
+Fra:1 Mem:80.53M (Peak 80.53M) | Time:00:00.04 | Mem:31.13M, Peak:31.13M | Scene, ViewLayer | Updating Images | Loading plastique_Metal.png
+Fra:1 Mem:81.53M (Peak 81.53M) | Time:00:00.04 | Mem:32.13M, Peak:32.13M | Scene, ViewLayer | Updating Images | Loading grille_vent_Couleur.png
+Fra:1 Mem:85.53M (Peak 85.53M) | Time:00:00.04 | Mem:33.13M, Peak:33.13M | Scene, ViewLayer | Updating Images | Loading grille_vent_Metal.png
+Fra:1 Mem:86.53M (Peak 86.53M) | Time:00:00.04 | Mem:37.13M, Peak:37.13M | Scene, ViewLayer | Updating Images | Loading plastique_Couleur.png
+Fra:1 Mem:90.53M (Peak 90.53M) | Time:00:00.06 | Mem:50.13M, Peak:50.13M | Scene, ViewLayer | Updating Camera Volume
+Fra:1 Mem:90.53M (Peak 90.53M) | Time:00:00.06 | Mem:50.13M, Peak:50.13M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:90.53M (Peak 90.53M) | Time:00:00.06 | Mem:50.21M, Peak:50.21M | Scene, ViewLayer | Updating Lights
+Fra:1 Mem:90.53M (Peak 90.53M) | Time:00:00.06 | Mem:50.21M, Peak:50.21M | Scene, ViewLayer | Updating Lights | Computing tree
+Fra:1 Mem:90.53M (Peak 90.53M) | Time:00:00.06 | Mem:50.21M, Peak:50.21M | Scene, ViewLayer | Updating Integrator
+Fra:1 Mem:90.53M (Peak 90.53M) | Time:00:00.06 | Mem:50.21M, Peak:50.21M | Scene, ViewLayer | Updating Film
+Fra:1 Mem:90.53M (Peak 90.53M) | Time:00:00.06 | Mem:50.13M, Peak:50.21M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:90.53M (Peak 90.53M) | Time:00:00.06 | Mem:50.22M, Peak:50.22M | Scene, ViewLayer | Updating Baking
+Fra:1 Mem:90.53M (Peak 90.53M) | Time:00:00.06 | Mem:50.22M, Peak:50.22M | Scene, ViewLayer | Updating Device | Writing constant memory
+Fra:1 Mem:90.53M (Peak 90.53M) | Time:00:00.06 | Mem:50.22M, Peak:50.22M | Scene, ViewLayer | Loading denoising kernels (may take a few minutes the first time)
+Fra:1 Mem:90.53M (Peak 90.53M) | Time:00:00.06 | Mem:50.22M, Peak:50.22M | Scene, ViewLayer | Sample 0/32
+Fra:1 Mem:119.77M (Peak 119.77M) | Time:00:00.43 | Remaining:00:11.45 | Mem:79.45M, Peak:79.45M | Scene, ViewLayer | Sample 1/32
+Fra:1 Mem:132.08M (Peak 150.54M) | Time:00:12.82 | Mem:79.45M, Peak:79.45M | Scene, ViewLayer | Sample 32/32
+Fra:1 Mem:132.08M (Peak 150.54M) | Time:00:12.82 | Mem:79.45M, Peak:79.45M | Scene, ViewLayer | Finished
+Saved: '/tmp/out/export_kit_OBJETS_paillasse_aquarium_chariot_palette_caisses_etabli_pupitre_transformateur_distributeur_chaise_bureau_table_basse_paravent_armoire_elec_h16_chaise_microscope_APERCU_1_ECH_32_MATIERES_1/apercu_armoire_elec_h16.png'
+Time: 00:12.89 (Saving: 00:00.06)
+
+>> aperçu armoire_elec_h16
+18:55:08 | INFO: Data are loaded, start creating Blender stuff
+18:55:08 | INFO: Blender create Mesh node T_plastique_425878.001
+18:55:08 | INFO: Blender create Mesh node T_metal_brut_AAACAE.001
+18:55:08 | INFO: Blender create Mesh node Origine.012
+18:55:08 | INFO: glTF import finished in 0.01s
+Fra:1 Mem:40.68M (Peak 40.68M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StudioSol
+Fra:1 Mem:40.68M (Peak 40.68M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_plastique_425878
+Fra:1 Mem:40.69M (Peak 40.69M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_metal_brut_AAACAE
+Fra:1 Mem:41.24M (Peak 41.24M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Initializing
+Fra:1 Mem:40.63M (Peak 41.24M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Waiting for render to start
+Fra:1 Mem:40.64M (Peak 41.24M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Loading render kernels (may take a few minutes the first time)
+Fra:1 Mem:40.64M (Peak 41.24M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Scene
+Fra:1 Mem:40.64M (Peak 41.24M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Shaders
+Fra:1 Mem:40.72M (Peak 41.24M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Procedurals
+Fra:1 Mem:40.72M (Peak 41.24M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Background
+Fra:1 Mem:40.72M (Peak 41.24M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Camera
+Fra:1 Mem:40.72M (Peak 41.24M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Meshes Flags
+Fra:1 Mem:40.72M (Peak 41.24M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Objects
+Fra:1 Mem:40.72M (Peak 41.24M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Objects | Copying Transformations to device
+Fra:1 Mem:40.72M (Peak 41.24M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Objects | Applying Static Transformations
+Fra:1 Mem:40.72M (Peak 41.24M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Particle Systems
+Fra:1 Mem:40.72M (Peak 41.24M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Particle Systems | Copying Particles to device
+Fra:1 Mem:40.72M (Peak 41.24M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Meshes
+Fra:1 Mem:40.77M (Peak 41.24M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Mesh | Computing attributes
+Fra:1 Mem:41.00M (Peak 41.24M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Mesh | Copying Attributes to device
+Fra:1 Mem:41.00M (Peak 41.24M) | Time:00:00.00 | Mem:0.24M, Peak:0.24M | Scene, ViewLayer | Updating Scene BVH | Building
+Fra:1 Mem:41.00M (Peak 41.24M) | Time:00:00.00 | Mem:0.24M, Peak:0.24M | Scene, ViewLayer | Updating Scene BVH | Building BVH
+Fra:1 Mem:41.00M (Peak 41.24M) | Time:00:00.00 | Mem:0.33M, Peak:0.33M | Scene, ViewLayer | Updating Scene BVH | Building BVH 0%
+Fra:1 Mem:41.00M (Peak 41.24M) | Time:00:00.00 | Mem:0.44M, Peak:0.53M | Scene, ViewLayer | Updating Scene BVH | Copying BVH to device
+Fra:1 Mem:41.00M (Peak 41.24M) | Time:00:00.00 | Mem:0.44M, Peak:0.53M | Scene, ViewLayer | Updating Mesh | Computing normals
+Fra:1 Mem:41.12M (Peak 41.24M) | Time:00:00.00 | Mem:0.44M, Peak:0.53M | Scene, ViewLayer | Updating Mesh | Copying Mesh to device
+Fra:1 Mem:41.12M (Peak 41.24M) | Time:00:00.00 | Mem:0.56M, Peak:0.56M | Scene, ViewLayer | Updating Objects Flags
+Fra:1 Mem:41.12M (Peak 41.24M) | Time:00:00.00 | Mem:0.56M, Peak:0.56M | Scene, ViewLayer | Updating Primitive Offsets
+Fra:1 Mem:41.12M (Peak 41.24M) | Time:00:00.00 | Mem:0.56M, Peak:0.56M | Scene, ViewLayer | Updating Images
+Fra:1 Mem:41.12M (Peak 41.24M) | Time:00:00.00 | Mem:0.56M, Peak:0.56M | Scene, ViewLayer | Updating Images | Loading metal_brut_Normale.png
+Fra:1 Mem:45.12M (Peak 45.12M) | Time:00:00.00 | Mem:0.56M, Peak:0.56M | Scene, ViewLayer | Updating Images | Loading vinyle_Couleur.png
+Fra:1 Mem:53.12M (Peak 53.12M) | Time:00:00.00 | Mem:0.56M, Peak:0.56M | Scene, ViewLayer | Updating Images | Loading vinyle_Metal.png
+Fra:1 Mem:54.13M (Peak 54.13M) | Time:00:00.00 | Mem:1.56M, Peak:1.56M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Couleur.png
+Fra:1 Mem:58.13M (Peak 58.13M) | Time:00:00.02 | Mem:5.56M, Peak:5.56M | Scene, ViewLayer | Updating Images | Loading vinyle_Rugosite.png
+Fra:1 Mem:59.13M (Peak 59.13M) | Time:00:00.02 | Mem:9.56M, Peak:9.56M | Scene, ViewLayer | Updating Images | Loading metal_brut_Rugosite.png
+Fra:1 Mem:60.13M (Peak 60.13M) | Time:00:00.02 | Mem:13.56M, Peak:13.56M | Scene, ViewLayer | Updating Images | Loading plastique_Couleur.png
+Fra:1 Mem:64.13M (Peak 64.13M) | Time:00:00.02 | Mem:17.56M, Peak:17.56M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Metal.png
+Fra:1 Mem:65.13M (Peak 65.13M) | Time:00:00.02 | Mem:18.56M, Peak:18.56M | Scene, ViewLayer | Updating Images | Loading vinyle_Normale.png
+Fra:1 Mem:69.13M (Peak 69.13M) | Time:00:00.03 | Mem:19.56M, Peak:19.56M | Scene, ViewLayer | Updating Images | Loading plastique_Metal.png
+Fra:1 Mem:70.13M (Peak 70.13M) | Time:00:00.03 | Mem:20.56M, Peak:20.56M | Scene, ViewLayer | Updating Images | Loading metal_brut_Metal.png
+Fra:1 Mem:71.13M (Peak 71.13M) | Time:00:00.03 | Mem:21.56M, Peak:21.56M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Rugosite.png
+Fra:1 Mem:72.13M (Peak 72.13M) | Time:00:00.03 | Mem:22.56M, Peak:22.56M | Scene, ViewLayer | Updating Images | Loading plastique_Normale.png
+Fra:1 Mem:76.13M (Peak 76.13M) | Time:00:00.03 | Mem:23.56M, Peak:23.56M | Scene, ViewLayer | Updating Images | Loading plastique_Rugosite.png
+Fra:1 Mem:77.13M (Peak 77.13M) | Time:00:00.04 | Mem:27.56M, Peak:27.56M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Normale.png
+Fra:1 Mem:81.13M (Peak 81.13M) | Time:00:00.05 | Mem:40.56M, Peak:40.56M | Scene, ViewLayer | Updating Camera Volume
+Fra:1 Mem:81.13M (Peak 81.13M) | Time:00:00.05 | Mem:40.56M, Peak:40.56M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:81.13M (Peak 81.13M) | Time:00:00.05 | Mem:40.64M, Peak:40.64M | Scene, ViewLayer | Updating Lights
+Fra:1 Mem:81.13M (Peak 81.13M) | Time:00:00.05 | Mem:40.64M, Peak:40.64M | Scene, ViewLayer | Updating Lights | Computing tree
+Fra:1 Mem:81.13M (Peak 81.13M) | Time:00:00.05 | Mem:40.65M, Peak:40.65M | Scene, ViewLayer | Updating Integrator
+Fra:1 Mem:81.13M (Peak 81.13M) | Time:00:00.05 | Mem:40.65M, Peak:40.65M | Scene, ViewLayer | Updating Film
+Fra:1 Mem:81.14M (Peak 81.14M) | Time:00:00.05 | Mem:40.56M, Peak:40.65M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:81.14M (Peak 81.14M) | Time:00:00.05 | Mem:40.65M, Peak:40.65M | Scene, ViewLayer | Updating Baking
+Fra:1 Mem:81.14M (Peak 81.14M) | Time:00:00.05 | Mem:40.65M, Peak:40.65M | Scene, ViewLayer | Updating Device | Writing constant memory
+Fra:1 Mem:81.14M (Peak 81.14M) | Time:00:00.05 | Mem:40.65M, Peak:40.65M | Scene, ViewLayer | Loading denoising kernels (may take a few minutes the first time)
+Fra:1 Mem:81.14M (Peak 81.14M) | Time:00:00.05 | Mem:40.65M, Peak:40.65M | Scene, ViewLayer | Sample 0/32
+Fra:1 Mem:110.38M (Peak 110.38M) | Time:00:00.49 | Remaining:00:13.42 | Mem:69.88M, Peak:69.88M | Scene, ViewLayer | Sample 1/32
+Fra:1 Mem:122.69M (Peak 141.14M) | Time:00:15.26 | Mem:69.88M, Peak:69.88M | Scene, ViewLayer | Sample 32/32
+Fra:1 Mem:122.69M (Peak 141.14M) | Time:00:15.26 | Mem:69.88M, Peak:69.88M | Scene, ViewLayer | Finished
+Saved: '/tmp/out/export_kit_OBJETS_paillasse_aquarium_chariot_palette_caisses_etabli_pupitre_transformateur_distributeur_chaise_bureau_table_basse_paravent_armoire_elec_h16_chaise_microscope_APERCU_1_ECH_32_MATIERES_1/apercu_chaise.png'
+Time: 00:15.33 (Saving: 00:00.06)
+
+>> aperçu chaise
+18:55:23 | INFO: Data are loaded, start creating Blender stuff
+18:55:23 | INFO: Blender create Mesh node T_plastique_E1E1DC
+18:55:23 | INFO: Blender create Mesh node P_DCDEE2_8_100_0.005
+18:55:23 | INFO: Blender create Mesh node T_plastique_28282A.001
+18:55:23 | INFO: Blender create Mesh node P_FAF0D2_20_0_0
+18:55:23 | INFO: Blender create Mesh node Origine.013
+18:55:23 | INFO: glTF import finished in 0.01s
+Fra:1 Mem:41.33M (Peak 41.33M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | StudioSol
+Fra:1 Mem:41.33M (Peak 41.33M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_plastique_E1E1DC
+Fra:1 Mem:41.33M (Peak 41.33M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | P_FAF0D2_20_0_0
+Fra:1 Mem:41.35M (Peak 41.35M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | P_DCDEE2_8_100_0
+Fra:1 Mem:41.36M (Peak 41.36M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | T_plastique_28282A
+Fra:1 Mem:41.55M (Peak 41.55M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Initializing
+Fra:1 Mem:40.80M (Peak 41.55M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Waiting for render to start
+Fra:1 Mem:40.81M (Peak 41.55M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Loading render kernels (may take a few minutes the first time)
+Fra:1 Mem:40.81M (Peak 41.55M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Scene
+Fra:1 Mem:40.81M (Peak 41.55M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Shaders
+Fra:1 Mem:40.89M (Peak 41.55M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Procedurals
+Fra:1 Mem:40.89M (Peak 41.55M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Background
+Fra:1 Mem:40.89M (Peak 41.55M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Camera
+Fra:1 Mem:40.89M (Peak 41.55M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Meshes Flags
+Fra:1 Mem:40.89M (Peak 41.55M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Objects
+Fra:1 Mem:40.89M (Peak 41.55M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Objects | Copying Transformations to device
+Fra:1 Mem:40.90M (Peak 41.55M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Objects | Applying Static Transformations
+Fra:1 Mem:40.90M (Peak 41.55M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Particle Systems
+Fra:1 Mem:40.90M (Peak 41.55M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Particle Systems | Copying Particles to device
+Fra:1 Mem:40.90M (Peak 41.55M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Meshes
+Fra:1 Mem:40.91M (Peak 41.55M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Mesh | Computing attributes
+Fra:1 Mem:41.00M (Peak 41.55M) | Time:00:00.00 | Mem:0.01M, Peak:0.01M | Scene, ViewLayer | Updating Mesh | Copying Attributes to device
+Fra:1 Mem:40.99M (Peak 41.55M) | Time:00:00.00 | Mem:0.09M, Peak:0.09M | Scene, ViewLayer | Updating Scene BVH | Building
+Fra:1 Mem:41.00M (Peak 41.55M) | Time:00:00.00 | Mem:0.09M, Peak:0.09M | Scene, ViewLayer | Updating Scene BVH | Building BVH
+Fra:1 Mem:41.00M (Peak 41.55M) | Time:00:00.00 | Mem:0.12M, Peak:0.12M | Scene, ViewLayer | Updating Scene BVH | Building BVH 0%
+Fra:1 Mem:41.00M (Peak 41.55M) | Time:00:00.00 | Mem:0.17M, Peak:0.21M | Scene, ViewLayer | Updating Scene BVH | Copying BVH to device
+Fra:1 Mem:41.00M (Peak 41.55M) | Time:00:00.00 | Mem:0.17M, Peak:0.21M | Scene, ViewLayer | Updating Mesh | Computing normals
+Fra:1 Mem:41.06M (Peak 41.55M) | Time:00:00.00 | Mem:0.17M, Peak:0.21M | Scene, ViewLayer | Updating Mesh | Copying Mesh to device
+Fra:1 Mem:41.06M (Peak 41.55M) | Time:00:00.00 | Mem:0.24M, Peak:0.24M | Scene, ViewLayer | Updating Objects Flags
+Fra:1 Mem:41.06M (Peak 41.55M) | Time:00:00.00 | Mem:0.24M, Peak:0.24M | Scene, ViewLayer | Updating Primitive Offsets
+Fra:1 Mem:41.06M (Peak 41.55M) | Time:00:00.00 | Mem:0.24M, Peak:0.24M | Scene, ViewLayer | Updating Images
+Fra:1 Mem:41.06M (Peak 41.55M) | Time:00:00.00 | Mem:0.24M, Peak:0.24M | Scene, ViewLayer | Updating Images | Loading vinyle_Normale.png
+Fra:1 Mem:45.06M (Peak 45.06M) | Time:00:00.00 | Mem:0.24M, Peak:0.24M | Scene, ViewLayer | Updating Images | Loading plastique_Couleur.png
+Fra:1 Mem:49.06M (Peak 49.06M) | Time:00:00.00 | Mem:0.24M, Peak:0.24M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Couleur.png
+Fra:1 Mem:53.06M (Peak 53.06M) | Time:00:00.00 | Mem:0.24M, Peak:0.24M | Scene, ViewLayer | Updating Images | Loading vinyle_Couleur.png
+Fra:1 Mem:57.08M (Peak 57.08M) | Time:00:00.01 | Mem:4.24M, Peak:4.24M | Scene, ViewLayer | Updating Images | Loading plastique_Metal.png
+Fra:1 Mem:58.08M (Peak 58.08M) | Time:00:00.02 | Mem:8.24M, Peak:8.24M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Metal.png
+Fra:1 Mem:59.08M (Peak 59.08M) | Time:00:00.02 | Mem:12.24M, Peak:12.24M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Normale.png
+Fra:1 Mem:63.08M (Peak 63.08M) | Time:00:00.02 | Mem:13.24M, Peak:13.24M | Scene, ViewLayer | Updating Images | Loading vinyle_Metal.png
+Fra:1 Mem:64.08M (Peak 64.08M) | Time:00:00.02 | Mem:14.24M, Peak:14.24M | Scene, ViewLayer | Updating Images | Loading plastique_Rugosite.png
+Fra:1 Mem:65.08M (Peak 65.08M) | Time:00:00.02 | Mem:15.24M, Peak:15.24M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Rugosite.png
+Fra:1 Mem:66.08M (Peak 66.08M) | Time:00:00.02 | Mem:19.24M, Peak:19.24M | Scene, ViewLayer | Updating Images | Loading vinyle_Rugosite.png
+Fra:1 Mem:67.08M (Peak 67.08M) | Time:00:00.02 | Mem:20.24M, Peak:20.24M | Scene, ViewLayer | Updating Images | Loading plastique_Normale.png
+Fra:1 Mem:71.08M (Peak 71.08M) | Time:00:00.04 | Mem:30.24M, Peak:30.24M | Scene, ViewLayer | Updating Camera Volume
+Fra:1 Mem:71.08M (Peak 71.08M) | Time:00:00.04 | Mem:30.24M, Peak:30.24M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:71.08M (Peak 71.08M) | Time:00:00.04 | Mem:30.32M, Peak:30.32M | Scene, ViewLayer | Updating Lights
+Fra:1 Mem:71.08M (Peak 71.08M) | Time:00:00.04 | Mem:30.32M, Peak:30.32M | Scene, ViewLayer | Updating Lights | Computing tree
+Fra:1 Mem:71.08M (Peak 71.08M) | Time:00:00.04 | Mem:30.32M, Peak:30.32M | Scene, ViewLayer | Updating Integrator
+Fra:1 Mem:71.08M (Peak 71.08M) | Time:00:00.04 | Mem:30.32M, Peak:30.32M | Scene, ViewLayer | Updating Film
+Fra:1 Mem:71.08M (Peak 71.08M) | Time:00:00.04 | Mem:30.24M, Peak:30.32M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:71.08M (Peak 71.08M) | Time:00:00.04 | Mem:30.33M, Peak:30.33M | Scene, ViewLayer | Updating Baking
+Fra:1 Mem:71.08M (Peak 71.08M) | Time:00:00.04 | Mem:30.33M, Peak:30.33M | Scene, ViewLayer | Updating Device | Writing constant memory
+Fra:1 Mem:71.08M (Peak 71.08M) | Time:00:00.04 | Mem:30.33M, Peak:30.33M | Scene, ViewLayer | Loading denoising kernels (may take a few minutes the first time)
+Fra:1 Mem:71.08M (Peak 71.08M) | Time:00:00.04 | Mem:30.33M, Peak:30.33M | Scene, ViewLayer | Sample 0/32
+Fra:1 Mem:100.32M (Peak 100.32M) | Time:00:00.47 | Remaining:00:13.19 | Mem:59.56M, Peak:59.56M | Scene, ViewLayer | Sample 1/32
+Fra:1 Mem:112.63M (Peak 131.09M) | Time:00:15.12 | Mem:59.56M, Peak:59.56M | Scene, ViewLayer | Sample 32/32
+Fra:1 Mem:112.63M (Peak 131.09M) | Time:00:15.12 | Mem:59.56M, Peak:59.56M | Scene, ViewLayer | Finished
+Saved: '/tmp/out/export_kit_OBJETS_paillasse_aquarium_chariot_palette_caisses_etabli_pupitre_transformateur_distributeur_chaise_bureau_table_basse_paravent_armoire_elec_h16_chaise_microscope_APERCU_1_ECH_32_MATIERES_1/apercu_microscope.png'
+Time: 00:15.19 (Saving: 00:00.06)
+
+>> aperçu microscope
+18:55:38 | INFO: Starting glTF 2.0 export
+18:55:38 | INFO: Extracting primitive: beton
+18:55:38 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+18:55:38 | INFO: Primitives created: 1
+18:55:38 | INFO: Extracting primitive: bois
+18:55:38 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+18:55:38 | INFO: Primitives created: 1
+18:55:38 | INFO: Extracting primitive: caoutchouc
+18:55:38 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+18:55:38 | INFO: Primitives created: 1
+18:55:38 | INFO: Extracting primitive: carrelage
+18:55:39 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+18:55:39 | INFO: Primitives created: 1
+18:55:39 | INFO: Extracting primitive: carton
+18:55:39 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+18:55:39 | INFO: Primitives created: 1
+18:55:39 | INFO: Extracting primitive: grille_vent
+18:55:39 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+18:55:39 | INFO: Primitives created: 1
+18:55:39 | INFO: Extracting primitive: matelas
+18:55:39 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+18:55:39 | INFO: Primitives created: 1
+18:55:39 | INFO: Extracting primitive: metal_brut
+18:55:39 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+18:55:39 | INFO: Primitives created: 1
+18:55:39 | INFO: Extracting primitive: metal_peint
+18:55:39 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+18:55:39 | INFO: Primitives created: 1
+18:55:39 | INFO: Extracting primitive: metal_rouille
+18:55:39 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+18:55:39 | INFO: Primitives created: 1
+18:55:39 | INFO: Extracting primitive: moquette
+18:55:39 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+18:55:39 | INFO: Primitives created: 1
+18:55:39 | INFO: Extracting primitive: peinture_mur
+18:55:39 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+18:55:39 | INFO: Primitives created: 1
+18:55:39 | INFO: Extracting primitive: plafond
+18:55:39 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+18:55:39 | INFO: Primitives created: 1
+18:55:39 | INFO: Extracting primitive: plastique
+18:55:40 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+18:55:40 | INFO: Primitives created: 1
+18:55:40 | INFO: Extracting primitive: simili_cuir
+18:55:40 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+18:55:40 | INFO: Primitives created: 1
+18:55:40 | INFO: Extracting primitive: tissu
+18:55:40 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+18:55:40 | INFO: Primitives created: 1
+18:55:40 | INFO: Extracting primitive: tole_striee
+18:55:40 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+18:55:40 | INFO: Primitives created: 1
+18:55:40 | INFO: Extracting primitive: vinyle
+18:55:40 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+18:55:40 | INFO: Primitives created: 1
+18:55:40 | INFO: Finished glTF 2.0 export in 1.8013274669647217 s
+
+>> matieres.glb : 18 matières, 62203 Ko
+>> fin
+
+Blender quit
+duree_s=219
