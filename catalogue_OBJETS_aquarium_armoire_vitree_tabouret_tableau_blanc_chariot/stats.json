@@ -1,0 +1,106 @@
+{
+ "aquarium": {
+  "objets": 39,
+  "triangles": 5744,
+  "dim": [
+   8.12,
+   3.25,
+   7.2
+  ],
+  "par_matiere": {
+   "metal_brut_(60, 62, 64)_None": 1296,
+   "Verre": 28,
+   "metal_peint_(50, 56, 62)_None": 108,
+   "EauAquarium": 12,
+   "plastique_(230, 226, 210)_None": 12,
+   "metal_peint_(60, 66, 72)_None": 324,
+   "plastique_(40, 40, 42)_None": 216,
+   "metal_brut_(200, 202, 204)_None": 396,
+   "beton_(90, 92, 90)_None": 1920,
+   "beton_(190, 176, 150)_None": 1280,
+   "metal_peint_(40, 42, 44)_None": 108,
+   "caoutchouc_(40, 40, 40)_None": 44
+  }
+ },
+ "armoire_vitree": {
+  "objets": 90,
+  "triangles": 9144,
+  "dim": [
+   3.26,
+   1.82,
+   7.05
+  ],
+  "par_matiere": {
+   "plastique_(30, 30, 30)_None": 360,
+   "plastique_(40, 70, 140)_None": 120,
+   "plastique_(230, 230, 225)_None": 180,
+   "plastique_(150, 40, 30)_None": 60,
+   "metal_peint_(214, 218, 214)_None": 1308,
+   "Verre": 2472,
+   "VerreBrun": 1584,
+   "Liq20012070": 468,
+   "Liq170214220": 78,
+   "Liq150150200": 390,
+   "Liq12017090": 78,
+   "Liq220200110": 234,
+   "plastique_(230, 190, 30)_None": 12,
+   "metal_brut_(200, 202, 204)_None": 792,
+   "VerreEtagere": 36,
+   "Chrome": 216,
+   "metal_peint_(40, 42, 44)_None": 108,
+   "metal_peint_(200, 204, 200)_None": 648
+  }
+ },
+ "tabouret": {
+  "objets": 22,
+  "triangles": 8676,
+  "dim": [
+   1.77,
+   1.84,
+   2.65
+  ],
+  "par_matiere": {
+   "simili_cuir_(40, 40, 44)_None": 1152,
+   "plastique_(36, 36, 38)_None": 3476,
+   "Chrome": 4048
+  }
+ },
+ "tableau_blanc": {
+  "objets": 16,
+  "triangles": 5208,
+  "dim": [
+   7.21,
+   0.39,
+   3.82
+  ],
+  "par_matiere": {
+   "metal_brut_(190, 192, 194)_None": 540,
+   "plastique_(40, 40, 44)_None": 108,
+   "plastique_(30, 30, 30)_None": 44,
+   "plastique_(180, 30, 30)_None": 44,
+   "plastique_(30, 60, 160)_None": 44,
+   "Emaille": 12,
+   "Encre": 1968,
+   "EncreRouge": 1712,
+   "EncreBleue": 736
+  }
+ },
+ "chariot": {
+  "objets": 30,
+  "triangles": 3670,
+  "dim": [
+   3.61,
+   1.92,
+   3.63
+  ],
+  "par_matiere": {
+   "plastique_(60, 90, 150)_None": 108,
+   "Verre": 600,
+   "Liq20012070": 156,
+   "Liq150150200": 78,
+   "metal_brut_(200, 202, 204)_None": 1992,
+   "metal_peint_(60, 60, 60)_None": 432,
+   "caoutchouc_(40, 40, 40)_None": 304
+  }
+ }
+}
