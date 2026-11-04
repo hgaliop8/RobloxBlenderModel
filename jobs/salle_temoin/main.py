@@ -39,10 +39,10 @@ rnd = random.Random(3)
 for i in range(8):
     x = 6.5 + i*8.0
     if abs(x - 38.4) < 6: continue
-    placer(lits[(i + 1) % 3], (x, 1.0 + 3.5, 0), -math.pi/2)                # mur sud (la porte au milieu)
+    placer(lits[(i + 1) % 3], (x, 1.0 + 3.5, 0), math.pi/2)                 # mur sud (la porte au milieu), tête au mur
 for i in range(9):
     x = 6.5 + i*8.0
-    placer(lits[i % 3], (x, Y1 - 1.0 - 3.5, 0), math.pi/2)                 # mur nord
+    placer(lits[i % 3], (x, Y1 - 1.0 - 3.5, 0), -math.pi/2)                # mur nord, tête au mur
 # casiers sur les petits murs
 for j in range(3):
     placer(cas[j % 2], (X0 + 0.9, 12 + j*9.5, 0), -math.pi/2)
@@ -51,13 +51,19 @@ for j in range(3):
 for i in range(3):
     x = 22 + i*16
     placer(tab, (x, 22, 0), 0)
-    placer(chs[i % 3], (x - 1.2, 22 - 2.2, 0), rnd.uniform(-0.4, 0.4)); placer(chs[(i + 1) % 3], (x + 1.4, 22 + 2.1, 0), math.pi + rnd.uniform(-0.4, 0.4))
+    placer(chs[i % 3], (x - 1.2, 22 - 2.0, 0), math.pi + rnd.uniform(-0.35, 0.35)); placer(chs[(i + 1) % 3], (x + 1.4, 22 + 2.0, 0), rnd.uniform(-0.35, 0.35))
     placer(lits[(i + 2) % 3], (x, 32.5, 0), 0)
 # petits objets
 for i in range(3):
     t = Q.tasse(); t.location = (22 + i*16 + rnd.uniform(-1.5, 1.5), 22 + rnd.uniform(-0.6, 0.6), 2.6)
     b = Q.livre(i); b.location = (22 + i*16 + rnd.uniform(-1.5, 1.5), 22 + rnd.uniform(-0.6, 0.6), 2.6); b.rotation_euler = (0, 0, rnd.uniform(0, 3))
 p = Q.poubelle(); p.location = (31, 2.2, 0)
+# détails muraux et plafond
+hz = Q.horloge(); hz.location = (X1 - 0.35, 26.4, 11.5); hz.rotation_euler = (0, 0, math.pi/2)
+for (xx, yy, rr) in ((X0 + 0.35, 40.0, -math.pi/2), (50.5, Y0 + 0.35, 0.0)):
+    ta = Q.tableau_affichage(seed=int(xx)); ta.location = (xx, yy, 6.2); ta.rotation_euler = (0, 0, rr)
+Q.tuyauterie(X0 + 0.5, X1 - 0.5, 14.0, 14.4, 3, seed=1)
+Q.tuyauterie(X0 + 0.5, X1 - 0.5, 40.0, 14.6, 2, seed=2)
 # UV boîte sur tout ce qui est maillé
 bpy.context.view_layer.update()
 for o in bpy.data.objects:

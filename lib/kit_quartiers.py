@@ -50,8 +50,33 @@ def lit_superpose(seed=0, couleurs=((70, 86, 112), (112, 72, 60), (84, 98, 80), 
                            shrink=0.06, crumple=0.5,
                            centre=(0.8 + rnd.uniform(-0.3, 0.3), rnd.uniform(-0.2, 0.2)), rot=rnd.uniform(-0.08, 0.08))
         objs += [mt, ore, cov]
+    # cantine au pied, serviette jetée sur le panneau de pied (tissu simulé), sac sous le lit
+    objs += cantine(rnd, (L/2 + 1.05, rnd.uniform(-0.2, 0.2), 0), rnd.uniform(-0.06, 0.06))
+    if rnd.random() < 0.75:
+        pan = [o for o in objs if o.name.startswith('Panneau') and o.location.x > 0 and o.location.z < 3][0]
+        bpy.context.view_layer.update()
+        mlow = [o for o in objs if o.name.startswith('Matelas') and o.location.z < 3][0]
+        objs.append(tissu_simule('Serviette', 2.4, 1.0, 2.75, [pan, mlow], mat('tissu', rnd.choice([(200, 70, 60), (60, 100, 160), (225, 222, 210), (90, 120, 90)])), seed=seed + 31,
+                                 frames=60, drop_noise=0.15, res=0.08, centre=(L/2 - 0.15 + rnd.uniform(-0.1, 0.1), rnd.uniform(-0.6, 0.6)), rot=rnd.uniform(-0.3, 0.3), shrink=0.03, crumple=0.1))
+    if rnd.random() < 0.6:
+        sac = cube('Sac', (2.0, 0.9, 0.75), (rnd.uniform(-1.5, 1.0), rnd.uniform(-0.4, 0.4), 0.38), mat('tissu', rnd.choice([(60, 70, 50), (40, 44, 60), (70, 60, 50)])), 0.3, 3, rot=(0, 0, rnd.uniform(-0.3, 0.3)))
+        sb = sac.modifiers.new('sub', 'SUBSURF'); sb.levels = 2; objs.append(sac)
     parent_all(objs, root)
     return root
+
+def cantine(rnd, loc, rot):
+    """cantine militaire : caisse à coins renforcés, couvercle, fermoirs, poignées"""
+    Lx, Ly, Hz = 1.3, 2.6, 1.15; x, y, z = loc; c, s_ = math.cos(rot), math.sin(rot)
+    def P(dx, dy, dz): return (x + dx*c - dy*s_, y + dx*s_ + dy*c, z + dz)
+    col = rnd.choice([(70, 82, 60), (52, 66, 92), (60, 62, 66)]); M = mat('metal_peint', col); Mk = mat('metal_brut', (150, 150, 146))
+    o = [cube('Cantine', (Lx, Ly, Hz - 0.2), P(0, 0, (Hz - 0.2)/2 + 0.02), M, 0.05, 2, rot=(0, 0, rot)),
+         cube('Couvercle', (Lx + 0.06, Ly + 0.06, 0.22), P(0, 0, Hz - 0.1), M, 0.06, 3, rot=(0, 0, rot))]
+    for sx in (-1, 1):
+        for sy in (-1, 1):
+            for zz in (0.12, Hz - 0.12): o.append(cube('Coin', (0.2, 0.2, 0.2), P(sx*(Lx/2 - 0.07), sy*(Ly/2 - 0.07), zz), Mk, 0.04, 2, rot=(0, 0, rot)))
+    for sy in (-0.7, 0.7): o.append(cube('Fermoir', (0.06, 0.22, 0.3), P(-Lx/2 - 0.04, sy, Hz - 0.25), Mk, 0.02, 2, rot=(0, 0, rot)))
+    for sy in (-1, 1): o.append(cube('Poignee', (0.5, 0.06, 0.08), P(0, sy*(Ly/2 + 0.06), Hz*0.62), mat('caoutchouc', (40, 40, 40)), 0.03, 2, rot=(0, 0, rot)))
+    return o
 
 def tissu_libre(name, L, W, z0, colliders, material, seed=0):
     return tissu_simule(name, L, W, z0, colliders, material, seed=seed, frames=40, drop_noise=0.3)
@@ -191,3 +216,46 @@ def piece(X0, Y0, X1, Y1, h=12.0, porte=None, sol=('vinyle', (96, 102, 106)), mu
             objs.append(cube('Plafonnier', (4.4, 1.5, 0.3), (x, y, h - 0.12), mat('metal_peint', (200, 202, 204)), 0.06))
             objs.append(cube('Diffuseur', (4.0, 1.1, 0.06), (x, y, h - 0.28), mat_plain('Diffuseur', (240, 242, 250), rough=0.3, emit=0.0), 0.02))
     return objs
+
+# ================================================================ détails muraux et plafond
+def horloge(seed=0):
+    root = empty('Horloge'); o = []
+    bm = bmesh.new(); bmesh.ops.create_cone(bm, cap_ends=True, segments=40, radius1=0.75, radius2=0.75, depth=0.18)
+    b = obj_from_bm(bm, 'Boitier', mat('plastique', (40, 42, 44))); b.rotation_euler = (math.pi/2, 0, 0); b.location = (0, 0.09, 0); bevel(b, 0.04, 3); o.append(b)
+    bm = bmesh.new(); bmesh.ops.create_cone(bm, cap_ends=True, segments=40, radius1=0.66, radius2=0.66, depth=0.02)
+    f = obj_from_bm(bm, 'Cadran', mat('plastique', (236, 232, 220))); f.rotation_euler = (math.pi/2, 0, 0); f.location = (0, 0.19, 0); o.append(f)
+    for k in range(12):
+        a = k*math.pi/6; r = 0.55; o.append(cube('Index', (0.03, 0.01, 0.12 if k % 3 == 0 else 0.07), (r*math.sin(a), 0.205, r*math.cos(a)), mat_plain('Encre', (20, 20, 20)), 0, rot=(0, -a, 0)))
+    for ln, w, a in ((0.36, 0.05, 2.2), (0.52, 0.03, 4.1)):      # aiguilles arrêtées
+        o.append(cube('Aiguille', (w, 0.01, ln), (ln/2*math.sin(a), 0.215, ln/2*math.cos(a)), mat_plain('Encre', (20, 20, 20)), 0, rot=(0, -a, 0)))
+    parent_all(o, root); return root
+
+def tableau_affichage(seed=0, Lx=4.0, Hz=2.6):
+    rnd = random.Random(seed); root = empty('TableauAffichage'); o = []
+    o.append(cube('Liege', (Lx, 0.12, Hz), (0, 0.06, 0), mat('carton', (190, 150, 110)), 0.02))
+    for sx in (-1, 1): o.append(cube('Cadre', (0.1, 0.18, Hz + 0.1), (sx*(Lx/2 + 0.02), 0.09, 0), mat('bois', (150, 110, 70)), 0.03))
+    for sz in (-1, 1): o.append(cube('Cadre', (Lx + 0.14, 0.18, 0.1), (0, 0.09, sz*(Hz/2 + 0.02)), mat('bois', (150, 110, 70)), 0.03))
+    papiers = [(236, 234, 226), (240, 236, 200), (220, 230, 240), (240, 220, 210)]
+    for k in range(rnd.randint(6, 9)):
+        w, h = rnd.choice([(0.75, 1.05), (0.6, 0.85), (0.9, 0.6)])
+        x = rnd.uniform(-Lx/2 + w/2 + 0.1, Lx/2 - w/2 - 0.1); z = rnd.uniform(-Hz/2 + h/2 + 0.1, Hz/2 - h/2 - 0.1)
+        o.append(cube('Feuille', (w, 0.005, h), (x, 0.125 + k*0.003, z), mat('plastique', rnd.choice(papiers)), 0, rot=(0, rnd.uniform(-0.12, 0.12), 0)))
+        o.append(cube('Punaise', (0.06, 0.04, 0.06), (x, 0.15 + k*0.003, z + h/2 - 0.08), mat_plain('Punaise' + str(k % 3), [(200, 30, 30), (30, 80, 200), (220, 200, 30)][k % 3], 0.3), 0.02))
+    parent_all(o, root); return root
+
+def tuyauterie(X0, X1, y, z, n=3, seed=0):
+    """faisceau de tuyaux sous plafond avec colliers et supports"""
+    rnd = random.Random(seed); o = []
+    cols = [(150, 60, 40), (70, 90, 110), (180, 170, 150), (60, 100, 70)]
+    for i in range(n):
+        r = rnd.choice([0.18, 0.25, 0.32]); yy = y + (i - (n - 1)/2)*0.85
+        o.append(tube('Tuyau', (X0, yy, z), (X1, yy, z), r, mat('metal_peint', cols[i % len(cols)]), 20))
+        xx = X0 + 6
+        while xx < X1 - 1:
+            o.append(tube('Bride', (xx - 0.06, yy, z), (xx + 0.06, yy, z), r + 0.06, mat('metal_brut', (140, 140, 138)), 20)); xx += rnd.choice([10, 12])
+    xx = X0 + 4
+    while xx < X1:
+        o.append(cube('Support', (0.18, n*0.85 + 0.5, 0.14), (xx, y, z - 0.42), mat('metal_peint', (70, 72, 76)), 0.02))
+        for sy in (-1, 1): o.append(cube('Tige', (0.07, 0.07, 16 - z + 0.42), (xx, y + sy*(n*0.85/2 + 0.15), (z - 0.42 + 16)/2), mat('metal_brut', (120, 120, 120)), 0))
+        xx += 8
+    return o
