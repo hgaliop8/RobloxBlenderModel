@@ -1,3 +1,6 @@
-catalogue OBJETS=paillasse,paillasse_courte,hotte,etagere_specimens
-catalogue OBJETS=aquarium,armoire_vitree,tabouret,tableau_blanc,chariot
-catalogue OBJETS=lit_superpose,casiers
+catalogue OBJETS=etagere_stockage,palette_caisses,futs,rack_bouteilles,extincteur
+catalogue OBJETS=etabli,armoire_elec,armoire_elec_ouverte,rack_serveur,pupitre
+catalogue OBJETS=pompe,cuve,groupe_electrogene,transformateur,vannes
+catalogue OBJETS=cuisine,frigo,distributeur,wc_cabine,lavabo,douche
+catalogue OBJETS=chaise_bureau,bureau,bibliotheque,canape,table_basse,bac_plantes
+catalogue OBJETS=lit_hopital,potence,paravent,tiroirs_morgue,table_autopsie,lit_superpose

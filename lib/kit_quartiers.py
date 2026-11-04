@@ -42,11 +42,12 @@ def lit_superpose(seed=0, couleurs=((70, 86, 112), (112, 72, 60), (84, 98, 80), 
     for k, z in enumerate((1.4, 4.9)):
         mt = cube('Matelas', (L - 0.4, W - 0.3, 0.55), (0, 0, z + 0.27), M_mat, 0.16, 4)
         sb = mt.modifiers.new('sub', 'SUBSURF'); sb.levels = 1
-        ore = oreiller('Oreiller', 2.2, 1.35, 0.55, seed=seed*10 + k, material=mat('tissu', (238, 238, 234)))
+        ore = oreiller('Oreiller', 2.5, 1.55, 0.72, seed=seed*10 + k, material=mat('tissu', (238, 238, 234)))
         ore.location = (-L/2 + 1.25, rnd.uniform(-0.15, 0.15), z + 0.55 + 0.22); ore.rotation_euler = (0, rnd.uniform(-0.12, 0.05), math.pi/2 + rnd.uniform(-0.15, 0.15))
         bpy.context.view_layer.update()
         col = rnd.choice(couleurs)
-        cov = tissu_simule('Couverture', rnd.uniform(4.8, 5.8), W + 2.0, z + 1.5, [mt, ore], mat('tissu', col), seed=seed*10 + k, frames=70, drop_noise=0.3, res=0.11,
+        cadre = [c for c in objs if c.name.startswith(('Longeron', 'Montant', 'GardeCorps'))]
+        cov = tissu_simule('Couverture', rnd.uniform(4.8, 5.8), W + 2.0, z + 1.5, [mt, ore] + cadre, mat('tissu', col), seed=seed*10 + k, frames=70, drop_noise=0.3, res=0.11,
                            shrink=0.06, crumple=0.5,
                            centre=(0.8 + rnd.uniform(-0.3, 0.3), rnd.uniform(-0.2, 0.2)), rot=rnd.uniform(-0.08, 0.08))
         objs += [mt, ore, cov]
