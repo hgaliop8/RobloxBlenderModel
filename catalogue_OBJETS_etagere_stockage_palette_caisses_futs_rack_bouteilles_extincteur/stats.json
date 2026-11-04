@@ -1,0 +1,92 @@
+{
+ "etagere_stockage": {
+  "objets": 40,
+  "triangles": 6512,
+  "dim": [
+   6.18,
+   2.0,
+   7.97
+  ],
+  "par_matiere": {
+   "plastique_(200, 160, 40)_None": 656,
+   "plastique_(60, 120, 70)_None": 328,
+   "plastique_(150, 40, 40)_None": 328,
+   "caoutchouc_(40, 60, 140)_None": 1280,
+   "caoutchouc_(200, 120, 30)_None": 1280,
+   "carton_(190, 156, 110)_None": 540,
+   "carton_(176, 140, 100)_None": 216,
+   "carton_(226, 226, 220)_None": 108,
+   "metal_peint_(52, 84, 120)_None": 432,
+   "metal_peint_(120, 124, 128)_None": 1296,
+   "plastique_(190, 170, 120)_None": 48
+  }
+ },
+ "palette_caisses": {
+  "objets": 70,
+  "triangles": 7560,
+  "dim": [
+   4.03,
+   4.02,
+   3.85
+  ],
+  "par_matiere": {
+   "bois_(196, 160, 112)_None": 432,
+   "bois_(160, 131, 91)_None": 6048,
+   "bois_(170, 140, 100)_None": 1080
+  }
+ },
+ "futs": {
+  "objets": 9,
+  "triangles": 3000,
+  "dim": [
+   4.47,
+   4.2,
+   3.11
+  ],
+  "par_matiere": {
+   "metal_brut_(120, 120, 116)_None": 360,
+   "metal_peint_(40, 70, 130)_None": 880,
+   "metal_peint_(60, 90, 60)_None": 880,
+   "metal_peint_(150, 40, 30)_None": 880
+  }
+ },
+ "rack_bouteilles": {
+  "objets": 39,
+  "triangles": 7428,
+  "dim": [
+   4.5,
+   1.37,
+   5.49
+  ],
+  "par_matiere": {
+   "metal_peint_(60, 64, 70)_None": 540,
+   "metal_peint_(40, 40, 42)_None": 1338,
+   "metal_peint_(200, 200, 196)_None": 446,
+   "metal_brut_(150, 150, 150)_None": 992,
+   "metal_peint_(220, 220, 210)_None": 448,
+   "metal_peint_(200, 170, 40)_None": 224,
+   "metal_peint_(60, 110, 60)_None": 224,
+   "metal_peint_(40, 40, 40)_None": 2896,
+   "Laiton": 320
+  }
+ },
+ "extincteur": {
+  "objets": 8,
+  "triangles": 1622,
+  "dim": [
+   0.95,
+   0.76,
+   3.45
+  ],
+  "par_matiere": {
+   "metal_peint_(190, 30, 24)_None": 382,
+   "plastique_(226, 220, 200)_None": 12,
+   "caoutchouc_(30, 30, 30)_None": 736,
+   "metal_peint_(30, 30, 30)_None": 108,
+   "plastique_(230, 230, 226)_None": 60,
+   "plastique_(200, 30, 24)_None": 108,
+   "metal_peint_(40, 40, 40)_None": 108,
+   "metal_peint_(40, 40, 42)_None": 108
+  }
+ }
+}
