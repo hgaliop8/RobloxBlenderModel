@@ -83,29 +83,37 @@ def tissu_libre(name, L, W, z0, colliders, material, seed=0):
 
 # ================================================================ casiers
 def casiers(n=4, seed=0, ouvert=1):
+    """rangée de casiers métalliques : une colonne par casier, le casier ouvert est creux (étagère, serviettes, sac, veste)"""
     rnd = random.Random(seed); root = empty(f'Casiers_{seed}')
-    w, d, h = 1.7, 1.7, 6.6; M = mat('metal_peint', BLEU_CASIER); Mi = mat('metal_peint', (70, 74, 80)); objs = []
+    w, d, h = 1.7, 1.7, 6.6; M = mat('metal_peint', BLEU_CASIER); Mi = mat('metal_peint', (70, 74, 80)); Mint = mat('metal_peint', (46, 50, 54)); objs = []
     objs.append(cube('Socle', (n*w, d - 0.1, 0.5), (0, d/2, 0.25), mat('metal_peint', (40, 42, 46)), 0.03))
-    objs.append(cube('Corps', (n*w, d, h - 0.5), (0, d/2, 0.5 + (h - 0.5)/2), Mi, 0.05))
+    t = 0.05; H0 = 0.5; Hc = h - H0
     for i in range(n):
         x = (i - (n - 1)/2)*w
-        if i == ouvert:
-            ang = math.radians(rnd.uniform(60, 100))
-            door = cube('Porte', (w - 0.12, 0.06, h - 0.8), (0, 0, 0), M, 0.03)
-            door.location = (x - w/2 + 0.06 + math.cos(ang)*(w - 0.12)/2, d + math.sin(ang)*(w - 0.12)/2, 0.5 + (h - 0.8)/2 + 0.15); door.rotation_euler = (0, 0, ang)
-            objs.append(door)
-            objs.append(cube('Interieur', (w - 0.2, 0.05, h - 0.9), (x, 0.15, 0.5 + (h - 0.9)/2 + 0.1), mat('metal_peint', (40, 44, 48)), 0.0))
-            sh = cube('Etagere', (w - 0.22, d - 0.3, 0.05), (x, d/2, 5.2), Mi, 0.01); objs.append(sh)
-            bpy.context.view_layer.update()
+        if i == ouvert:                                 # caisson creux : dos, flancs, fond, dessus
+            objs.append(cube('Interieur', (w, t, Hc), (x, t/2, H0 + Hc/2), Mint, 0.0))
+            for sx in (-1, 1): objs.append(cube('Flanc', (t, d, Hc), (x + sx*(w/2 - t/2), d/2, H0 + Hc/2), Mi, 0.01))
+            objs.append(cube('Fond', (w, d, t), (x, d/2, H0 + t/2), Mint, 0.0)); objs.append(cube('Dessus', (w, d, t), (x, d/2, h - t/2), Mi, 0.0))
+            sh = cube('Etagere', (w - 2*t, d - 0.1, 0.05), (x, d/2, 5.2), Mi, 0.01); objs.append(sh)
             tc = mat('tissu', rnd.choice([(200, 70, 60), (60, 100, 160), (220, 220, 210)]))
-            for k in range(2):                                   # serviettes pliées empilées
+            for k in range(2):
                 objs.append(cube('Serviette', (1.15 - k*0.06, 0.95 - k*0.04, 0.2), (x + rnd.uniform(-0.05, 0.05), d/2, 5.35 + k*0.2), tc, 0.08, 3, rot=(0, 0, rnd.uniform(-0.08, 0.08))))
-            objs.append(cube('Sac', (1.1, 0.9, 1.4), (x, d/2, 1.3), mat('tissu', (60, 70, 50)), 0.25, 3))
+            objs.append(tube('Tringle', (x - w/2 + t, d/2, 4.8), (x + w/2 - t, d/2, 4.8), 0.03, mat('metal_brut', (170, 170, 170))))
+            veste = cube('Veste', (1.1, 0.35, 2.4), (x, d/2, 3.5), mat('tissu', rnd.choice([(50, 60, 70), (90, 80, 60)])), 0.15, 3, rot=(0, 0, rnd.uniform(-0.2, 0.2)))
+            veste.modifiers.new('sub', 'SUBSURF').levels = 2; objs.append(veste)
+            sac = cube('Sac', (1.2, 0.9, 1.1), (x, d/2, H0 + 0.6), mat('tissu', (60, 70, 50)), 0.3, 3); sac.modifiers.new('sub', 'SUBSURF').levels = 2; objs.append(sac)
+            ang = math.radians(rnd.uniform(70, 105)); wd = w - 0.08
+            door = cube('Porte', (wd, 0.06, Hc - 0.15), (0, 0, 0), M, 0.03)
+            door.location = (x - w/2 + 0.04 + math.cos(ang)*wd/2, d + 0.04 + math.sin(ang)*wd/2, H0 + Hc/2); door.rotation_euler = (0, 0, ang)
+            objs.append(door)
         else:
-            objs.append(cube('Porte', (w - 0.12, 0.08, h - 0.8), (x, d + 0.03, 0.5 + (h - 0.8)/2 + 0.15), M, 0.03))
-            for k in range(5): objs.append(cube('Aeration', (w - 0.6, 0.06, 0.08), (x, d + 0.06, h - 0.9 - k*0.22), mat('metal_peint', (30, 32, 36)), 0.0))
-            objs.append(tube('Poignee', (x + w/2 - 0.35, d + 0.16, 2.9), (x + w/2 - 0.35, d + 0.16, 3.6), 0.05, mat('metal_brut', (180, 180, 180))))
-            objs.append(cube('Etiquette', (0.6, 0.02, 0.3), (x, d + 0.08, h - 2.2), mat('plastique', (230, 226, 210)), 0.0))
+            objs.append(cube('Corps', (w, d, Hc), (x, d/2, H0 + Hc/2), Mi, 0.02))
+            objs.append(cube('Porte', (w - 0.08, 0.06, Hc - 0.15), (x, d + 0.03, H0 + Hc/2), M, 0.03))
+            for k in range(5): objs.append(cube('Aeration', (w - 0.6, 0.06, 0.08), (x, d + 0.06, h - 0.6 - k*0.22), mat('metal_peint', (24, 26, 30)), 0.0))
+            for k in range(3): objs.append(cube('Aeration', (w - 0.6, 0.06, 0.08), (x, d + 0.06, H0 + 0.5 + k*0.22), mat('metal_peint', (24, 26, 30)), 0.0))
+            objs.append(tube('Poignee', (x + w/2 - 0.3, d + 0.14, 2.9), (x + w/2 - 0.3, d + 0.14, 3.6), 0.05, mat('metal_brut', (180, 180, 180))))
+            objs.append(cube('Etiquette', (0.6, 0.02, 0.3), (x, d + 0.07, h - 1.9), mat('plastique', (230, 226, 210)), 0.0))
+            if rnd.random() < 0.3: objs.append(cube('Cadenas', (0.14, 0.08, 0.2), (x + w/2 - 0.3, d + 0.2, 2.6), mat('metal_brut', (190, 170, 110)), 0.03))
     objs.append(cube('Chapeau', (n*w + 0.1, d + 0.1, 0.12), (0, d/2, h + 0.06), Mi, 0.03))
     parent_all(objs, root); return root
 

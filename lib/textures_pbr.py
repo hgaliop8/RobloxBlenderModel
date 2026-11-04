@@ -183,7 +183,7 @@ def vinyle(d, s=51):
     m = fbm(beta=2.0, seed=s + 2, lo=1); dirt = smooth(fbm(beta=2.4, seed=s + 3, lo=2), 0.55, 0.9)
     c = fill((226, 230, 228))*(0.95 + 0.06*m[..., None]); c = mix(c, fill((120, 124, 126)), np.clip(sp, 0, 1)*0.5)
     c = mix(c, fill((70, 70, 70)), scuff*0.35); c = mix(c, fill((120, 110, 90)), dirt*0.3)
-    save(d, 'vinyle', c, m*0.05 - scuff*0.05, 0.28 + 0.2*scuff + 0.2*dirt, np.zeros((N, N)), 1.5)
+    save(d, 'vinyle', c, m*0.05 - scuff*0.05, 0.5 + 0.08*m + 0.2*scuff + 0.15*dirt, np.zeros((N, N)), 1.5)
 
 @matiere
 def carrelage(d, s=61, rep=6):

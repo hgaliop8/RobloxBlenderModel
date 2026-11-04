@@ -47,16 +47,22 @@ for i in range(9):
 for j in range(3):
     placer(cas[j % 2], (X0 + 0.9, 12 + j*9.5, 0), -math.pi/2)
     placer(cas[(j + 1) % 2], (X1 - 0.9, 12 + j*9.5, 0), math.pi/2)
-# îlot central : lits dos à dos + tables
-for i in range(3):
-    x = 22 + i*16
-    placer(tab, (x, 22, 0), 0)
-    placer(chs[i % 3], (x - 1.2, 22 - 2.0, 0), math.pi + rnd.uniform(-0.35, 0.35)); placer(chs[(i + 1) % 3], (x + 1.4, 22 + 2.0, 0), rnd.uniform(-0.35, 0.35))
-    placer(lits[(i + 2) % 3], (x, 32.5, 0), 0)
-# petits objets
-for i in range(3):
-    t = Q.tasse(); t.location = (22 + i*16 + rnd.uniform(-1.5, 1.5), 22 + rnd.uniform(-0.6, 0.6), 2.6)
-    b = Q.livre(i); b.location = (22 + i*16 + rnd.uniform(-1.5, 1.5), 22 + rnd.uniform(-0.6, 0.6), 2.6); b.rotation_euler = (0, 0, rnd.uniform(0, 3))
+# rangées centrales : lits tête contre une cloison basse, de part et d'autre
+YC = (Y0 + Y1)/2
+K.cube('Cloison', (52.0, 0.6, 3.4), (38.0, YC, 1.7), K.mat('metal_peint', (88, 102, 120)), 0.05)
+K.cube('CloisonChapeau', (52.3, 0.9, 0.15), (38.0, YC, 3.47), K.mat('metal_peint', (52, 56, 60)), 0.04)
+K.cube('CloisonPlinthe', (52.1, 0.7, 0.4), (38.0, YC, 0.2), K.mat('caoutchouc', (40, 40, 42)), 0.03)
+for k in range(7):
+    x = 14 + k*8.0
+    placer(lits[k % 3], (x, YC + 0.3 + 3.5, 0), math.pi/2)                  # rangée nord, tête à la cloison
+    placer(lits[(k + 1) % 3], (x, YC - 0.3 - 3.5, 0), -math.pi/2)           # rangée sud
+# coins repas aux deux bouts
+for xt in (7.5, X1 - 7.5):
+    placer(tab, (xt, YC, 0), math.pi/2)
+    placer(chs[int(xt) % 3], (xt - 2.0, YC - 1.0, 0), math.pi/2 + rnd.uniform(-0.3, 0.3)); placer(chs[(int(xt) + 1) % 3], (xt + 2.0, YC + 1.2, 0), -math.pi/2 + rnd.uniform(-0.3, 0.3))
+    placer(chs[(int(xt) + 2) % 3], (xt - 2.1, YC + 1.4, 0), math.pi/2 + rnd.uniform(-0.5, 0.5))
+    t = Q.tasse(); t.location = (xt + rnd.uniform(-0.6, 0.6), YC + rnd.uniform(-1.5, 1.5), 2.6)
+    b = Q.livre(int(xt)); b.location = (xt + rnd.uniform(-0.6, 0.6), YC + rnd.uniform(-1.5, 1.5), 2.6); b.rotation_euler = (0, 0, rnd.uniform(0, 3))
 p = Q.poubelle(); p.location = (31, 2.2, 0)
 # détails muraux et plafond
 hz = Q.horloge(); hz.location = (X1 - 0.35, 26.4, 11.5); hz.rotation_euler = (0, 0, math.pi/2)
@@ -97,10 +103,10 @@ def cam(name, eye, tgt):
     ob = bpy.data.objects.new(name, cd); sc.collection.objects.link(ob); ob.location = eye
     ob.rotation_euler = (Vector(tgt) - Vector(eye)).to_track_quat('-Z', 'Y').to_euler(); return ob
 VIEWS = {
-    'large': ((38.4, 6.0, 5.2), (40, 40, 3.2)),          # depuis la porte, hauteur des yeux d'un joueur
-    'lit':   ((14.5, 40.5, 5.4), (6.5, 48.0, 3.0)),       # gros plan sur un lit du mur nord
-    'casiers': ((66.0, 18.0, 5.2), (76.0, 22.0, 3.6)),
-    'table': ((30.0, 15.5, 5.2), (38.0, 24.0, 2.4)),
+    'large': ((38.4, 2.5, 5.2), (38.4, 40, 4.0)),         # depuis la porte, hauteur des yeux d'un joueur
+    'lit':   ((35.0, 38.5, 5.4), (30.0, 29.0, 2.6)),      # gros plan sur un lit de la rangée centrale
+    'casiers': ((63.5, 15.0, 5.2), (76.8, 19.5, 3.8)),
+    'table': ((60.0, 16.0, 5.2), (69.3, 26.4, 2.4)),
 }
 for v in VUES:
     eye, tgt = VIEWS[v]; c = cam(v, eye, tgt); sc.camera = c
