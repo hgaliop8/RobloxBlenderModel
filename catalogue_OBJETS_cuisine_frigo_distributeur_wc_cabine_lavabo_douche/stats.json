@@ -1,0 +1,118 @@
+{
+ "cuisine": {
+  "objets": 79,
+  "triangles": 7122,
+  "dim": [
+   10.1,
+   2.89,
+   7.95
+  ],
+  "par_matiere": {
+   "plastique_(236, 236, 232)_None": 700,
+   "metal_brut_(200, 202, 204)_None": 2600,
+   "Bonde": 60,
+   "Cafe": 78,
+   "plastique_(30, 30, 30)_None": 260,
+   "metal_peint_(200, 202, 198)_None": 432,
+   "carrelage_(232, 234, 230)_None": 12,
+   "metal_peint_(160, 170, 176)_None": 1296,
+   "Serigraphie": 256,
+   "Chrome": 844,
+   "plastique_(170, 50, 40)_None": 100,
+   "plastique_(230, 230, 226)_None": 100,
+   "Vitroceram": 108,
+   "metal_peint_(40, 42, 44)_None": 108,
+   "Verre": 168
+  }
+ },
+ "frigo": {
+  "objets": 14,
+  "triangles": 744,
+  "dim": [
+   3.0,
+   2.85,
+   7.2
+  ],
+  "par_matiere": {
+   "LCD": 12,
+   "metal_brut_(200, 202, 204)_None": 324,
+   "plastique_(240, 230, 160)_None": 24,
+   "plastique_(236, 234, 226)_None": 12,
+   "Chrome": 264,
+   "metal_peint_(40, 40, 42)_None": 108
+  }
+ },
+ "distributeur": {
+  "objets": 50,
+  "triangles": 3192,
+  "dim": [
+   3.4,
+   2.88,
+   6.6
+  ],
+  "par_matiere": {
+   "metal_peint_(220, 220, 220)_None": 300,
+   "metal_peint_(200, 30, 30)_None": 600,
+   "metal_peint_(230, 180, 30)_None": 300,
+   "metal_peint_(40, 150, 70)_None": 600,
+   "metal_peint_(150, 30, 30)_None": 108,
+   "FondDistrib": 12,
+   "metal_peint_(40, 40, 44)_None": 108,
+   "Chrome": 72,
+   "plastique_(200, 200, 196)_None": 972,
+   "plastique_(20, 20, 22)_None": 108,
+   "VitreDistrib": 12
+  }
+ },
+ "wc_cabine": {
+  "objets": 11,
+  "triangles": 1592,
+  "dim": [
+   3.72,
+   8.38,
+   7.0
+  ],
+  "par_matiere": {
+   "plastique_(236, 236, 232)_None": 300,
+   "Chrome": 168,
+   "plastique_(170, 186, 196)_None": 324,
+   "Porcelaine": 636,
+   "metal_brut_(200, 202, 204)_None": 88,
+   "tissu_(240, 240, 236)_None": 76
+  }
+ },
+ "lavabo": {
+  "objets": 8,
+  "triangles": 1726,
+  "dim": [
+   2.05,
+   1.76,
+   6.4
+  ],
+  "par_matiere": {
+   "Porcelaine": 510,
+   "plastique_(60, 120, 170)_None": 48,
+   "Miroir": 108,
+   "Chrome": 844,
+   "plastique_(230, 220, 180)_None": 108,
+   "Verre": 108
+  }
+ },
+ "douche": {
+  "objets": 22,
+  "triangles": 8612,
+  "dim": [
+   4.0,
+   3.69,
+   7.6
+  ],
+  "par_matiere": {
+   "Chrome": 3234,
+   "plastique_(200, 90, 40)_None": 94,
+   "carrelage_(214, 222, 226)_None": 36,
+   "Porcelaine": 108,
+   "tissu_(200, 210, 220)_None": 5080,
+   "metal_brut_(200, 202, 204)_None": 60
+  }
+ }
+}
