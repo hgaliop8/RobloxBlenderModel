@@ -235,7 +235,7 @@ def console(f, w=6.0, d=3.0, rng=None, ecrans=2):
     f.box((0, 3.0, d - 0.65), (w, 0.3, 1.4), 'Metal', (54, 58, 62), name='Tablette', R=rot_x(-0.35))
     for i in range(int(w*2)):
         if rng.random() < 0.6:
-            f.box((-w/2 + 0.4 + i*0.5, 3.18, d - 0.7 + rng.uniform(-0.3, 0.3)), (0.22, 0.1, 0.22), 'Neon' if rng.random() < 0.3 else 'Plastic',
+            f.box((-w/2 + 0.4 + i*0.5, 3.17, d - 0.7 + rng.uniform(-0.3, 0.3)), (0.16, 0.06, 0.16), 'Neon' if rng.random() < 0.2 else 'Plastic',
                   rng.choice([(220, 50, 40), (60, 200, 90), (230, 180, 40), (200, 200, 200)]), name='Bouton', cc=False, shadow=False)
     for i in range(ecrans):
         x = (i - (ecrans - 1)/2)*(w/ecrans)
@@ -342,6 +342,38 @@ def marquage_sol(s, X, Z, w, d):
     f = Frame(s.sc, s.folder, (X, s.y, Z))
     for sx, sz, px, pz in ((w + 2, 0.3, 0, -d/2 - 1), (w + 2, 0.3, 0, d/2 + 1), (0.3, d + 2, -w/2 - 1, 0), (0.3, d + 2, w/2 + 1, 0)):
         f.box((px, 0.02, pz), (sx, 0.04, sz), 'SmoothPlastic', JAUNE, name='Marquage', cc=False, shadow=False)
+
+def bassin_brise(f, rng=None, L=22.0, H=9.0):
+    """bassin C : muret de béton, parois vitrées, une paroi éclatée, eau presque vidée qui a débordé"""
+    rng = rng or random.Random(0); h0 = 3.2
+    for sgn in (-1, 1):
+        f.box((0, h0/2, sgn*(L/2 - 0.6)), (L, h0, 1.2), 'Concrete', (150, 156, 152), name='Muret')
+        f.box((sgn*(L/2 - 0.6), h0/2, 0), (1.2, h0, L - 2.4), 'Concrete', (150, 156, 152), name='Muret')
+    f.box((0, 0.2, 0), (L - 2.4, 0.4, L - 2.4), 'Marble', (70, 120, 130), name='FondBassin')
+    for x in (-L/2 + 0.6, L/2 - 0.6):
+        for z in (-L/2 + 0.6, L/2 - 0.6): f.box((x, h0 + (H - h0)/2, z), (0.8, H - h0, 0.8), 'Metal', (70, 74, 78), name='Poteau')
+    for sgn in (-1, 1):
+        f.box((0, H, sgn*(L/2 - 0.6)), (L, 0.5, 0.8), 'Metal', (70, 74, 78), name='Lisse')
+        f.box((sgn*(L/2 - 0.6), H, 0), (0.8, 0.5, L), 'Metal', (70, 74, 78), name='Lisse')
+    for side in range(4):
+        if side == 0:      # paroi éclatée : quelques éclats restés dans le cadre
+            for i in range(9):
+                x = rng.uniform(-L/2 + 1.5, L/2 - 1.5); y = rng.choice([h0 + rng.uniform(0.2, 1.2), H - rng.uniform(0.3, 1.4)])
+                g = f.wedge((x, y, L/2 - 0.6), (rng.uniform(0.6, 2.2), rng.uniform(0.6, 1.8), 0.12), 'Glass', (170, 210, 220), name='Eclat', R=rot_z(rng.uniform(0, 6.3)) if False else None, cc=False); g['t'] = 0.5
+            continue
+        it = None
+        if side == 1: it = f.box((0, h0 + (H - h0)/2, -L/2 + 0.6), (L - 1.6, H - h0, 0.15), 'Glass', (170, 210, 220), name='Vitre', cc=True)
+        if side == 2: it = f.box((-L/2 + 0.6, h0 + (H - h0)/2, 0), (0.15, H - h0, L - 1.6), 'Glass', (170, 210, 220), name='Vitre', cc=True)
+        if side == 3: it = f.box((L/2 - 0.6, h0 + (H - h0)/2, 0), (0.15, H - h0, L - 1.6), 'Glass', (170, 210, 220), name='Vitre', cc=True)
+        it['t'] = 0.7; it['r'] = 0.2
+    w = f.box((0, 0.9, 0), (L - 2.6, 1.0, L - 2.6), 'Glass', (40, 90, 100), name='EauBassin', cc=False); w['t'] = 0.4; w['r'] = 0.3
+    for i in range(40):          # éclats de verre au sol, devant la paroi brisée
+        x = rng.uniform(-L/2, L/2); z = L/2 + rng.uniform(0.3, 7); s_ = rng.uniform(0.3, 1.2)
+        g = f.wedge((x, 0.05, z), (s_, 0.08, s_*rng.uniform(0.6, 1.4)), 'Glass', (180, 215, 225), name='EclatSol', R=rot_y(rng.uniform(0, 6.3)), cc=False); g['t'] = 0.4
+    fl = f.cyl((0, 0.03, L/2 + 5), 0.04, 14, 'y', 'Glass', (40, 70, 76), name='Debordement', cc=False, shadow=False); fl['t'] = 0.3; fl['r'] = 0.5
+    for i in range(6): f.box((rng.uniform(-L/2 + 2, L/2 - 2), 0.75, rng.uniform(-L/2 + 2, L/2 - 2)), (rng.uniform(0.5, 1.4), 0.3, rng.uniform(0.5, 1.4)), 'Rock', (80, 84, 80), name='Pierre', cc=False)
+    f.text((0, h0 - 1.2, -L/2 - 0.02), (5, 1.0, 0.05), 'SPÉCIMEN C-17 — CONFINEMENT', txtcol=(255, 255, 255), bg=(160, 30, 30), face='Front', name='PlaqueBassin', cc=False)
+    f.pipe((L/2 - 2, H + 0.25, 0), (L/2 - 2, H + 6, 0), 1.0, 'Metal', ACIER, name='Alimentation')
 
 def bouteilles(f, n=5, col=(40, 120, 60)):
     for i in range(n):
@@ -598,6 +630,10 @@ def meubler(sc, e):
     def deco_porte():
         for c in L:
             if s.place(c, 1.2, extincteur, pref='fin'): break
+    # ---------------------------------------------------------- pièces uniques
+    if e.id == 'labo_c':
+        X, Z = (e.X0 + e.X1)/2, (e.Z0 + e.Z1)/2 + 4
+        bassin_brise(s.fc(X, Z), rng=r); s.pris.append((X - 18, Z - 15, X + 18, Z + 20))
     # ---------------------------------------------------------- par type
     if k == 'placard':
         murs(2.6, etagere, 2.4, 1.6, 6.5, 4, rng=r, n=2); s.place(L[-1], 1.4, poubelle)
@@ -734,6 +770,13 @@ def meubler(sc, e):
             ff.box((0, 3.5, 0.6), (5.2, 0.25, 1.4), 'Metal', (50, 54, 58), name='Tablette', R=rot_x(-0.3))
             ff.box((0, 5.0, -0.7), (4.8, 2.4, 0.25), 'Plastic', NOIR, name='Ecran'); ff.box((0, 5.0, -0.55), (4.5, 2.1, 0.03), 'SmoothPlastic', ECRAN_OFF, name='Dalle', cc=False, tags=['Ecran'])
         f.cyl((0, 1.6, 0), 3.2, 8.0, 'y', 'Metal', (54, 58, 62), name='TablePlan')
+        for a, txt, col in ((0, 'ARRIVÉE ↑', (170, 170, 176)), (math.pi/2, 'VIE →', (60, 120, 200)), (math.pi, 'MACHINES ↓', (220, 130, 30)), (-math.pi/2, '← RECHERCHE', (70, 160, 90))):
+            ff = f.sub((math.sin(a)*22, 0, -math.cos(a)*22), -a)
+            ff.cyl((0, 4.5, 0), 9, 0.5, 'y', 'Metal', (70, 74, 78), name='Mat')
+            ff.text((0, 8.0, 0.3), (5.0, 1.4, 0.2), txt, txtcol=(255, 255, 255), bg=col, face='Back', name='Direction', cc=False)
+        for a in range(4):
+            ff = f.sub((math.sin(a*math.pi/2 + math.pi/4)*20, 0, math.cos(a*math.pi/2 + math.pi/4)*20), a*math.pi/2 + math.pi/4)
+            ff.box((0, 1.2, 0), (7, 0.4, 2), 'Metal', (80, 84, 88), name='Banc'); ff.box((0, 0.5, 0), (6, 1.0, 0.4), 'Metal', (60, 64, 68), name='PiedBanc')
         f.cyl((0, 3.25, 0), 0.1, 7.6, 'y', 'Neon', (20, 60, 80), name='PlanHolo', cc=False, tags=['Ecran'])
         f.cyl((0, e.h - 1.5, 0), 3.0, 14, 'y', 'Metal', (70, 74, 78), name='CouronnePlafond')
         f.light((0, e.h - 3.2, 0), 'PointLight', (255, 70, 40), 1.4, 30, tags=['LumiereSecours'])
