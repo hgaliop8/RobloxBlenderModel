@@ -1,6 +1,3 @@
-salle_temoin COURANT=1 VUES=large ECH=160 RES=1600x900
-salle_temoin COURANT=1 VUES=lit ECH=160 RES=1600x900
-salle_temoin COURANT=1 VUES=casiers ECH=160 RES=1600x900
-salle_temoin COURANT=1 VUES=table ECH=160 RES=1600x900
-salle_temoin COURANT=0 VUES=large ECH=160 RES=1600x900 EXPO=0.5
-salle_temoin COURANT=0 VUES=lit ECH=160 RES=1600x900 EXPO=0.5
+catalogue OBJETS=paillasse,paillasse_courte,hotte,etagere_specimens
+catalogue OBJETS=aquarium,armoire_vitree,tabouret,tableau_blanc,chariot
+catalogue OBJETS=lit_superpose,casiers
