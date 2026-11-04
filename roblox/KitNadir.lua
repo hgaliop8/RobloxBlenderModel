@@ -1,7 +1,8 @@
---[[ NADIR-4 : préparation et placement du kit 3D.
+--[[ NADIR-4 : préparation et placement du kit 3D et de l'architecture maillée.
 À coller dans la barre de commande de Roblox Studio (Affichage > Barre de commande), APRÈS avoir importé :
   1. matieres.glb   -> renommer le modèle importé « Matieres » et le ranger dans ServerStorage
-  2. chaque objet .glb du kit -> les ranger dans ServerStorage > KitNadir (un modèle par fichier, nom = nom du fichier)
+  2. kit_1.glb et kit_2.glb -> les ranger dans ServerStorage > KitNadir
+  3. archi_*.glb (un par secteur) -> les laisser dans Workspace, où l'import les a mis (le script les recale tout seul)
 Le script :
   a) habille chaque MeshPart du kit d'après son nom (texture PBR teintée, verre, liquide, matière unie / néon) ;
   b) remplace chaque emplacement « Kit:<objet> » de la map (petites boîtes invisibles) par une copie du modèle correspondant.
@@ -113,3 +114,22 @@ for _, e in ipairs(workspace:GetDescendants()) do
 end
 print(("NADIR-4 : %d objets placés"):format(places))
 for nom, k in pairs(manquants) do warn(("  modèle manquant : %s (%d emplacements)"):format(nom, k)) end
+
+-- c) architecture maillée : recalage en coordonnées réelles (repère « Origine » = point 0,0,0 de la map) et habillage
+local dossierArchi = workspace:FindFirstChild("Nadir4_Architecture") or Instance.new("Folder")
+dossierArchi.Name = "Nadir4_Architecture"; dossierArchi.Parent = workspace
+local nba = 0
+for _, m in ipairs(workspace:GetChildren()) do
+	if m:IsA("Model") and m.Name:sub(1, 6) == "archi_" then
+		local o = m:FindFirstChild("Origine", true)
+		if o then m.WorldPivot = CFrame.new(o.Position); o:Destroy(); m:PivotTo(CFrame.new()) end
+		for _, p in ipairs(m:GetDescendants()) do
+			if p:IsA("MeshPart") then
+				habiller(p)
+				p.CanCollide = false; p.CanTouch = false; p.CanQuery = false     -- les collisions sont assurées par les volumes invisibles du .rbxlx
+			end
+		end
+		m.Parent = dossierArchi; nba += 1
+	end
+end
+print(("NADIR-4 : %d secteurs d'architecture recalés et habillés"):format(nba))
