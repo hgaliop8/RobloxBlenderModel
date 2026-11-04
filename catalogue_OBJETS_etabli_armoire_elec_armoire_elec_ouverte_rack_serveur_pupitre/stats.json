@@ -1,0 +1,115 @@
+{
+ "etabli": {
+  "objets": 61,
+  "triangles": 5792,
+  "dim": [
+   7.0,
+   3.3,
+   6.81
+  ],
+  "par_matiere": {
+   "Chrome": 824,
+   "metal_peint_(170, 34, 28)_None": 108,
+   "metal_peint_(60, 86, 120)_None": 972,
+   "metal_brut_(170, 170, 168)_None": 1188,
+   "metal_peint_(40, 70, 60)_None": 324,
+   "metal_peint_(200, 200, 196)_None": 108,
+   "plastique_(40, 80, 160)_None": 88,
+   "plastique_(200, 160, 40)_None": 44,
+   "bois_(170, 130, 80)_None": 216,
+   "grille_vent_(200, 200, 196)_None": 12,
+   "metal_brut_(130, 130, 128)_None": 432,
+   "plastique_(180, 40, 30)_None": 432,
+   "bois_(190, 150, 100)_None": 108,
+   "metal_brut_(200, 202, 204)_None": 396,
+   "metal_peint_(40, 42, 44)_None": 108,
+   "metal_peint_(110, 114, 118)_None": 108,
+   "metal_peint_(70, 96, 130)_None": 324
+  }
+ },
+ "armoire_elec": {
+  "objets": 7,
+  "triangles": 564,
+  "dim": [
+   3.0,
+   1.71,
+   12.0
+  ],
+  "par_matiere": {
+   "grille_vent_(150, 150, 150)_None": 12,
+   "metal_peint_(190, 192, 186)_None": 108,
+   "plastique_(210, 170, 40)_None": 12,
+   "metal_peint_(130, 134, 136)_None": 108,
+   "metal_peint_(160, 164, 160)_None": 108,
+   "plastique_(30, 30, 30)_None": 108,
+   "metal_peint_(40, 40, 42)_None": 108
+  }
+ },
+ "armoire_elec_ouverte": {
+  "objets": 120,
+  "triangles": 13452,
+  "dim": [
+   3.02,
+   4.43,
+   12.0
+  ],
+  "par_matiere": {
+   "caoutchouc_(30, 30, 30)_None": 1488,
+   "plastique_(226, 226, 220)_None": 5400,
+   "metal_peint_(190, 192, 186)_None": 348,
+   "metal_peint_(130, 134, 136)_None": 108,
+   "plastique_(110, 114, 118)_None": 540,
+   "plastique_(170, 34, 28)_None": 1404,
+   "plastique_(40, 40, 40)_None": 3996,
+   "metal_brut_(200, 202, 204)_None": 60,
+   "metal_peint_(40, 40, 42)_None": 108
+  }
+ },
+ "rack_serveur": {
+  "objets": 77,
+  "triangles": 4876,
+  "dim": [
+   2.2,
+   3.67,
+   8.14
+  ],
+  "par_matiere": {
+   "caoutchouc_(200, 160, 40)_None": 992,
+   "caoutchouc_(30, 30, 30)_None": 496,
+   "caoutchouc_(40, 70, 160)_None": 496,
+   "metal_peint_(30, 31, 34)_None": 648,
+   "grille_vent_(120, 120, 124)_None": 180,
+   "LedVerte": 96,
+   "LedAmbre": 156,
+   "LedBleue": 180,
+   "VerreFume": 12,
+   "metal_peint_(40, 42, 46)_None": 648,
+   "metal_peint_(180, 184, 186)_None": 864,
+   "metal_peint_(60, 62, 66)_None": 108
+  }
+ },
+ "pupitre": {
+  "objets": 29,
+  "triangles": 1980,
+  "dim": [
+   6.0,
+   3.23,
+   4.71
+  ],
+  "par_matiere": {
+   "plastique_(30, 30, 30)_None": 176,
+   "plastique_(200, 200, 196)_None": 44,
+   "plastique_(170, 30, 24)_None": 88,
+   "plastique_(40, 90, 160)_None": 88,
+   "metal_peint_(96, 104, 110)_None": 324,
+   "plastique_(34, 34, 36)_None": 324,
+   "DalleOn": 24,
+   "Chrome": 432,
+   "caoutchouc_(40, 40, 40)_None": 108,
+   "metal_peint_(40, 40, 42)_None": 108,
+   "VoyantVert": 132,
+   "VoyantRouge": 44,
+   "VoyantJaune": 88
+  }
+ }
+}
