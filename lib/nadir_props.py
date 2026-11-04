@@ -1,7 +1,7 @@
 """NADIR-4 — mobilier et équipements, posés automatiquement dans chaque salle selon sa fonction.
 Chaque objet est construit dans un repère local : origine au pied du mur (ou au centre de l'objet au sol),
 +Z vers l'intérieur de la salle, +X le long du mur, Y vers le haut."""
-import math, random
+import math, random, zlib
 from nadir_kit import Frame, rot_y, rot_x, rot_z, mm, I3
 
 WT_IN = 0.95          # épaisseur mur + habillage
@@ -551,7 +551,7 @@ def tache(f, rng=None, s=None, col=(40, 30, 26)):
 # ================================================================ placement dans une salle
 class Salle:
     def __init__(s, sc, e):
-        s.sc, s.e = sc, e; s.rng = random.Random(hash(e.id) & 0xffff)
+        s.sc, s.e = sc, e; s.rng = random.Random(zlib.crc32(e.id.encode()))
         s.y = e.elev; s.folder = e.folder + '/Mobilier'
         X0, Z0, X1, Z1 = e.X0, e.Z0, e.X1, e.Z1
         s.sides = {
