@@ -65,7 +65,11 @@ aile(c, 'arrivee',
      cote_plus=[4, ('toilettes_n', 'Toilettes', 16, 18), 4, ('consigne', 'Consigne du matériel', 30, 26), 4,
                 ('briefing', 'Salle de briefing', 40, 32), 6, ('decontamination', 'Décontamination', 30, 26), 4, ('vestiaire_arr', "Vestiaires d'arrivée", 32, 26)],
      cote_moins=[8, ('local_tech_n', 'Local technique', 18, 16), 8, ('reserve_n', 'Réserve', 28, 24), 8,
-                 ('attente', "Salle d'attente", 36, 30), 8, ('poste_garde', 'Poste de garde', 26, 22), 8, ('placard_a1', 'Placard', 12, 10)])
+                 ('attente', "Salle d'attente", 36, 30), 8, ('poste_garde', 'Poste de garde', 26, 22)])
+# liaison nord-ouest : de l'arrivée vers la Recherche (embranchement en T sur le couloir nord de la Recherche)
+c = couloir('liaison_no', -144, 184, -6, 196)
+aile(c, 'arrivee', cote_plus=[34, ('salle_plans', 'Salle des plans', 36, 28), 14, ('placard_a1', 'Placard', 12, 10)],
+     cote_moins=[44, ('local_comms', 'Local des communications', 30, 24)])
 
 # ================================================================ HUB
 salle('rotonde', 'Rotonde de commande', 'hub', -40, -40, 40, 40, h=22, forme='octo', sure=True, sans_grille=True, note='console du courant, plan, interphone')
@@ -83,26 +87,34 @@ aile(c, 'recherche',
 salle('quarantaine', 'Labo de quarantaine', 'recherche', -444, -24, -400, 24, h=14, note='porte à badge 3, double vitrage'); porte(-400, 0, 'x', 8, 'badge3')
 c = couloir('c_rech_n1', -156, 6, -144, 200)
 aile(c, 'recherche',
-     cote_plus=[64, ('hangar', 'Hangar du drone', 60, 56, dict(h=18)), 6, ('atelier_drone', 'Atelier du drone', 30, 26)],
-     cote_moins=[62, ('biblio_sci', 'Bibliothèque scientifique', 40, 34), 8, ('labo_e', 'Labo E — microscopie', 36, 30), 8, ('placard_r3', 'Placard', 12, 10)])
+     cote_plus=[84, ('hangar', 'Hangar du drone', 60, 56, dict(h=18)), 6, ('atelier_drone', 'Atelier du drone', 26, 30)],
+     cote_moins=[84, ('biblio_sci', 'Bibliothèque scientifique', 40, 34), 8, ('labo_e', 'Labo E — microscopie', 36, 30), 8, ('placard_r3', 'Placard', 12, 10)])
 salle('observatoire', "Salle d'observation", 'recherche', -180, 200, -120, 240, h=16, note="grande baie vitrée sur l'abîme"); porte(-150, 200, 'z', 10, 'porte')
 c = couloir('c_rech_n2', -296, 6, -284, 170)
 aile(c, 'recherche',
-     cote_plus=[64, ('labo_f', 'Labo F — haute pression', 40, 34), 8, ('reserve_r2', 'Réserve', 26, 20)],
-     cote_moins=[64, ('stock_echant', "Stock d'échantillons", 36, 30), 6, ('placard_r4', 'Placard', 12, 10), 6, ('salle_cuves', 'Salle des cuves', 40, 36)])
+     cote_plus=[84, ('labo_f', 'Labo F — haute pression', 40, 34), 8, ('reserve_r2', 'Réserve', 26, 20)],
+     cote_moins=[84, ('stock_echant', "Stock d'échantillons", 36, 30), 6, ('placard_r4', 'Placard', 12, 10)])
+# couloir arrière nord : boucle entre les deux couloirs nord de la Recherche
+c = couloir('c_rech_bn', -284, 72, -156, 84)
+aile(c, 'recherche', cote_plus=[42, ('salle_cuves', 'Salle des cuves', 44, 36)])
 couloir('tunnel_verre', -294, 170, -286, 260, h=10, verre=True)
 salle('module_prel', 'Module de prélèvement', 'recherche', -320, 260, -260, 316, h=14, note='isolé au bout du tunnel de verre'); porte(-290, 260, 'z', 8, 'etanche')
 salle('cloche', 'Cloche de plongée', 'recherche', -260, 276, -234, 302, h=12, sans_grille=True); porte(-260, 289, 'x', 6, 'etanche')
 couloir('desc_rech', -156, -124, -144, -6, escalier=(-112, -76, -16, 0))
-couloir('desc_pression', -296, -124, -284, -6, escalier=(-114, -86, -16, 0))
-porte(-290, -62, 'z', 12, 'pression'); porte(-290, -78, 'z', 12, 'pression')
+couloir('desc_pression', -296, -124, -284, -6, escalier=(-124, -102, -16, 0))
+porte(-290, -84, 'z', 12, 'pression'); porte(-290, -96, 'z', 12, 'pression')
+# couloir arrière sud : traverse les deux descentes, finit en cul-de-sac des deux côtés
+c = couloir('c_rech_bs', -360, -64, -96, -52)
+aile(c, 'recherche',
+     cote_moins=[8, ('sonar', 'Salle du sonar', 40, 30), 28, ('depot_labo', 'Dépôt des labos', 36, 26), 8, ('vestiaire_r', 'Vestiaire des chercheurs', 30, 26), 6,
+                 ('laverie_labo', 'Laverie des labos', 26, 22), 34, ('local_tech_r', 'Local technique', 20, 18)])
 
 # ================================================================ VIE (est)
 c = couloir('c_vie', 40, -6, 400, 6)
 aile(c, 'vie',
      cote_plus=[4, ('cantine', 'Cantine', 60, 50, dict(h=16)), 4, ('cuisine', 'Cuisine', 34, 30), 2,
                 12, 4, ('quartiers_a', 'Quartiers A (cabines 1 à 8)', 64, 44), 6, ('douches', 'Douches et sanitaires', 32, 30), 6, ('buanderie', 'Buanderie', 16, 20),
-                12, 6, ('sport', 'Salle de sport', 44, 36), 6, ('detente', 'Salle de détente', 40, 34)],
+                12, 6, ('sport', 'Salle de sport', 44, 36), 6, ('detente', 'Salle de détente', 36, 34)],
      cote_moins=[4, ('infirmerie', 'Infirmerie', 44, 36, dict(sure=True, sans_grille=True, porte='volet')), 4, ('pharmacie', 'Pharmacie', 24, 20, dict(porte='badge1')), 4, ('bureau_medecin', 'Bureau du médecin', 24, 22),
                  12, 4, ('securite', 'Poste de sécurité', 40, 32, dict(porte='badge1')), 6, ('scelles', 'Salle des scellés', 24, 20, dict(porte='badge2')), 6, ('vestiaire_v', "Vestiaires de l'équipage", 30, 26), 6, ('toilettes_v', 'Toilettes', 12, 16),
                  12, 6, ('reunion', 'Salle de réunion', 40, 32), 6, ('bureau', 'Bureau du commandant', 34, 30, dict(porte='badge2')), 6, ('archives_adm', 'Archives administratives', 18, 18)])
@@ -110,18 +122,26 @@ couloir('tunnel_serre', 400, -4, 470, 4, h=10, verre=True)
 salle('serre', 'Serre hydroponique', 'vie', 470, -40, 540, 40, h=18, note='bacs de culture, lampes violettes'); porte(470, 0, 'x', 8, 'etanche')
 c = couloir('c_vie_n1', 144, 6, 156, 210)
 aile(c, 'vie',
-     cote_plus=[60, ('quartiers_b', 'Quartiers B (cabines 9 à 14)', 56, 40), 8, ('recueillement', 'Salle de recueillement', 26, 22), 8, ('placard_v1', 'Placard', 12, 10)],
-     cote_moins=[60, ('reserve_alim', 'Réserve alimentaire', 36, 30), 6, ('chambre_froide_v', 'Chambre froide alimentaire', 26, 22), 6, ('placard_v2', 'Placard', 12, 10)])
+     cote_plus=[84, ('quartiers_b', 'Quartiers B (cabines 9 à 14)', 56, 40), 8, ('recueillement', 'Salle de recueillement', 26, 22), 8, ('placard_v1', 'Placard', 12, 10)],
+     cote_moins=[84, ('reserve_alim', 'Réserve alimentaire', 36, 30), 6, ('chambre_froide_v', 'Chambre froide alimentaire', 26, 22), 6, ('placard_v2', 'Placard', 12, 10)])
 salle('radio', 'Salle radio', 'vie', 134, 210, 166, 240, h=12, note='cul-de-sac'); porte(150, 210, 'z', 6, 'porte')
-c = couloir('c_vie_n2', 284, 6, 296, 150)
+c = couloir('c_vie_n2', 284, 6, 296, 176)
 aile(c, 'vie',
-     cote_plus=[46, ('cabine_cdt', 'Cabine du commandant', 30, 26, dict(porte='badge2')), 8, ('bibliotheque', 'Bibliothèque', 36, 30)],
-     cote_moins=[52, ('linge', 'Réserve de linge', 24, 20), 6, ('placard_v3', 'Placard', 12, 10), 6, ('salle_jeux', 'Salle de jeux', 34, 28)])
+     cote_plus=[84, ('cabine_cdt', 'Cabine du commandant', 30, 26, dict(porte='badge2')), 8, ('bibliotheque', 'Bibliothèque', 36, 30)],
+     cote_moins=[84, ('linge', 'Réserve de linge', 24, 20), 6, ('placard_v3', 'Placard', 12, 10), 6, ('salle_jeux', 'Salle de jeux', 34, 28)])
+# couloir arrière nord de la Vie (en L) : relie les deux couloirs nord et revient sur le couloir principal à l'est
+c = couloir('c_vie_bn', 156, 72, 388, 84)
+aile(c, 'vie', cote_plus=[50, ('projection', 'Salle de projection', 40, 32), 94, ('musique', 'Salle de musique', 34, 28)])
+couloir('c_vie_coude', 388, 6, 400, 84)
 couloir('desc_vie', 144, -124, 156, -6, escalier=(-112, -76, -16, 0))
-c = couloir('c_vie_s2', 284, -92, 296, -6)
+# couloir arrière sud de la Vie : croise la descente et rejoint le couloir sud-est
+c = couloir('c_vie_bs', 56, -62, 296, -50)
+aile(c, 'vie', cote_moins=[4, ('soins', 'Salle de soins intensifs', 40, 28), 6, ('morgue', 'Morgue', 30, 24, dict(porte='badge1')), 24,
+                           ('crise', 'Cellule de crise', 40, 28), 6, ('vestiaire_plongee', 'Vestiaire de plongée', 36, 26), 6, ('placard_v4', 'Placard', 12, 10)])
+c = couloir('c_vie_s2', 284, -110, 296, -6)
 aile(c, 'vie',
      cote_plus=[0, ('magasin', 'Magasin général', 40, 34)],
-     cote_moins=[0, ('cellule', "Cellule d'isolement", 16, 16, dict(porte='badge2', sans_grille=True)), 4, ('salle_info', 'Salle informatique', 30, 30)])
+     cote_moins=[0, ('salle_info', 'Salle informatique', 30, 30), 2, ('cellule', "Cellule d'isolement", 16, 16, dict(porte='badge2', sans_grille=True))])
 
 # ================================================================ HUB → MACHINES
 couloir('desc_sud', -6, -124, 6, -40, escalier=(-112, -70, -16, 0))
@@ -134,19 +154,26 @@ aile(c, 'machines',
                 6, ('controle_m', 'Salle de contrôle des machines', 44, 30), 6, ('local_elec', 'Local électrique', 26, 22), 6, ('placard_m1', 'Placard', 12, 10), 56,
                 ('chaufferie', 'Chaufferie', 46, 30), 6, ('vestiaire_m', 'Vestiaire des techniciens', 28, 24), 70,
                 ('pieces', 'Magasin de pièces détachées', 50, 30), 6, ('reserve_m', 'Réserve', 24, 20)],
-     cote_moins=[('reservoirs_eau', "Réservoirs d'eau douce", 56, 46), 6, ('pompes', 'Salle des pompes', 56, 44), 6, ('placard_m2', 'Placard', 12, 10), 6,
+     cote_moins=[('reservoirs_eau', "Réservoirs d'eau douce", 56, 46), 6, ('pompes', 'Salle des pompes', 56, 44), 24,
                  ('soudure', 'Atelier de soudure', 40, 32), 44,
                  ('centrale', 'Centrale électrique', 80, 70, dict(h=26)), 20,
                  ('ateliers', 'Ateliers', 56, 44), 6, ('outillage', "Salle d'outillage", 22, 20), 16,
-                 ('entrepot', 'Entrepôt principal', 70, 56, dict(h=18)), 8, ('filtration', 'Filtration', 40, 32), 8, ('placard_m3', 'Placard', 12, 10)])
+                 ('entrepot', 'Entrepôt principal', 70, 56, dict(h=18)), 20, ('filtration', 'Filtration', 40, 32), 8, ('placard_m3', 'Placard', 12, 10)])
+# deux liaisons et un couloir transversal : un second circuit sous les machines
+couloir('c_mach_lo', -194, -210, -182, -136, elev=E)
+couloir('c_mach_le', 182, -210, 194, -136, elev=E)
+c = couloir('c_mach_x', -240, -222, 194, -210, elev=E)
+aile(c, 'machines', cote_plus=[360, ('controle_ballasts', 'Contrôle des ballasts', 40, 16)],
+     cote_moins=[50, ('eaux_usees', 'Cuves des eaux usées', 44, 34), 296, ('groupe_froid', 'Groupe froid', 40, 30)])
+salle('reserve_m2', 'Réserve de pièces lourdes', 'machines', -272, -232, -240, -200, elev=E, h=12, couloir='c_mach_x'); porte(-240, -216, 'x', 6, 'porte')
 c = couloir('c_mach_o', -106, -300, -94, -136, elev=E, escalier=(-300, -278, -28, -16))
 aile(c, 'machines', cote_plus=[26, ('sous_station', 'Sous-station électrique', 36, 30)],
-     cote_moins=[26, ('vannes', 'Salle des vannes', 36, 30), 6, ('carburant', 'Stock de carburant', 30, 26, dict(porte='badge1'))])
+     cote_moins=[26, ('vannes', 'Salle des vannes', 36, 30), 28, ('carburant', 'Stock de carburant', 28, 30, dict(porte='badge1'))])
 c = couloir('c_mach_c', -6, -278, 6, -136, elev=E)
-aile(c, 'machines', cote_plus=[4, ('compresseurs', 'Compresseurs', 40, 34), 6, ('placard_m4', 'Placard', 12, 10)],
+aile(c, 'machines', cote_plus=[4, ('compresseurs', 'Compresseurs', 40, 34), 26, ('placard_m4', 'Placard', 12, 10)],
      cote_moins=[4, ('turbines', 'Salle des turbines', 44, 40, dict(h=18))])
 c = couloir('c_mach_e', 94, -300, 106, -136, elev=E, escalier=(-300, -278, -28, -16))
-aile(c, 'machines', cote_plus=[26, ('batteries', 'Local des batteries', 40, 32), 6, ('controle_ballasts', 'Contrôle des ballasts', 34, 28)],
+aile(c, 'machines', cote_plus=[26, ('batteries', 'Local des batteries', 40, 32)],
      cote_moins=[26, ('huiles', 'Huiles et lubrifiants', 26, 22), 6, ('placard_m5', 'Placard', 12, 10)])
 
 # ================================================================ FONDS (niveau -28)
@@ -169,7 +196,9 @@ for s in SALLES:
     if s.get('sans_grille') or 'couloir' not in s: continue
     c = next(c for c in COULOIRS if c['id'] == s['couloir'])
     x0, z0, x1, z1 = s['rect']; cx0, cz0, cx1, cz1 = c['rect']; mx, mz = (x0 + x1)/2, (z0 + z1)/2
-    if (cx1 - cx0) >= (cz1 - cz0): a = (mx, (cz0 + cz1)/2); b = (mx, mz)
+    horiz = (cx1 - cx0) >= (cz1 - cz0)
+    if horiz and not (cx0 <= mx <= cx1): horiz = False; a = (cx0 if mx < cx0 else cx1, (cz0 + cz1)/2); b = (mx, (cz0 + cz1)/2)   # salle au bout du couloir
+    elif horiz: a = (mx, (cz0 + cz1)/2); b = (mx, mz)
     else: a = ((cx0 + cx1)/2, mz); b = (mx, mz)
     GAINES.append(dict(id='b_' + s['id'], pts=[a, b], elev=s['elev'], branche=True, inonde=bool(s.get('eau'))))
     GRILLES.append((b[0], b[1], s['id'], s['id'] in SOUDEES))
@@ -195,7 +224,7 @@ def _centre(id):
     return None
 POINTS = []
 for sid, dx, dz, k, nom in _P:
-    c = _centre(sid) if sid != 'c_rech' else (-290, -70)
+    c = _centre(sid) if sid != 'c_rech' else (-290, -90)
     POINTS.append((c[0] + dx, c[1] + dz, k, nom))
 
 def studs(v): return v*S

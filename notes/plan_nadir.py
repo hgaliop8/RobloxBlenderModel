@@ -74,7 +74,7 @@ for x, z, mur, w, t in N.PORTES:
         else: d.rectangle([(a[0], a[1] - 2), (b[0], b[1] + 2)], fill=PCOL[t])
 # gaines
 def dashed(p, q, col, w=2, dash=7, gap=5):
-    (x0, y0), (x1, y1) = p, q; L = math.hypot(x1 - x0, y1 - y0); n = int(L/(dash + gap)) + 1
+    (x0, y0), (x1, y1) = p, q; L = max(math.hypot(x1 - x0, y1 - y0), 1e-6); n = int(L/(dash + gap)) + 1
     for k in range(n):
         t0 = k*(dash + gap)/L; t1 = min(1, (k*(dash + gap) + dash)/L)
         if t0 >= 1: break
