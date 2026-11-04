@@ -1,4 +1,2 @@
-nadir_apercu VUES=labo_c,quartiers_a,archives COURANT=1
-nadir_apercu VUES=entrepot,centrale,securite COURANT=1
-nadir_apercu VUES=rotonde,infirmerie,bureau_cherch COURANT=1
-nadir_apercu VUES=c_rech,labo_a,c_mach COURANT=0
+nadir_apercu VUES=c_rech,c_vie,c_mach_x COURANT=1
+nadir_apercu VUES=c_rech_n1,c_vie_bs COURANT=0

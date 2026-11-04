@@ -3,7 +3,7 @@ Usage : python nadir_build.py SORTIE_DIR  -> nadir4.rbxlx + nadir4.json (aperçu
 import sys, os, math
 sys.path.insert(0, os.path.dirname(__file__))
 import nadir_layout as N
-from nadir_kit import Scene, Frame, rot_y, I3, write_rbxlx, write_json
+from nadir_kit import Scene, Frame, rot_y, rot_x, rot_z, I3, write_rbxlx, write_json
 S = N.S
 WT = 0.8            # épaisseur d'un mur (chaque espace a le sien : cloisons de 1,6 stud)
 DOOR_H = 8.5
@@ -36,13 +36,22 @@ BYID = {e.id: e for e in ESP}
 def vert_overlap(a, b): return min(a.ymax, b.ymax) - max(a.ymin, b.ymin) > 1
 
 # ================================================================ styles
+SECT_COL = dict(recherche=(70, 160, 90), vie=(60, 120, 200), machines=(220, 130, 30), fonds=(200, 80, 40), arrivee=(170, 170, 176), hub=(200, 200, 200))
+def secteur_couloir(i):
+    if 'rech' in i or 'tunnel_verre' in i or i == 'liaison_no': return 'recherche'
+    if 'vie' in i or 'serre' in i: return 'vie'
+    if 'fonds' in i: return 'fonds'
+    if 'mach' in i: return 'machines'
+    if 'arrivee' in i: return 'arrivee'
+    return 'hub'
 def style(e):
     i = e.id
     def has(*k): return any(i.startswith(x) or x in i for x in k)
     if e.couloir:
         if e.d.get('verre'): return dict(kind='verre', wall=('Glass', (150, 190, 205)), wains=('Metal', (70, 76, 80)), floor=('DiamondPlate', (80, 84, 88)), ceil=('Glass', (150, 190, 205)), rib=('Metal', (62, 66, 70)))
-        if e.elev < 0: return dict(kind='couloir_m', wall=('Metal', (104, 112, 106)), wains=('Metal', (66, 72, 68)), floor=('DiamondPlate', (78, 80, 78)), ceil=('Metal', (88, 92, 90)), rib=('Metal', (58, 62, 60)))
-        return dict(kind='couloir', wall=('Metal', (132, 136, 138)), wains=('SmoothPlastic', (74, 78, 82)), floor=('DiamondPlate', (86, 90, 94)), ceil=('Metal', (108, 112, 116)), rib=('Metal', (64, 68, 72)))
+        if e.elev < 0: return dict(kind='couloir_m', wall=('Metal', (104, 112, 106)), wains=('Metal', (66, 72, 68)), floor=('DiamondPlate', (78, 80, 78)), ceil=('Metal', (88, 92, 90)), rib=('Metal', (58, 62, 60)), band=SECT_COL[secteur_couloir(i)])
+        return dict(kind='couloir', wall=('Metal', (132, 136, 138)), wains=('SmoothPlastic', (74, 78, 82)), floor=('DiamondPlate', (86, 90, 94)), ceil=('Metal', (108, 112, 116)), rib=('Metal', (64, 68, 72)),
+                    band=SECT_COL[secteur_couloir(i)])
     if i == 'serre': return dict(kind='serre', wall=('SmoothPlastic', (210, 214, 210)), wains=('SmoothPlastic', (90, 110, 90)), floor=('Concrete', (120, 120, 116)), ceil=('Glass', (140, 170, 190)), rib=('Metal', (80, 84, 86)))
     if has('toilettes', 'douches', 'infirmerie', 'pharmacie', 'soins', 'morgue', 'decontamination', 'quarantaine'):
         return dict(kind='sanitaire', wall=('Marble', (224, 226, 224)), wains=('Marble', (150, 186, 190)), floor=('Slate', (112, 118, 120)), ceil=('SmoothPlastic', (214, 216, 214)), rib=('SmoothPlastic', (170, 174, 174)))
@@ -132,6 +141,7 @@ def build_walls(e):
             wall_boxes(fr, axis, fixed, nrm, a, b, e.ymin, e.ymin + wy, [], *st['wains'], th=0.12, inset=WT, name='Soubassement')
             wall_boxes(fr, axis, fixed, nrm, a, b, e.ymin, e.ymin + 0.5, [], 'Metal', (40, 42, 44), th=0.2, inset=WT, name='Plinthe')
             wall_boxes(fr, axis, fixed, nrm, a, b, e.ymin + wy, e.ymin + wy + 0.18, [], *st['rib'], th=0.2, inset=WT, name='Cimaise')
+            if st.get('band'): wall_boxes(fr, axis, fixed, nrm, a, b, e.ymin + wy + 0.5, e.ymin + wy + 0.9, [], 'SmoothPlastic', st['band'], th=0.14, inset=WT, name='BandeSecteur')
         # joints de panneaux (salles) : fines baguettes verticales au-dessus du soubassement ; raidisseurs boulonnés en zone technique
         if not e.couloir and not e.esc:
             tech = st['kind'] in ('machines', 'stock', 'hub')
@@ -306,7 +316,7 @@ def build_corridor_dressing(e):
             if not in_hole(u + step/2, H0 if v < wid/2 else H1):
                 fr.box(P(u + step/2, v, y0 + h - 2.2), S3(0.8, 0.5, 0.5), 'Metal', (40, 40, 40), name='BoitierSecours')
                 fr.box(P(u + step/2, v + (0.3 if v < wid/2 else -0.3), y0 + h - 2.2), S3(0.6, 0.15, 0.35), 'Neon', (255, 40, 25), name='FeuSecours',
-                       cc=False, shadow=False, tags=['LumiereSecours'],
+                       cc=False, shadow=False, tags=['LumiereSecours'] + (['Clignote'] if R.random() < 0.15 else []),
                        children=[dict(cls='PointLight', Brightness=2.2, Color=(255, 50, 30), Range=20, Shadows=True, Enabled=True)])
     # tuyaux le long d'un côté, chemin de câbles de l'autre (interrompus aux jonctions)
     def runs(H):
@@ -324,6 +334,66 @@ def build_corridor_dressing(e):
     fr.box(P(u0 + L/2, wid/2, y0 + 0.03), S3(L - 0.4, 3.0, 0.06), 'Metal', (64, 68, 70), name='Caillebotis', cc=False)
     for v in (2.4, wid - 2.4):
         fr.box(P(u0 + L/2, v, y0 + 0.02), S3(L - 0.4, 0.25, 0.04), 'SmoothPlastic', (186, 150, 30), name='BandeSol', cc=False, shadow=False)
+
+NOMS_SECT = dict(recherche='RECHERCHE', vie='VIE', machines='MACHINES', fonds='FONDS — BALLASTS', arrivee='ARRIVÉE — NAVETTE', hub='ROTONDE')
+def build_corridor_details(e):
+    if e.esc or e.d.get('verre'): return
+    fr = Frame(sc, e.folder + '/Details', (0, 0, 0)); rr = sc.rng; sect = secteur_couloir(e.id)
+    W, D = e.X1 - e.X0, e.Z1 - e.Z0; along_x = W >= D; L = W if along_x else D; wid = D if along_x else W
+    u0 = e.X0 if along_x else e.Z0; y0, h = e.elev, e.h
+    def P(u, v, y): return (u, y, e.Z0 + v) if along_x else (e.X0 + v, y, u)
+    def S3(lu, lv, ly): return (lu, ly, lv) if along_x else (lv, ly, lu)
+    sides = ('N', 'S') if along_x else ('W', 'E')
+    # panneaux suspendus aux deux bouts : secteur + identifiant du couloir, lisibles des deux côtés
+    if L >= 20:
+        txt = f"{NOMS_SECT[sect]}\n{e.id.upper().replace('_', ' ')}"
+        for u in (u0 + 7, u0 + L - 7):
+            for face in ((3, 0) if along_x else (5, 2)):
+                it = fr.text(P(u, wid/2, y0 + h - 2.3), S3(0.15, min(7, wid - 4), 1.6), txt, txtcol=(250, 250, 250), bg=SECT_COL[sect], name='PanneauSecteur', cc=False)
+                it['ch'][0]['Face'] = face
+            for dv in (-1.8, 1.8): fr.box(P(u, wid/2 + dv, y0 + h - 0.8), S3(0.08, 0.08, 1.4), 'Metal', (60, 60, 60), name='Suspente', cc=False)
+    # équipements muraux (évitent les ouvertures)
+    for si, side in enumerate(sides):
+        H = e.wall_holes.get(side, []); v = WT + 0.15 if si == 0 else wid - WT - 0.15; sg = 1 if si == 0 else -1
+        face = ('Back' if sg > 0 else 'Front') if along_x else ('Right' if sg > 0 else 'Left')
+        for a, b in free_intervals(u0, u0 + L, H, y0, y0 + 9):
+            u = a + 5 + rr.uniform(0, 8)
+            while u < b - 4:
+                k = rr.random()
+                if k < 0.25:
+                    fr.box(P(u, v + sg*0.06, y0 + 3.4), S3(0.9, 0.12, 2.8), 'Metal', (170, 20, 20), name='SupportExtincteur', cc=False)
+                    fr.cyl(P(u, v + sg*0.45, y0 + 3.2), 1.8, 0.7, 'y', 'SmoothPlastic', (190, 20, 20), name='Extincteur', cc=False)
+                    fr.text(P(u, v + sg*0.03, y0 + 5.6), S3(1.0, 0.05, 1.0), 'EXTINCTEUR', txtcol=(255, 255, 255), bg=(190, 20, 20), face=face, name='Pictogramme', cc=False)
+                elif k < 0.45:
+                    fr.box(P(u, v + sg*0.12, y0 + 5.0), S3(0.9, 0.25, 1.4), 'Metal', (60, 64, 68), name='Interphone', cc=False)
+                    fr.box(P(u, v + sg*0.27, y0 + 5.3), S3(0.5, 0.04, 0.3), 'SmoothPlastic', (30, 30, 30), name='HautParleur', cc=False)
+                    fr.box(P(u, v + sg*0.27, y0 + 4.7), S3(0.14, 0.05, 0.14), 'Neon', (255, 160, 40), name='Bouton', cc=False, shadow=False)
+                elif k < 0.6:
+                    fr.box(P(u, v + sg*0.3, y0 + 4.5), S3(1.8, 0.6, 2.4), 'Metal', (150, 156, 150), name='Coffret', cc=False)
+                    fr.pipe(P(u, v + sg*0.2, y0 + 5.7), P(u, v + sg*0.2, y0 + h - 0.6), 0.35, 'Metal', (110, 112, 110), name='Conduit', cc=False)
+                elif k < 0.72:
+                    vv = wid*0.3 if si == 0 else wid*0.7
+                    fr.box(P(u, vv, y0 + h - 1.0), S3(0.3, 0.3, 0.3), 'SmoothPlastic', (0, 0, 0), tr=1, cc=False, shadow=False, name='Fuite',
+                           children=[dict(cls='ParticleEmitter', Rate=3, Lifetime=(0.6, 0.9), Speed=(0, 0.5), Size=0.08, Transp=(0.2, 0.4), Color=(170, 200, 210),
+                                          Acc=(0, -40, 0), Spread=2, Dir=4)])
+                    it = fr.cyl(P(u, vv, y0 + 0.03), 0.04, rr.uniform(2.5, 4.5), 'y', 'Glass', (40, 60, 64), name='Flaque', cc=False, shadow=False); it['t'] = 0.35; it['r'] = 0.4
+                elif k < 0.8:
+                    fr.box(P(u, wid/2, y0 + h - 2.0), S3(3.2, 0.7, 0.25), 'SmoothPlastic', (200, 202, 198), name='PlafonnierDecroche', cc=False, R=(rot_z(0.6) if along_x else rot_x(0.6)))
+                    fr.pipe(P(u - 1.2, wid/2, y0 + h - 0.4), P(u - 1.1, wid/2, y0 + h - 1.6), 0.08, 'SmoothPlastic', (20, 20, 20), name='Fil', cc=False, shadow=False)
+                elif k < 0.86:
+                    fr.text(P(u, v + sg*0.03, y0 + 5.2), S3(2.4, 0.05, 1.7), "PLAN D'ÉVACUATION\nVous êtes ici ●", txtcol=(20, 60, 20), bg=(236, 240, 230), face=face, name='PlanEvacuation', cc=False)
+                u += rr.uniform(14, 26)
+
+def build_traces_ventouses():
+    """cercles de ventouses autour de quelques grilles (The Witness est passée par là)"""
+    rr = sc.rng
+    for gx, gz, sid, soud in GRILLE_W:
+        e = BYID.get(sid)
+        if not e or rr.random() > 0.35: continue
+        f = Frame(sc, e.folder + '/Traces', (gx, e.elev + min(e.h, 12.5) - 0.06, gz))
+        for i in range(rr.randint(5, 14)):
+            a = rr.uniform(0, 6.28); r_ = rr.uniform(2.8, 6.5); d = rr.uniform(0.4, 1.3)
+            f.cyl((math.cos(a)*r_, 0, math.sin(a)*r_), 0.03, d, 'y', 'SmoothPlastic', (60, 66, 62), name='TraceVentouse', cc=False, shadow=False, tr=0.45)
 
 def build_glass_side(e, fr, axis, fixed, nrm, u0, u1, H):
     """tunnel de verre : arceaux tous les 6 studs, vitrage entre eux"""
@@ -445,7 +515,8 @@ def build_exterior():
 def build_all(meubler=None):
     for e in ESP: build_walls(e)
     for e in ESP: build_floor_ceiling(e)
-    for e in COUL: build_corridor_dressing(e); build_tunnel_extras(e)
+    for e in COUL: build_corridor_dressing(e); build_tunnel_extras(e); build_corridor_details(e)
+    build_traces_ventouses()
     build_ducts(); build_doors()
     for e in SAL: build_room_lights(e)
     for e in COUL:
@@ -476,6 +547,19 @@ local function appliquer()
 end
 courant.Changed:Connect(appliquer)
 appliquer()
+-- certains feux de secours clignotent en permanence
+for _, p in ipairs(CS:GetTagged("Clignote")) do
+	task.spawn(function()
+		local l = p:FindFirstChildWhichIsA("Light")
+		while p.Parent do
+			task.wait(math.random() * 3 + 0.5)
+			for i = 1, math.random(1, 4) do
+				if l then l.Enabled = false end; p.Transparency = 0.8; task.wait(0.05 + math.random() * 0.15)
+				if l then l.Enabled = true end; p.Transparency = 0; task.wait(0.05 + math.random() * 0.2)
+			end
+		end
+	end)
+end
 -- quelques plafonniers grésillent
 local normales = CS:GetTagged("LumiereNormale")
 task.spawn(function()
