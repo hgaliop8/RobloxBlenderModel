@@ -162,8 +162,9 @@ for v in VUES:
         build(lambda it, lo=lo, hi=hi: lo - 1 <= it['p'][1] <= hi and not any(it['n'].startswith(h) for h in HIDE_TOP) and it['f'] != 'Nadir4/Gaines')
         xs = [p for e in NB.ESP if lo - 1 <= e.elev <= hi for p in (e.X0, e.X1)]; zs = [p for e in NB.ESP if lo - 1 <= e.elev <= hi for p in (e.Z0, e.Z1)]
         cx, cz = (min(xs) + max(xs))/2, (min(zs) + max(zs))/2; span = max(max(xs) - min(xs), (max(zs) - min(zs))*16/9)*1.03
-        sun = bpy.data.lights.new('S', 'SUN'); sun.energy = 1.2 if not COURANT else 0.6; so = bpy.data.objects.new('S', sun); coll.objects.link(so); so.rotation_euler = (0.5, 0.2, 0.3)
+        sun = bpy.data.lights.new('S', 'SUN'); sun.energy = 3.5; so = bpy.data.objects.new('S', sun); coll.objects.link(so); so.rotation_euler = (0.5, 0.2, 0.3)
         c = cam('dessus', rbx2bl((cx, hi + 300, cz)), rbx2bl((cx, lo, cz + 0.001)), ortho=span)
+        c.rotation_euler = (0, 0, 0)
     else:
         e = NB.BYID[v]
         build(lambda it, e=e: (e.X0 - 70 <= it['p'][0] <= e.X1 + 70 and e.Z0 - 70 <= it['p'][2] <= e.Z1 + 70 and e.ymin - 30 <= it['p'][1] <= e.ymax + 30))
