@@ -1,0 +1,1479 @@
+>> pièce construite
+>> lits simulés
+>> casiers
+>> scène assemblée
+>>   Couverture: 945 sommets, z 1.11..2.37
+>>   Couverture.010: 945 sommets, z 1.11..2.37
+>>   Couverture.011: 864 sommets, z 4.57..5.80
+>>   Couverture.012: 810 sommets, z 1.15..2.06
+>>   Couverture.013: 864 sommets, z 4.50..5.55
+>>   Couverture.014: 945 sommets, z 1.11..2.37
+>>   Couverture.015: 864 sommets, z 4.57..5.80
+>>   Couverture.016: 810 sommets, z 1.15..2.06
+>>   Couverture.017: 864 sommets, z 4.50..5.55
+>>   Couverture.018: 864 sommets, z 1.09..2.28
+>>   Couverture.019: 945 sommets, z 4.46..5.83
+>>   Couverture.020: 945 sommets, z 1.11..2.37
+>>   Couverture.021: 864 sommets, z 4.57..5.80
+>>   Couverture.022: 810 sommets, z 1.15..2.06
+>>   Couverture.023: 864 sommets, z 4.50..5.55
+>>   Couverture.024: 864 sommets, z 1.09..2.28
+>>   Couverture.025: 945 sommets, z 4.46..5.83
+>>   Couverture.026: 945 sommets, z 1.11..2.37
+>>   Couverture.027: 864 sommets, z 4.57..5.80
+>>   Couverture.028: 810 sommets, z 1.15..2.06
+>>   Couverture.029: 864 sommets, z 4.50..5.55
+>>   Couverture.030: 864 sommets, z 1.09..2.28
+>>   Couverture.031: 945 sommets, z 4.46..5.83
+>>   Couverture.032: 945 sommets, z 1.11..2.37
+>>   Couverture.033: 864 sommets, z 4.57..5.80
+>>   Couverture.034: 810 sommets, z 1.15..2.06
+>>   Couverture.035: 864 sommets, z 4.50..5.55
+>>   Couverture.036: 864 sommets, z 1.09..2.28
+>>   Couverture.037: 945 sommets, z 4.46..5.83
+>>   Couverture.038: 864 sommets, z 1.09..2.28
+>>   Couverture.039: 945 sommets, z 4.46..5.83
+>>   Couverture.040: 945 sommets, z 1.11..2.37
+>>   Couverture.041: 864 sommets, z 4.57..5.80
+>>   Couverture.042: 810 sommets, z 1.15..2.06
+>>   Couverture.043: 864 sommets, z 4.50..5.55
+>>   Couverture.044: 8 sommets, z -0.08..0.08
+>>   Couverture.045: 8 sommets, z -0.08..0.08
+>>   Couverture.046: 8 sommets, z -0.08..0.08
+>>   Serviette: 132 sommets, z 5.26..5.26
+Blender 4.2.3 LTS (hash 0e22e4fcea03 built 2024-10-14 23:31:34)
+Fra:1 Mem:208.73M (Peak 208.73M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Sol
+Fra:1 Mem:208.73M (Peak 208.73M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Plafond
+Fra:1 Mem:208.73M (Peak 208.73M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Mur
+Fra:1 Mem:208.73M (Peak 208.73M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Soubassement
+Fra:1 Mem:208.76M (Peak 208.76M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Cimaise
+Fra:1 Mem:208.79M (Peak 208.79M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Plinthe
+Fra:1 Mem:208.81M (Peak 208.81M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Corniche
+Fra:1 Mem:208.83M (Peak 208.83M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint
+Fra:1 Mem:208.84M (Peak 208.84M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.001
+Fra:1 Mem:208.83M (Peak 208.84M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.002
+Fra:1 Mem:208.84M (Peak 208.84M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.003
+Fra:1 Mem:208.84M (Peak 208.84M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.004
+Fra:1 Mem:208.84M (Peak 208.84M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.005
+Fra:1 Mem:208.85M (Peak 208.85M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.006
+Fra:1 Mem:208.85M (Peak 208.85M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.007
+Fra:1 Mem:208.85M (Peak 208.85M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.008
+Fra:1 Mem:208.85M (Peak 208.85M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.009
+Fra:1 Mem:208.85M (Peak 208.85M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.010
+Fra:1 Mem:208.86M (Peak 208.86M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.011
+Fra:1 Mem:208.86M (Peak 208.86M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.012
+Fra:1 Mem:208.86M (Peak 208.86M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.013
+Fra:1 Mem:208.87M (Peak 208.87M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.014
+Fra:1 Mem:208.87M (Peak 208.87M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.015
+Fra:1 Mem:208.87M (Peak 208.87M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.016
+Fra:1 Mem:208.87M (Peak 208.87M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.017
+Fra:1 Mem:208.88M (Peak 208.88M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.018
+Fra:1 Mem:208.88M (Peak 208.88M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Pilastre
+Fra:1 Mem:208.88M (Peak 208.88M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Pilastre.001
+Fra:1 Mem:208.92M (Peak 208.92M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Pilastre.002
+Fra:1 Mem:208.92M (Peak 208.92M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Pilastre.003
+Fra:1 Mem:208.95M (Peak 208.95M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Pilastre.004
+Fra:1 Mem:208.96M (Peak 208.96M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Mur.001
+Fra:1 Mem:208.97M (Peak 208.97M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Soubassement.001
+Fra:1 Mem:208.99M (Peak 208.99M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Cimaise.001
+Fra:1 Mem:209.01M (Peak 209.01M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Plinthe.001
+Fra:1 Mem:209.03M (Peak 209.03M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Corniche.001
+Fra:1 Mem:209.05M (Peak 209.05M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.019
+Fra:1 Mem:209.05M (Peak 209.05M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.020
+Fra:1 Mem:209.05M (Peak 209.05M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.021
+Fra:1 Mem:209.05M (Peak 209.05M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.022
+Fra:1 Mem:209.06M (Peak 209.06M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.023
+Fra:1 Mem:209.06M (Peak 209.06M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.024
+Fra:1 Mem:209.06M (Peak 209.06M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.025
+Fra:1 Mem:209.06M (Peak 209.06M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.026
+Fra:1 Mem:209.07M (Peak 209.07M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Mur.002
+Fra:1 Mem:209.07M (Peak 209.07M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Soubassement.002
+Fra:1 Mem:209.08M (Peak 209.08M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Cimaise.002
+Fra:1 Mem:209.10M (Peak 209.10M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Plinthe.002
+Fra:1 Mem:209.11M (Peak 209.11M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Corniche.002
+Fra:1 Mem:209.14M (Peak 209.14M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.027
+Fra:1 Mem:209.14M (Peak 209.14M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.028
+Fra:1 Mem:209.14M (Peak 209.14M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.029
+Fra:1 Mem:209.14M (Peak 209.14M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.030
+Fra:1 Mem:209.15M (Peak 209.15M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.031
+Fra:1 Mem:209.15M (Peak 209.15M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.032
+Fra:1 Mem:209.15M (Peak 209.15M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.033
+Fra:1 Mem:209.15M (Peak 209.15M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.034
+Fra:1 Mem:209.15M (Peak 209.15M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Pilastre.005
+Fra:1 Mem:209.16M (Peak 209.16M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Pilastre.006
+Fra:1 Mem:209.19M (Peak 209.19M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Pilastre.007
+Fra:1 Mem:209.20M (Peak 209.20M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Pilastre.008
+Fra:1 Mem:209.23M (Peak 209.23M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Chambranle
+Fra:1 Mem:209.23M (Peak 209.23M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Chambranle.001
+Fra:1 Mem:209.26M (Peak 209.26M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Linteau
+Fra:1 Mem:209.27M (Peak 209.27M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Imposte
+Fra:1 Mem:209.28M (Peak 209.28M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Mur.003
+Fra:1 Mem:209.29M (Peak 209.29M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Soubassement.003
+Fra:1 Mem:209.30M (Peak 209.30M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Cimaise.003
+Fra:1 Mem:209.32M (Peak 209.32M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Plinthe.003
+Fra:1 Mem:209.34M (Peak 209.34M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Corniche.003
+Fra:1 Mem:209.36M (Peak 209.36M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.035
+Fra:1 Mem:209.36M (Peak 209.36M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.036
+Fra:1 Mem:209.37M (Peak 209.37M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.037
+Fra:1 Mem:209.37M (Peak 209.37M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.038
+Fra:1 Mem:209.37M (Peak 209.37M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.039
+Fra:1 Mem:209.37M (Peak 209.37M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.040
+Fra:1 Mem:209.38M (Peak 209.38M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.041
+Fra:1 Mem:209.38M (Peak 209.38M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.042
+Fra:1 Mem:209.38M (Peak 209.38M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.043
+Fra:1 Mem:209.39M (Peak 209.39M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.045
+Fra:1 Mem:209.39M (Peak 209.39M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.046
+Fra:1 Mem:209.39M (Peak 209.39M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.047
+Fra:1 Mem:209.39M (Peak 209.39M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Pilastre.009
+Fra:1 Mem:209.40M (Peak 209.40M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Pilastre.010
+Fra:1 Mem:209.43M (Peak 209.43M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Pilastre.011
+Fra:1 Mem:209.45M (Peak 209.45M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Mur.004
+Fra:1 Mem:209.45M (Peak 209.46M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Soubassement.004
+Fra:1 Mem:209.46M (Peak 209.46M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Cimaise.004
+Fra:1 Mem:209.49M (Peak 209.49M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Plinthe.004
+Fra:1 Mem:209.49M (Peak 209.49M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Corniche.004
+Fra:1 Mem:209.53M (Peak 209.53M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.048
+Fra:1 Mem:209.53M (Peak 209.53M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.049
+Fra:1 Mem:209.53M (Peak 209.53M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.050
+Fra:1 Mem:209.53M (Peak 209.53M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.051
+Fra:1 Mem:209.53M (Peak 209.53M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.052
+Fra:1 Mem:209.54M (Peak 209.54M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.053
+Fra:1 Mem:209.54M (Peak 209.54M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.054
+Fra:1 Mem:209.54M (Peak 209.54M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.055
+Fra:1 Mem:209.54M (Peak 209.54M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.056
+Fra:1 Mem:209.55M (Peak 209.55M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.057
+Fra:1 Mem:209.55M (Peak 209.55M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.058
+Fra:1 Mem:209.55M (Peak 209.55M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.059
+Fra:1 Mem:209.56M (Peak 209.56M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Joint.060
+Fra:1 Mem:209.56M (Peak 209.56M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Pilastre.012
+Fra:1 Mem:209.58M (Peak 209.58M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Pilastre.013
+Fra:1 Mem:209.60M (Peak 209.60M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Pilastre.014
+Fra:1 Mem:209.61M (Peak 209.61M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Plafonnier
+Fra:1 Mem:209.62M (Peak 209.62M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Diffuseur
+Fra:1 Mem:209.64M (Peak 209.64M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Plafonnier.001
+Fra:1 Mem:209.66M (Peak 209.66M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Diffuseur.001
+Fra:1 Mem:209.67M (Peak 209.67M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Plafonnier.002
+Fra:1 Mem:209.68M (Peak 209.68M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Diffuseur.002
+Fra:1 Mem:209.69M (Peak 209.69M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Plafonnier.003
+Fra:1 Mem:209.71M (Peak 209.71M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Diffuseur.003
+Fra:1 Mem:209.72M (Peak 209.72M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Plafonnier.004
+Fra:1 Mem:209.73M (Peak 209.73M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Diffuseur.004
+Fra:1 Mem:209.75M (Peak 209.75M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Plafonnier.005
+Fra:1 Mem:209.77M (Peak 209.77M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Diffuseur.005
+Fra:1 Mem:209.78M (Peak 209.78M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Plafonnier.006
+Fra:1 Mem:209.79M (Peak 209.79M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Diffuseur.006
+Fra:1 Mem:209.80M (Peak 209.80M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Plafonnier.007
+Fra:1 Mem:209.82M (Peak 209.82M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Diffuseur.007
+Fra:1 Mem:209.83M (Peak 209.83M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Plafonnier.008
+Fra:1 Mem:209.85M (Peak 209.85M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Diffuseur.008
+Fra:1 Mem:209.86M (Peak 209.86M) | Time:00:00.75 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Plafonnier.009
+Fra:1 Mem:209.87M (Peak 209.87M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Diffuseur.009
+Fra:1 Mem:209.88M (Peak 209.88M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Plafonnier.010
+Fra:1 Mem:209.90M (Peak 209.90M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Diffuseur.010
+Fra:1 Mem:209.91M (Peak 209.91M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Plafonnier.011
+Fra:1 Mem:209.93M (Peak 209.93M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Diffuseur.011
+Fra:1 Mem:209.94M (Peak 209.94M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Plafonnier.012
+Fra:1 Mem:209.95M (Peak 209.95M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Diffuseur.012
+Fra:1 Mem:209.96M (Peak 209.96M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Plafonnier.013
+Fra:1 Mem:209.98M (Peak 209.98M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Diffuseur.013
+Fra:1 Mem:209.99M (Peak 209.99M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Plafonnier.014
+Fra:1 Mem:210.01M (Peak 210.01M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Diffuseur.014
+Fra:1 Mem:210.02M (Peak 210.02M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Plafonnier.015
+Fra:1 Mem:210.03M (Peak 210.03M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Diffuseur.015
+Fra:1 Mem:210.04M (Peak 210.04M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Plafonnier.016
+Fra:1 Mem:210.06M (Peak 210.06M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Diffuseur.016
+Fra:1 Mem:210.07M (Peak 210.07M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Plafonnier.017
+Fra:1 Mem:210.07M (Peak 210.07M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Diffuseur.017
+Fra:1 Mem:210.10M (Peak 210.10M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Plafonnier.018
+Fra:1 Mem:210.12M (Peak 210.12M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Diffuseur.018
+Fra:1 Mem:210.12M (Peak 210.12M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Plafonnier.019
+Fra:1 Mem:210.13M (Peak 210.13M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Diffuseur.019
+Fra:1 Mem:210.15M (Peak 210.15M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant
+Fra:1 Mem:210.17M (Peak 210.17M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin
+Fra:1 Mem:210.19M (Peak 210.19M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.001
+Fra:1 Mem:210.21M (Peak 210.21M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.001
+Fra:1 Mem:210.22M (Peak 210.22M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.002
+Fra:1 Mem:210.25M (Peak 210.25M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.002
+Fra:1 Mem:210.26M (Peak 210.26M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.003
+Fra:1 Mem:210.28M (Peak 210.28M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.003
+Fra:1 Mem:210.30M (Peak 210.30M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron
+Fra:1 Mem:210.32M (Peak 210.32M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.001
+Fra:1 Mem:210.34M (Peak 210.34M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse
+Fra:1 Mem:210.36M (Peak 210.36M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.001
+Fra:1 Mem:210.37M (Peak 210.37M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame
+Fra:1 Mem:210.40M (Peak 210.40M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.001
+Fra:1 Mem:210.41M (Peak 210.41M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.002
+Fra:1 Mem:210.43M (Peak 210.43M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.003
+Fra:1 Mem:210.45M (Peak 210.45M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.004
+Fra:1 Mem:210.47M (Peak 210.47M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.005
+Fra:1 Mem:210.49M (Peak 210.49M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.006
+Fra:1 Mem:210.50M (Peak 210.50M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.007
+Fra:1 Mem:210.52M (Peak 210.52M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.008
+Fra:1 Mem:210.53M (Peak 210.53M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.002
+Fra:1 Mem:210.56M (Peak 210.56M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.003
+Fra:1 Mem:210.56M (Peak 210.56M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.002
+Fra:1 Mem:210.60M (Peak 210.60M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.003
+Fra:1 Mem:210.60M (Peak 210.60M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.009
+Fra:1 Mem:210.63M (Peak 210.63M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.010
+Fra:1 Mem:210.64M (Peak 210.64M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.011
+Fra:1 Mem:210.67M (Peak 210.67M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.012
+Fra:1 Mem:210.69M (Peak 210.69M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.013
+Fra:1 Mem:210.71M (Peak 210.71M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.014
+Fra:1 Mem:210.72M (Peak 210.72M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.015
+Fra:1 Mem:210.74M (Peak 210.74M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.016
+Fra:1 Mem:210.76M (Peak 210.76M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.017
+Fra:1 Mem:210.78M (Peak 210.78M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau
+Fra:1 Mem:210.80M (Peak 210.80M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.001
+Fra:1 Mem:210.81M (Peak 210.81M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.002
+Fra:1 Mem:210.83M (Peak 210.83M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.003
+Fra:1 Mem:210.85M (Peak 210.85M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GardeCorps
+Fra:1 Mem:210.90M (Peak 210.90M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Echelle
+Fra:1 Mem:210.97M (Peak 210.97M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Echelle.001
+Fra:1 Mem:210.98M (Peak 210.98M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Echelon
+Fra:1 Mem:210.99M (Peak 210.99M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Echelon.001
+Fra:1 Mem:211.00M (Peak 211.00M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Echelon.002
+Fra:1 Mem:211.01M (Peak 211.01M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Echelon.003
+Fra:1 Mem:211.02M (Peak 211.02M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Echelon.004
+Fra:1 Mem:211.03M (Peak 211.03M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Echelon.005
+Fra:1 Mem:211.03M (Peak 211.03M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Echelon.006
+Fra:1 Mem:211.04M (Peak 211.04M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Matelas
+Fra:1 Mem:211.36M (Peak 211.36M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oreiller
+Fra:1 Mem:212.15M (Peak 212.15M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture
+Fra:1 Mem:214.39M (Peak 214.60M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Matelas.001
+Fra:1 Mem:215.36M (Peak 215.36M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oreiller.001
+Fra:1 Mem:215.72M (Peak 215.72M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.001
+Fra:1 Mem:216.66M (Peak 216.66M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Corps.011
+Fra:1 Mem:216.79M (Peak 216.79M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.005
+Fra:1 Mem:216.80M (Peak 216.80M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.005
+Fra:1 Mem:216.82M (Peak 216.82M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Pages.002
+Fra:1 Mem:216.84M (Peak 216.84M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.006
+Fra:1 Mem:216.84M (Peak 216.84M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.046
+Fra:1 Mem:216.87M (Peak 216.87M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Anse.002
+Fra:1 Mem:216.95M (Peak 216.95M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.006
+Fra:1 Mem:216.97M (Peak 216.97M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Corps.010
+Fra:1 Mem:216.97M (Peak 216.97M) | Time:00:00.76 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.007
+Fra:1 Mem:217.01M (Peak 217.01M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.007
+Fra:1 Mem:217.02M (Peak 217.02M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Pages.001
+Fra:1 Mem:217.04M (Peak 217.04M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.004
+Fra:1 Mem:217.06M (Peak 217.06M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.045
+Fra:1 Mem:217.07M (Peak 217.07M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.005
+Fra:1 Mem:217.09M (Peak 217.09M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Anse.001
+Fra:1 Mem:217.17M (Peak 217.17M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.004
+Fra:1 Mem:217.19M (Peak 217.19M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Corps.009
+Fra:1 Mem:217.19M (Peak 217.19M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.005
+Fra:1 Mem:217.23M (Peak 217.23M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.018
+Fra:1 Mem:217.23M (Peak 217.23M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Pages
+Fra:1 Mem:217.26M (Peak 217.26M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.019
+Fra:1 Mem:217.26M (Peak 217.26M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.044
+Fra:1 Mem:217.29M (Peak 217.29M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.020
+Fra:1 Mem:217.29M (Peak 217.29M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Anse
+Fra:1 Mem:217.38M (Peak 217.38M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.021
+Fra:1 Mem:217.41M (Peak 217.41M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Corps.008
+Fra:1 Mem:217.43M (Peak 217.43M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.087
+Fra:1 Mem:217.45M (Peak 217.45M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.086
+Fra:1 Mem:217.46M (Peak 217.46M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.085
+Fra:1 Mem:217.48M (Peak 217.48M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.084
+Fra:1 Mem:217.50M (Peak 217.50M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.095
+Fra:1 Mem:217.51M (Peak 217.51M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.094
+Fra:1 Mem:217.53M (Peak 217.53M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.093
+Fra:1 Mem:217.55M (Peak 217.55M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.092
+Fra:1 Mem:217.56M (Peak 217.56M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.087
+Fra:1 Mem:217.58M (Peak 217.58M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.086
+Fra:1 Mem:217.60M (Peak 217.60M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.085
+Fra:1 Mem:217.62M (Peak 217.62M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.084
+Fra:1 Mem:217.63M (Peak 217.63M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.022
+Fra:1 Mem:217.64M (Peak 217.64M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.105
+Fra:1 Mem:217.77M (Peak 217.77M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.104
+Fra:1 Mem:217.84M (Peak 217.84M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.103
+Fra:1 Mem:218.17M (Peak 218.17M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.102
+Fra:1 Mem:218.18M (Peak 218.18M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.023
+Fra:1 Mem:218.84M (Peak 218.84M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Matelas.043
+Fra:1 Mem:218.89M (Peak 218.89M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.024
+Fra:1 Mem:219.06M (Peak 219.06M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.025
+Fra:1 Mem:219.27M (Peak 219.27M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.026
+Fra:1 Mem:219.80M (Peak 219.80M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.006
+Fra:1 Mem:219.81M (Peak 219.81M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.007
+Fra:1 Mem:219.83M (Peak 219.83M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.006
+Fra:1 Mem:219.85M (Peak 219.85M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.007
+Fra:1 Mem:219.86M (Peak 219.86M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.027
+Fra:1 Mem:219.87M (Peak 219.87M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.029
+Fra:1 Mem:219.90M (Peak 219.90M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.030
+Fra:1 Mem:219.91M (Peak 219.91M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.031
+Fra:1 Mem:220.04M (Peak 220.04M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.032
+Fra:1 Mem:220.00M (Peak 220.04M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.033
+Fra:1 Mem:219.95M (Peak 220.04M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Matelas.042
+Fra:1 Mem:220.20M (Peak 220.20M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.034
+Fra:1 Mem:220.26M (Peak 220.26M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.035
+Fra:1 Mem:220.47M (Peak 220.47M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.004
+Fra:1 Mem:220.76M (Peak 220.76M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.005
+Fra:1 Mem:220.78M (Peak 220.78M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.006
+Fra:1 Mem:220.80M (Peak 220.80M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.007
+Fra:1 Mem:220.81M (Peak 220.81M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GardeCorps.001
+Fra:1 Mem:220.93M (Peak 220.93M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Echelle.002
+Fra:1 Mem:220.95M (Peak 220.95M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Echelle.003
+Fra:1 Mem:220.96M (Peak 220.96M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Echelon.007
+Fra:1 Mem:220.97M (Peak 220.97M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Echelon.008
+Fra:1 Mem:220.97M (Peak 220.97M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Echelon.009
+Fra:1 Mem:220.98M (Peak 220.98M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Echelon.010
+Fra:1 Mem:220.99M (Peak 220.99M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Echelon.011
+Fra:1 Mem:220.99M (Peak 220.99M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Echelon.012
+Fra:1 Mem:221.00M (Peak 221.00M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Matelas.002
+Fra:1 Mem:221.51M (Peak 221.51M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oreiller.002
+Fra:1 Mem:221.39M (Peak 221.51M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.087
+Fra:1 Mem:221.46M (Peak 221.51M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.086
+Fra:1 Mem:221.64M (Peak 221.64M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.085
+Fra:1 Mem:222.06M (Peak 222.06M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.084
+Fra:1 Mem:222.13M (Peak 222.13M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.395
+Fra:1 Mem:222.15M (Peak 222.15M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.394
+Fra:1 Mem:222.17M (Peak 222.17M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.393
+Fra:1 Mem:222.18M (Peak 222.18M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.392
+Fra:1 Mem:222.20M (Peak 222.20M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.391
+Fra:1 Mem:222.22M (Peak 222.22M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.390
+Fra:1 Mem:222.24M (Peak 222.24M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.389
+Fra:1 Mem:222.25M (Peak 222.25M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.388
+Fra:1 Mem:222.27M (Peak 222.27M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.387
+Fra:1 Mem:222.29M (Peak 222.29M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.386
+Fra:1 Mem:222.39M (Peak 222.39M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.385
+Fra:1 Mem:222.31M (Peak 222.39M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.002
+Fra:1 Mem:222.47M (Peak 222.47M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.384
+Fra:1 Mem:222.97M (Peak 222.97M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.383
+Fra:1 Mem:222.98M (Peak 222.98M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.382
+Fra:1 Mem:223.02M (Peak 223.02M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.381
+Fra:1 Mem:223.17M (Peak 223.17M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.380
+Fra:1 Mem:223.18M (Peak 223.18M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.379
+Fra:1 Mem:223.25M (Peak 223.25M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.378
+Fra:1 Mem:223.27M (Peak 223.27M) | Time:00:00.77 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.043
+Fra:1 Mem:224.09M (Peak 224.09M) | Time:00:00.78 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Matelas.003
+Fra:1 Mem:227.34M (Peak 227.34M) | Time:00:00.78 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oreiller.003
+Fra:1 Mem:227.66M (Peak 227.66M) | Time:00:00.78 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.003
+Fra:1 Mem:229.80M (Peak 229.80M) | Time:00:00.78 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.042
+Fra:1 Mem:229.80M (Peak 229.80M) | Time:00:00.78 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.008
+Fra:1 Mem:229.97M (Peak 229.97M) | Time:00:00.78 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.008
+Fra:1 Mem:230.39M (Peak 230.39M) | Time:00:00.78 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.009
+Fra:1 Mem:230.48M (Peak 230.48M) | Time:00:00.78 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.009
+Fra:1 Mem:230.50M (Peak 230.50M) | Time:00:00.78 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.010
+Fra:1 Mem:230.54M (Peak 230.54M) | Time:00:00.78 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.010
+Fra:1 Mem:230.56M (Peak 230.56M) | Time:00:00.78 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.011
+Fra:1 Mem:230.56M (Peak 230.56M) | Time:00:00.78 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.011
+Fra:1 Mem:230.72M (Peak 230.72M) | Time:00:00.78 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.008
+Fra:1 Mem:230.72M (Peak 230.72M) | Time:00:00.78 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.009
+Fra:1 Mem:230.75M (Peak 230.75M) | Time:00:00.78 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.008
+Fra:1 Mem:230.77M (Peak 230.77M) | Time:00:00.78 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.009
+Fra:1 Mem:230.78M (Peak 230.78M) | Time:00:00.78 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.036
+Fra:1 Mem:230.80M (Peak 230.80M) | Time:00:00.78 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.037
+Fra:1 Mem:230.82M (Peak 230.82M) | Time:00:00.78 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.038
+Fra:1 Mem:230.88M (Peak 230.88M) | Time:00:00.78 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.039
+Fra:1 Mem:230.90M (Peak 230.90M) | Time:00:00.78 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.040
+Fra:1 Mem:230.92M (Peak 230.92M) | Time:00:00.78 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.041
+Fra:1 Mem:230.93M (Peak 230.93M) | Time:00:00.78 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.042
+Fra:1 Mem:230.95M (Peak 230.95M) | Time:00:00.78 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.043
+Fra:1 Mem:230.97M (Peak 230.97M) | Time:00:00.78 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.044
+Fra:1 Mem:230.99M (Peak 230.99M) | Time:00:00.78 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.010
+Fra:1 Mem:231.00M (Peak 231.00M) | Time:00:00.78 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.011
+Fra:1 Mem:231.02M (Peak 231.02M) | Time:00:00.78 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.010
+Fra:1 Mem:231.04M (Peak 231.04M) | Time:00:00.78 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.011
+Fra:1 Mem:231.05M (Peak 231.05M) | Time:00:00.78 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.045
+Fra:1 Mem:231.07M (Peak 231.07M) | Time:00:00.78 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.046
+Fra:1 Mem:231.09M (Peak 231.09M) | Time:00:00.78 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.047
+Fra:1 Mem:231.20M (Peak 231.20M) | Time:00:00.78 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.048
+Fra:1 Mem:231.22M (Peak 231.22M) | Time:00:00.78 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.049
+Fra:1 Mem:231.58M (Peak 231.58M) | Time:00:00.78 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.050
+Fra:1 Mem:231.60M (Peak 231.60M) | Time:00:00.78 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.051
+Fra:1 Mem:231.62M (Peak 231.62M) | Time:00:00.78 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.052
+Fra:1 Mem:231.63M (Peak 231.63M) | Time:00:00.79 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.053
+Fra:1 Mem:232.24M (Peak 232.24M) | Time:00:00.79 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.008
+Fra:1 Mem:232.26M (Peak 232.26M) | Time:00:00.79 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.009
+Fra:1 Mem:232.28M (Peak 232.28M) | Time:00:00.79 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.010
+Fra:1 Mem:232.44M (Peak 232.44M) | Time:00:00.79 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.011
+Fra:1 Mem:232.46M (Peak 232.46M) | Time:00:00.79 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | GardeCorps.002
+Fra:1 Mem:232.57M (Peak 232.57M) | Time:00:00.79 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Echelle.004
+Fra:1 Mem:232.58M (Peak 232.58M) | Time:00:00.79 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Echelon.014
+Fra:1 Mem:232.59M (Peak 232.59M) | Time:00:00.79 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Echelon.015
+Fra:1 Mem:232.59M (Peak 232.59M) | Time:00:00.79 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Echelon.016
+Fra:1 Mem:232.60M (Peak 232.60M) | Time:00:00.79 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Echelon.017
+Fra:1 Mem:232.61M (Peak 232.61M) | Time:00:00.79 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Echelon.018
+Fra:1 Mem:232.62M (Peak 232.62M) | Time:00:00.79 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Echelon.019
+Fra:1 Mem:232.62M (Peak 232.62M) | Time:00:00.79 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Echelon.020
+Fra:1 Mem:232.64M (Peak 232.64M) | Time:00:00.79 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Matelas.004
+Fra:1 Mem:232.69M (Peak 232.69M) | Time:00:00.79 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oreiller.004
+Fra:1 Mem:233.70M (Peak 233.70M) | Time:00:00.79 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.004
+Fra:1 Mem:236.06M (Peak 236.06M) | Time:00:00.79 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Coque.008
+Fra:1 Mem:236.00M (Peak 236.06M) | Time:00:00.79 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Matelas.005
+Fra:1 Mem:238.78M (Peak 238.78M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Oreiller.005
+Fra:1 Mem:239.09M (Peak 239.09M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.005
+Fra:1 Mem:240.06M (Peak 240.06M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Socle
+Fra:1 Mem:240.25M (Peak 240.25M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Corps
+Fra:1 Mem:240.61M (Peak 240.61M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Porte
+Fra:1 Mem:241.32M (Peak 241.32M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Interieur
+Fra:1 Mem:241.32M (Peak 241.32M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Etagere
+Fra:1 Mem:241.34M (Peak 241.34M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Serviette
+Fra:1 Mem:241.83M (Peak 241.83M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Sac
+Fra:1 Mem:241.86M (Peak 241.86M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Porte.001
+Fra:1 Mem:241.88M (Peak 241.88M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Aeration
+Fra:1 Mem:241.88M (Peak 241.88M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Aeration.002
+Fra:1 Mem:241.88M (Peak 241.88M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Aeration.003
+Fra:1 Mem:241.89M (Peak 241.89M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Aeration.004
+Fra:1 Mem:241.89M (Peak 241.89M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Poignee
+Fra:1 Mem:241.90M (Peak 241.90M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Etiquette
+Fra:1 Mem:242.00M (Peak 242.00M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Porte.002
+Fra:1 Mem:242.56M (Peak 242.56M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Aeration.005
+Fra:1 Mem:242.56M (Peak 242.56M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Aeration.006
+Fra:1 Mem:242.56M (Peak 242.56M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Aeration.007
+Fra:1 Mem:242.56M (Peak 242.56M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Aeration.008
+Fra:1 Mem:242.57M (Peak 242.57M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Aeration.009
+Fra:1 Mem:241.92M (Peak 242.57M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Coque.007
+Fra:1 Mem:242.09M (Peak 242.57M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Poignee.001
+Fra:1 Mem:242.09M (Peak 242.57M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Etiquette.001
+Fra:1 Mem:242.54M (Peak 242.57M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Porte.003
+Fra:1 Mem:242.63M (Peak 242.63M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Aeration.010
+Fra:1 Mem:242.66M (Peak 242.66M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Aeration.011
+Fra:1 Mem:242.67M (Peak 242.67M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Aeration.012
+Fra:1 Mem:242.67M (Peak 242.67M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Aeration.013
+Fra:1 Mem:242.67M (Peak 242.67M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Aeration.014
+Fra:1 Mem:242.67M (Peak 242.67M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Poignee.002
+Fra:1 Mem:242.81M (Peak 242.81M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Etiquette.002
+Fra:1 Mem:242.81M (Peak 242.81M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Chapeau
+Fra:1 Mem:244.18M (Peak 244.18M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Socle.001
+Fra:1 Mem:244.19M (Peak 244.19M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Corps.001
+Fra:1 Mem:244.21M (Peak 244.21M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Porte.004
+Fra:1 Mem:244.23M (Peak 244.23M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Aeration.015
+Fra:1 Mem:244.23M (Peak 244.23M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Aeration.016
+Fra:1 Mem:244.23M (Peak 244.23M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Aeration.017
+Fra:1 Mem:244.23M (Peak 244.23M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Aeration.018
+Fra:1 Mem:244.23M (Peak 244.23M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Aeration.019
+Fra:1 Mem:244.24M (Peak 244.24M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Poignee.003
+Fra:1 Mem:244.24M (Peak 244.24M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Etiquette.003
+Fra:1 Mem:244.25M (Peak 244.25M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Porte.005
+Fra:1 Mem:244.26M (Peak 244.26M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Etagere.001
+Fra:1 Mem:244.27M (Peak 244.27M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Serviette.001
+Fra:1 Mem:244.27M (Peak 244.27M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Sac.001
+Fra:1 Mem:244.43M (Peak 244.43M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Porte.006
+Fra:1 Mem:244.61M (Peak 244.61M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Aeration.020
+Fra:1 Mem:244.64M (Peak 244.64M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Aeration.021
+Fra:1 Mem:244.64M (Peak 244.64M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Aeration.022
+Fra:1 Mem:244.64M (Peak 244.64M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Aeration.023
+Fra:1 Mem:244.65M (Peak 244.65M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Aeration.024
+Fra:1 Mem:244.65M (Peak 244.65M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Poignee.004
+Fra:1 Mem:244.65M (Peak 244.65M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Etiquette.004
+Fra:1 Mem:244.66M (Peak 244.66M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Porte.007
+Fra:1 Mem:244.67M (Peak 244.67M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Aeration.025
+Fra:1 Mem:244.68M (Peak 244.68M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Aeration.026
+Fra:1 Mem:244.68M (Peak 244.68M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Aeration.027
+Fra:1 Mem:244.68M (Peak 244.68M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Aeration.028
+Fra:1 Mem:244.68M (Peak 244.68M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Aeration.029
+Fra:1 Mem:244.68M (Peak 244.68M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Poignee.005
+Fra:1 Mem:244.69M (Peak 244.69M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Etiquette.005
+Fra:1 Mem:244.69M (Peak 244.69M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Chapeau.001
+Fra:1 Mem:244.71M (Peak 244.71M) | Time:00:00.80 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Plateau
+Fra:1 Mem:244.76M (Peak 244.76M) | Time:00:00.81 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Chant
+Fra:1 Mem:244.86M (Peak 244.86M) | Time:00:00.81 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Pied
+Fra:1 Mem:244.84M (Peak 244.86M) | Time:00:00.81 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.012
+Fra:1 Mem:244.91M (Peak 244.91M) | Time:00:00.81 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Pied.001
+Fra:1 Mem:244.99M (Peak 244.99M) | Time:00:00.81 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.013
+Fra:1 Mem:245.00M (Peak 245.00M) | Time:00:00.81 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Entretoise
+Fra:1 Mem:245.03M (Peak 245.03M) | Time:00:00.81 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Coque
+Fra:1 Mem:245.17M (Peak 245.17M) | Time:00:00.81 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Luge
+Fra:1 Mem:245.97M (Peak 245.97M) | Time:00:00.81 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.012
+Fra:1 Mem:245.98M (Peak 245.98M) | Time:00:00.81 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Luge.001
+Fra:1 Mem:246.15M (Peak 246.15M) | Time:00:00.81 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.013
+Fra:1 Mem:246.26M (Peak 246.26M) | Time:00:00.81 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Coque.001
+Fra:1 Mem:248.15M (Peak 248.15M) | Time:00:00.81 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Luge.002
+Fra:1 Mem:248.32M (Peak 248.32M) | Time:00:00.81 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.014
+Fra:1 Mem:248.32M (Peak 248.32M) | Time:00:00.81 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Luge.003
+Fra:1 Mem:249.57M (Peak 249.57M) | Time:00:00.81 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.015
+Fra:1 Mem:249.57M (Peak 249.57M) | Time:00:00.81 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Coque.002
+Fra:1 Mem:251.92M (Peak 251.92M) | Time:00:00.81 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Plateau.003
+Fra:1 Mem:252.14M (Peak 252.14M) | Time:00:00.81 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.091
+Fra:1 Mem:252.15M (Peak 252.15M) | Time:00:00.81 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.090
+Fra:1 Mem:252.17M (Peak 252.17M) | Time:00:00.81 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Chant.003
+Fra:1 Mem:252.22M (Peak 252.22M) | Time:00:00.81 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.083
+Fra:1 Mem:252.24M (Peak 252.24M) | Time:00:00.81 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.082
+Fra:1 Mem:252.25M (Peak 252.25M) | Time:00:00.81 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.081
+Fra:1 Mem:252.27M (Peak 252.27M) | Time:00:00.81 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.080
+Fra:1 Mem:252.29M (Peak 252.29M) | Time:00:00.81 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.089
+Fra:1 Mem:252.30M (Peak 252.30M) | Time:00:00.81 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.088
+Fra:1 Mem:252.32M (Peak 252.32M) | Time:00:00.81 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.087
+Fra:1 Mem:252.34M (Peak 252.34M) | Time:00:00.81 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.086
+Fra:1 Mem:252.36M (Peak 252.36M) | Time:00:00.81 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.083
+Fra:1 Mem:252.37M (Peak 252.37M) | Time:00:00.81 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.082
+Fra:1 Mem:252.39M (Peak 252.39M) | Time:00:00.81 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.081
+Fra:1 Mem:252.41M (Peak 252.41M) | Time:00:00.81 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.080
+Fra:1 Mem:252.42M (Peak 252.42M) | Time:00:00.81 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.097
+Fra:1 Mem:252.44M (Peak 252.44M) | Time:00:00.81 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.096
+Fra:1 Mem:252.46M (Peak 252.46M) | Time:00:00.81 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.095
+Fra:1 Mem:252.47M (Peak 252.47M) | Time:00:00.81 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.094
+Fra:1 Mem:252.49M (Peak 252.49M) | Time:00:00.81 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Matelas.041
+Fra:1 Mem:253.24M (Peak 253.24M) | Time:00:00.81 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Matelas.040
+Fra:1 Mem:253.98M (Peak 253.98M) | Time:00:00.82 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Luge.004
+Fra:1 Mem:254.10M (Peak 254.10M) | Time:00:00.82 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.016
+Fra:1 Mem:254.11M (Peak 254.11M) | Time:00:00.82 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Luge.005
+Fra:1 Mem:254.22M (Peak 254.22M) | Time:00:00.82 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.083
+Fra:1 Mem:254.24M (Peak 254.24M) | Time:00:00.82 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.082
+Fra:1 Mem:254.25M (Peak 254.25M) | Time:00:00.82 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.017
+Fra:1 Mem:254.26M (Peak 254.26M) | Time:00:00.82 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.081
+Fra:1 Mem:254.27M (Peak 254.27M) | Time:00:00.82 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.006
+Fra:1 Mem:254.43M (Peak 254.43M) | Time:00:00.82 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.080
+Fra:1 Mem:254.93M (Peak 254.93M) | Time:00:00.82 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.377
+Fra:1 Mem:254.94M (Peak 254.94M) | Time:00:00.82 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.376
+Fra:1 Mem:254.96M (Peak 254.96M) | Time:00:00.82 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.375
+Fra:1 Mem:255.00M (Peak 255.00M) | Time:00:00.82 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.374
+Fra:1 Mem:255.14M (Peak 255.14M) | Time:00:00.82 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.373
+Fra:1 Mem:255.16M (Peak 255.16M) | Time:00:00.82 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.372
+Fra:1 Mem:255.23M (Peak 255.23M) | Time:00:00.82 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.371
+Fra:1 Mem:255.24M (Peak 255.24M) | Time:00:00.82 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.370
+Fra:1 Mem:255.26M (Peak 255.26M) | Time:00:00.82 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.369
+Fra:1 Mem:255.28M (Peak 255.28M) | Time:00:00.82 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.368
+Fra:1 Mem:255.29M (Peak 255.29M) | Time:00:00.82 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.367
+Fra:1 Mem:255.31M (Peak 255.31M) | Time:00:00.82 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.366
+Fra:1 Mem:255.43M (Peak 255.43M) | Time:00:00.82 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.365
+Fra:1 Mem:255.49M (Peak 255.49M) | Time:00:00.82 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.364
+Fra:1 Mem:255.80M (Peak 255.80M) | Time:00:00.82 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.363
+Fra:1 Mem:256.41M (Peak 256.41M) | Time:00:00.82 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.362
+Fra:1 Mem:256.43M (Peak 256.43M) | Time:00:00.82 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.361
+Fra:1 Mem:256.60M (Peak 256.60M) | Time:00:00.82 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.360
+Fra:1 Mem:256.61M (Peak 256.61M) | Time:00:00.82 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.041
+Fra:1 Mem:259.08M (Peak 259.08M) | Time:00:00.82 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.007
+Fra:1 Mem:260.91M (Peak 260.91M) | Time:00:00.83 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.054
+Fra:1 Mem:260.92M (Peak 260.92M) | Time:00:00.83 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.055
+Fra:1 Mem:261.24M (Peak 261.24M) | Time:00:00.83 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.056
+Fra:1 Mem:261.55M (Peak 261.55M) | Time:00:00.83 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.057
+Fra:1 Mem:261.57M (Peak 261.57M) | Time:00:00.83 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.058
+Fra:1 Mem:261.14M (Peak 261.57M) | Time:00:00.83 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.059
+Fra:1 Mem:261.01M (Peak 261.57M) | Time:00:00.83 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.060
+Fra:1 Mem:261.02M (Peak 261.57M) | Time:00:00.83 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.061
+Fra:1 Mem:261.04M (Peak 261.57M) | Time:00:00.83 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.062
+Fra:1 Mem:261.06M (Peak 261.57M) | Time:00:00.83 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.063
+Fra:1 Mem:261.08M (Peak 261.57M) | Time:00:00.83 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.064
+Fra:1 Mem:261.08M (Peak 261.57M) | Time:00:00.83 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.065
+Fra:1 Mem:261.11M (Peak 261.57M) | Time:00:00.83 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.066
+Fra:1 Mem:261.12M (Peak 261.57M) | Time:00:00.83 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.067
+Fra:1 Mem:261.14M (Peak 261.57M) | Time:00:00.83 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.068
+Fra:1 Mem:261.15M (Peak 261.57M) | Time:00:00.83 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.069
+Fra:1 Mem:261.18M (Peak 261.57M) | Time:00:00.83 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.070
+Fra:1 Mem:261.19M (Peak 261.57M) | Time:00:00.83 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.071
+Fra:1 Mem:261.84M (Peak 261.84M) | Time:00:00.83 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.012
+Fra:1 Mem:261.86M (Peak 261.86M) | Time:00:00.83 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.013
+Fra:1 Mem:261.86M (Peak 261.86M) | Time:00:00.83 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.015
+Fra:1 Mem:261.26M (Peak 261.86M) | Time:00:00.83 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.040
+Fra:1 Mem:261.26M (Peak 261.86M) | Time:00:00.83 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Matelas.006
+Fra:1 Mem:262.99M (Peak 262.99M) | Time:00:00.83 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Matelas.007
+Fra:1 Mem:265.12M (Peak 265.12M) | Time:00:00.83 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.018
+Fra:1 Mem:265.14M (Peak 265.14M) | Time:00:00.83 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.019
+Fra:1 Mem:265.15M (Peak 265.15M) | Time:00:00.83 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.020
+Fra:1 Mem:265.39M (Peak 265.39M) | Time:00:00.83 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.021
+Fra:1 Mem:265.41M (Peak 265.41M) | Time:00:00.83 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.012
+Fra:1 Mem:265.42M (Peak 265.42M) | Time:00:00.83 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.013
+Fra:1 Mem:265.44M (Peak 265.44M) | Time:00:00.83 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.014
+Fra:1 Mem:265.46M (Peak 265.46M) | Time:00:00.83 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.015
+Fra:1 Mem:265.47M (Peak 265.47M) | Time:00:00.83 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.014
+Fra:1 Mem:265.49M (Peak 265.49M) | Time:00:00.83 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.015
+Fra:1 Mem:265.51M (Peak 265.51M) | Time:00:00.83 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.016
+Fra:1 Mem:265.52M (Peak 265.52M) | Time:00:00.83 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.017
+Fra:1 Mem:265.54M (Peak 265.54M) | Time:00:00.83 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.012
+Fra:1 Mem:265.56M (Peak 265.56M) | Time:00:00.83 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.013
+Fra:1 Mem:265.58M (Peak 265.58M) | Time:00:00.83 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.014
+Fra:1 Mem:265.59M (Peak 265.59M) | Time:00:00.83 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.015
+Fra:1 Mem:265.61M (Peak 265.61M) | Time:00:00.83 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.008
+Fra:1 Mem:266.31M (Peak 266.31M) | Time:00:00.83 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.009
+Fra:1 Mem:266.22M (Peak 266.31M) | Time:00:00.84 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.072
+Fra:1 Mem:266.29M (Peak 266.31M) | Time:00:00.84 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.073
+Fra:1 Mem:266.31M (Peak 266.31M) | Time:00:00.84 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.074
+Fra:1 Mem:266.32M (Peak 266.32M) | Time:00:00.84 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.075
+Fra:1 Mem:266.34M (Peak 266.34M) | Time:00:00.84 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.076
+Fra:1 Mem:268.59M (Peak 268.59M) | Time:00:00.84 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.077
+Fra:1 Mem:268.60M (Peak 268.60M) | Time:00:00.84 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.078
+Fra:1 Mem:268.62M (Peak 268.62M) | Time:00:00.84 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.079
+Fra:1 Mem:268.64M (Peak 268.64M) | Time:00:00.84 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.080
+Fra:1 Mem:268.65M (Peak 268.65M) | Time:00:00.84 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.081
+Fra:1 Mem:270.04M (Peak 270.04M) | Time:00:00.84 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Coque.006
+Fra:1 Mem:271.44M (Peak 271.44M) | Time:00:00.84 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.082
+Fra:1 Mem:272.10M (Peak 272.10M) | Time:00:00.84 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.083
+Fra:1 Mem:272.12M (Peak 272.12M) | Time:00:00.84 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.084
+Fra:1 Mem:272.29M (Peak 272.29M) | Time:00:00.84 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.085
+Fra:1 Mem:272.31M (Peak 272.31M) | Time:00:00.84 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.086
+Fra:1 Mem:272.33M (Peak 272.33M) | Time:00:00.84 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.087
+Fra:1 Mem:272.33M (Peak 272.33M) | Time:00:00.84 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.088
+Fra:1 Mem:272.36M (Peak 272.36M) | Time:00:00.84 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.089
+Fra:1 Mem:272.36M (Peak 272.36M) | Time:00:00.84 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.017
+Fra:1 Mem:272.39M (Peak 272.39M) | Time:00:00.84 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.018
+Fra:1 Mem:272.41M (Peak 272.41M) | Time:00:00.84 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.019
+Fra:1 Mem:272.43M (Peak 272.43M) | Time:00:00.84 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Matelas.008
+Fra:1 Mem:273.17M (Peak 273.17M) | Time:00:00.85 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Matelas.009
+Fra:1 Mem:273.42M (Peak 273.42M) | Time:00:00.85 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.022
+Fra:1 Mem:273.48M (Peak 273.48M) | Time:00:00.85 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.023
+Fra:1 Mem:273.52M (Peak 273.52M) | Time:00:00.85 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.024
+Fra:1 Mem:273.53M (Peak 273.53M) | Time:00:00.85 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.025
+Fra:1 Mem:273.71M (Peak 273.71M) | Time:00:00.85 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.016
+Fra:1 Mem:273.95M (Peak 273.95M) | Time:00:00.85 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.017
+Fra:1 Mem:274.02M (Peak 274.02M) | Time:00:00.85 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.018
+Fra:1 Mem:274.04M (Peak 274.04M) | Time:00:00.85 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.019
+Fra:1 Mem:274.06M (Peak 274.06M) | Time:00:00.85 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.018
+Fra:1 Mem:274.07M (Peak 274.07M) | Time:00:00.85 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.019
+Fra:1 Mem:274.09M (Peak 274.09M) | Time:00:00.85 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.020
+Fra:1 Mem:274.12M (Peak 274.12M) | Time:00:00.85 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.021
+Fra:1 Mem:274.14M (Peak 274.14M) | Time:00:00.85 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.016
+Fra:1 Mem:274.16M (Peak 274.16M) | Time:00:00.85 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.017
+Fra:1 Mem:274.17M (Peak 274.17M) | Time:00:00.85 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.018
+Fra:1 Mem:274.18M (Peak 274.18M) | Time:00:00.85 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.019
+Fra:1 Mem:274.21M (Peak 274.21M) | Time:00:00.85 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.010
+Fra:1 Mem:274.38M (Peak 274.38M) | Time:00:00.85 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.011
+Fra:1 Mem:278.70M (Peak 278.70M) | Time:00:00.85 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Coque.005
+Fra:1 Mem:279.60M (Peak 279.60M) | Time:00:00.85 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.090
+Fra:1 Mem:279.62M (Peak 279.62M) | Time:00:00.85 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.091
+Fra:1 Mem:279.63M (Peak 279.63M) | Time:00:00.85 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.092
+Fra:1 Mem:279.65M (Peak 279.65M) | Time:00:00.85 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.093
+Fra:1 Mem:280.96M (Peak 280.96M) | Time:00:00.85 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.094
+Fra:1 Mem:280.98M (Peak 280.98M) | Time:00:00.85 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.095
+Fra:1 Mem:280.99M (Peak 280.99M) | Time:00:00.85 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.096
+Fra:1 Mem:281.01M (Peak 281.01M) | Time:00:00.85 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.097
+Fra:1 Mem:281.03M (Peak 281.03M) | Time:00:00.85 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.098
+Fra:1 Mem:281.04M (Peak 281.04M) | Time:00:00.85 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.099
+Fra:1 Mem:281.06M (Peak 281.06M) | Time:00:00.85 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.100
+Fra:1 Mem:281.08M (Peak 281.08M) | Time:00:00.85 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.101
+Fra:1 Mem:281.09M (Peak 281.09M) | Time:00:00.85 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.102
+Fra:1 Mem:281.11M (Peak 281.11M) | Time:00:00.85 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.103
+Fra:1 Mem:281.13M (Peak 281.13M) | Time:00:00.85 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.104
+Fra:1 Mem:281.15M (Peak 281.15M) | Time:00:00.85 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.105
+Fra:1 Mem:281.27M (Peak 281.27M) | Time:00:00.85 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.106
+Fra:1 Mem:281.50M (Peak 281.50M) | Time:00:00.85 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.107
+Fra:1 Mem:281.51M (Peak 281.51M) | Time:00:00.85 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.020
+Fra:1 Mem:281.85M (Peak 281.85M) | Time:00:00.85 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.021
+Fra:1 Mem:281.86M (Peak 281.86M) | Time:00:00.85 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.022
+Fra:1 Mem:281.41M (Peak 281.86M) | Time:00:00.85 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.023
+Fra:1 Mem:281.26M (Peak 281.86M) | Time:00:00.85 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Matelas.010
+Fra:1 Mem:281.57M (Peak 281.86M) | Time:00:00.85 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Matelas.011
+Fra:1 Mem:282.76M (Peak 282.76M) | Time:00:00.86 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.026
+Fra:1 Mem:282.99M (Peak 282.99M) | Time:00:00.86 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.027
+Fra:1 Mem:282.79M (Peak 282.99M) | Time:00:00.86 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.028
+Fra:1 Mem:282.80M (Peak 282.99M) | Time:00:00.86 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.029
+Fra:1 Mem:282.82M (Peak 282.99M) | Time:00:00.86 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.020
+Fra:1 Mem:282.83M (Peak 282.99M) | Time:00:00.86 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.021
+Fra:1 Mem:282.86M (Peak 282.99M) | Time:00:00.86 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.022
+Fra:1 Mem:282.86M (Peak 282.99M) | Time:00:00.86 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.023
+Fra:1 Mem:282.89M (Peak 282.99M) | Time:00:00.86 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.022
+Fra:1 Mem:282.90M (Peak 282.99M) | Time:00:00.86 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.023
+Fra:1 Mem:282.93M (Peak 282.99M) | Time:00:00.86 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.024
+Fra:1 Mem:282.93M (Peak 282.99M) | Time:00:00.86 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.025
+Fra:1 Mem:282.96M (Peak 282.99M) | Time:00:00.86 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.020
+Fra:1 Mem:282.97M (Peak 282.99M) | Time:00:00.86 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.021
+Fra:1 Mem:282.99M (Peak 282.99M) | Time:00:00.86 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.022
+Fra:1 Mem:283.00M (Peak 283.00M) | Time:00:00.86 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.023
+Fra:1 Mem:283.03M (Peak 283.03M) | Time:00:00.86 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.012
+Fra:1 Mem:283.18M (Peak 283.18M) | Time:00:00.86 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.013
+Fra:1 Mem:284.74M (Peak 284.74M) | Time:00:00.86 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Plateau.002
+Fra:1 Mem:285.34M (Peak 285.34M) | Time:00:00.86 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.085
+Fra:1 Mem:285.72M (Peak 285.72M) | Time:00:00.86 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.084
+Fra:1 Mem:286.33M (Peak 286.33M) | Time:00:00.86 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Chant.002
+Fra:1 Mem:287.32M (Peak 287.32M) | Time:00:00.86 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.079
+Fra:1 Mem:287.34M (Peak 287.34M) | Time:00:00.86 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.078
+Fra:1 Mem:287.36M (Peak 287.36M) | Time:00:00.86 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.077
+Fra:1 Mem:287.37M (Peak 287.37M) | Time:00:00.86 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.076
+Fra:1 Mem:287.39M (Peak 287.39M) | Time:00:00.86 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.083
+Fra:1 Mem:287.41M (Peak 287.41M) | Time:00:00.86 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.082
+Fra:1 Mem:287.42M (Peak 287.42M) | Time:00:00.86 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.081
+Fra:1 Mem:287.44M (Peak 287.44M) | Time:00:00.86 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.080
+Fra:1 Mem:287.46M (Peak 287.46M) | Time:00:00.86 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.079
+Fra:1 Mem:287.47M (Peak 287.47M) | Time:00:00.86 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.078
+Fra:1 Mem:287.49M (Peak 287.49M) | Time:00:00.86 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.077
+Fra:1 Mem:287.51M (Peak 287.51M) | Time:00:00.86 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.076
+Fra:1 Mem:287.53M (Peak 287.53M) | Time:00:00.86 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.089
+Fra:1 Mem:287.54M (Peak 287.54M) | Time:00:00.86 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.088
+Fra:1 Mem:287.56M (Peak 287.56M) | Time:00:00.86 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.087
+Fra:1 Mem:287.58M (Peak 287.58M) | Time:00:00.86 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.086
+Fra:1 Mem:287.59M (Peak 287.59M) | Time:00:00.86 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Matelas.039
+Fra:1 Mem:288.34M (Peak 288.34M) | Time:00:00.86 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Matelas.038
+Fra:1 Mem:289.31M (Peak 289.31M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.108
+Fra:1 Mem:289.09M (Peak 289.31M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.079
+Fra:1 Mem:289.12M (Peak 289.31M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.109
+Fra:1 Mem:289.12M (Peak 289.31M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.078
+Fra:1 Mem:289.26M (Peak 289.31M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.110
+Fra:1 Mem:289.27M (Peak 289.31M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.077
+Fra:1 Mem:289.50M (Peak 289.50M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.111
+Fra:1 Mem:289.51M (Peak 289.51M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.076
+Fra:1 Mem:289.85M (Peak 289.85M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.112
+Fra:1 Mem:289.86M (Peak 289.86M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.359
+Fra:1 Mem:289.89M (Peak 289.89M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.358
+Fra:1 Mem:289.89M (Peak 289.89M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.113
+Fra:1 Mem:289.92M (Peak 289.92M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.357
+Fra:1 Mem:289.45M (Peak 289.92M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.114
+Fra:1 Mem:289.32M (Peak 289.92M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.115
+Fra:1 Mem:289.34M (Peak 289.92M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.356
+Fra:1 Mem:289.35M (Peak 289.92M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.116
+Fra:1 Mem:289.37M (Peak 289.92M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.117
+Fra:1 Mem:289.37M (Peak 289.92M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.118
+Fra:1 Mem:289.43M (Peak 289.92M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.119
+Fra:1 Mem:289.42M (Peak 289.92M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.120
+Fra:1 Mem:289.44M (Peak 289.92M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.354
+Fra:1 Mem:289.47M (Peak 289.92M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.121
+Fra:1 Mem:289.48M (Peak 289.92M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.122
+Fra:1 Mem:289.49M (Peak 289.92M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.353
+Fra:1 Mem:289.53M (Peak 289.92M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.123
+Fra:1 Mem:289.53M (Peak 289.92M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.124
+Fra:1 Mem:289.53M (Peak 289.92M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.352
+Fra:1 Mem:289.58M (Peak 289.92M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.125
+Fra:1 Mem:289.59M (Peak 289.92M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.024
+Fra:1 Mem:289.59M (Peak 289.92M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.351
+Fra:1 Mem:289.63M (Peak 289.92M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.025
+Fra:1 Mem:289.64M (Peak 289.92M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.026
+Fra:1 Mem:289.66M (Peak 289.92M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.027
+Fra:1 Mem:289.67M (Peak 289.92M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Matelas.012
+Fra:1 Mem:289.93M (Peak 289.93M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Matelas.013
+Fra:1 Mem:289.99M (Peak 289.99M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.349
+Fra:1 Mem:290.36M (Peak 290.36M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.348
+Fra:1 Mem:290.44M (Peak 290.44M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.347
+Fra:1 Mem:290.70M (Peak 290.70M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.346
+Fra:1 Mem:291.10M (Peak 291.10M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.345
+Fra:1 Mem:291.51M (Peak 291.51M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.344
+Fra:1 Mem:291.93M (Peak 291.93M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.343
+Fra:1 Mem:291.48M (Peak 291.93M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.342
+Fra:1 Mem:291.31M (Peak 291.93M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.030
+Fra:1 Mem:291.34M (Peak 291.93M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.039
+Fra:1 Mem:292.30M (Peak 292.30M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.031
+Fra:1 Mem:292.32M (Peak 292.32M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.032
+Fra:1 Mem:292.34M (Peak 292.34M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.033
+Fra:1 Mem:292.36M (Peak 292.36M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.024
+Fra:1 Mem:292.37M (Peak 292.37M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.025
+Fra:1 Mem:292.39M (Peak 292.39M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.026
+Fra:1 Mem:292.52M (Peak 292.52M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.027
+Fra:1 Mem:292.94M (Peak 292.94M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.026
+Fra:1 Mem:292.96M (Peak 292.96M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.027
+Fra:1 Mem:293.67M (Peak 293.67M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.028
+Fra:1 Mem:293.68M (Peak 293.68M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.029
+Fra:1 Mem:293.70M (Peak 293.70M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.024
+Fra:1 Mem:293.89M (Peak 293.89M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.025
+Fra:1 Mem:293.91M (Peak 293.91M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.026
+Fra:1 Mem:293.92M (Peak 293.92M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.027
+Fra:1 Mem:293.94M (Peak 293.94M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.014
+Fra:1 Mem:294.90M (Peak 294.90M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.015
+Fra:1 Mem:295.30M (Peak 295.30M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.126
+Fra:1 Mem:295.39M (Peak 295.39M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.127
+Fra:1 Mem:295.41M (Peak 295.41M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.128
+Fra:1 Mem:295.73M (Peak 295.73M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.129
+Fra:1 Mem:295.75M (Peak 295.75M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.130
+Fra:1 Mem:295.82M (Peak 295.82M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.131
+Fra:1 Mem:295.89M (Peak 295.89M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.132
+Fra:1 Mem:295.91M (Peak 295.91M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.133
+Fra:1 Mem:296.03M (Peak 296.03M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.134
+Fra:1 Mem:296.41M (Peak 296.41M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.135
+Fra:1 Mem:296.43M (Peak 296.43M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.136
+Fra:1 Mem:297.08M (Peak 297.08M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.137
+Fra:1 Mem:297.10M (Peak 297.10M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.138
+Fra:1 Mem:297.27M (Peak 297.27M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.139
+Fra:1 Mem:297.29M (Peak 297.29M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.140
+Fra:1 Mem:297.31M (Peak 297.31M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.141
+Fra:1 Mem:297.32M (Peak 297.32M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.142
+Fra:1 Mem:297.34M (Peak 297.34M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.143
+Fra:1 Mem:297.47M (Peak 297.47M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.028
+Fra:1 Mem:297.55M (Peak 297.55M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.029
+Fra:1 Mem:297.91M (Peak 297.91M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.030
+Fra:1 Mem:298.62M (Peak 298.62M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.031
+Fra:1 Mem:298.62M (Peak 298.62M) | Time:00:00.87 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Matelas.014
+Fra:1 Mem:299.55M (Peak 299.55M) | Time:00:00.88 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Matelas.015
+Fra:1 Mem:300.46M (Peak 300.46M) | Time:00:00.88 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.038
+Fra:1 Mem:300.97M (Peak 300.97M) | Time:00:00.88 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.034
+Fra:1 Mem:300.97M (Peak 300.97M) | Time:00:00.88 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.035
+Fra:1 Mem:301.01M (Peak 301.01M) | Time:00:00.88 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.036
+Fra:1 Mem:301.05M (Peak 301.05M) | Time:00:00.88 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.037
+Fra:1 Mem:301.07M (Peak 301.07M) | Time:00:00.88 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.028
+Fra:1 Mem:301.21M (Peak 301.21M) | Time:00:00.88 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.029
+Fra:1 Mem:301.23M (Peak 301.23M) | Time:00:00.88 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.030
+Fra:1 Mem:301.30M (Peak 301.30M) | Time:00:00.88 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.031
+Fra:1 Mem:301.32M (Peak 301.32M) | Time:00:00.88 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.030
+Fra:1 Mem:301.33M (Peak 301.33M) | Time:00:00.88 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.031
+Fra:1 Mem:301.35M (Peak 301.35M) | Time:00:00.88 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.032
+Fra:1 Mem:302.63M (Peak 302.63M) | Time:00:00.88 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.033
+Fra:1 Mem:302.64M (Peak 302.64M) | Time:00:00.88 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.028
+Fra:1 Mem:302.67M (Peak 302.67M) | Time:00:00.88 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.029
+Fra:1 Mem:302.67M (Peak 302.67M) | Time:00:00.88 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.030
+Fra:1 Mem:302.70M (Peak 302.70M) | Time:00:00.88 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.031
+Fra:1 Mem:302.71M (Peak 302.71M) | Time:00:00.88 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.016
+Fra:1 Mem:302.87M (Peak 302.87M) | Time:00:00.88 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.017
+Fra:1 Mem:304.43M (Peak 304.43M) | Time:00:00.88 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.144
+Fra:1 Mem:304.44M (Peak 304.44M) | Time:00:00.88 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.145
+Fra:1 Mem:304.56M (Peak 304.56M) | Time:00:00.88 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.146
+Fra:1 Mem:304.92M (Peak 304.92M) | Time:00:00.88 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.147
+Fra:1 Mem:304.94M (Peak 304.94M) | Time:00:00.88 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.148
+Fra:1 Mem:305.65M (Peak 305.65M) | Time:00:00.88 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.149
+Fra:1 Mem:306.04M (Peak 306.04M) | Time:00:00.88 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.150
+Fra:1 Mem:306.20M (Peak 306.20M) | Time:00:00.88 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.151
+Fra:1 Mem:306.85M (Peak 306.85M) | Time:00:00.88 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.152
+Fra:1 Mem:306.87M (Peak 306.87M) | Time:00:00.88 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.153
+Fra:1 Mem:307.05M (Peak 307.05M) | Time:00:00.88 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.154
+Fra:1 Mem:307.06M (Peak 307.06M) | Time:00:00.88 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.155
+Fra:1 Mem:307.08M (Peak 307.08M) | Time:00:00.88 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.156
+Fra:1 Mem:307.10M (Peak 307.10M) | Time:00:00.88 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.158
+Fra:1 Mem:307.13M (Peak 307.13M) | Time:00:00.88 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.159
+Fra:1 Mem:307.15M (Peak 307.15M) | Time:00:00.88 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.160
+Fra:1 Mem:307.16M (Peak 307.16M) | Time:00:00.88 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.161
+Fra:1 Mem:307.18M (Peak 307.18M) | Time:00:00.88 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.032
+Fra:1 Mem:307.20M (Peak 307.20M) | Time:00:00.88 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.033
+Fra:1 Mem:307.21M (Peak 307.21M) | Time:00:00.88 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.034
+Fra:1 Mem:307.23M (Peak 307.23M) | Time:00:00.88 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.035
+Fra:1 Mem:307.25M (Peak 307.25M) | Time:00:00.88 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Matelas.016
+Fra:1 Mem:308.29M (Peak 308.29M) | Time:00:00.89 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Coque.004
+Fra:1 Mem:308.71M (Peak 308.71M) | Time:00:00.89 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Matelas.017
+Fra:1 Mem:309.45M (Peak 309.45M) | Time:00:00.89 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.038
+Fra:1 Mem:309.85M (Peak 309.85M) | Time:00:00.89 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.039
+Fra:1 Mem:309.39M (Peak 309.85M) | Time:00:00.89 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.040
+Fra:1 Mem:309.31M (Peak 309.85M) | Time:00:00.89 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.041
+Fra:1 Mem:309.65M (Peak 309.85M) | Time:00:00.89 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.032
+Fra:1 Mem:309.67M (Peak 309.85M) | Time:00:00.89 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.033
+Fra:1 Mem:309.74M (Peak 309.85M) | Time:00:00.89 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.034
+Fra:1 Mem:309.76M (Peak 309.85M) | Time:00:00.89 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.035
+Fra:1 Mem:309.78M (Peak 309.85M) | Time:00:00.89 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.034
+Fra:1 Mem:309.79M (Peak 309.85M) | Time:00:00.89 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.035
+Fra:1 Mem:309.81M (Peak 309.85M) | Time:00:00.89 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.036
+Fra:1 Mem:309.93M (Peak 309.93M) | Time:00:00.89 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.037
+Fra:1 Mem:309.95M (Peak 309.95M) | Time:00:00.89 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.032
+Fra:1 Mem:310.02M (Peak 310.02M) | Time:00:00.89 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.033
+Fra:1 Mem:310.36M (Peak 310.36M) | Time:00:00.89 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.034
+Fra:1 Mem:310.38M (Peak 310.38M) | Time:00:00.89 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.035
+Fra:1 Mem:310.39M (Peak 310.39M) | Time:00:00.89 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.018
+Fra:1 Mem:311.20M (Peak 311.20M) | Time:00:00.89 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.019
+Fra:1 Mem:315.53M (Peak 315.53M) | Time:00:00.89 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.162
+Fra:1 Mem:315.55M (Peak 315.55M) | Time:00:00.89 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.163
+Fra:1 Mem:315.57M (Peak 315.57M) | Time:00:00.89 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.164
+Fra:1 Mem:315.58M (Peak 315.58M) | Time:00:00.89 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.165
+Fra:1 Mem:315.60M (Peak 315.60M) | Time:00:00.89 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.166
+Fra:1 Mem:315.62M (Peak 315.62M) | Time:00:00.89 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.167
+Fra:1 Mem:315.64M (Peak 315.64M) | Time:00:00.89 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.168
+Fra:1 Mem:315.65M (Peak 315.65M) | Time:00:00.89 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.169
+Fra:1 Mem:315.67M (Peak 315.67M) | Time:00:00.89 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.170
+Fra:1 Mem:315.69M (Peak 315.69M) | Time:00:00.89 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.171
+Fra:1 Mem:315.70M (Peak 315.70M) | Time:00:00.89 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.172
+Fra:1 Mem:315.70M (Peak 315.70M) | Time:00:00.89 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.173
+Fra:1 Mem:315.90M (Peak 315.90M) | Time:00:00.89 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.174
+Fra:1 Mem:315.92M (Peak 315.92M) | Time:00:00.89 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.175
+Fra:1 Mem:315.93M (Peak 315.93M) | Time:00:00.89 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.176
+Fra:1 Mem:315.95M (Peak 315.95M) | Time:00:00.89 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.177
+Fra:1 Mem:315.97M (Peak 315.97M) | Time:00:00.89 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.178
+Fra:1 Mem:316.33M (Peak 316.33M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.179
+Fra:1 Mem:316.69M (Peak 316.69M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.036
+Fra:1 Mem:316.02M (Peak 316.69M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.037
+Fra:1 Mem:316.03M (Peak 316.69M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.038
+Fra:1 Mem:316.04M (Peak 316.69M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Matelas.018
+Fra:1 Mem:316.27M (Peak 316.69M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Matelas.019
+Fra:1 Mem:317.56M (Peak 317.56M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.042
+Fra:1 Mem:317.58M (Peak 317.58M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.043
+Fra:1 Mem:317.59M (Peak 317.59M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.044
+Fra:1 Mem:317.61M (Peak 317.61M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.045
+Fra:1 Mem:317.63M (Peak 317.63M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.036
+Fra:1 Mem:317.64M (Peak 317.64M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.037
+Fra:1 Mem:317.66M (Peak 317.66M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.038
+Fra:1 Mem:317.68M (Peak 317.68M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.039
+Fra:1 Mem:317.70M (Peak 317.70M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.038
+Fra:1 Mem:317.71M (Peak 317.71M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.039
+Fra:1 Mem:317.73M (Peak 317.73M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.040
+Fra:1 Mem:317.75M (Peak 317.75M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.041
+Fra:1 Mem:317.76M (Peak 317.76M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.036
+Fra:1 Mem:317.78M (Peak 317.78M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.037
+Fra:1 Mem:317.80M (Peak 317.80M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.038
+Fra:1 Mem:317.81M (Peak 317.81M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.039
+Fra:1 Mem:317.83M (Peak 317.83M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.020
+Fra:1 Mem:318.80M (Peak 318.80M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.021
+Fra:1 Mem:318.80M (Peak 318.80M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.180
+Fra:1 Mem:319.41M (Peak 319.41M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.181
+Fra:1 Mem:319.50M (Peak 319.50M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.182
+Fra:1 Mem:319.54M (Peak 319.54M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.183
+Fra:1 Mem:319.69M (Peak 319.69M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.184
+Fra:1 Mem:319.71M (Peak 319.71M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.185
+Fra:1 Mem:319.89M (Peak 319.89M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.186
+Fra:1 Mem:321.01M (Peak 321.01M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.187
+Fra:1 Mem:321.13M (Peak 321.13M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.188
+Fra:1 Mem:321.69M (Peak 321.69M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.189
+Fra:1 Mem:321.70M (Peak 321.70M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.190
+Fra:1 Mem:322.35M (Peak 322.35M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.191
+Fra:1 Mem:322.53M (Peak 322.53M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.192
+Fra:1 Mem:322.54M (Peak 322.54M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.193
+Fra:1 Mem:322.56M (Peak 322.56M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.194
+Fra:1 Mem:322.58M (Peak 322.58M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.195
+Fra:1 Mem:322.60M (Peak 322.60M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.196
+Fra:1 Mem:322.61M (Peak 322.61M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.197
+Fra:1 Mem:322.61M (Peak 322.61M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.040
+Fra:1 Mem:322.65M (Peak 322.65M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.041
+Fra:1 Mem:322.65M (Peak 322.65M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.043
+Fra:1 Mem:322.70M (Peak 322.70M) | Time:00:00.90 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Matelas.020
+Fra:1 Mem:323.44M (Peak 323.44M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Matelas.021
+Fra:1 Mem:324.47M (Peak 324.47M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Coque.003
+Fra:1 Mem:324.46M (Peak 324.47M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.046
+Fra:1 Mem:325.13M (Peak 325.13M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.047
+Fra:1 Mem:325.54M (Peak 325.54M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.048
+Fra:1 Mem:325.58M (Peak 325.58M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.049
+Fra:1 Mem:324.97M (Peak 325.58M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.040
+Fra:1 Mem:325.11M (Peak 325.58M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.041
+Fra:1 Mem:325.14M (Peak 325.58M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.042
+Fra:1 Mem:325.14M (Peak 325.58M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.043
+Fra:1 Mem:325.17M (Peak 325.58M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.042
+Fra:1 Mem:325.17M (Peak 325.58M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.043
+Fra:1 Mem:325.26M (Peak 325.58M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.044
+Fra:1 Mem:325.26M (Peak 325.58M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.045
+Fra:1 Mem:325.29M (Peak 325.58M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.040
+Fra:1 Mem:325.29M (Peak 325.58M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.041
+Fra:1 Mem:325.33M (Peak 325.58M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.042
+Fra:1 Mem:325.33M (Peak 325.58M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.043
+Fra:1 Mem:325.36M (Peak 325.58M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.022
+Fra:1 Mem:325.36M (Peak 325.58M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.023
+Fra:1 Mem:328.14M (Peak 328.14M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.198
+Fra:1 Mem:328.52M (Peak 328.52M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.199
+Fra:1 Mem:328.94M (Peak 328.94M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.200
+Fra:1 Mem:329.92M (Peak 329.92M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.201
+Fra:1 Mem:329.94M (Peak 329.94M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.202
+Fra:1 Mem:330.73M (Peak 330.73M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.203
+Fra:1 Mem:330.75M (Peak 330.75M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.204
+Fra:1 Mem:330.93M (Peak 330.93M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.205
+Fra:1 Mem:330.94M (Peak 330.94M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.206
+Fra:1 Mem:330.96M (Peak 330.96M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.207
+Fra:1 Mem:330.98M (Peak 330.98M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.208
+Fra:1 Mem:330.99M (Peak 330.99M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.209
+Fra:1 Mem:331.01M (Peak 331.01M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.210
+Fra:1 Mem:331.02M (Peak 331.02M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.212
+Fra:1 Mem:331.06M (Peak 331.06M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.213
+Fra:1 Mem:331.08M (Peak 331.08M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.214
+Fra:1 Mem:331.10M (Peak 331.10M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.215
+Fra:1 Mem:331.10M (Peak 331.10M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.044
+Fra:1 Mem:331.13M (Peak 331.13M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.045
+Fra:1 Mem:331.15M (Peak 331.15M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.046
+Fra:1 Mem:331.15M (Peak 331.15M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.047
+Fra:1 Mem:331.18M (Peak 331.18M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Matelas.022
+Fra:1 Mem:331.65M (Peak 331.65M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Matelas.023
+Fra:1 Mem:332.67M (Peak 332.67M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.050
+Fra:1 Mem:332.69M (Peak 332.69M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.051
+Fra:1 Mem:332.71M (Peak 332.71M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.052
+Fra:1 Mem:332.72M (Peak 332.72M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.053
+Fra:1 Mem:332.74M (Peak 332.74M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.044
+Fra:1 Mem:332.76M (Peak 332.76M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.045
+Fra:1 Mem:332.77M (Peak 332.77M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.046
+Fra:1 Mem:332.79M (Peak 332.79M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.047
+Fra:1 Mem:332.81M (Peak 332.81M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.046
+Fra:1 Mem:332.82M (Peak 332.82M) | Time:00:00.91 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.047
+Fra:1 Mem:332.84M (Peak 332.84M) | Time:00:00.92 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.048
+Fra:1 Mem:332.86M (Peak 332.86M) | Time:00:00.92 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.049
+Fra:1 Mem:332.88M (Peak 332.88M) | Time:00:00.92 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.044
+Fra:1 Mem:332.89M (Peak 332.89M) | Time:00:00.92 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.045
+Fra:1 Mem:332.91M (Peak 332.91M) | Time:00:00.92 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.046
+Fra:1 Mem:332.93M (Peak 332.93M) | Time:00:00.92 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.047
+Fra:1 Mem:332.94M (Peak 332.94M) | Time:00:00.92 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.024
+Fra:1 Mem:333.93M (Peak 333.93M) | Time:00:00.92 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.025
+Fra:1 Mem:335.70M (Peak 336.33M) | Time:00:00.92 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.216
+Fra:1 Mem:336.01M (Peak 336.33M) | Time:00:00.92 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.217
+Fra:1 Mem:337.47M (Peak 337.47M) | Time:00:00.92 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.218
+Fra:1 Mem:337.49M (Peak 337.49M) | Time:00:00.92 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.219
+Fra:1 Mem:337.51M (Peak 337.51M) | Time:00:00.92 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.220
+Fra:1 Mem:337.52M (Peak 337.52M) | Time:00:00.92 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.221
+Fra:1 Mem:337.54M (Peak 337.54M) | Time:00:00.92 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.222
+Fra:1 Mem:337.55M (Peak 337.55M) | Time:00:00.92 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.223
+Fra:1 Mem:337.57M (Peak 337.57M) | Time:00:00.92 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.224
+Fra:1 Mem:337.59M (Peak 337.59M) | Time:00:00.92 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.225
+Fra:1 Mem:337.61M (Peak 337.61M) | Time:00:00.92 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.226
+Fra:1 Mem:337.62M (Peak 337.62M) | Time:00:00.92 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.227
+Fra:1 Mem:337.64M (Peak 337.64M) | Time:00:00.92 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.228
+Fra:1 Mem:337.66M (Peak 337.66M) | Time:00:00.92 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.229
+Fra:1 Mem:337.67M (Peak 337.67M) | Time:00:00.92 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.230
+Fra:1 Mem:337.69M (Peak 337.69M) | Time:00:00.92 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.231
+Fra:1 Mem:337.81M (Peak 337.81M) | Time:00:00.92 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.232
+Fra:1 Mem:337.82M (Peak 337.82M) | Time:00:00.92 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.233
+Fra:1 Mem:338.06M (Peak 338.06M) | Time:00:00.92 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.048
+Fra:1 Mem:338.39M (Peak 338.39M) | Time:00:00.92 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.049
+Fra:1 Mem:338.41M (Peak 338.41M) | Time:00:00.92 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.050
+Fra:1 Mem:337.95M (Peak 338.41M) | Time:00:00.92 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.051
+Fra:1 Mem:337.81M (Peak 338.41M) | Time:00:00.92 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Matelas.024
+Fra:1 Mem:338.05M (Peak 338.41M) | Time:00:00.92 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Matelas.025
+Fra:1 Mem:339.30M (Peak 339.30M) | Time:00:00.92 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Plateau.001
+Fra:1 Mem:339.32M (Peak 339.32M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.056
+Fra:1 Mem:339.39M (Peak 339.39M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.057
+Fra:1 Mem:339.40M (Peak 339.40M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.079
+Fra:1 Mem:339.41M (Peak 339.41M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.049
+Fra:1 Mem:339.44M (Peak 339.44M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.078
+Fra:1 Mem:339.46M (Peak 339.46M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.050
+Fra:1 Mem:339.47M (Peak 339.47M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Chant.001
+Fra:1 Mem:339.52M (Peak 339.52M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.051
+Fra:1 Mem:339.54M (Peak 339.54M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.050
+Fra:1 Mem:339.56M (Peak 339.56M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Socle.007
+Fra:1 Mem:339.57M (Peak 339.57M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.051
+Fra:1 Mem:339.59M (Peak 339.59M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Serviette.007
+Fra:1 Mem:339.70M (Peak 339.70M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.052
+Fra:1 Mem:339.74M (Peak 339.74M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.053
+Fra:1 Mem:339.95M (Peak 339.95M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.048
+Fra:1 Mem:339.97M (Peak 339.97M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.049
+Fra:1 Mem:339.98M (Peak 339.98M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.050
+Fra:1 Mem:340.00M (Peak 340.00M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.051
+Fra:1 Mem:340.02M (Peak 340.02M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.026
+Fra:1 Mem:340.93M (Peak 340.93M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Sac.007
+Fra:1 Mem:340.96M (Peak 340.96M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Porte.031
+Fra:1 Mem:341.03M (Peak 341.03M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Porte.030
+Fra:1 Mem:341.05M (Peak 341.05M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Porte.029
+Fra:1 Mem:341.06M (Peak 341.06M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Porte.028
+Fra:1 Mem:341.08M (Peak 341.08M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Etagere.007
+Fra:1 Mem:341.10M (Peak 341.10M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Corps.007
+Fra:1 Mem:341.11M (Peak 341.11M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Chapeau.007
+Fra:1 Mem:341.13M (Peak 341.13M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Socle.006
+Fra:1 Mem:341.15M (Peak 341.15M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Serviette.006
+Fra:1 Mem:342.89M (Peak 342.89M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Sac.006
+Fra:1 Mem:342.92M (Peak 342.92M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Porte.027
+Fra:1 Mem:342.94M (Peak 342.94M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Porte.026
+Fra:1 Mem:342.95M (Peak 342.95M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Porte.025
+Fra:1 Mem:342.97M (Peak 342.97M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Porte.024
+Fra:1 Mem:342.99M (Peak 342.99M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Etagere.006
+Fra:1 Mem:343.01M (Peak 343.01M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Corps.006
+Fra:1 Mem:343.02M (Peak 343.02M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Chapeau.006
+Fra:1 Mem:343.04M (Peak 343.04M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Socle.005
+Fra:1 Mem:343.06M (Peak 343.06M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Serviette.005
+Fra:1 Mem:343.36M (Peak 343.36M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.027
+Fra:1 Mem:343.52M (Peak 343.52M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.234
+Fra:1 Mem:344.10M (Peak 344.10M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.235
+Fra:1 Mem:344.11M (Peak 344.11M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.236
+Fra:1 Mem:344.13M (Peak 344.13M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.237
+Fra:1 Mem:344.15M (Peak 344.15M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.238
+Fra:1 Mem:344.16M (Peak 344.16M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.239
+Fra:1 Mem:344.23M (Peak 344.23M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.240
+Fra:1 Mem:344.20M (Peak 344.23M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Sac.005
+Fra:1 Mem:344.21M (Peak 344.23M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.241
+Fra:1 Mem:344.24M (Peak 344.24M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.242
+Fra:1 Mem:344.25M (Peak 344.25M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Porte.023
+Fra:1 Mem:344.28M (Peak 344.28M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Porte.022
+Fra:1 Mem:344.30M (Peak 344.30M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Porte.021
+Fra:1 Mem:344.31M (Peak 344.31M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.243
+Fra:1 Mem:344.31M (Peak 344.31M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.244
+Fra:1 Mem:344.32M (Peak 344.32M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Porte.020
+Fra:1 Mem:344.36M (Peak 344.36M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.245
+Fra:1 Mem:344.37M (Peak 344.37M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Etagere.005
+Fra:1 Mem:344.40M (Peak 344.40M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.246
+Fra:1 Mem:344.41M (Peak 344.41M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Corps.005
+Fra:1 Mem:344.43M (Peak 344.43M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.247
+Fra:1 Mem:344.45M (Peak 344.45M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Chapeau.005
+Fra:1 Mem:344.46M (Peak 344.46M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Socle.004
+Fra:1 Mem:344.48M (Peak 344.48M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Serviette.004
+Fra:1 Mem:344.62M (Peak 344.62M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.248
+Fra:1 Mem:344.63M (Peak 344.63M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.249
+Fra:1 Mem:344.82M (Peak 344.82M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.250
+Fra:1 Mem:344.86M (Peak 344.86M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.251
+Fra:1 Mem:344.87M (Peak 344.87M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.052
+Fra:1 Mem:344.89M (Peak 344.89M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.053
+Fra:1 Mem:344.91M (Peak 344.91M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.054
+Fra:1 Mem:344.93M (Peak 344.93M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.055
+Fra:1 Mem:344.94M (Peak 344.94M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Matelas.026
+Fra:1 Mem:345.82M (Peak 345.82M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Sac.004
+Fra:1 Mem:345.90M (Peak 345.90M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Porte.019
+Fra:1 Mem:345.92M (Peak 345.92M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Porte.018
+Fra:1 Mem:345.94M (Peak 345.94M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Porte.017
+Fra:1 Mem:345.95M (Peak 345.95M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Porte.016
+Fra:1 Mem:345.97M (Peak 345.97M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Etagere.004
+Fra:1 Mem:345.99M (Peak 345.99M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Corps.004
+Fra:1 Mem:346.11M (Peak 346.11M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Chapeau.004
+Fra:1 Mem:346.50M (Peak 346.50M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Socle.003
+Fra:1 Mem:347.14M (Peak 347.14M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Serviette.003
+Fra:1 Mem:347.63M (Peak 347.63M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Sac.003
+Fra:1 Mem:347.66M (Peak 347.66M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Porte.015
+Fra:1 Mem:347.66M (Peak 347.66M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Matelas.027
+Fra:1 Mem:347.88M (Peak 347.88M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Porte.014
+Fra:1 Mem:347.93M (Peak 347.93M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Porte.013
+Fra:1 Mem:348.02M (Peak 348.02M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Porte.012
+Fra:1 Mem:348.03M (Peak 348.03M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Etagere.003
+Fra:1 Mem:348.09M (Peak 348.09M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Corps.003
+Fra:1 Mem:348.45M (Peak 348.45M) | Time:00:00.93 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Chapeau.003
+Fra:1 Mem:348.52M (Peak 348.52M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Socle.002
+Fra:1 Mem:348.54M (Peak 348.54M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Serviette.002
+Fra:1 Mem:348.87M (Peak 348.87M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Sac.002
+Fra:1 Mem:348.89M (Peak 348.89M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Porte.011
+Fra:1 Mem:348.91M (Peak 348.91M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Porte.010
+Fra:1 Mem:348.93M (Peak 348.93M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Porte.009
+Fra:1 Mem:348.95M (Peak 348.95M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Porte.008
+Fra:1 Mem:348.96M (Peak 348.96M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Etagere.002
+Fra:1 Mem:348.98M (Peak 348.98M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Corps.002
+Fra:1 Mem:349.00M (Peak 349.00M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Chapeau.002
+Fra:1 Mem:349.01M (Peak 349.01M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.075
+Fra:1 Mem:349.03M (Peak 349.03M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.074
+Fra:1 Mem:349.16M (Peak 349.16M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.073
+Fra:1 Mem:349.28M (Peak 349.28M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.072
+Fra:1 Mem:349.20M (Peak 349.28M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.077
+Fra:1 Mem:349.44M (Peak 349.44M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.076
+Fra:1 Mem:349.81M (Peak 349.81M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.075
+Fra:1 Mem:349.82M (Peak 349.82M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.058
+Fra:1 Mem:349.82M (Peak 349.82M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.074
+Fra:1 Mem:349.86M (Peak 349.86M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.059
+Fra:1 Mem:349.86M (Peak 349.86M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.075
+Fra:1 Mem:349.20M (Peak 349.86M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.060
+Fra:1 Mem:349.21M (Peak 349.86M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.074
+Fra:1 Mem:349.23M (Peak 349.86M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.073
+Fra:1 Mem:349.24M (Peak 349.86M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.061
+Fra:1 Mem:349.26M (Peak 349.86M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.052
+Fra:1 Mem:349.28M (Peak 349.86M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.072
+Fra:1 Mem:349.30M (Peak 349.86M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.053
+Fra:1 Mem:349.31M (Peak 349.86M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.054
+Fra:1 Mem:349.33M (Peak 349.86M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.081
+Fra:1 Mem:349.35M (Peak 349.86M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.055
+Fra:1 Mem:349.36M (Peak 349.86M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.054
+Fra:1 Mem:349.39M (Peak 349.86M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.080
+Fra:1 Mem:349.40M (Peak 349.86M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.055
+Fra:1 Mem:349.40M (Peak 349.86M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.056
+Fra:1 Mem:349.44M (Peak 349.86M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.079
+Fra:1 Mem:349.45M (Peak 349.86M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.057
+Fra:1 Mem:349.45M (Peak 349.86M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.052
+Fra:1 Mem:349.49M (Peak 349.86M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.078
+Fra:1 Mem:349.50M (Peak 349.86M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.053
+Fra:1 Mem:349.50M (Peak 349.86M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.054
+Fra:1 Mem:349.54M (Peak 349.86M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Matelas.037
+Fra:1 Mem:349.54M (Peak 349.86M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.055
+Fra:1 Mem:349.61M (Peak 349.86M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.028
+Fra:1 Mem:352.31M (Peak 352.31M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Matelas.036
+Fra:1 Mem:352.55M (Peak 352.55M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.029
+Fra:1 Mem:355.21M (Peak 355.21M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.075
+Fra:1 Mem:355.22M (Peak 355.22M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.074
+Fra:1 Mem:355.24M (Peak 355.24M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.073
+Fra:1 Mem:355.26M (Peak 355.26M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.072
+Fra:1 Mem:355.27M (Peak 355.27M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.341
+Fra:1 Mem:355.29M (Peak 355.29M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.340
+Fra:1 Mem:355.31M (Peak 355.31M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.339
+Fra:1 Mem:355.32M (Peak 355.32M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.338
+Fra:1 Mem:355.34M (Peak 355.34M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.337
+Fra:1 Mem:355.36M (Peak 355.36M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.336
+Fra:1 Mem:355.37M (Peak 355.37M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.335
+Fra:1 Mem:355.39M (Peak 355.39M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.334
+Fra:1 Mem:355.41M (Peak 355.41M) | Time:00:00.94 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.333
+Fra:1 Mem:355.43M (Peak 355.43M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.332
+Fra:1 Mem:355.44M (Peak 355.44M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.331
+Fra:1 Mem:355.46M (Peak 355.46M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.330
+Fra:1 Mem:355.48M (Peak 355.48M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.329
+Fra:1 Mem:355.49M (Peak 355.49M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.328
+Fra:1 Mem:355.51M (Peak 355.51M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.327
+Fra:1 Mem:355.53M (Peak 355.53M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.326
+Fra:1 Mem:355.54M (Peak 355.54M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.325
+Fra:1 Mem:355.67M (Peak 355.67M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.324
+Fra:1 Mem:355.89M (Peak 355.89M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.037
+Fra:1 Mem:356.54M (Peak 356.54M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.252
+Fra:1 Mem:356.56M (Peak 356.56M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.253
+Fra:1 Mem:356.58M (Peak 356.58M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.254
+Fra:1 Mem:356.71M (Peak 356.71M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.255
+Fra:1 Mem:356.73M (Peak 356.73M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.256
+Fra:1 Mem:356.80M (Peak 356.80M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.257
+Fra:1 Mem:357.16M (Peak 357.16M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.258
+Fra:1 Mem:357.18M (Peak 357.18M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.259
+Fra:1 Mem:357.20M (Peak 357.20M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.260
+Fra:1 Mem:357.91M (Peak 357.91M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.261
+Fra:1 Mem:357.91M (Peak 357.91M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.262
+Fra:1 Mem:357.94M (Peak 357.94M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.263
+Fra:1 Mem:357.96M (Peak 357.96M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.264
+Fra:1 Mem:357.97M (Peak 357.97M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.265
+Fra:1 Mem:358.16M (Peak 358.16M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.266
+Fra:1 Mem:358.16M (Peak 358.16M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.267
+Fra:1 Mem:358.20M (Peak 358.20M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.268
+Fra:1 Mem:358.21M (Peak 358.21M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.269
+Fra:1 Mem:358.23M (Peak 358.23M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.056
+Fra:1 Mem:358.25M (Peak 358.25M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.057
+Fra:1 Mem:358.26M (Peak 358.26M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.058
+Fra:1 Mem:358.28M (Peak 358.28M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.059
+Fra:1 Mem:358.30M (Peak 358.30M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Matelas.028
+Fra:1 Mem:359.04M (Peak 359.04M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Matelas.029
+Fra:1 Mem:359.79M (Peak 359.79M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.062
+Fra:1 Mem:359.81M (Peak 359.81M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.063
+Fra:1 Mem:359.82M (Peak 359.82M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.064
+Fra:1 Mem:359.84M (Peak 359.84M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.065
+Fra:1 Mem:359.86M (Peak 359.86M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.056
+Fra:1 Mem:359.88M (Peak 359.88M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.057
+Fra:1 Mem:359.89M (Peak 359.89M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.058
+Fra:1 Mem:359.91M (Peak 359.91M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.059
+Fra:1 Mem:359.93M (Peak 359.93M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.058
+Fra:1 Mem:359.94M (Peak 359.94M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.059
+Fra:1 Mem:359.96M (Peak 359.96M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.060
+Fra:1 Mem:360.01M (Peak 360.01M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.061
+Fra:1 Mem:360.21M (Peak 360.21M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.056
+Fra:1 Mem:360.01M (Peak 360.21M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.057
+Fra:1 Mem:360.03M (Peak 360.21M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.058
+Fra:1 Mem:360.04M (Peak 360.21M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.059
+Fra:1 Mem:360.06M (Peak 360.21M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.030
+Fra:1 Mem:360.22M (Peak 360.22M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.031
+Fra:1 Mem:361.12M (Peak 361.12M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.270
+Fra:1 Mem:361.13M (Peak 361.13M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.271
+Fra:1 Mem:361.15M (Peak 361.15M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.272
+Fra:1 Mem:361.17M (Peak 361.17M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.273
+Fra:1 Mem:361.18M (Peak 361.18M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.274
+Fra:1 Mem:361.31M (Peak 361.31M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.275
+Fra:1 Mem:361.38M (Peak 361.38M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.276
+Fra:1 Mem:361.71M (Peak 361.71M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.277
+Fra:1 Mem:361.73M (Peak 361.73M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.278
+Fra:1 Mem:361.74M (Peak 361.74M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.279
+Fra:1 Mem:362.39M (Peak 362.39M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.280
+Fra:1 Mem:362.41M (Peak 362.41M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.281
+Fra:1 Mem:362.70M (Peak 362.70M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.282
+Fra:1 Mem:362.72M (Peak 362.72M) | Time:00:00.95 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.283
+Fra:1 Mem:362.62M (Peak 362.72M) | Time:00:00.96 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.036
+Fra:1 Mem:363.50M (Peak 363.50M) | Time:00:00.96 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.284
+Fra:1 Mem:366.96M (Peak 366.96M) | Time:00:00.96 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.285
+Fra:1 Mem:366.97M (Peak 366.97M) | Time:00:00.96 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.286
+Fra:1 Mem:366.99M (Peak 366.99M) | Time:00:00.96 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.287
+Fra:1 Mem:367.01M (Peak 367.01M) | Time:00:00.96 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.060
+Fra:1 Mem:367.02M (Peak 367.02M) | Time:00:00.96 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.061
+Fra:1 Mem:367.20M (Peak 367.20M) | Time:00:00.96 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.062
+Fra:1 Mem:367.06M (Peak 367.20M) | Time:00:00.96 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.063
+Fra:1 Mem:367.07M (Peak 367.20M) | Time:00:00.96 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Matelas.030
+Fra:1 Mem:367.31M (Peak 367.31M) | Time:00:00.96 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Matelas.031
+Fra:1 Mem:368.13M (Peak 368.13M) | Time:00:00.96 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.071
+Fra:1 Mem:368.14M (Peak 368.14M) | Time:00:00.96 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.070
+Fra:1 Mem:368.16M (Peak 368.16M) | Time:00:00.96 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.069
+Fra:1 Mem:368.18M (Peak 368.18M) | Time:00:00.96 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.068
+Fra:1 Mem:368.20M (Peak 368.20M) | Time:00:00.96 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.073
+Fra:1 Mem:368.21M (Peak 368.21M) | Time:00:00.96 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.072
+Fra:1 Mem:368.23M (Peak 368.23M) | Time:00:00.96 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.071
+Fra:1 Mem:368.25M (Peak 368.25M) | Time:00:00.96 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.070
+Fra:1 Mem:368.26M (Peak 368.26M) | Time:00:00.96 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.071
+Fra:1 Mem:368.44M (Peak 368.44M) | Time:00:00.96 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.070
+Fra:1 Mem:368.68M (Peak 368.68M) | Time:00:00.96 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.069
+Fra:1 Mem:368.75M (Peak 368.75M) | Time:00:00.96 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.068
+Fra:1 Mem:368.77M (Peak 368.77M) | Time:00:00.96 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.077
+Fra:1 Mem:368.79M (Peak 368.79M) | Time:00:00.96 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.076
+Fra:1 Mem:368.80M (Peak 368.80M) | Time:00:00.96 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.075
+Fra:1 Mem:368.82M (Peak 368.82M) | Time:00:00.96 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.074
+Fra:1 Mem:368.84M (Peak 368.84M) | Time:00:00.96 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Matelas.035
+Fra:1 Mem:369.04M (Peak 369.04M) | Time:00:00.96 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.066
+Fra:1 Mem:369.10M (Peak 369.10M) | Time:00:00.96 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.067
+Fra:1 Mem:369.16M (Peak 369.16M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.068
+Fra:1 Mem:369.20M (Peak 369.20M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.069
+Fra:1 Mem:369.21M (Peak 369.21M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.060
+Fra:1 Mem:369.39M (Peak 369.39M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.061
+Fra:1 Mem:369.63M (Peak 369.63M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.062
+Fra:1 Mem:369.70M (Peak 369.70M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.063
+Fra:1 Mem:369.72M (Peak 369.72M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.062
+Fra:1 Mem:369.74M (Peak 369.74M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.063
+Fra:1 Mem:369.75M (Peak 369.75M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.064
+Fra:1 Mem:369.77M (Peak 369.77M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.065
+Fra:1 Mem:369.79M (Peak 369.79M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.060
+Fra:1 Mem:369.80M (Peak 369.80M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.061
+Fra:1 Mem:369.82M (Peak 369.82M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.062
+Fra:1 Mem:369.84M (Peak 369.84M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.063
+Fra:1 Mem:369.85M (Peak 369.85M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.032
+Fra:1 Mem:370.62M (Peak 370.62M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.033
+Fra:1 Mem:373.03M (Peak 373.13M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Matelas.034
+Fra:1 Mem:373.83M (Peak 373.83M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.288
+Fra:1 Mem:373.85M (Peak 373.85M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.289
+Fra:1 Mem:373.86M (Peak 373.86M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.290
+Fra:1 Mem:373.88M (Peak 373.88M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.291
+Fra:1 Mem:373.90M (Peak 373.90M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.292
+Fra:1 Mem:373.92M (Peak 373.92M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.293
+Fra:1 Mem:373.93M (Peak 373.93M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.294
+Fra:1 Mem:373.94M (Peak 373.94M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.295
+Fra:1 Mem:373.97M (Peak 373.97M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.296
+Fra:1 Mem:373.98M (Peak 373.98M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.297
+Fra:1 Mem:374.00M (Peak 374.00M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.298
+Fra:1 Mem:374.48M (Peak 374.48M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.071
+Fra:1 Mem:375.13M (Peak 375.13M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.070
+Fra:1 Mem:375.15M (Peak 375.15M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.069
+Fra:1 Mem:375.32M (Peak 375.32M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.068
+Fra:1 Mem:375.34M (Peak 375.34M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.323
+Fra:1 Mem:375.36M (Peak 375.36M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.322
+Fra:1 Mem:375.37M (Peak 375.37M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.321
+Fra:1 Mem:375.39M (Peak 375.39M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.320
+Fra:1 Mem:375.41M (Peak 375.41M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.319
+Fra:1 Mem:375.42M (Peak 375.42M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.318
+Fra:1 Mem:375.44M (Peak 375.44M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.317
+Fra:1 Mem:375.46M (Peak 375.46M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.316
+Fra:1 Mem:375.47M (Peak 375.47M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.315
+Fra:1 Mem:375.49M (Peak 375.49M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.314
+Fra:1 Mem:375.51M (Peak 375.51M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.313
+Fra:1 Mem:375.53M (Peak 375.53M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.312
+Fra:1 Mem:375.54M (Peak 375.54M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.311
+Fra:1 Mem:375.56M (Peak 375.56M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.310
+Fra:1 Mem:375.58M (Peak 375.58M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.309
+Fra:1 Mem:375.59M (Peak 375.59M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.308
+Fra:1 Mem:375.61M (Peak 375.61M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.307
+Fra:1 Mem:375.63M (Peak 375.63M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.306
+Fra:1 Mem:375.64M (Peak 375.64M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.035
+Fra:1 Mem:377.01M (Peak 377.01M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.299
+Fra:1 Mem:377.66M (Peak 377.66M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.300
+Fra:1 Mem:377.68M (Peak 377.68M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.301
+Fra:1 Mem:377.69M (Peak 377.69M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.302
+Fra:1 Mem:377.87M (Peak 377.87M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.303
+Fra:1 Mem:378.00M (Peak 378.00M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.304
+Fra:1 Mem:378.25M (Peak 378.25M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Lame.305
+Fra:1 Mem:378.61M (Peak 378.61M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.064
+Fra:1 Mem:378.63M (Peak 378.63M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.065
+Fra:1 Mem:378.64M (Peak 378.64M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.066
+Fra:1 Mem:377.97M (Peak 378.64M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Longeron.067
+Fra:1 Mem:377.99M (Peak 378.64M) | Time:00:00.97 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Matelas.032
+Fra:1 Mem:378.73M (Peak 378.73M) | Time:00:00.98 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Matelas.033
+Fra:1 Mem:379.02M (Peak 379.02M) | Time:00:00.98 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.070
+Fra:1 Mem:379.50M (Peak 379.50M) | Time:00:00.98 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.071
+Fra:1 Mem:379.51M (Peak 379.51M) | Time:00:00.98 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.072
+Fra:1 Mem:379.53M (Peak 379.53M) | Time:00:00.98 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Montant.073
+Fra:1 Mem:379.55M (Peak 379.55M) | Time:00:00.98 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.064
+Fra:1 Mem:379.88M (Peak 379.88M) | Time:00:00.98 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.065
+Fra:1 Mem:380.21M (Peak 380.21M) | Time:00:00.98 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.066
+Fra:1 Mem:380.23M (Peak 380.23M) | Time:00:00.98 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Panneau.067
+Fra:1 Mem:380.25M (Peak 380.25M) | Time:00:00.98 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.066
+Fra:1 Mem:379.63M (Peak 380.25M) | Time:00:00.98 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.067
+Fra:1 Mem:379.63M (Peak 380.25M) | Time:00:00.98 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.068
+Fra:1 Mem:379.66M (Peak 380.25M) | Time:00:00.98 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Patin.069
+Fra:1 Mem:379.67M (Peak 380.25M) | Time:00:00.98 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.064
+Fra:1 Mem:379.70M (Peak 380.25M) | Time:00:00.98 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.065
+Fra:1 Mem:379.71M (Peak 380.25M) | Time:00:00.98 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.066
+Fra:1 Mem:379.73M (Peak 380.25M) | Time:00:00.98 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Traverse.067
+Fra:1 Mem:379.74M (Peak 380.25M) | Time:00:00.98 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | Couverture.034
+Fra:1 Mem:381.76M (Peak 382.06M) | Time:00:00.98 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Initializing
+Fra:1 Mem:245.11M (Peak 382.06M) | Time:00:01.02 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Waiting for render to start
+Fra:1 Mem:245.11M (Peak 382.06M) | Time:00:01.02 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Loading render kernels (may take a few minutes the first time)
+Fra:1 Mem:245.11M (Peak 382.06M) | Time:00:01.02 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Scene
+Fra:1 Mem:245.11M (Peak 382.06M) | Time:00:01.02 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Shaders
+Fra:1 Mem:245.24M (Peak 382.06M) | Time:00:01.02 | Mem:0.04M, Peak:0.04M | Scene, ViewLayer | Updating Procedurals
+Fra:1 Mem:245.24M (Peak 382.06M) | Time:00:01.02 | Mem:0.04M, Peak:0.04M | Scene, ViewLayer | Updating Background
+Fra:1 Mem:245.24M (Peak 382.06M) | Time:00:01.02 | Mem:0.04M, Peak:0.04M | Scene, ViewLayer | Updating Camera
+Fra:1 Mem:245.24M (Peak 382.06M) | Time:00:01.02 | Mem:0.04M, Peak:0.04M | Scene, ViewLayer | Updating Meshes Flags
+Fra:1 Mem:245.24M (Peak 382.06M) | Time:00:01.02 | Mem:0.04M, Peak:0.04M | Scene, ViewLayer | Updating Objects
+Fra:1 Mem:245.24M (Peak 382.06M) | Time:00:01.02 | Mem:0.04M, Peak:0.04M | Scene, ViewLayer | Updating Objects | Copying Transformations to device
+Fra:1 Mem:245.63M (Peak 382.06M) | Time:00:01.02 | Mem:0.42M, Peak:0.42M | Scene, ViewLayer | Updating Objects | Applying Static Transformations
+Fra:1 Mem:245.63M (Peak 382.06M) | Time:00:01.02 | Mem:0.42M, Peak:0.42M | Scene, ViewLayer | Updating Particle Systems
+Fra:1 Mem:245.63M (Peak 382.06M) | Time:00:01.02 | Mem:0.42M, Peak:0.42M | Scene, ViewLayer | Updating Particle Systems | Copying Particles to device
+Fra:1 Mem:245.63M (Peak 382.06M) | Time:00:01.02 | Mem:0.42M, Peak:0.42M | Scene, ViewLayer | Updating Meshes
+Fra:1 Mem:262.57M (Peak 382.06M) | Time:00:01.03 | Mem:0.42M, Peak:0.42M | Scene, ViewLayer | Updating Mesh | Computing attributes
+Fra:1 Mem:345.67M (Peak 382.06M) | Time:00:01.05 | Mem:0.62M, Peak:0.62M | Scene, ViewLayer | Updating Mesh | Copying Attributes to device
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:83.07M, Peak:83.07M | Scene, ViewLayer | Updating Geometry BVH Echelle.001 3/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:83.10M, Peak:83.10M | Scene, ViewLayer | Updating Geometry BVH Echelle.001 3/95 | Building BVH 0%
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:83.10M, Peak:83.10M | Scene, ViewLayer | Updating Geometry BVH Echelon 4/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:83.11M, Peak:83.11M | Scene, ViewLayer | Updating Geometry BVH Echelon.001 5/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:83.13M, Peak:83.13M | Scene, ViewLayer | Updating Geometry BVH Echelon.002 6/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:83.14M, Peak:83.16M | Scene, ViewLayer | Updating Geometry BVH Echelon.003 7/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:83.14M, Peak:83.16M | Scene, ViewLayer | Updating Geometry BVH Echelon.004 8/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:83.14M, Peak:83.16M | Scene, ViewLayer | Updating Geometry BVH Echelon.005 9/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:83.15M, Peak:83.16M | Scene, ViewLayer | Updating Geometry BVH Echelon.006 10/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:83.15M, Peak:83.16M | Scene, ViewLayer | Updating Geometry BVH Oreiller 11/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:83.22M, Peak:83.22M | Scene, ViewLayer | Updating Geometry BVH Oreiller.001 12/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:83.40M, Peak:83.40M | Scene, ViewLayer | Updating Geometry BVH Montant.017 95/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:83.34M, Peak:83.40M | Scene, ViewLayer | Updating Geometry BVH Luge.005 94/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:83.39M, Peak:83.41M | Scene, ViewLayer | Updating Geometry BVH Montant.016 93/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:83.39M, Peak:83.41M | Scene, ViewLayer | Updating Geometry BVH GardeCorps.001 13/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:83.39M, Peak:83.41M | Scene, ViewLayer | Updating Geometry BVH Luge.004 92/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:83.51M, Peak:83.52M | Scene, ViewLayer | Updating Geometry BVH Montant.015 91/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:83.53M, Peak:83.53M | Scene, ViewLayer | Updating Geometry BVH Luge.003 90/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:83.63M, Peak:83.65M | Scene, ViewLayer | Updating Geometry BVH Montant.014 89/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:83.64M, Peak:83.65M | Scene, ViewLayer | Updating Geometry BVH Luge.002 88/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:83.66M, Peak:83.68M | Scene, ViewLayer | Updating Geometry BVH Echelle.002 14/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:83.69M, Peak:83.69M | Scene, ViewLayer | Updating Geometry BVH Echelle.003 15/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:83.72M, Peak:83.72M | Scene, ViewLayer | Updating Geometry BVH Echelon.007 16/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:83.67M, Peak:83.72M | Scene, ViewLayer | Updating Geometry BVH Echelon.008 17/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:83.67M, Peak:83.72M | Scene, ViewLayer | Updating Geometry BVH Echelon.009 18/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:83.67M, Peak:83.72M | Scene, ViewLayer | Updating Geometry BVH Echelon.010 19/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:83.67M, Peak:83.72M | Scene, ViewLayer | Updating Geometry BVH Montant.013 87/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:83.67M, Peak:83.72M | Scene, ViewLayer | Updating Geometry BVH Luge.001 86/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:83.70M, Peak:83.72M | Scene, ViewLayer | Updating Geometry BVH Echelon.012 21/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:83.73M, Peak:83.73M | Scene, ViewLayer | Updating Geometry BVH Echelon.013 22/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:83.74M, Peak:83.74M | Scene, ViewLayer | Updating Geometry BVH Oreiller.002 23/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:83.80M, Peak:83.82M | Scene, ViewLayer | Updating Geometry BVH Montant.012 85/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:83.80M, Peak:83.82M | Scene, ViewLayer | Updating Geometry BVH Oreiller.003 24/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:83.86M, Peak:83.86M | Scene, ViewLayer | Updating Geometry BVH Luge 84/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:83.93M, Peak:83.95M | Scene, ViewLayer | Updating Geometry BVH Entretoise 83/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:83.94M, Peak:83.95M | Scene, ViewLayer | Updating Geometry BVH Pied.001 82/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.00M, Peak:84.02M | Scene, ViewLayer | Updating Geometry BVH Pied 81/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.07M, Peak:84.08M | Scene, ViewLayer | Updating Geometry BVH Etiquette.005 80/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.08M, Peak:84.08M | Scene, ViewLayer | Updating Geometry BVH Poignee.005 79/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.09M, Peak:84.10M | Scene, ViewLayer | Updating Geometry BVH Aeration.029 78/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.10M, Peak:84.10M | Scene, ViewLayer | Updating Geometry BVH Aeration.028 77/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.11M, Peak:84.11M | Scene, ViewLayer | Updating Geometry BVH Aeration.027 76/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.06M, Peak:84.12M | Scene, ViewLayer | Updating Geometry BVH Aeration.026 75/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.06M, Peak:84.12M | Scene, ViewLayer | Updating Geometry BVH Aeration.025 74/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.06M, Peak:84.12M | Scene, ViewLayer | Updating Geometry BVH Etiquette.004 73/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.07M, Peak:84.12M | Scene, ViewLayer | Updating Geometry BVH Poignee.004 72/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.08M, Peak:84.12M | Scene, ViewLayer | Updating Geometry BVH Aeration.024 71/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.09M, Peak:84.12M | Scene, ViewLayer | Updating Geometry BVH Aeration.023 70/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.09M, Peak:84.12M | Scene, ViewLayer | Updating Geometry BVH Aeration.022 69/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.10M, Peak:84.12M | Scene, ViewLayer | Updating Geometry BVH Aeration.021 68/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.11M, Peak:84.12M | Scene, ViewLayer | Updating Geometry BVH Aeration.020 67/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.11M, Peak:84.12M | Scene, ViewLayer | Updating Geometry BVH GardeCorps.002 25/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.13M, Peak:84.13M | Scene, ViewLayer | Updating Geometry BVH Interieur.001 66/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.14M, Peak:84.14M | Scene, ViewLayer | Updating Geometry BVH Etiquette.003 65/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.15M, Peak:84.15M | Scene, ViewLayer | Updating Geometry BVH Poignee.003 64/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.16M, Peak:84.16M | Scene, ViewLayer | Updating Geometry BVH Aeration.019 63/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.17M, Peak:84.17M | Scene, ViewLayer | Updating Geometry BVH Aeration.018 62/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.19M, Peak:84.19M | Scene, ViewLayer | Updating Geometry BVH Aeration.017 61/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.19M, Peak:84.19M | Scene, ViewLayer | Updating Geometry BVH Aeration.016 60/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.20M, Peak:84.20M | Scene, ViewLayer | Updating Geometry BVH Aeration.015 59/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.21M, Peak:84.21M | Scene, ViewLayer | Updating Geometry BVH Etiquette.002 58/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.23M, Peak:84.23M | Scene, ViewLayer | Updating Geometry BVH Poignee.002 57/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.21M, Peak:84.23M | Scene, ViewLayer | Updating Geometry BVH Echelle.004 26/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.22M, Peak:84.23M | Scene, ViewLayer | Updating Geometry BVH Aeration.014 56/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.23M, Peak:84.23M | Scene, ViewLayer | Updating Geometry BVH Echelle.005 27/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.23M, Peak:84.23M | Scene, ViewLayer | Updating Geometry BVH Aeration.013 55/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.24M, Peak:84.24M | Scene, ViewLayer | Updating Geometry BVH Aeration.012 54/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.24M, Peak:84.24M | Scene, ViewLayer | Updating Geometry BVH Echelon.014 28/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.25M, Peak:84.25M | Scene, ViewLayer | Updating Geometry BVH Aeration.011 53/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.20M, Peak:84.25M | Scene, ViewLayer | Updating Geometry BVH Aeration.010 52/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.19M, Peak:84.25M | Scene, ViewLayer | Updating Geometry BVH Echelon.015 29/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.20M, Peak:84.25M | Scene, ViewLayer | Updating Geometry BVH Etiquette.001 51/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.20M, Peak:84.25M | Scene, ViewLayer | Updating Geometry BVH Poignee.001 50/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.20M, Peak:84.25M | Scene, ViewLayer | Updating Geometry BVH Echelon.017 31/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.20M, Peak:84.25M | Scene, ViewLayer | Updating Geometry BVH Aeration.009 49/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.20M, Peak:84.25M | Scene, ViewLayer | Updating Geometry BVH Aeration.008 48/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.21M, Peak:84.25M | Scene, ViewLayer | Updating Geometry BVH Echelon.018 32/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.22M, Peak:84.25M | Scene, ViewLayer | Updating Geometry BVH Echelon.020 34/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.22M, Peak:84.25M | Scene, ViewLayer | Updating Geometry BVH Aeration.007 47/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.23M, Peak:84.25M | Scene, ViewLayer | Updating Geometry BVH Aeration.006 46/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.23M, Peak:84.25M | Scene, ViewLayer | Updating Geometry BVH Oreiller.004 35/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.29M, Peak:84.29M | Scene, ViewLayer | Updating Geometry BVH Aeration.005 45/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.29M, Peak:84.29M | Scene, ViewLayer | Updating Geometry BVH Oreiller.005 36/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.29M, Peak:84.29M | Scene, ViewLayer | Updating Geometry BVH Etiquette 44/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.31M, Peak:84.31M | Scene, ViewLayer | Updating Geometry BVH Poignee 43/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.32M, Peak:84.32M | Scene, ViewLayer | Updating Geometry BVH Aeration.004 42/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.33M, Peak:84.33M | Scene, ViewLayer | Updating Geometry BVH Interieur 37/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.33M, Peak:84.33M | Scene, ViewLayer | Updating Geometry BVH Aeration.003 41/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.41M, Peak:84.41M | Scene, ViewLayer | Updating Geometry BVH Aeration.002 40/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.42M, Peak:84.42M | Scene, ViewLayer | Updating Geometry BVH Aeration.001 39/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.42M, Peak:84.42M | Scene, ViewLayer | Updating Geometry BVH Aeration 38/95 | Building BVH
+Fra:1 Mem:345.22M (Peak 382.06M) | Time:00:01.05 | Mem:84.49M, Peak:84.55M | Scene, ViewLayer | Updating Scene BVH | Building
+Fra:1 Mem:345.24M (Peak 382.06M) | Time:00:01.05 | Mem:84.49M, Peak:84.55M | Scene, ViewLayer | Updating Scene BVH | Building BVH
+Fra:1 Mem:345.24M (Peak 382.06M) | Time:00:01.14 | Mem:150.65M, Peak:183.85M | Scene, ViewLayer | Updating Scene BVH | Copying BVH to device
+Fra:1 Mem:345.24M (Peak 382.06M) | Time:00:01.14 | Mem:150.65M, Peak:183.85M | Scene, ViewLayer | Updating Mesh | Computing normals
+Fra:1 Mem:383.44M (Peak 383.44M) | Time:00:01.15 | Mem:150.65M, Peak:183.85M | Scene, ViewLayer | Updating Mesh | Copying Mesh to device
+Fra:1 Mem:383.44M (Peak 383.44M) | Time:00:01.15 | Mem:188.84M, Peak:188.84M | Scene, ViewLayer | Updating Objects Flags
+Fra:1 Mem:383.44M (Peak 383.44M) | Time:00:01.15 | Mem:188.86M, Peak:188.86M | Scene, ViewLayer | Updating Primitive Offsets
+Fra:1 Mem:383.45M (Peak 383.45M) | Time:00:01.15 | Mem:188.86M, Peak:188.86M | Scene, ViewLayer | Updating Images
+Fra:1 Mem:383.45M (Peak 383.45M) | Time:00:01.15 | Mem:188.86M, Peak:188.86M | Scene, ViewLayer | Updating Images | Loading tissu_Normale.png
+Fra:1 Mem:383.45M (Peak 383.45M) | Time:00:01.15 | Mem:188.86M, Peak:188.86M | Scene, ViewLayer | Updating Images | Loading metal_peint_Couleur.png
+Fra:1 Mem:383.45M (Peak 383.45M) | Time:00:01.15 | Mem:188.86M, Peak:188.86M | Scene, ViewLayer | Updating Images | Loading plafond_Couleur.png
+Fra:1 Mem:399.46M (Peak 399.46M) | Time:00:01.16 | Mem:192.86M, Peak:192.86M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Couleur.png
+Fra:1 Mem:403.46M (Peak 403.46M) | Time:00:01.17 | Mem:196.86M, Peak:196.86M | Scene, ViewLayer | Updating Images | Loading plafond_Metal.png
+Fra:1 Mem:404.46M (Peak 404.46M) | Time:00:01.17 | Mem:200.86M, Peak:200.86M | Scene, ViewLayer | Updating Images | Loading metal_peint_Metal.png
+Fra:1 Mem:405.46M (Peak 405.46M) | Time:00:01.17 | Mem:201.86M, Peak:201.86M | Scene, ViewLayer | Updating Images | Loading moquette_Metal.png
+Fra:1 Mem:406.46M (Peak 406.46M) | Time:00:01.17 | Mem:205.86M, Peak:205.86M | Scene, ViewLayer | Updating Images | Loading tissu_Rugosite.png
+Fra:1 Mem:407.46M (Peak 407.46M) | Time:00:01.17 | Mem:206.86M, Peak:206.86M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Metal.png
+Fra:1 Mem:408.46M (Peak 408.46M) | Time:00:01.17 | Mem:207.86M, Peak:207.86M | Scene, ViewLayer | Updating Images | Loading plafond_Rugosite.png
+Fra:1 Mem:409.46M (Peak 409.46M) | Time:00:01.17 | Mem:208.86M, Peak:208.86M | Scene, ViewLayer | Updating Images | Loading metal_peint_Rugosite.png
+Fra:1 Mem:410.46M (Peak 410.46M) | Time:00:01.17 | Mem:209.86M, Peak:209.86M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Rugosite.png
+Fra:1 Mem:411.46M (Peak 411.46M) | Time:00:01.17 | Mem:210.86M, Peak:210.86M | Scene, ViewLayer | Updating Images | Loading matelas_Normale.png
+Fra:1 Mem:415.46M (Peak 415.46M) | Time:00:01.18 | Mem:214.86M, Peak:214.86M | Scene, ViewLayer | Updating Images | Loading moquette_Rugosite.png
+Fra:1 Mem:416.46M (Peak 416.46M) | Time:00:01.18 | Mem:215.86M, Peak:215.86M | Scene, ViewLayer | Updating Images | Loading plafond_Normale.png
+Fra:1 Mem:420.46M (Peak 420.46M) | Time:00:01.18 | Mem:216.86M, Peak:216.86M | Scene, ViewLayer | Updating Images | Loading metal_peint_Normale.png
+Fra:1 Mem:424.46M (Peak 424.46M) | Time:00:01.18 | Mem:217.86M, Peak:217.86M | Scene, ViewLayer | Updating Images | Loading peinture_mur_Normale.png
+Fra:1 Mem:428.46M (Peak 428.46M) | Time:00:01.19 | Mem:221.86M, Peak:221.86M | Scene, ViewLayer | Updating Images | Loading tissu_Metal.png
+Fra:1 Mem:429.46M (Peak 429.46M) | Time:00:01.19 | Mem:222.86M, Peak:222.86M | Scene, ViewLayer | Updating Images | Loading plastique_Normale.png
+Fra:1 Mem:433.46M (Peak 433.46M) | Time:00:01.19 | Mem:226.86M, Peak:226.86M | Scene, ViewLayer | Updating Images | Loading moquette_Normale.png
+Fra:1 Mem:437.46M (Peak 437.46M) | Time:00:01.20 | Mem:230.86M, Peak:230.86M | Scene, ViewLayer | Updating Images | Loading simili_cuir_Couleur.png
+Fra:1 Mem:441.46M (Peak 441.46M) | Time:00:01.20 | Mem:234.86M, Peak:234.86M | Scene, ViewLayer | Updating Images | Loading caoutchouc_Couleur.png
+Fra:1 Mem:445.46M (Peak 445.46M) | Time:00:01.21 | Mem:238.86M, Peak:238.86M | Scene, ViewLayer | Updating Images | Loading matelas_Rugosite.png
+Fra:1 Mem:446.46M (Peak 446.46M) | Time:00:01.21 | Mem:242.86M, Peak:242.86M | Scene, ViewLayer | Updating Images | Loading simili_cuir_Metal.png
+Fra:1 Mem:447.46M (Peak 447.46M) | Time:00:01.21 | Mem:243.86M, Peak:243.86M | Scene, ViewLayer | Updating Images | Loading tissu_Couleur.png
+Fra:1 Mem:451.46M (Peak 451.46M) | Time:00:01.21 | Mem:244.86M, Peak:244.86M | Scene, ViewLayer | Updating Images | Loading caoutchouc_Metal.png
+Fra:1 Mem:452.46M (Peak 452.46M) | Time:00:01.21 | Mem:248.86M, Peak:248.86M | Scene, ViewLayer | Updating Images | Loading simili_cuir_Rugosite.png
+Fra:1 Mem:453.46M (Peak 453.46M) | Time:00:01.22 | Mem:249.86M, Peak:249.86M | Scene, ViewLayer | Updating Images | Loading caoutchouc_Rugosite.png
+Fra:1 Mem:454.46M (Peak 454.46M) | Time:00:01.22 | Mem:253.86M, Peak:253.86M | Scene, ViewLayer | Updating Images | Loading metal_brut_Couleur.png
+Fra:1 Mem:458.46M (Peak 458.46M) | Time:00:01.22 | Mem:254.86M, Peak:254.86M | Scene, ViewLayer | Updating Images | Loading simili_cuir_Normale.png
+Fra:1 Mem:462.46M (Peak 462.46M) | Time:00:01.22 | Mem:255.86M, Peak:255.86M | Scene, ViewLayer | Updating Images | Loading caoutchouc_Normale.png
+Fra:1 Mem:466.46M (Peak 466.46M) | Time:00:01.23 | Mem:259.86M, Peak:259.86M | Scene, ViewLayer | Updating Images | Loading plastique_Rugosite.png
+Fra:1 Mem:467.46M (Peak 467.46M) | Time:00:01.23 | Mem:263.86M, Peak:263.86M | Scene, ViewLayer | Updating Images | Loading metal_brut_Metal.png
+Fra:1 Mem:468.46M (Peak 468.46M) | Time:00:01.23 | Mem:264.86M, Peak:264.86M | Scene, ViewLayer | Updating Images | Loading metal_brut_Rugosite.png
+Fra:1 Mem:469.46M (Peak 469.46M) | Time:00:01.23 | Mem:268.86M, Peak:268.86M | Scene, ViewLayer | Updating Images | Loading plastique_Couleur.png
+Fra:1 Mem:473.46M (Peak 473.46M) | Time:00:01.24 | Mem:269.86M, Peak:269.86M | Scene, ViewLayer | Updating Images | Loading matelas_Metal.png
+Fra:1 Mem:474.46M (Peak 474.46M) | Time:00:01.24 | Mem:270.86M, Peak:270.86M | Scene, ViewLayer | Updating Images | Loading plastique_Metal.png
+Fra:1 Mem:475.46M (Peak 475.46M) | Time:00:01.24 | Mem:271.86M, Peak:271.86M | Scene, ViewLayer | Updating Images | Loading metal_brut_Normale.png
+Fra:1 Mem:479.46M (Peak 479.46M) | Time:00:01.24 | Mem:275.86M, Peak:275.86M | Scene, ViewLayer | Updating Images | Loading matelas_Couleur.png
+Fra:1 Mem:483.46M (Peak 483.46M) | Time:00:01.26 | Mem:288.86M, Peak:288.86M | Scene, ViewLayer | Updating Camera Volume
+Fra:1 Mem:483.46M (Peak 483.46M) | Time:00:01.26 | Mem:288.86M, Peak:288.86M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:483.46M (Peak 483.46M) | Time:00:01.26 | Mem:288.95M, Peak:288.95M | Scene, ViewLayer | Updating Lights
+Fra:1 Mem:483.46M (Peak 483.46M) | Time:00:01.26 | Mem:288.95M, Peak:288.95M | Scene, ViewLayer | Updating Lights | Computing tree
+Fra:1 Mem:483.80M (Peak 483.80M) | Time:00:01.26 | Mem:289.29M, Peak:289.29M | Scene, ViewLayer | Updating Integrator
+Fra:1 Mem:483.80M (Peak 483.80M) | Time:00:01.26 | Mem:289.29M, Peak:289.29M | Scene, ViewLayer | Updating Film
+Fra:1 Mem:483.81M (Peak 483.81M) | Time:00:01.26 | Mem:289.21M, Peak:289.29M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:483.81M (Peak 483.81M) | Time:00:01.26 | Mem:289.29M, Peak:289.29M | Scene, ViewLayer | Updating Baking
+Fra:1 Mem:483.81M (Peak 483.81M) | Time:00:01.26 | Mem:289.29M, Peak:289.29M | Scene, ViewLayer | Updating Device | Writing constant memory
+Fra:1 Mem:483.83M (Peak 483.83M) | Time:00:01.26 | Mem:289.29M, Peak:289.29M | Scene, ViewLayer | Loading denoising kernels (may take a few minutes the first time)
+Fra:1 Mem:483.83M (Peak 483.83M) | Time:00:01.26 | Mem:289.29M, Peak:289.29M | Scene, ViewLayer | Sample 0/40
+Fra:1 Mem:542.56M (Peak 542.56M) | Time:00:05.45 | Remaining:02:43.44 | Mem:348.01M, Peak:348.01M | Scene, ViewLayer | Sample 1/40
+Fra:1 Mem:542.56M (Peak 542.56M) | Time:00:38.36 | Remaining:02:07.77 | Mem:348.01M, Peak:348.01M | Scene, ViewLayer | Sample 9/40
+Fra:1 Mem:542.56M (Peak 542.56M) | Time:01:10.36 | Remaining:01:33.49 | Mem:348.01M, Peak:348.01M | Scene, ViewLayer | Sample 17/40
+Fra:1 Mem:542.56M (Peak 542.56M) | Time:01:43.75 | Remaining:01:01.49 | Mem:348.01M, Peak:348.01M | Scene, ViewLayer | Sample 25/40
