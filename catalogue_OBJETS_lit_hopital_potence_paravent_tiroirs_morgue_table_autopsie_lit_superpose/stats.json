@@ -1,0 +1,104 @@
+{
+ "lit_hopital": {
+  "objets": 18,
+  "triangles": 37972,
+  "dim": [
+   7.2,
+   3.21,
+   4.3
+  ],
+  "par_matiere": {
+   "metal_peint_(214, 216, 212)_None": 972,
+   "tissu_(226, 230, 232)_None": 33104,
+   "simili_cuir_(110, 150, 170)_None": 1200,
+   "tissu_(236, 236, 232)_None": 2016,
+   "plastique_(180, 200, 210)_None": 376,
+   "caoutchouc_(40, 40, 40)_None": 304
+  }
+ },
+ "potence": {
+  "objets": 19,
+  "triangles": 2736,
+  "dim": [
+   1.79,
+   1.99,
+   6.78
+  ],
+  "par_matiere": {
+   "metal_brut_(200, 202, 204)_None": 1300,
+   "Poche": 320,
+   "caoutchouc_(40, 40, 40)_None": 380,
+   "Tubulure": 736
+  }
+ },
+ "paravent": {
+  "objets": 21,
+  "triangles": 1356,
+  "dim": [
+   6.36,
+   0.88,
+   5.9
+  ],
+  "par_matiere": {
+   "metal_brut_(200, 202, 204)_None": 864,
+   "caoutchouc_(40, 40, 40)_None": 456,
+   "tissu_(190, 214, 220)_None": 36
+  }
+ },
+ "tiroirs_morgue": {
+  "objets": 32,
+  "triangles": 3092,
+  "dim": [
+   6.19,
+   5.7,
+   7.0
+  ],
+  "par_matiere": {
+   "Chrome": 1620,
+   "plastique_(230, 226, 210)_None": 60,
+   "metal_brut_(200, 202, 204)_None": 972,
+   "simili_cuir_(30, 32, 36)_None": 320,
+   "Noir": 12,
+   "metal_brut_(180, 182, 184)_None": 108
+  }
+ },
+ "table_autopsie": {
+  "objets": 11,
+  "triangles": 3828,
+  "dim": [
+   7.6,
+   2.88,
+   12.0
+  ],
+  "par_matiere": {
+   "caoutchouc_(40, 40, 40)_None": 108,
+   "Noir": 60,
+   "metal_peint_(220, 222, 220)_None": 1022,
+   "metal_brut_(200, 202, 204)_None": 1786,
+   "Chrome": 712,
+   "LentilleScialytique": 140
+  }
+ },
+ "lit_superpose": {
+  "objets": 69,
+  "triangles": 87724,
+  "dim": [
+   8.8,
+   3.98,
+   6.93
+  ],
+  "par_matiere": {
+   "metal_peint_(70, 82, 60)_None": 296,
+   "metal_brut_(150, 150, 146)_None": 1080,
+   "tissu_(84, 98, 80)_None": 34544,
+   "tissu_(96, 94, 102)_None": 36848,
+   "metal_peint_(92, 102, 116)_None": 2552,
+   "metal_brut_(150, 150, 150)_None": 2252,
+   "matelas_(232, 230, 222)_None": 2400,
+   "tissu_(238, 238, 234)_None": 4032,
+   "caoutchouc_(60, 60, 60)_None": 432,
+   "caoutchouc_(40, 40, 40)_None": 216,
+   "tissu_(40, 44, 60)_None": 3072
+  }
+ }
+}
