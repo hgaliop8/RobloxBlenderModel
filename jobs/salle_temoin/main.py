@@ -79,11 +79,11 @@ def point(loc, energy, col, r=0.2):
 dif = bpy.data.materials.get('Diffuseur')
 if COURANT:
     for o in bpy.data.objects:
-        if o.name.startswith('Diffuseur'): area((o.location.x, o.location.y, o.location.z - 0.1), (4.0, 1.1), float(os.environ.get('PUIS', '150')), (1.0, 0.97, 0.92))
+        if o.name.startswith('Diffuseur'): area((o.location.x, o.location.y, o.location.z - 0.1), (4.0, 1.1), float(os.environ.get('PUIS', '600')), (1.0, 0.97, 0.92))
     dif.node_tree.nodes['Principled BSDF'].inputs['Emission Strength'].default_value = 6
 else:
-    point((38.4, 1.6, 10.6), 150, (1.0, 0.12, 0.06), 0.3)                   # bloc de secours au-dessus de la porte
-    point((38.4, 50.0, 13.0), 30, (1.0, 0.12, 0.06), 0.3)
+    point((38.4, 1.6, 10.6), 1500, (1.0, 0.12, 0.06), 0.3)                   # bloc de secours au-dessus de la porte
+    point((38.4, 50.0, 13.0), 300, (1.0, 0.12, 0.06), 0.3)
     w.node_tree.nodes['Background'].inputs['Color'].default_value = (0.0005, 0.0008, 0.001, 1)
 
 def cam(name, eye, tgt):
@@ -100,7 +100,7 @@ for v in VUES:
     eye, tgt = VIEWS[v]; c = cam(v, eye, tgt); sc.camera = c
     lamp = None
     if not COURANT:
-        ld = bpy.data.lights.new('Torche', 'SPOT'); ld.energy = 400; ld.spot_size = math.radians(38); ld.spot_blend = 0.6; ld.color = (1.0, 0.95, 0.85); ld.shadow_soft_size = 0.05
+        ld = bpy.data.lights.new('Torche', 'SPOT'); ld.energy = 1600; ld.spot_size = math.radians(38); ld.spot_blend = 0.6; ld.color = (1.0, 0.95, 0.85); ld.shadow_soft_size = 0.05
         lamp = bpy.data.objects.new('Torche', ld); sc.collection.objects.link(lamp)
         lamp.location = Vector(eye) + Vector((0.8, 0, -0.9)); lamp.rotation_euler = (Vector(tgt) - lamp.location).to_track_quat('-Z', 'Y').to_euler()
     bpy.ops.render.render()

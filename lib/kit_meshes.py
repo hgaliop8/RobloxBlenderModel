@@ -118,6 +118,7 @@ def join(objs, name):
     return ob
 
 def parent_all(objs, root):
+    bpy.context.view_layer.update()          # matrix_world des objets tout juste créés n'est valide qu'après une mise à jour
     for o in objs:
         if o and o is not root:
             mw = o.matrix_world.copy(); o.parent = root; o.matrix_world = mw
@@ -153,7 +154,7 @@ def oreiller(name, L=2.0, W=1.25, H=0.55, seed=0, material=None):
     bmesh.ops.remove_doubles(bm, verts=bm.verts, dist=1e-5)
     ob = obj_from_bm(bm, name, material); return ob
 
-def tissu_simule(name, L, W, z0, colliders, material, seed=0, frames=34, thick=0.06, res=0.16, drop_noise=0.12, pin_head=False, centre=(0, 0), rot=0.0):
+def tissu_simule(name, L, W, z0, colliders, material, seed=0, frames=34, thick=0.06, res=0.16, drop_noise=0.12, pin_head=False, centre=(0, 0), rot=0.0, shrink=0.0, crumple=0.0):
     """couverture : plan subdivisé lâché sur les objets « colliders », simulation de tissu, puis figé"""
     nu, nv = max(4, int(L/res)), max(4, int(W/res))
     bm = bmesh.new(); bmesh.ops.create_grid(bm, x_segments=nu, y_segments=nv, size=0.5)
@@ -161,12 +162,12 @@ def tissu_simule(name, L, W, z0, colliders, material, seed=0, frames=34, thick=0
     for v in bm.verts:
         x, y = v.co.x*L, v.co.y*W
         c, s_ = math.cos(rot), math.sin(rot)
-        v.co = Vector((centre[0] + x*c - y*s_, centre[1] + x*s_ + y*c, z0 + noise.noise(Vector((x*0.7 + seed, y*0.7, 0)))*drop_noise + noise.noise(Vector((x*2.1, y*2.1 + seed, 1)))*drop_noise*0.4))
+        v.co = Vector((centre[0] + x*c - y*s_, centre[1] + x*s_ + y*c, z0 + noise.noise(Vector((x*0.35 + seed, y*0.35, 3)))*crumple + noise.noise(Vector((x*0.7 + seed, y*0.7, 0)))*drop_noise + noise.noise(Vector((x*2.1, y*2.1 + seed, 1)))*drop_noise*0.4))
     ob = obj_from_bm(bm, name, material)
     for c in colliders:
         m = c.modifiers.new('col', 'COLLISION'); c.collision.thickness_outer = 0.02; c.collision.cloth_friction = 8
     cl = ob.modifiers.new('tissu', 'CLOTH'); s = cl.settings
-    s.quality = 6; s.mass = 0.4; s.tension_stiffness = 12; s.compression_stiffness = 12; s.shear_stiffness = 6; s.bending_stiffness = 0.6
+    s.quality = 8; s.mass = 0.3; s.tension_stiffness = 10; s.compression_stiffness = 2; s.shear_stiffness = 4; s.bending_stiffness = 0.08; s.shrink_min = shrink
     s.air_damping = 2.0; cl.collision_settings.use_self_collision = True; cl.collision_settings.distance_min = 0.012; cl.collision_settings.self_distance_min = 0.01
     cl.point_cache.frame_start = 1; cl.point_cache.frame_end = frames
     sc = bpy.context.scene

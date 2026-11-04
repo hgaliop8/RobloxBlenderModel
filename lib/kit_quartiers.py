@@ -46,7 +46,8 @@ def lit_superpose(seed=0, couleurs=((70, 86, 112), (112, 72, 60), (84, 98, 80), 
         ore.location = (-L/2 + 1.25, rnd.uniform(-0.15, 0.15), z + 0.55 + 0.22); ore.rotation_euler = (0, rnd.uniform(-0.12, 0.05), math.pi/2 + rnd.uniform(-0.15, 0.15))
         bpy.context.view_layer.update()
         col = rnd.choice(couleurs)
-        cov = tissu_simule('Couverture', rnd.uniform(4.6, 5.6), W + 1.0, z + 1.4, [mt, ore], mat('tissu', col), seed=seed*10 + k, frames=40, drop_noise=0.25,
+        cov = tissu_simule('Couverture', rnd.uniform(4.8, 5.8), W + 2.0, z + 1.5, [mt, ore], mat('tissu', col), seed=seed*10 + k, frames=70, drop_noise=0.3, res=0.11,
+                           shrink=0.06, crumple=0.5,
                            centre=(0.8 + rnd.uniform(-0.3, 0.3), rnd.uniform(-0.2, 0.2)), rot=rnd.uniform(-0.08, 0.08))
         objs += [mt, ore, cov]
     parent_all(objs, root)
@@ -139,7 +140,7 @@ def poubelle():
     parent_all([o], root); return root
 
 # ================================================================ architecture de la salle témoin
-def piece(X0, Y0, X1, Y1, h=12.0, porte=None, sol=('moquette', (104, 98, 108)), mur=('peinture_mur', (206, 212, 218)), soub=('metal_peint', (88, 102, 120))):
+def piece(X0, Y0, X1, Y1, h=12.0, porte=None, sol=('vinyle', (96, 102, 106)), mur=('peinture_mur', (206, 212, 218)), soub=('metal_peint', (88, 102, 120))):
     """sol, murs à panneaux (soubassement, plinthe, joints, corniche), pilastres, plafond à dalles, plafonniers"""
     objs = []; Mm = mat(*mur); Ms = mat(*soub); Mp = mat('metal_peint', (52, 56, 60)); Mpl = mat('metal_peint', (120, 126, 132))
     W, D = X1 - X0, Y1 - Y0

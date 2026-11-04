@@ -127,11 +127,11 @@ def metal_peint(d, s=1):
     """tôle peinte : peau d'orange, éclats qui montrent l'acier, rayures, crasse en bas, coulures (teintable : base claire)"""
     peau = fbm(beta=1.2, seed=s, lo=60)
     chips_n = fbm(beta=2.2, seed=s + 1, lo=3); chips = smooth(chips_n, 0.78, 0.8) * smooth(fbm(beta=1.6, seed=s + 2, lo=8), 0.55, 0.75)
-    sc = traits(count=220, lmin=8, lmax=90, seed=s + 3, width=(1, 2))
+    sc = traits(count=60, lmin=8, lmax=70, seed=s + 3, width=(1, 2), val=0.6)
     grime = smooth(fbm(beta=2.4, seed=s + 4, lo=2), 0.45, 0.9)*0.6 + coulures(seed=s + 5)*0.5
     base = fill((232, 232, 228))*(0.94 + 0.06*peau[..., None])
     steel = fill((120, 122, 124))*(0.8 + 0.4*anis(seed=s + 6)[..., None])
-    c = mix(base, steel, np.clip(chips + sc*0.7, 0, 1))
+    c = mix(base, steel, np.clip(chips + sc*0.4, 0, 1))
     c = mix(c, fill((60, 52, 44)), np.clip(grime, 0, 1)*0.5)
     c = mix(c, fill((150, 80, 40)), smooth(chips_n, 0.8, 0.9)*0.6)
     h = peau*0.15 - chips*0.6 - sc*0.25
@@ -199,7 +199,7 @@ def carrelage(d, s=61, rep=6):
 @matiere
 def moquette(d, s=71):
     lo = fbm(beta=0.4, seed=s, lo=200); mid = fbm(beta=1.6, seed=s + 1, lo=6); st = taches_irr(count=12, rmin=40, rmax=140, seed=s + 2, soft=25)
-    c = fill((200, 200, 200))*(0.75 + 0.3*lo[..., None] + 0.1*mid[..., None]); c = mix(c, fill((90, 80, 70)), st*0.4)
+    c = fill((200, 200, 200))*(0.75 + 0.3*lo[..., None] + 0.1*mid[..., None]); c = mix(c, fill((90, 80, 70)), st*0.15)
     save(d, 'moquette', c, lo*0.6 + mid*0.2, 0.95 - 0.05*lo, np.zeros((N, N)), 5.0)
 
 @matiere
@@ -245,8 +245,8 @@ def plastique(d, s=111):
 def peinture_mur(d, s=121):
     """panneau mural peint, léger relief, salissures en bas et autour des mains"""
     m = fbm(beta=1.0, seed=s, lo=80); lo = fbm(beta=2.4, seed=s + 1, lo=1); hand = taches_irr(count=18, rmin=30, rmax=90, seed=s + 2, soft=20)
-    sc = traits(count=60, lmin=20, lmax=140, seed=s + 3, width=(1, 3), val=0.7); cou = coulures(count=30, seed=s + 4)
-    c = fill((236, 236, 232))*(0.95 + 0.04*m[..., None] + 0.04*lo[..., None]); c = mix(c, fill((150, 140, 120)), hand*0.25 + cou*0.3); c = mix(c, fill((110, 110, 108)), sc*0.35)
+    sc = traits(count=14, lmin=20, lmax=120, seed=s + 3, width=(1, 2), val=0.5); cou = coulures(count=20, seed=s + 4)
+    c = fill((236, 236, 232))*(0.95 + 0.04*m[..., None] + 0.04*lo[..., None]); c = mix(c, fill((150, 140, 120)), hand*0.1 + cou*0.15); c = mix(c, fill((110, 110, 108)), sc*0.2)
     save(d, 'peinture_mur', c, m*0.08 - sc*0.2, 0.6 + 0.1*m - 0.1*hand + 0.1*sc, np.zeros((N, N)), 1.5)
 
 @matiere
@@ -254,7 +254,7 @@ def plafond(d, s=131, rep=4):
     n = N; yy, xx = np.mgrid[0:n, 0:n].astype(np.float32); per = n/rep
     gu = np.minimum(xx % per, per - xx % per); gv = np.minimum(yy % per, per - yy % per); grid = 1 - smooth(np.minimum(gu, gv), 4, 9)
     pts = fbm(beta=0.2, seed=s, lo=300); st = taches_irr(count=10, rmin=50, rmax=160, seed=s + 1, soft=30, anneau=True)
-    c = fill((228, 228, 222))*(0.9 + 0.1*pts[..., None]); c = mix(c, fill((150, 146, 136)), grid*0.6); c = mix(c, fill((150, 120, 70)), st*0.35)
+    c = fill((228, 228, 222))*(0.9 + 0.1*pts[..., None]); c = mix(c, fill((150, 146, 136)), grid*0.6); c = mix(c, fill((150, 120, 70)), st*0.18)
     save(d, 'plafond', c, -grid*0.5 + pts*0.2, 0.9 - 0.3*grid, grid*0.6, 4.0)
 
 @matiere
