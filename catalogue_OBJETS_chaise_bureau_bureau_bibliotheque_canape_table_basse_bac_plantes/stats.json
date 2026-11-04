@@ -1,0 +1,107 @@
+{
+ "chaise_bureau": {
+  "objets": 24,
+  "triangles": 23668,
+  "dim": [
+   1.94,
+   2.2,
+   4.27
+  ],
+  "par_matiere": {
+   "plastique_(34, 34, 36)_None": 4792,
+   "tissu_(50, 54, 60)_None": 18816,
+   "Chrome": 60
+  }
+ },
+ "bureau": {
+  "objets": 38,
+  "triangles": 3200,
+  "dim": [
+   5.02,
+   2.7,
+   4.22
+  ],
+  "par_matiere": {
+   "metal_peint_(40, 40, 42)_None": 692,
+   "metal_peint_(150, 156, 150)_None": 648,
+   "plastique_(50, 50, 52)_None": 108,
+   "simili_cuir_(130, 40, 40)_None": 108,
+   "simili_cuir_(40, 40, 40)_None": 108,
+   "plastique_(34, 34, 36)_None": 620,
+   "DalleOn": 12,
+   "plastique_(226, 232, 236)_None": 24,
+   "plastique_(240, 236, 210)_None": 48,
+   "plastique_(236, 234, 226)_None": 12,
+   "plastique_(60, 90, 140)_None": 100,
+   "plastique_(120, 100, 80)_None": 108,
+   "metal_brut_(200, 202, 204)_None": 396,
+   "metal_peint_(40, 42, 44)_None": 108,
+   "plastique_(60, 60, 64)_None": 108
+  }
+ },
+ "bibliotheque": {
+  "objets": 95,
+  "triangles": 10164,
+  "dim": [
+   5.0,
+   1.4,
+   7.5
+  ],
+  "par_matiere": {
+   "bois_(150, 110, 70)_None": 984,
+   "simili_cuir_(90, 60, 40)_None": 1620,
+   "simili_cuir_(40, 40, 40)_None": 1404,
+   "simili_cuir_(150, 120, 70)_None": 648,
+   "simili_cuir_(120, 30, 30)_None": 1188,
+   "simili_cuir_(200, 190, 160)_None": 1404,
+   "simili_cuir_(30, 50, 100)_None": 2052,
+   "simili_cuir_(40, 80, 50)_None": 864
+  }
+ },
+ "canape": {
+  "objets": 14,
+  "triangles": 82876,
+  "dim": [
+   6.01,
+   2.8,
+   3.39
+  ],
+  "par_matiere": {
+   "tissu_(60, 70, 84)_None": 75452,
+   "bois_(70, 50, 30)_None": 144,
+   "tissu_(150, 40, 40)_None": 7280
+  }
+ },
+ "table_basse": {
+  "objets": 6,
+  "triangles": 552,
+  "dim": [
+   3.6,
+   2.0,
+   1.54
+  ],
+  "par_matiere": {
+   "plastique_(200, 60, 50)_None": 12,
+   "metal_peint_(40, 40, 42)_None": 432,
+   "bois_(140, 100, 64)_None": 108
+  }
+ },
+ "bac_plantes": {
+  "objets": 50,
+  "triangles": 2188,
+  "dim": [
+   6.54,
+   3.54,
+   12.0
+  ],
+  "par_matiere": {
+   "metal_peint_(60, 80, 70)_None": 108,
+   "FeuilleMorte": 1368,
+   "LedHorticole": 12,
+   "metal_peint_(200, 200, 196)_None": 108,
+   "metal_brut_(150, 150, 150)_None": 88,
+   "moquette_(70, 52, 36)_None": 384,
+   "bois_(150, 120, 80)_None": 120
+  }
+ }
+}
