@@ -124,6 +124,11 @@ def etagere_stockage(w=6.0, d=2.0, h=7.0, seed=0, contenu='mixte'):
                 if rnd.random() < 0.4 and H < 0.9:
                     o.append(cube('Carton', (L*0.8, 0.9, H*0.7), (x + L/2, d/2, z + 0.03 + H + H*0.35), mat('carton', (176, 140, 100)), 0.03, rot=(0, 0, rnd.uniform(-0.2, 0.2))))
                 x += L + 0.08
+            elif contenu == 'flacons' and k < 0.95:
+                from kit_labo import flacon
+                for j in range(rnd.randint(2, 5)):
+                    o += flacon(rnd.choice(['reactif', 'brun', 'brun', 'reactif', 'pissette']), (x + 0.25 + j*0.45, d/2 + rnd.uniform(-0.3, 0.3), z + 0.03), rnd, echelle=rnd.uniform(1.1, 1.6))
+                x += 0.45*5
             elif k < 0.82:
                 o.append(anneau('Cable', 0.45, 0.12, (x + 0.6, d/2, z + 0.15), mat('caoutchouc', rnd.choice([(30, 30, 30), (200, 120, 30), (40, 60, 140)])))); x += 1.3
             else: x += rnd.uniform(0.4, 1.0)
@@ -357,4 +362,9 @@ def nourrice_vannes(w=8.0, seed=0):
             if rnd.random() < 0.5: o.append(cyl('Manometre', 0.2, 0.1, (x + 0.7, 1.0, zz), mat('plastique', (230, 230, 226)), 24, axe='Y'))
             o.append(cube('Etiquette', (0.4, 0.02, 0.2), (x, 1.02, zz + (0.25 if k == 1 else -0.25)), mat('plastique', (226, 220, 196)), 0.0))
         for x in (-w/2 + 0.4, w/2 - 0.4): o.append(cube('Collier', (0.12, 0.8, 0.8), (x, 0.35, zz), mat('metal_brut', (130, 130, 130)), 0.02))
+    parent_all(o, root); return root
+
+def caisse(seed=0):
+    rnd = random.Random(seed); root = empty(f'Caisse_{seed}')
+    o = caisse_bois((rnd.uniform(2.4, 3.0), rnd.uniform(2.0, 2.4), rnd.uniform(1.9, 2.4)), seed)
     parent_all(o, root); return root

@@ -282,3 +282,25 @@ def tuyauterie(X0, X1, y, z, n=3, seed=0):
         for sy in (-1, 1): o.append(cube('Tige', (0.07, 0.07, 16 - z + 0.42), (xx, y + sy*(n*0.85/2 + 0.15), (z - 0.42 + 16)/2), mat('metal_brut', (120, 120, 120)), 0))
         xx += 8
     return o
+
+def table_chaises(w=6.0, d=3.0, n=2, seed=0, metal=False):
+    """table de collectivité et ses chaises (même maillage de chaise réutilisé), chaises légèrement en désordre"""
+    rnd = random.Random(seed); root = empty(f'TableChaises_{seed}')
+    t = table(Lx=w, Ly=d, h=3.2 if metal else 2.6, seed=seed)
+    objs = list(t.children)
+    for c in objs: c.parent = None
+    bpy.data.objects.remove(t)
+    if n:
+        ch = chaise(seed=seed, col=rnd.choice([(66, 88, 120), (120, 60, 50), (70, 100, 80), (90, 90, 96)])); base = list(ch.children)
+        for c in base: c.parent = None
+        bpy.data.objects.remove(ch); bpy.context.view_layer.update()
+        par_cote = [(n + 1)//2, n//2]
+        for side, k in zip((-1, 1), par_cote):
+            for i in range(k):
+                x = -w/2 + w*(i + 0.5)/k + rnd.uniform(-0.25, 0.25); y = side*(d/2 + 0.55 + rnd.uniform(-0.2, 0.5)); a = (0.0 if side < 0 else math.pi) + rnd.uniform(-0.3, 0.3)
+                for b in base:
+                    c = b.copy(); coll().objects.link(c)
+                    c.matrix_world = Matrix.Translation((x, y, 0)) @ Matrix.Rotation(a + math.pi, 4, 'Z') @ b.matrix_world
+                    objs.append(c)
+        for b in base: bpy.data.objects.remove(b)
+    parent_all(objs, root); return root

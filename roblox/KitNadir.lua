@@ -29,7 +29,7 @@ end
 
 local function habiller(p)
 	if not p:IsA("MeshPart") or p:GetAttribute("Habille") then return end
-	local n = p.Name
+	local n = p.Name:gsub("%.%d+$", "")
 	local kind, rest = n:match("^(%a)_(.+)$")
 	if kind == "T" then
 		local tex, hex = rest:match("^(.+)_(%x%x%x%x%x%x)$")
@@ -63,29 +63,46 @@ local function habiller(p)
 	p:SetAttribute("Habille", true)
 end
 
--- a) habillage + pivot de chaque modèle sur son repère « Origine »
-local nbm = 0
-for _, m in ipairs(kit:GetChildren()) do
-	if m:IsA("Model") then
-		local o = m:FindFirstChild("Origine", true)
-		if o then m.WorldPivot = CFrame.new(o.Position); o:Destroy() end
-		for _, p in ipairs(m:GetDescendants()) do habiller(p) end
-		nbm += 1
+-- a) recensement des objets du kit (à n'importe quelle profondeur : un objet = un modèle qui contient un repère « Origine »),
+--    habillage et pivot sur le repère
+local KITS, nbm = {}, 0
+for _, o in ipairs(kit:GetDescendants()) do
+	if o:IsA("BasePart") and o.Name:gsub("%.%d+$", "") == "Origine" and o.Parent then
+		local m = o.Parent
+		if not m:IsA("Model") then                     -- au cas où l'import aurait créé un dossier
+			local mm = Instance.new("Model"); mm.Name = m.Name
+			for _, c in ipairs(m:GetChildren()) do c.Parent = mm end
+			mm.Parent = m.Parent; m:Destroy(); m = mm
+		end
+		m.WorldPivot = CFrame.new(o.Position)
+		o:Destroy()
+		m.Name = m.Name:gsub("%.%d+$", "")
+		m:SetAttribute("KitOk", true)
 	end
 end
-print(("NADIR-4 : %d modèles du kit habillés"):format(nbm))
+for _, m in ipairs(kit:GetDescendants()) do
+	if m:IsA("Model") and m:GetAttribute("KitOk") then
+		for _, p in ipairs(m:GetDescendants()) do habiller(p) end
+		KITS[m.Name] = m; nbm += 1
+	end
+end
+print(("NADIR-4 : %d modèles du kit prêts"):format(nbm))
 
 -- b) placement
 local places, manquants = 0, {}
 for _, e in ipairs(workspace:GetDescendants()) do
 	if e:IsA("BasePart") and e.Name:sub(1, 4) == "Kit:" and not e:GetAttribute("Rempli") then
 		local nom = e.Name:sub(5)
-		local src = kit:FindFirstChild(nom)
+		local src = KITS[nom]
 		if src then
 			local c = src:Clone()
 			c:PivotTo(e.CFrame)
 			c.Name = nom
-			c.Parent = e.Parent
+			local dossier = e.Parent
+			if dossier and dossier.Name:sub(1, 6) == "Objet_" then      -- supprime la version en blocs
+				for _, x in ipairs(dossier:GetChildren()) do if x ~= e then x:Destroy() end end
+			end
+			c.Parent = dossier
 			e:SetAttribute("Rempli", true)
 			e.Transparency = 1; e.CanCollide = false; e.CanQuery = false
 			places += 1

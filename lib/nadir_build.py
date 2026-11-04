@@ -576,14 +576,36 @@ task.spawn(function()
 end)
 '''
 
+# ---------------------------------------------------------------- architecture maillée (mode kit)
+MAT_ARCHI = {'Metal': 'metal_peint', 'SmoothPlastic': 'peinture_mur', 'DiamondPlate': 'tole_striee', 'Rock': 'beton', 'Marble': 'carrelage',
+             'WoodPlanks': 'bois', 'Concrete': 'beton', 'CorrodedMetal': 'metal_rouille', 'Fabric': 'tissu', 'Slate': 'beton', 'Sand': 'beton',
+             'Plastic': 'plastique', 'Wood': 'bois'}
+def est_maillable(it):
+    """pièce d'architecture « simple » rendue par les maillages texturés : ni mobilier, ni enfant (lumière, texte), ni étiquette, opaque"""
+    return ('/Mobilier' not in it['f'] and '/Objet_' not in it['f'] and not it['ch'] and not it['tags'] and it['t'] < 0.01
+            and it['cls'] == 'Part' and it['shape'] in (None, 'Cylinder') and (it['m'] in MAT_ARCHI or it['m'] in ('Neon', 'Glass')))
+def troncon(it): return '/'.join(it['f'].split('/')[:3])
+def alleger_pour_kit(sc):
+    """les pièces maillées deviennent des volumes de collision invisibles (ou disparaissent si elles ne bloquent pas)"""
+    garde = []
+    for it in sc.items:
+        if est_maillable(it):
+            if not it['cc']: continue
+            it['t'] = 1.0; it['sh'] = False; it['n'] = 'Collision'; it['m'] = 'SmoothPlastic'
+        garde.append(it)
+    n = len(sc.items) - len(garde); sc.items[:] = garde
+    return n
+
 if __name__ == '__main__':
     out = sys.argv[1]; os.makedirs(out, exist_ok=True)
     try:
         import nadir_props as P
+        P.KIT = '--kit' in sys.argv
         meub = P.meubler
     except ImportError:
         meub = None
     build_all(meub)
+    if '--kit' in sys.argv: print('architecture maillée :', alleger_pour_kit(sc), 'pièces retirées, les autres sont des collisions invisibles')
     write_rbxlx(sc, os.path.join(out, 'nadir4.rbxlx'), LIGHTING, scripts=[('Courant', SCRIPT_COURANT, 'ServerScriptService')], rs_values=[('Courant', False)])
     write_json(sc, os.path.join(out, 'nadir4.json'))
     from collections import Counter

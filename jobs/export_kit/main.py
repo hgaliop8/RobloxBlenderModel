@@ -81,8 +81,14 @@ def exporter(nom):
                               export_yup=True, export_apply=True, export_animations=False)
     info = {'triangles_bruts': tot, 'triangles': tot2, 'parties': {p.name: triangles(p) for p in parts},
             'boite_min': [round(v, 3) for v in lo], 'boite_max': [round(v, 3) for v in hi], 'octets': os.path.getsize(chemin)}
-    for o in [o for o in bpy.data.objects if o not in avant]: bpy.data.objects.remove(o)
+    # rangement dans le fichier groupé : un nœud vide par objet (nom = nom de l'objet), objets disposés en grille
+    reste = [p for p in parts] + [orig]
+    for o in [o for o in bpy.data.objects if o not in avant and o not in reste]: bpy.data.objects.remove(o)
+    k = len(GROUPE); g = K.empty(nom, ((k % 8)*20.0, -(k//8)*20.0, 0))
+    for p in reste: p.parent = g
+    GROUPE.append(g)
     return info
+GROUPE = []
 
 def bibliotheque_matieres():
     """matieres.glb : un carré de 4×4 studs par texture, matériau glTF standard (couleur, métal-rugosité, normale) avec images intégrées"""
@@ -104,7 +110,10 @@ def bibliotheque_matieres():
         me = bpy.data.meshes.new(t); bm.to_mesh(me); bm.free(); me.materials.append(m)
         ob = bpy.data.objects.new(t, me); bpy.context.scene.collection.objects.link(ob); ob.location = ((i % 5)*5, -(i//5)*5, 0)
     for o in bpy.data.objects: o.select_set(True)
-    bpy.ops.export_scene.gltf(filepath=os.path.join(out, 'matieres.glb'), export_format='GLB', use_selection=True, export_materials='EXPORT', export_image_format='AUTO')
+    try:
+        bpy.ops.export_scene.gltf(filepath=os.path.join(out, 'matieres.glb'), export_format='GLB', use_selection=True, export_materials='EXPORT', export_image_format='JPEG', export_jpeg_quality=90)
+    except TypeError:
+        bpy.ops.export_scene.gltf(filepath=os.path.join(out, 'matieres.glb'), export_format='GLB', use_selection=True, export_materials='EXPORT', export_image_format='JPEG')
     log(f'matieres.glb : {len(noms)} matières, {os.path.getsize(os.path.join(out, "matieres.glb"))//1024} Ko')
 
 def materiau_depuis_nom(n):
@@ -146,6 +155,17 @@ for nom in NOMS:
     except Exception as ex:
         import traceback; traceback.print_exc(); log(f'{nom}: ERREUR {ex}')
 json.dump(manifeste, open(os.path.join(out, 'manifeste.json'), 'w'), indent=1)
+FICHIER = os.environ.get('FICHIER', 'kit')
+for o in bpy.context.selected_objects: o.select_set(False)
+for g in GROUPE:
+    g.select_set(True)
+    for c in g.children: c.select_set(True)
+bpy.ops.export_scene.gltf(filepath=os.path.join(out, f'{FICHIER}.glb'), export_format='GLB', use_selection=True, export_materials='NONE', export_texcoords=True,
+                          export_normals=True, export_yup=True, export_apply=True, export_animations=False)
+log(f'{FICHIER}.glb : {len(GROUPE)} objets, {os.path.getsize(os.path.join(out, FICHIER + ".glb"))//1024} Ko')
+for g in GROUPE:
+    for c in list(g.children): bpy.data.objects.remove(c)
+    bpy.data.objects.remove(g)
 if os.environ.get('APERCU') == '1': apercus(NOMS)
 if os.environ.get('MATIERES') == '1': bibliotheque_matieres()
 log('fin')

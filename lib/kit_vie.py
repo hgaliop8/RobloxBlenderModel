@@ -110,9 +110,9 @@ def distributeur(seed=0):
     parent_all(o, root); return root
 
 # ---------------------------------------------------------------- sanitaires
-def wc_cabine(seed=0, porte_ouverte=None):
+def wc_cabine(seed=0, porte_ouverte=None, w=3.2):
     """cabine WC : cloisons, porte, cuvette en porcelaine, réservoir, dérouleur"""
-    rnd = random.Random(seed); root = empty(f'CabineWC_{seed}'); o = []; w, d, h = 3.6, 5.2, 7.0
+    rnd = random.Random(seed); root = empty(f'CabineWC_{seed}'); o = []; d, h = 5.2, 7.0
     Mp = mat('plastique', rnd.choice([(170, 186, 196), (196, 200, 190), (120, 140, 150)])); Mpo = mat_plain('Porcelaine', (238, 238, 234), 0.12)
     for sx in (-1, 1):
         o.append(cube('Cloison', (0.12, d, h - 0.5), (sx*w/2, d/2, 0.5 + (h - 0.5)/2), Mp, 0.03))
@@ -145,9 +145,9 @@ def lavabo(seed=0, miroir=True):
         o.append(cube('Savon', (0.3, 0.2, 0.1), (-0.5, 0.25, 3.93), mat('plastique', (230, 220, 180)), 0.04))
     parent_all(o, root); return root
 
-def douche(seed=0):
+def douche(seed=0, w=3.3):
     """cabine de douche : bac, parois carrelées, rideau (tissu simulé épinglé), pomme et barre"""
-    rnd = random.Random(seed); root = empty(f'Douche_{seed}'); o = []; w, d, h = 3.6, 3.6, 7.6; Mt = mat('carrelage', (214, 222, 226))
+    rnd = random.Random(seed); root = empty(f'Douche_{seed}'); o = []; d, h = 3.4, 7.6; Mt = mat('carrelage', (214, 222, 226))
     o.append(cube('Receveur', (w, d, 0.3), (0, d/2, 0.15), mat_plain('Porcelaine', (238, 238, 234), 0.12), 0.06))
     o.append(cyl('Siphon', 0.15, 0.01, (0, d/2, 0.3), M_inox(), 16))
     for sx in (-1, 1): o.append(cube('Paroi', (0.12, d, h), (sx*w/2, d/2, h/2), Mt, 0.0))
@@ -376,4 +376,15 @@ def table_autopsie(seed=0, plafond=12.0):
     o.append(tube_path('BrasLampe', [Vector((0, 0, h + 6.1)), Vector((0.4, 0, h + 6.9)), Vector((1.4, 0, h + 7.4)), Vector((1.4, 0, plafond))], 0.07, mat('metal_peint', (220, 222, 220))))
     for k in range(rnd.randint(2, 4)):                          # instruments sur desserte
         o.append(cube('Instrument', (0.04, 0.5, 0.02), (L/2 - 1.2 + k*0.15, W/2 - 0.5, h + 0.06), M_chrome(), 0.005, rot=(0, 0, rnd.uniform(-0.2, 0.2))))
+    parent_all(o, root); return root
+
+def armoire_classeur(w=1.8, d=1.6, h=6.2, seed=0):
+    """classeur métallique à 4 tiroirs, porte-étiquettes"""
+    rnd = random.Random(seed); root = empty(f'Classeur_{seed}'); o = []
+    col = rnd.choice([(128, 132, 134), (150, 156, 150), (110, 120, 130), (170, 166, 150)])
+    meuble_bas(o, -w/2, w/2, d, h, mat('metal_peint', col), mat('metal_peint', tuple(min(255, c + 10) for c in col)), M_inox(), faces=[(1, 'tiroirs4')], plinthe=0.15, rnd=rnd)
+    for k in range(4):
+        z = 0.15 + (h - 0.15)*(k + 0.5)/4
+        o.append(cube('PorteEtiquette', (0.6, 0.03, 0.3), (0, d + 0.05, z + 0.55), M_inox(), 0.01))
+        o.append(cube('Etiquette', (0.5, 0.02, 0.2), (0, d + 0.06, z + 0.55), mat('plastique', (230, 226, 210)), 0.0))
     parent_all(o, root); return root

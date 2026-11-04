@@ -71,3 +71,21 @@ REGISTRE.update({
     'centrifugeuse': lambda: _grp('Centrifugeuse', L.centrifugeuse((0, 0, 0))),
     'ecran_pc': lambda: _grp('EcranPC', L.ecran_pc((0, 0, 0))),
 })
+
+# variantes demandées par le générateur de la map (correspondance avec les objets en blocs de nadir_props)
+REGISTRE.update({
+    'lit_superpose_0': lambda: Q.lit_superpose(0), 'lit_superpose_1': lambda: Q.lit_superpose(1), 'lit_superpose_2': lambda: Q.lit_superpose(2),
+    'casiers_1': lambda: Q.casiers(1, seed=3, ouvert=9), 'casiers_2': lambda: Q.casiers(2, seed=4, ouvert=1), 'casiers_4': lambda: Q.casiers(4, seed=5, ouvert=2),
+    'armoire_classeur': lambda: V.armoire_classeur(seed=1),
+    'etagere_stockage_w24': lambda: T.etagere_stockage(2.4, 1.6, 6.5, seed=3),
+    'etagere_flacons': lambda: T.etagere_stockage(6.0, 2.0, 7.0, seed=4, contenu='flacons'),
+    'pupitre_12': lambda: T.pupitre(12.0, seed=2, ecrans=3, allume=True),
+    'paillasse_sec': lambda: L.paillasse(8.0, seed=3, evier=False),
+    'cuve_petite': lambda: T.cuve(3.0, 6.0, seed=2),
+    'caisse': lambda: T.caisse(1),
+    'poubelle': lambda: Q.poubelle(),
+    'bac_plantes_12': lambda: V.bac_plantes(12.0, seed=2), 'bac_plantes_12_h16': lambda: V.bac_plantes(12.0, seed=2, plafond=16.0),
+    'table_6x3_2': lambda: Q.table_chaises(6, 3, 2, seed=1), 'table_10x3_8': lambda: Q.table_chaises(10, 3, 8, seed=2),
+    'table_12x4_10': lambda: Q.table_chaises(12, 4, 10, seed=3), 'table_4x4_4': lambda: Q.table_chaises(4, 4, 4, seed=4),
+    'table_6x3_metal': lambda: Q.table_chaises(6, 3, 0, seed=5, metal=True),
+})

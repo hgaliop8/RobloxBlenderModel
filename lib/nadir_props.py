@@ -620,6 +620,8 @@ def kind_of(e):
     return 'divers'
 
 def meubler(sc, e):
+    global _H_SALLE
+    _H_SALLE = e.h
     s = Salle(sc, e); r = s.rng; k = kind_of(e); L = s.sides_by_len()
     def murs(w, fn, *a, n=99, cotes=None, **kw):
         t = 0
@@ -830,3 +832,79 @@ def meubler(sc, e):
         it = Frame(sc, e.folder + '/Eau', (0, 0, 0)).box(((e.X0 + e.X1)/2, e.elev + e.d['eau']/2, (e.Z0 + e.Z1)/2), (s.W - 1.6, e.d['eau'], s.D - 1.6), 'Glass', (30, 70, 70),
                                                          name='Eau', cc=False, tags=['Eau'])
         it['t'] = 0.35; it['r'] = 0.2
+
+
+# ================================================================ mode « kit 3D »
+# Chaque objet en blocs ayant un équivalent dans le kit 3D est rangé dans son propre dossier « Objet_<kit>_<n> » avec un
+# emplacement invisible « Kit:<kit> » (repère d'origine du modèle : au sol, devant vers +Z de la salle).
+# Le script Studio KitNadir.lua remplace ensuite le dossier entier par le modèle 3D importé.
+KIT = False
+_H_SALLE = 12.0
+_kit_n = [0]; _kit_prof = [0]
+PI = math.pi
+def _h16(nom): return nom + '_h16' if _H_SALLE >= 14 else nom
+def _arg(a, kw, i, nom, defaut):
+    return a[i] if len(a) > i else kw.get(nom, defaut)
+KIT_MAP = {
+    'etagere': lambda f, a, kw: (('etagere_stockage_w24' if _arg(a, kw, 0, 'w', 6.0) < 4 else
+                                  'etagere_flacons' if kw.get('contenu') in ('flacons', 'labo') else 'etagere_stockage'), (0, 0, 0), PI),
+    'armoire': lambda f, a, kw: ('armoire_classeur', (0, 0, 0), PI),
+    'casiers': lambda f, a, kw: ('casiers_%d' % min((1, 2, 4), key=lambda n: abs(n - _arg(a, kw, 0, 'n', 4))), (0, 0, 0), PI),
+    'bureau': lambda f, a, kw: ('bureau', (0, 0, 0), PI),
+    'console': lambda f, a, kw: ('pupitre_12' if _arg(a, kw, 0, 'w', 6.0) > 9 else 'pupitre', (0, 0, 0), PI),
+    'table': lambda f, a, kw: _table(a, kw),
+    'paillasse': lambda f, a, kw: ('paillasse' if kw.get('evier', True) else 'paillasse_sec', (0, 0, 0), PI),
+    'hotte': lambda f, a, kw: (_h16('hotte'), (0, 0, 0), PI),
+    'bocaux': lambda f, a, kw: ('etagere_specimens', (0, 0, 0), PI),
+    'aquarium': lambda f, a, kw: ('aquarium', (0, 0, 0), PI),
+    'lit_superpose': lambda f, a, kw: ('lit_superpose_%d' % (int(abs(f.pos[0]*7.3 + f.pos[2]*13.1)) % 3), (0, 0, 1.6), PI),
+    'lit_hopital': lambda f, a, kw: ('lit_hopital', (0, 0, 3.6), -PI/2),
+    'rack_serveur': lambda f, a, kw: ('rack_serveur', (0, 0, 0), PI),
+    'armoire_elec': lambda f, a, kw: (_h16('armoire_elec_ouverte' if kw.get('ouverte') else 'armoire_elec'), (0, 0, 0), PI),
+    'etabli': lambda f, a, kw: ('etabli', (0, 0, 0), PI),
+    'cuve': lambda f, a, kw: ('cuve_petite' if _arg(a, kw, 0, 'diam', 6.0) < 4 else 'cuve', (0, 0, 0), 0.0),
+    'pompe': lambda f, a, kw: ('pompe', (0, 0, 0), 0.0),
+    'turbine': lambda f, a, kw: ('groupe_electrogene', (0, 0, 0), 0.0),
+    'transformateur': lambda f, a, kw: ('transformateur', (0, 0, 0), 0.0),
+    'armoire_vitree': lambda f, a, kw: ('armoire_vitree', (0, 0, 0), PI),
+    'chariot': lambda f, a, kw: ('chariot', (0, 0, 0), 0.0),
+    'bouteilles': lambda f, a, kw: ('rack_bouteilles', (0, 0, 0), PI),
+    'caisse': lambda f, a, kw: ('caisse', (0, 0, 0), 0.0),
+    'futs': lambda f, a, kw: ('futs', (0, 0, 0), 0.0),
+    'comptoir_cuisine': lambda f, a, kw: ('cuisine', (0, 0, 0), PI),
+    'frigo': lambda f, a, kw: ('frigo', (0, 0, 0), PI),
+    'wc': lambda f, a, kw: ('wc_cabine', (0, 0, 0), PI),
+    'lavabo': lambda f, a, kw: ('lavabo', (0, 0, 0), PI),
+    'douche': lambda f, a, kw: ('douche', (0, 0, 0), PI),
+    'canape': lambda f, a, kw: ('canape', (0, 0, 0), PI),
+    'bibliotheque': lambda f, a, kw: ('bibliotheque', (0, 0, 0), PI),
+    'tableau_blanc': lambda f, a, kw: ('tableau_blanc', (0, 5.0, 0), PI),
+    'extincteur': lambda f, a, kw: ('extincteur', (0, 0, 0), PI),
+    'poubelle': lambda f, a, kw: ('poubelle', (0, 0, 0.7), 0.0),
+    'plantes': lambda f, a, kw: (_h16('bac_plantes_12' if _arg(a, kw, 0, 'L', 10.0) > 9 else 'bac_plantes'), (0, 0, 0), 0.0),
+    'tiroirs_morgue': lambda f, a, kw: ('tiroirs_morgue', (0, 0, 0), PI),
+    'table_autopsie': lambda f, a, kw: (_h16('table_autopsie'), (0, 0, 0), -PI/2),
+    'chaise_simple': lambda f, a, kw: ('chaise', (0, 0, 0), 0.0),
+}
+def _table(a, kw):
+    w, d = _arg(a, kw, 0, 'w', 6.0), _arg(a, kw, 1, 'd', 3.0); n = kw.get('chaises', 0)
+    if kw.get('mat') == 'Metal' and n == 0: return ('table_6x3_metal', (0, 0, 0), 0.0)
+    for (tw, td, tn), nom in (((6, 3, 2), 'table_6x3_2'), ((10, 3, 8), 'table_10x3_8'), ((12, 4, 10), 'table_12x4_10'), ((4, 4, 4), 'table_4x4_4')):
+        if abs(w - tw) < 0.6 and abs(d - td) < 0.6: return (nom, (0, 0, 0), 0.0)
+    return None
+
+def _kit_wrap(fn):
+    nom_fn = fn.__name__
+    def w(f, *a, **kw):
+        if not KIT or _kit_prof[0] > 0 or nom_fn not in KIT_MAP: return fn(f, *a, **kw)
+        r = KIT_MAP[nom_fn](f, a, kw)
+        if r is None: return fn(f, *a, **kw)
+        kit, off, yaw = r; _kit_n[0] += 1
+        sub = Frame(f.sc, f.folder + f'/Objet_{kit}_{_kit_n[0]}', f.pos, f.R)
+        _kit_prof[0] += 1
+        try: res = fn(sub, *a, **kw)                    # version en blocs (visible tant que le kit n'est pas importé)
+        finally: _kit_prof[0] -= 1
+        sub.sub(off, yaw).box((0, 0, 0), (0.4, 0.4, 0.4), 'SmoothPlastic', (255, 0, 255), name='Kit:' + kit, tr=1.0, cc=False, shadow=False)
+        return res
+    w.__name__ = nom_fn; return w
+for _n in list(KIT_MAP): globals()[_n] = _kit_wrap(globals()[_n])
