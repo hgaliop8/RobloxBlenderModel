@@ -1,0 +1,994 @@
+{
+ "paillasse_courte": {
+  "triangles_bruts": 7604,
+  "triangles": 7604,
+  "parties": {
+   "T_plastique_E6EBF0": 694,
+   "P_BE9646_30_100_0": 160,
+   "V_EBF5F5": 1296,
+   "T_carton_C8B48C": 324,
+   "T_carton_E6E6E1": 108,
+   "T_plastique_96281E": 240,
+   "T_plastique_E6E6E1": 240,
+   "T_metal_peint_D6DAD6": 108,
+   "T_metal_peint_96ACBE": 432,
+   "V_965A28": 1320,
+   "T_plastique_DCDEDC": 108,
+   "L_DCC86E": 390,
+   "L_9696C8": 156,
+   "L_78AA5A": 156,
+   "L_C87846": 78,
+   "L_AAD6DC": 78,
+   "T_metal_peint_969CA0": 432,
+   "T_plastique_242628": 108,
+   "T_metal_brut_C8CACC": 528,
+   "T_plastique_C8C8C4": 324,
+   "T_metal_peint_282A2C": 108,
+   "V_D2EBE6": 216
+  },
+  "boite_min": [
+   -2.55,
+   0.0,
+   -2.785
+  ],
+  "boite_max": [
+   2.55,
+   6.99,
+   0.045
+  ],
+  "octets": 277228
+ },
+ "etagere_specimens": {
+  "triangles_bruts": 57452,
+  "triangles": 13987,
+  "parties": {
+   "V_EBF5F5.001": 1929,
+   "T_metal_peint_464A4E": 102,
+   "T_metal_peint_A09678": 454,
+   "T_metal_peint_5A1E1E": 908,
+   "T_metal_peint_282828": 1180,
+   "T_plastique_E2DCC4": 336,
+   "L_DCBE82": 210,
+   "L_C8C48C": 262,
+   "L_D6CE78": 104,
+   "L_BED296": 156,
+   "P_C8AAA0_55_0_0": 4500,
+   "P_D6BEAA_55_0_0": 3460,
+   "T_metal_peint_5C6064": 386
+  },
+  "boite_min": [
+   -2.998,
+   0.002,
+   -1.799
+  ],
+  "boite_max": [
+   3.057,
+   8.038,
+   -0.001
+  ],
+  "octets": 563720
+ },
+ "armoire_vitree": {
+  "triangles_bruts": 9144,
+  "triangles": 9144,
+  "parties": {
+   "T_plastique_1E1E1E": 360,
+   "T_plastique_28468C": 120,
+   "T_plastique_E6E6E1.001": 180,
+   "T_plastique_96281E.001": 60,
+   "T_metal_peint_D6DAD6.001": 1308,
+   "V_EBF5F5.002": 2472,
+   "V_965A28.001": 1584,
+   "L_C87846.001": 468,
+   "L_AAD6DC.001": 78,
+   "L_9696C8.001": 390,
+   "L_78AA5A.001": 78,
+   "L_DCC86E.001": 234,
+   "T_plastique_E6BE1E": 12,
+   "T_metal_brut_C8CACC.001": 792,
+   "V_D2EBE6.001": 36,
+   "P_DCDEE2_8_100_0": 216,
+   "T_metal_peint_282A2C.001": 108,
+   "T_metal_peint_C8CCC8": 648
+  },
+  "boite_min": [
+   -1.63,
+   0.0,
+   -1.785
+  ],
+  "boite_max": [
+   1.63,
+   7.05,
+   0.03
+  ],
+  "octets": 315396
+ },
+ "tableau_blanc": {
+  "triangles_bruts": 5208,
+  "triangles": 5208,
+  "parties": {
+   "T_metal_brut_BEC0C2": 540,
+   "T_plastique_28282C": 108,
+   "T_plastique_1E1E1E.001": 44,
+   "T_plastique_B41E1E": 44,
+   "T_plastique_1E3CA0": 44,
+   "P_ECEEEC_18_0_0": 12,
+   "P_141414_50_0_0": 3680,
+   "P_961414_50_0_0": 736
+  },
+  "boite_min": [
+   -3.58,
+   -1.94,
+   -0.395
+  ],
+  "boite_max": [
+   3.633,
+   1.88,
+   -0.0
+  ],
+  "octets": 208324
+ },
+ "lit_superpose": {
+  "triangles_bruts": 87724,
+  "triangles": 8992,
+  "parties": {
+   "T_metal_peint_46523C": 296,
+   "T_metal_brut_969692": 104,
+   "T_tissu_546250": 3362,
+   "T_tissu_605E66": 3586,
+   "T_metal_peint_5C6674": 248,
+   "T_metal_brut_969696": 218,
+   "T_matelas_E8E6DE": 232,
+   "T_tissu_EEEEEA": 390,
+   "T_caoutchouc_3C3C3C": 42,
+   "T_caoutchouc_282828": 216,
+   "T_tissu_282C3C": 298
+  },
+  "boite_min": [
+   -3.52,
+   0.006,
+   -2.003
+  ],
+  "boite_max": [
+   5.271,
+   6.951,
+   1.992
+  ],
+  "octets": 375248
+ },
+ "etagere_stockage": {
+  "triangles_bruts": 6512,
+  "triangles": 6512,
+  "parties": {
+   "T_plastique_C8A028": 656,
+   "T_plastique_3C7846": 328,
+   "T_plastique_962828": 328,
+   "T_caoutchouc_283C8C": 1280,
+   "T_caoutchouc_C8781E": 1280,
+   "T_carton_BE9C6E": 540,
+   "T_carton_B08C64": 216,
+   "T_carton_E2E2DC": 108,
+   "T_metal_peint_345478": 432,
+   "T_metal_peint_787C80": 1296,
+   "T_plastique_BEAA78": 48
+  },
+  "boite_min": [
+   -3.0,
+   0.0,
+   -2.0
+  ],
+  "boite_max": [
+   3.182,
+   7.967,
+   -0.0
+  ],
+  "octets": 249632
+ },
+ "futs": {
+  "triangles_bruts": 3000,
+  "triangles": 3000,
+  "parties": {
+   "T_metal_brut_787874": 360,
+   "T_metal_peint_284682": 880,
+   "T_metal_peint_3C5A3C": 880,
+   "T_metal_peint_96281E": 880
+  },
+  "boite_min": [
+   -0.947,
+   0.0,
+   -2.847
+  ],
+  "boite_max": [
+   3.112,
+   3.11,
+   0.949
+  ],
+  "octets": 127760
+ },
+ "extincteur": {
+  "triangles_bruts": 1622,
+  "triangles": 1622,
+  "parties": {
+   "T_metal_peint_BE1E18": 382,
+   "T_plastique_E2DCC8": 12,
+   "T_caoutchouc_1E1E1E": 736,
+   "T_metal_peint_1E1E1E": 108,
+   "T_plastique_E6E6E2": 60,
+   "T_plastique_C81E18": 108,
+   "T_metal_peint_282828.001": 108,
+   "T_metal_peint_28282A": 108
+  },
+  "boite_min": [
+   -0.45,
+   2.2,
+   -0.759
+  ],
+  "boite_max": [
+   0.505,
+   5.65,
+   -0.0
+  ],
+  "octets": 68668
+ },
+ "armoire_elec": {
+  "triangles_bruts": 564,
+  "triangles": 564,
+  "parties": {
+   "T_grille_vent_969696": 12,
+   "T_metal_peint_BEC0BA": 108,
+   "T_plastique_D2AA28": 12,
+   "T_metal_peint_828688": 108,
+   "T_metal_peint_A0A4A0": 108,
+   "T_plastique_1E1E1E.002": 108,
+   "T_metal_peint_28282A.001": 108
+  },
+  "boite_min": [
+   -1.5,
+   0.0,
+   -1.71
+  ],
+  "boite_max": [
+   1.5,
+   12.0,
+   -0.0
+  ],
+  "octets": 26880
+ },
+ "rack_serveur": {
+  "triangles_bruts": 4876,
+  "triangles": 4876,
+  "parties": {
+   "T_caoutchouc_C8A028": 992,
+   "T_caoutchouc_1E1E1E.001": 496,
+   "T_caoutchouc_2846A0": 496,
+   "T_metal_peint_1E1F22": 648,
+   "T_grille_vent_AAAAAE": 180,
+   "P_28FF5A_30_0_6": 96,
+   "P_FFAA1E_30_0_6": 156,
+   "P_3C8CFF_30_0_6": 180,
+   "V_BEC8CC": 12,
+   "T_metal_peint_46484C": 648,
+   "T_metal_peint_B4B8BA": 864,
+   "T_metal_peint_6E7074": 108
+  },
+  "boite_min": [
+   -1.1,
+   0.0,
+   -3.665
+  ],
+  "boite_max": [
+   1.1,
+   8.138,
+   -0.0
+  ],
+  "octets": 204932
+ },
+ "pompe": {
+  "triangles_bruts": 1948,
+  "triangles": 1948,
+  "parties": {
+   "T_metal_peint_D2AA28": 92,
+   "T_metal_peint_466054": 1544,
+   "P_DCDEE2_8_100_0.001": 112,
+   "T_plastique_E6E6E2.001": 92,
+   "T_metal_peint_3C3E40": 108
+  },
+  "boite_min": [
+   -3.1,
+   0.0,
+   -1.35
+  ],
+  "boite_max": [
+   3.1,
+   4.02,
+   1.35
+  ],
+  "octets": 87496
+ },
+ "groupe_electrogene": {
+  "triangles_bruts": 2796,
+  "triangles": 2796,
+  "parties": {
+   "T_metal_peint_466054.001": 1076,
+   "T_metal_peint_323436": 216,
+   "T_metal_peint_BEBEBA": 108,
+   "T_metal_rouille_966E50": 736,
+   "T_grille_vent_6E6E6E": 12,
+   "T_caoutchouc_1E1E1E.002": 648
+  },
+  "boite_min": [
+   -7.045,
+   0.0,
+   -2.3
+  ],
+  "boite_max": [
+   7.0,
+   11.5,
+   2.5
+  ],
+  "octets": 106560
+ },
+ "vannes": {
+  "triangles_bruts": 8628,
+  "triangles": 8628,
+  "parties": {
+   "T_metal_peint_3C6446": 316,
+   "T_metal_peint_465A78": 316,
+   "T_metal_brut_828282": 432,
+   "T_metal_peint_3C3E40.001": 864,
+   "T_plastique_E2DCC4.001": 96,
+   "T_plastique_E6E6E2.002": 460,
+   "T_metal_peint_AA221C": 2896,
+   "T_metal_peint_285AA0": 2896,
+   "P_DCDEE2_8_100_0.002": 352
+  },
+  "boite_min": [
+   -4.0,
+   2.1,
+   -1.487
+  ],
+  "boite_max": [
+   4.0,
+   6.158,
+   0.05
+  ],
+  "octets": 360208
+ },
+ "frigo": {
+  "triangles_bruts": 744,
+  "triangles": 744,
+  "parties": {
+   "P_14281E_20_0_0": 12,
+   "T_metal_brut_C8CACC.002": 324,
+   "T_plastique_F0E6A0": 24,
+   "T_plastique_ECEAE2": 12,
+   "P_DCDEE2_8_100_0.003": 264,
+   "T_metal_peint_28282A.002": 108
+  },
+  "boite_min": [
+   -1.5,
+   0.0,
+   -2.85
+  ],
+  "boite_max": [
+   1.5,
+   7.2,
+   -0.0
+  ],
+  "octets": 32304
+ },
+ "wc_cabine": {
+  "triangles_bruts": 1592,
+  "triangles": 1592,
+  "parties": {
+   "T_plastique_ECECE8": 300,
+   "P_DCDEE2_8_100_0.004": 168,
+   "T_plastique_AABAC4": 324,
+   "P_EEEEEA_12_0_0": 636,
+   "T_metal_brut_C8CACC.003": 88,
+   "T_tissu_F0F0EC": 76
+  },
+  "boite_min": [
+   -1.66,
+   0.0,
+   -7.998
+  ],
+  "boite_max": [
+   1.66,
+   7.0,
+   -0.0
+  ],
+  "octets": 53936
+ },
+ "douche": {
+  "triangles_bruts": 8612,
+  "triangles": 8612,
+  "parties": {
+   "P_DCDEE2_8_100_0.005": 3234,
+   "T_plastique_C85A28": 94,
+   "T_carrelage_D6DEE2": 36,
+   "P_EEEEEA_12_0_0.001": 108,
+   "T_tissu_C8D2DC": 5080,
+   "T_metal_brut_C8CACC.004": 60
+  },
+  "boite_min": [
+   -1.988,
+   0.0,
+   -3.429
+  ],
+  "boite_max": [
+   1.71,
+   7.6,
+   0.06
+  ],
+  "octets": 297324
+ },
+ "bureau": {
+  "triangles_bruts": 3200,
+  "triangles": 3200,
+  "parties": {
+   "T_metal_peint_28282A.003": 692,
+   "T_metal_peint_969C96": 648,
+   "T_plastique_323234": 108,
+   "T_simili_cuir_822828": 108,
+   "T_simili_cuir_282828": 108,
+   "T_plastique_222224": 620,
+   "P_3C6E78_8_0_1": 12,
+   "T_plastique_E2E8EC": 24,
+   "T_plastique_F0ECD2": 48,
+   "T_plastique_ECEAE2.001": 12,
+   "T_plastique_3C5A8C": 100,
+   "T_plastique_786450": 108,
+   "T_metal_brut_C8CACC.005": 396,
+   "T_metal_peint_282A2C.002": 108,
+   "T_plastique_3C3C40": 108
+  },
+  "boite_min": [
+   -2.51,
+   0.0,
+   -2.685
+  ],
+  "boite_max": [
+   2.51,
+   4.22,
+   0.01
+  ],
+  "octets": 140428
+ },
+ "canape": {
+  "triangles_bruts": 82876,
+  "triangles": 11998,
+  "parties": {
+   "T_tissu_3C4654": 10812,
+   "T_bois_46321E": 144,
+   "T_tissu_962828": 1042
+  },
+  "boite_min": [
+   -3.005,
+   0.0,
+   -2.8
+  ],
+  "boite_max": [
+   3.005,
+   3.333,
+   0.0
+  ],
+  "octets": 318168
+ },
+ "bac_plantes": {
+  "triangles_bruts": 2188,
+  "triangles": 2188,
+  "parties": {
+   "T_metal_peint_3C5046": 108,
+   "P_786E3C_60_0_0": 1368,
+   "P_DC50FF_30_0_0": 12,
+   "T_metal_peint_C8C8C4": 108,
+   "T_metal_brut_969696.001": 88,
+   "T_moquette_463424": 384,
+   "T_bois_967850": 120
+  },
+  "boite_min": [
+   -3.34,
+   0.0,
+   -1.71
+  ],
+  "boite_max": [
+   3.201,
+   12.0,
+   1.835
+  ],
+  "octets": 88472
+ },
+ "potence": {
+  "triangles_bruts": 2736,
+  "triangles": 2736,
+  "parties": {
+   "T_metal_brut_C8CACC.006": 1300,
+   "V_F0ECDC": 320,
+   "T_caoutchouc_282828.001": 380,
+   "V_E6ECEC": 736
+  },
+  "boite_min": [
+   -0.808,
+   0.0,
+   -0.996
+  ],
+  "boite_max": [
+   0.98,
+   6.779,
+   0.996
+  ],
+  "octets": 117388
+ },
+ "tiroirs_morgue": {
+  "triangles_bruts": 3092,
+  "triangles": 3092,
+  "parties": {
+   "P_DCDEE2_8_100_0.006": 1620,
+   "T_plastique_E6E2D2": 60,
+   "T_metal_brut_C8CACC.007": 972,
+   "T_simili_cuir_1E2024": 320,
+   "P_060607_90_0_0": 12,
+   "T_metal_brut_B4B6B8": 108
+  },
+  "boite_min": [
+   -3.184,
+   0.0,
+   -5.7
+  ],
+  "boite_max": [
+   3.0,
+   7.0,
+   -0.0
+  ],
+  "octets": 102168
+ },
+ "hotte_h16": {
+  "triangles_bruts": 3438,
+  "triangles": 3438,
+  "parties": {
+   "P_28C85A_20_0_0": 12,
+   "T_metal_brut_828282.001": 756,
+   "T_metal_peint_3C4046": 108,
+   "T_metal_brut_C8CACC.008": 480,
+   "T_metal_peint_E2E4E0": 540,
+   "V_EBF5F5.003": 660,
+   "T_metal_peint_BEC4C8": 216,
+   "T_metal_brut_AAACAC": 108,
+   "L_DCC86E.002": 78,
+   "L_9696C8.002": 156,
+   "T_plastique_242628.001": 108,
+   "P_F0F2FA_30_0_0": 108,
+   "T_metal_peint_282A2C.003": 108
+  },
+  "boite_min": [
+   -2.5,
+   0.0,
+   -2.885
+  ],
+  "boite_max": [
+   2.5,
+   16.0,
+   -0.0
+  ],
+  "octets": 133080
+ },
+ "armoire_elec_ouverte_h16": {
+  "triangles_bruts": 13452,
+  "triangles": 11994,
+  "parties": {
+   "T_caoutchouc_1E1E1E.003": 1318,
+   "T_plastique_E2E2DC": 4788,
+   "T_metal_peint_BEC0BA.001": 348,
+   "T_metal_peint_828688.001": 108,
+   "T_plastique_6E7276": 478,
+   "T_plastique_AA221C": 1244,
+   "T_plastique_282828": 3542,
+   "T_metal_brut_C8CACC.009": 60,
+   "T_metal_peint_28282A.004": 108
+  },
+  "boite_min": [
+   -1.514,
+   0.0,
+   -4.421
+  ],
+  "boite_max": [
+   1.5,
+   16.0,
+   -0.0
+  ],
+  "octets": 429908
+ },
+ "table_autopsie_h16": {
+  "triangles_bruts": 3828,
+  "triangles": 3828,
+  "parties": {
+   "T_caoutchouc_282828.002": 108,
+   "P_060607_90_0_0.001": 60,
+   "T_metal_peint_DCDEDC": 1022,
+   "T_metal_brut_C8CACC.010": 1786,
+   "P_DCDEE2_8_100_0.007": 712,
+   "P_F0F4FA_10_0_0": 140
+  },
+  "boite_min": [
+   -3.8,
+   0.0,
+   -1.441
+  ],
+  "boite_max": [
+   3.8,
+   16.0,
+   1.441
+  ],
+  "octets": 145752
+ },
+ "table": {
+  "triangles_bruts": 1916,
+  "triangles": 1916,
+  "parties": {
+   "T_plastique_464648": 332,
+   "T_metal_brut_A0A2A4": 1036,
+   "T_caoutchouc_282828.003": 216,
+   "T_plastique_D6D2C6": 332
+  },
+  "boite_min": [
+   -2.51,
+   0.0,
+   -1.31
+  ],
+  "boite_max": [
+   2.51,
+   2.6,
+   1.31
+  ],
+  "octets": 86672
+ },
+ "tableau_affichage": {
+  "triangles_bruts": 1380,
+  "triangles": 1380,
+  "parties": {
+   "T_bois_966E46": 432,
+   "T_plastique_F0DCD2": 72,
+   "T_plastique_ECEAE2.002": 12,
+   "T_carton_BE966E": 108,
+   "P_C81E1E_30_0_0": 324,
+   "P_1E50C8_30_0_0": 216,
+   "P_DCC81E_30_0_0": 216
+  },
+  "boite_min": [
+   -2.07,
+   -1.37,
+   -0.188
+  ],
+  "boite_max": [
+   2.07,
+   1.37,
+   -0.0
+  ],
+  "octets": 51808
+ },
+ "centrifugeuse": {
+  "triangles_bruts": 436,
+  "triangles": 436,
+  "parties": {
+   "T_plastique_E2E4E2": 300,
+   "T_plastique_466EA0": 124,
+   "P_14281E_20_0_0.001": 12
+  },
+  "boite_min": [
+   -0.6,
+   0.0,
+   -0.67
+  ],
+  "boite_max": [
+   0.6,
+   0.86,
+   0.65
+  ],
+  "octets": 17904
+ },
+ "lit_superpose_0": {
+  "triangles_bruts": 104068,
+  "triangles": 11990,
+  "parties": {
+   "T_metal_peint_3C3E42": 296,
+   "T_metal_brut_969692.001": 116,
+   "T_tissu_546250.001": 4438,
+   "T_tissu_70483C": 4102,
+   "T_metal_peint_5C6674.001": 278,
+   "T_metal_brut_969696.002": 244,
+   "T_simili_cuir_221E1C": 1340,
+   "T_matelas_E8E6DE.001": 260,
+   "T_tissu_EEEEEA.001": 438,
+   "T_caoutchouc_3C3C3C.001": 46,
+   "T_caoutchouc_282828.004": 216,
+   "T_caoutchouc_1A1A1A": 216
+  },
+  "boite_min": [
+   -3.52,
+   0.0,
+   -2.003
+  ],
+  "boite_max": [
+   5.292,
+   6.951,
+   1.846
+  ],
+  "octets": 532428
+ },
+ "lit_superpose_2": {
+  "triangles_bruts": 108964,
+  "triangles": 11986,
+  "parties": {
+   "T_metal_peint_34425C": 296,
+   "T_metal_brut_969692.002": 112,
+   "T_tissu_465670": 3756,
+   "T_tissu_70483C.001": 4236,
+   "T_metal_peint_5C6674.002": 264,
+   "T_metal_brut_969696.003": 234,
+   "T_simili_cuir_221E1C.001": 1278,
+   "T_matelas_E8E6DE.002": 248,
+   "T_tissu_EEEEEA.002": 418,
+   "T_caoutchouc_3C3C3C.002": 44,
+   "T_caoutchouc_282828.005": 216,
+   "T_caoutchouc_1A1A1A.001": 216,
+   "T_tissu_C8463C": 668
+  },
+  "boite_min": [
+   -3.52,
+   0.0,
+   -2.003
+  ],
+  "boite_max": [
+   5.249,
+   6.951,
+   1.711
+  ],
+  "octets": 476308
+ },
+ "casiers_2": {
+  "triangles_bruts": 7724,
+  "triangles": 7724,
+  "parties": {
+   "T_metal_peint_181A1E": 96,
+   "T_metal_brut_BEAA6E": 108,
+   "T_metal_peint_464A50": 552,
+   "T_plastique_E6E2D2.001": 12,
+   "T_metal_peint_2E3236": 24,
+   "T_metal_brut_B4B4B4": 44,
+   "T_metal_peint_546880": 216,
+   "T_tissu_3C4632": 3072,
+   "T_tissu_C8463C.001": 376,
+   "T_metal_peint_282A2E": 108,
+   "T_metal_brut_AAAAAA": 44,
+   "T_tissu_5A503C": 3072
+  },
+  "boite_min": [
+   -1.75,
+   0.0,
+   -3.349
+  ],
+  "boite_max": [
+   1.75,
+   6.72,
+   0.05
+  ],
+  "octets": 218896
+ },
+ "armoire_classeur": {
+  "triangles_bruts": 1656,
+  "triangles": 1656,
+  "parties": {
+   "T_metal_peint_969C96.001": 108,
+   "T_plastique_E6E2D2.002": 48,
+   "T_metal_brut_C8CACC.011": 960,
+   "T_metal_peint_282A2C.004": 108,
+   "T_metal_peint_A0A6A0": 432
+  },
+  "boite_min": [
+   -0.9,
+   0.0,
+   -1.785
+  ],
+  "boite_max": [
+   0.9,
+   6.2,
+   -0.0
+  ],
+  "octets": 69988
+ },
+ "etagere_flacons": {
+  "triangles_bruts": 10706,
+  "triangles": 10706,
+  "parties": {
+   "T_plastique_3C5A96": 656,
+   "T_plastique_5A5A60": 328,
+   "T_plastique_3C7846.001": 328,
+   "T_plastique_C8A028.001": 984,
+   "T_plastique_E6EBF0.001": 2776,
+   "T_plastique_E6E6E1.002": 60,
+   "T_plastique_96281E.002": 180,
+   "T_plastique_28468C.001": 180,
+   "T_carton_BE9C6E.001": 432,
+   "T_carton_B08C64.001": 108,
+   "T_carton_C8AA78": 432,
+   "T_carton_E2E2DC.001": 108,
+   "T_metal_peint_345478.001": 432,
+   "V_EBF5F5.004": 528,
+   "V_965A28.002": 1320,
+   "L_DCC86E.003": 78,
+   "L_78AA5A.002": 78,
+   "L_C87846.002": 156,
+   "L_AAD6DC.002": 78,
+   "L_9696C8.003": 156,
+   "T_metal_peint_787C80.001": 1296,
+   "T_plastique_BEAA78.001": 12
+  },
+  "boite_min": [
+   -3.0,
+   0.0,
+   -2.0
+  ],
+  "boite_max": [
+   3.26,
+   7.922,
+   -0.0
+  ],
+  "octets": 409608
+ },
+ "paillasse_sec": {
+  "triangles_bruts": 12622,
+  "triangles": 11994,
+  "parties": {
+   "T_plastique_E6EBF0.002": 646,
+   "P_BE9646_30_100_0.001": 240,
+   "V_EBF5F5.005": 2188,
+   "T_carton_C8B48C.001": 702,
+   "T_carton_E6E6E1.001": 108,
+   "T_plastique_E6E6E1.003": 180,
+   "T_plastique_96281E.003": 360,
+   "T_plastique_1E1E1E.003": 120,
+   "T_plastique_28468C.002": 120,
+   "T_plastique_E1E1DC": 524,
+   "T_metal_peint_D6DAD6.002": 108,
+   "T_metal_peint_96ACBE.001": 804,
+   "V_965A28.003": 1720,
+   "T_plastique_DCDEDC.001": 108,
+   "P_FAF0D2_20_0_0": 60,
+   "L_AAD6DC.003": 156,
+   "L_C87846.003": 390,
+   "L_DCC86E.004": 312,
+   "L_9696C8.004": 156,
+   "L_78AA5A.003": 234,
+   "T_metal_peint_969CA0.001": 402,
+   "P_DCDEE2_8_100_0.008": 208,
+   "T_plastique_28282A": 332,
+   "T_plastique_242628.002": 108,
+   "T_metal_brut_C8CACC.012": 982,
+   "T_plastique_C8C8C4.001": 402,
+   "T_metal_peint_282A2C.005": 108,
+   "V_D2EBE6.002": 216
+  },
+  "boite_min": [
+   -4.05,
+   0.0,
+   -2.785
+  ],
+  "boite_max": [
+   4.05,
+   6.99,
+   0.045
+  ],
+  "octets": 434952
+ },
+ "caisse": {
+  "triangles_bruts": 1620,
+  "triangles": 1620,
+  "parties": {
+   "T_bois_C4A070": 108,
+   "T_bois_A0835B": 1512
+  },
+  "boite_min": [
+   -1.27,
+   0.0,
+   -1.204
+  ],
+  "boite_max": [
+   1.27,
+   2.282,
+   1.204
+  ],
+  "octets": 59920
+ },
+ "bac_plantes_12": {
+  "triangles_bruts": 3912,
+  "triangles": 3912,
+  "parties": {
+   "T_metal_peint_3C5046.001": 108,
+   "P_786E3C_60_0_0.001": 2952,
+   "P_DC50FF_30_0_0.001": 12,
+   "T_metal_peint_C8C8C4.001": 108,
+   "T_metal_brut_969696.004": 88,
+   "T_moquette_463424.001": 384,
+   "T_bois_967850.001": 260
+  },
+  "boite_min": [
+   -6.0,
+   0.0,
+   -1.604
+  ],
+  "boite_max": [
+   6.573,
+   12.0,
+   1.458
+  ],
+  "octets": 158540
+ },
+ "table_6x3_2": {
+  "triangles_bruts": 33196,
+  "triangles": 11996,
+  "parties": {
+   "T_plastique_464648.001": 332,
+   "T_plastique_783C32": 9688,
+   "T_metal_brut_A0A2A4.001": 356,
+   "T_metal_brut_AAACAE": 1072,
+   "T_caoutchouc_282828.006": 216,
+   "T_plastique_D6D2C6.001": 332
+  },
+  "boite_min": [
+   -3.01,
+   -0.153,
+   -3.499
+  ],
+  "boite_max": [
+   3.01,
+   3.355,
+   3.649
+  ],
+  "octets": 339544
+ },
+ "table_12x4_10": {
+  "triangles_bruts": 158316,
+  "triangles": 13474,
+  "parties": {
+   "T_plastique_464648.002": 332,
+   "T_plastique_783C32.001": 11264,
+   "T_metal_brut_A0A2A4.002": 81,
+   "T_metal_brut_AAACAE.001": 1248,
+   "T_caoutchouc_282828.007": 216,
+   "T_plastique_D6D2C6.002": 332
+  },
+  "boite_min": [
+   -6.01,
+   -0.168,
+   -4.261
+  ],
+  "boite_max": [
+   6.01,
+   3.357,
+   3.974
+  ],
+  "octets": 436256
+ },
+ "table_6x3_metal": {
+  "triangles_bruts": 1916,
+  "triangles": 1916,
+  "parties": {
+   "T_plastique_464648.003": 332,
+   "T_metal_brut_A0A2A4.003": 1036,
+   "T_caoutchouc_282828.008": 216,
+   "T_plastique_D6D2C6.003": 332
+  },
+  "boite_min": [
+   -3.01,
+   0.0,
+   -1.51
+  ],
+  "boite_max": [
+   3.01,
+   3.2,
+   1.51
+  ],
+  "octets": 81496
+ }
+}
