@@ -12,6 +12,7 @@ import kit_quartiers as Q
 COURANT = os.environ.get('COURANT', '1') == '1'
 ECH = int(os.environ.get('ECH', '128')); RES = tuple(int(x) for x in os.environ.get('RES', '1600x900').split('x'))
 VUES = os.environ.get('VUES', 'large,lit,casiers').split(',')
+EXPOS = [float(x) for x in os.environ.get('EXPOS', os.environ.get('EXPO', '0')).split('_')]
 
 sc = bpy.context.scene; sc.render.engine = 'CYCLES'; sc.cycles.samples = ECH; sc.cycles.use_denoising = True; sc.cycles.max_bounces = 8
 sc.render.resolution_x, sc.render.resolution_y = RES
@@ -64,6 +65,9 @@ for o in bpy.data.objects:
         if o.data.users > 1 and o.data.uv_layers: continue
         K.box_uv(o)
 log('scène assemblée')
+for o in bpy.data.objects:
+    if o.type == 'MESH' and (o.name.startswith('Couverture') or o.name.startswith('Serviette')) and o.data.users >= 1 and not o.name.endswith(('.001', '.002', '.003', '.004', '.005', '.006', '.007', '.008', '.009')):
+        zs = [v.co.z for v in o.data.vertices]; log(f'  {o.name}: {len(zs)} sommets, z {min(zs):.2f}..{max(zs):.2f}')
 
 # ---------------------------------------------------------------- éclairage
 def area(loc, size, energy, col=(1, 1, 1)):
@@ -75,11 +79,11 @@ def point(loc, energy, col, r=0.2):
 dif = bpy.data.materials.get('Diffuseur')
 if COURANT:
     for o in bpy.data.objects:
-        if o.name.startswith('Diffuseur'): area((o.location.x, o.location.y, o.location.z - 0.1), (4.0, 1.1), 900, (1.0, 0.97, 0.92))
-    dif.node_tree.nodes['Principled BSDF'].inputs['Emission Strength'].default_value = 25
+        if o.name.startswith('Diffuseur'): area((o.location.x, o.location.y, o.location.z - 0.1), (4.0, 1.1), float(os.environ.get('PUIS', '150')), (1.0, 0.97, 0.92))
+    dif.node_tree.nodes['Principled BSDF'].inputs['Emission Strength'].default_value = 6
 else:
-    point((38.4, 1.6, 10.6), 900, (1.0, 0.12, 0.06), 0.3)                   # bloc de secours au-dessus de la porte
-    point((38.4, 50.0, 13.0), 160, (1.0, 0.12, 0.06), 0.3)
+    point((38.4, 1.6, 10.6), 150, (1.0, 0.12, 0.06), 0.3)                   # bloc de secours au-dessus de la porte
+    point((38.4, 50.0, 13.0), 30, (1.0, 0.12, 0.06), 0.3)
     w.node_tree.nodes['Background'].inputs['Color'].default_value = (0.0005, 0.0008, 0.001, 1)
 
 def cam(name, eye, tgt):
@@ -96,10 +100,14 @@ for v in VUES:
     eye, tgt = VIEWS[v]; c = cam(v, eye, tgt); sc.camera = c
     lamp = None
     if not COURANT:
-        ld = bpy.data.lights.new('Torche', 'SPOT'); ld.energy = 2600; ld.spot_size = math.radians(38); ld.spot_blend = 0.6; ld.color = (1.0, 0.95, 0.85); ld.shadow_soft_size = 0.05
+        ld = bpy.data.lights.new('Torche', 'SPOT'); ld.energy = 400; ld.spot_size = math.radians(38); ld.spot_blend = 0.6; ld.color = (1.0, 0.95, 0.85); ld.shadow_soft_size = 0.05
         lamp = bpy.data.objects.new('Torche', ld); sc.collection.objects.link(lamp)
         lamp.location = Vector(eye) + Vector((0.8, 0, -0.9)); lamp.rotation_euler = (Vector(tgt) - lamp.location).to_track_quat('-Z', 'Y').to_euler()
-    sc.render.filepath = os.path.join(out, f'temoin_{v}.png'); bpy.ops.render.render(write_still=True)
+    bpy.ops.render.render()
+    img = bpy.data.images['Render Result']
+    for e in EXPOS:
+        sc.view_settings.exposure = e
+        img.save_render(os.path.join(out, f'temoin_{v}' + (f'_e{e:+g}' if len(EXPOS) > 1 else '') + '.png'), scene=sc)
     if lamp: bpy.data.objects.remove(lamp)
     log(f'rendu {v}')
 bpy.ops.wm.save_as_mainfile(filepath=os.path.join(out, 'salle_temoin.blend'))
