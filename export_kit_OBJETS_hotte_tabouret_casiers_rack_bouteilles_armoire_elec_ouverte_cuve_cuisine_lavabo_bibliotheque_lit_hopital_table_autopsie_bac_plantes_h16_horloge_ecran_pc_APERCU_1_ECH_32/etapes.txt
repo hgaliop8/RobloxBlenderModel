@@ -1,0 +1,29 @@
+    0.3s  hotte: 3114 -> 3114 triangles, 13 parties, 116 Ko (0s)
+    0.5s  tabouret: 8676 -> 2996 triangles, 3 parties, 118 Ko (0s)
+    0.7s  casiers: 8460 -> 5996 triangles, 12 parties, 188 Ko (0s)
+    0.9s  rack_bouteilles: 7428 -> 7428 triangles, 9 parties, 289 Ko (0s)
+    2.0s  armoire_elec_ouverte: 13452 -> 11994 triangles, 9 parties, 419 Ko (1s)
+    2.2s  cuve: 3992 -> 3992 triangles, 7 parties, 163 Ko (0s)
+    2.6s  cuisine: 7122 -> 7122 triangles, 15 parties, 265 Ko (0s)
+    2.6s  lavabo: 1726 -> 1726 triangles, 6 parties, 60 Ko (0s)
+    3.4s  bibliotheque: 10164 -> 10164 triangles, 8 parties, 350 Ko (1s)
+   10.6s  lit_hopital: 37972 -> 11996 triangles, 6 parties, 322 Ko (7s)
+   10.6s  table_autopsie: 3828 -> 3828 triangles, 6 parties, 142 Ko (0s)
+   10.8s  bac_plantes_h16: 2188 -> 2188 triangles, 7 parties, 86 Ko (0s)
+   10.9s  horloge: 960 -> 960 triangles, 3 parties, 35 Ko (0s)
+   10.9s  ecran_pc: 740 -> 740 triangles, 3 parties, 28 Ko (0s)
+   36.5s  aperçu hotte
+   64.1s  aperçu tabouret
+   90.4s  aperçu casiers
+  117.4s  aperçu rack_bouteilles
+  142.6s  aperçu armoire_elec_ouverte
+  167.6s  aperçu cuve
+  194.1s  aperçu cuisine
+  220.6s  aperçu lavabo
+  247.0s  aperçu bibliotheque
+  274.6s  aperçu lit_hopital
+  300.3s  aperçu table_autopsie
+  323.9s  aperçu bac_plantes_h16
+  351.2s  aperçu horloge
+  378.5s  aperçu ecran_pc
+  378.5s  fin
