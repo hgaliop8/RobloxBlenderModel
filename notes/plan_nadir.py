@@ -4,13 +4,14 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'lib'))
 from PIL import Image, ImageDraw, ImageFont
 import nadir_layout as N
 
-PX = 4.0                                   # pixels par unité de conception
-X0, X1, Z0, Z1 = -165, 170, -210, 178
+PX = 2.6                                   # pixels par unité de conception
+X0, X1, Z0, Z1 = -455, 552, -388, 330
 LEG = 470
 W, H = int((X1 - X0)*PX) + LEG, int((Z1 - Z0)*PX) + 70
 F = '/usr/share/fonts/truetype/dejavu/'
 f_t = ImageFont.truetype(F + 'DejaVuSans-Bold.ttf', 30)
-f_n = ImageFont.truetype(F + 'DejaVuSans-Bold.ttf', 15)
+f_n = ImageFont.truetype(F + 'DejaVuSans-Bold.ttf', 12)
+f_xs = ImageFont.truetype(F + 'DejaVuSans.ttf', 10)
 f_s = ImageFont.truetype(F + 'DejaVuSans.ttf', 13)
 f_l = ImageFont.truetype(F + 'DejaVuSans.ttf', 16)
 f_lb = ImageFont.truetype(F + 'DejaVuSans-Bold.ttf', 17)
@@ -72,7 +73,7 @@ for x, z, mur, w, t in N.PORTES:
         if mur == 'x': d.rectangle([(a[0] - 2, a[1]), (b[0] + 2, b[1])], fill=PCOL[t])
         else: d.rectangle([(a[0], a[1] - 2), (b[0], b[1] + 2)], fill=PCOL[t])
 # gaines
-def dashed(p, q, col, w=3, dash=10, gap=7):
+def dashed(p, q, col, w=2, dash=7, gap=5):
     (x0, y0), (x1, y1) = p, q; L = math.hypot(x1 - x0, y1 - y0); n = int(L/(dash + gap)) + 1
     for k in range(n):
         t0 = k*(dash + gap)/L; t1 = min(1, (k*(dash + gap) + dash)/L)
@@ -80,31 +81,43 @@ def dashed(p, q, col, w=3, dash=10, gap=7):
         d.line([(x0 + (x1 - x0)*t0, y0 + (y1 - y0)*t0), (x0 + (x1 - x0)*t1, y0 + (y1 - y0)*t1)], fill=col, width=w)
 for g in N.GAINES:
     col = (30, 110, 220) if g.get('inonde') else (230, 110, 20)
-    for p, q in zip(g['pts'][:-1], g['pts'][1:]): dashed(P(*p), P(*q), col)
+    for p, q in zip(g['pts'][:-1], g['pts'][1:]): dashed(P(*p), P(*q), col, w=1 if g.get('branche') else 2)
 for x, z, salle, soudee in N.GRILLES:
-    cx, cy = P(x, z); d.rectangle([cx - 6, cy - 6, cx + 6, cy + 6], fill=(200, 40, 40) if soudee else (230, 110, 20), outline=WALL)
+    cx, cy = P(x, z); d.rectangle([cx - 4, cy - 4, cx + 4, cy + 4], fill=(200, 40, 40) if soudee else (230, 110, 20), outline=WALL)
 # points d'intérêt numérotés
 for i, (x, z, k, nom) in enumerate(N.POINTS, 1):
-    cx, cy = P(x, z); d.ellipse([cx - 11, cy - 11, cx + 11, cy + 11], fill=(255, 255, 255), outline=(25, 28, 32), width=2)
-    d.text((cx, cy), str(i), font=f_s, fill=(25, 28, 32), anchor='mm')
-# étiquettes
-for s in N.SALLES:
-    x0, z0, x1, z1 = s['rect']; cx, cy = P((x0 + x1)/2, (z0 + z1)/2)
-    if s['id'] in ('amarrage',): continue
-    w, h = N.taille_studs(s)
-    nom = s['nom']; txt2 = f"{w:.0f}×{h:.0f} studs · niv. {s['elev']}"
-    if s['id'] in ('sas_pression',):
-        lx_, ly_ = P(x0 - 2, (z0 + z1)/2); d.text((lx_, ly_ - 9), nom, font=f_n, fill=(20, 22, 26), anchor='rm'); d.text((lx_, ly_ + 9), txt2, font=f_s, fill=(60, 64, 70), anchor='rm'); continue
-    if s['id'] == 'radio':
-        lx_, ly_ = P(x1 + 2, (z0 + z1)/2); d.text((lx_, ly_ - 9), nom, font=f_n, fill=(20, 22, 26), anchor='lm'); d.text((lx_, ly_ + 9), txt2, font=f_s, fill=(60, 64, 70), anchor='lm'); continue
-    ty = P(0, z1)[1] + (34 if s['id'] == 'rotonde' else 16)
-    for t_, f_, dy in ((nom, f_n, 0), (txt2, f_s, 18)):
-        bb = d.textbbox((cx, ty + dy), t_, font=f_, anchor='mm'); d.rectangle((bb[0] - 3, bb[1] - 1, bb[2] + 3, bb[3] + 1), fill=(255, 255, 255, 170))
-        d.text((cx, ty + dy), t_, font=f_, fill=(20, 22, 26) if dy == 0 else (60, 64, 70), anchor='mm')
+    cx, cy = P(x, z); cy += 10; d.ellipse([cx - 10, cy - 10, cx + 10, cy + 10], fill=(255, 255, 255), outline=(25, 28, 32), width=2)
+    d.text((cx, cy), str(i), font=f_xs, fill=(25, 28, 32), anchor='mm')
+# étiquettes : nom en haut de la salle, coupé sur plusieurs lignes si besoin
+def wrap(txt, font, wmax):
+    mots = txt.split(); lignes = []; cur = ''
+    for m in mots:
+        t = (cur + ' ' + m).strip()
+        if d.textlength(t, font=font) <= wmax: cur = t
+        else:
+            if cur: lignes.append(cur)
+            cur = m
+    if cur: lignes.append(cur)
+    return lignes
+for s_ in N.SALLES:
+    x0, z0, x1, z1 = s_['rect']
+    if s_['id'] in ('amarrage',): continue
+    bx0, by0, bx1, by1 = box(s_['rect']); wmax = bx1 - bx0 - 6; cx = (bx0 + bx1)/2
+    nom = 'Pl.' if s_['id'].startswith('placard') else s_['nom']
+    lignes = wrap(nom, f_n, wmax)
+    if any(d.textlength(l, font=f_n) > wmax + 2 for l in lignes): lignes = wrap(nom, f_xs, wmax); fnt = f_xs
+    else: fnt = f_n
+    w, h = N.taille_studs(s_)
+    big = (bx1 - bx0) > 90 and (by1 - by0) > 60
+    ty = by0 + (40 if s_['id'] == 'rotonde' else 9)
+    for k, l in enumerate(lignes):
+        d.text((cx, ty + k*14), l, font=fnt, fill=(20, 22, 26), anchor='ma')
+    if big:
+        d.text((cx, ty + len(lignes)*14 + 1), f"{w:.0f}×{h:.0f} · niv. {s_['elev']}", font=f_xs, fill=(70, 74, 80), anchor='ma')
 # échelle et nord
-sx, sy = P(-160, -205); L = 40/N.S*PX
-d.line([(sx, sy), (sx + L, sy)], fill=WALL, width=4); d.text((sx + L + 8, sy), f'40 studs ≈ {40*N.STUD_M:.0f} m', font=f_s, fill=WALL, anchor='lm')
-nx, ny = P(155, 168); d.polygon([(nx, ny - 20), (nx - 9, ny + 6), (nx + 9, ny + 6)], fill=WALL); d.text((nx, ny + 18), 'N', font=f_n, fill=WALL, anchor='mm')
+sx, sy = P(-445, -378); L = 100/N.S*PX
+d.line([(sx, sy), (sx + L, sy)], fill=WALL, width=4); d.text((sx + L + 8, sy), f'100 studs ≈ {100*N.STUD_M:.0f} m', font=f_s, fill=WALL, anchor='lm')
+nx, ny = P(530, 318); d.polygon([(nx, ny - 20), (nx - 9, ny + 6), (nx + 9, ny + 6)], fill=WALL); d.text((nx, ny + 18), 'N', font=f_n, fill=WALL, anchor='mm')
 # légende
 lx = W - LEG + 20; y = 80
 d.text((lx, y), 'Légende', font=f_t, fill=(25, 28, 32)); y += 46
