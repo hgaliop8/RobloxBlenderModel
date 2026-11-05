@@ -139,9 +139,11 @@ local function percevoir(dt)
 			end
 		end
 		if vit > 15 and dist < J.course_portee then gain += J.course end
-		-- marcher dans l'eau s'entend (réglage C.EAU.bruit_portee, désactivé à 0)
-		if C.EAU.bruit_portee > 0 and vit > 2 and vit <= 15 and dist < C.EAU.bruit_portee and p.Character and Eau.pieds(p.Character) then
-			gain += C.EAU.bruit
+		-- bouger dans l'eau s'entend, selon l'allure : sprint (fort), marche (léger), accroupi (rien)
+		local allure = C.allure(p, vit)
+		if allure and allure ~= "accroupi" and p.Character and Eau.pieds(p.Character) then
+			local b = C.EAU[allure]
+			if b and dist < b.portee then gain += b.bruit end
 		end
 		if gain > 0 and not coequipierProche(p, J.seul_rayon) then gain *= J.seul_mult end
 		local avant = W.jauge[p] or 0

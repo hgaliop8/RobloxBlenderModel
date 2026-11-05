@@ -36,10 +36,24 @@ C.JAUGE = {
 	fouille = 40, chasse = 100,
 }
 -- eau (environ 30 cm partout dans la base) : réglages de gameplay, désactivés par défaut
+-- eau (environ 30 cm partout dans la base) : le bruit dépend de l'allure ; l'eau ne ralentit pas les joueurs
 C.EAU = {
-	bruit_portee = 0,        -- > 0 : elle entend un joueur qui marche dans l'eau jusqu'à cette distance (ex. 15), même au pas
-	bruit = 12,              -- gain de jauge par seconde pour ce bruit
+	course = { portee = 45, bruit = 45 },   -- sprint dans l'eau : entendu de loin, à travers les murs (s'ajoute au bruit de course)
+	marche = { portee = 15, bruit = 10 },   -- marche normale : léger clapotis, entendu de près
+	-- accroupi : aucun bruit. Le script d'accroupissement du jeu met l'attribut « Accroupi » = true sur le personnage
+	-- (ou sur le joueur) ; à défaut, une vitesse au plus égale à vitesse_accroupi compte comme accroupi.
+	vitesse_accroupi = 7,
+	vitesse_course = 15,                    -- au-dessus : sprint
 }
+-- allure d'un joueur dans l'eau : "course", "marche", "accroupi" ou nil (immobile)
+function C.allure(joueur: Player, vitesse: number): string?
+	local ch = joueur.Character
+	if (ch and ch:GetAttribute("Accroupi")) or joueur:GetAttribute("Accroupi") then return vitesse > 1 and "accroupi" or nil end
+	if vitesse <= 1.5 then return nil end
+	if vitesse > C.EAU.vitesse_course then return "course" end
+	if vitesse <= C.EAU.vitesse_accroupi then return "accroupi" end
+	return "marche"
+end
 C.FIXEE_DUREE = 2            -- un joueur qui fixe ses lumières plus longtemps la fait partir
 
 -- phases (secondes depuis le début, preuves ramassées)

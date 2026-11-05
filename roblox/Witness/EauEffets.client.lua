@@ -109,15 +109,17 @@ local function joueurs(t: number)
 					rond(p, 3.2, 1.5, 1); eclabousser(gouttes, p, 24); son(p, "eclabousse", 1)
 				end
 				local v = Vector3.new(vel.X, 0, vel.Z).Magnitude
-				if v > 1.5 then
+				local allure = C.allure(pl, v)
+				if allure then
 					if t >= e.prochain then
-						local course = v > 15
-						e.prochain = t + (course and 0.28 or 0.42); e.cote = -e.cote
+						-- sprint : grosses éclaboussures et bruit fort ; marche : clapotis ; accroupi : rides silencieuses
+						local course, accroupi = allure == "course", allure == "accroupi"
+						e.prochain = t + (course and 0.28 or (accroupi and 0.6 or 0.42)); e.cote = -e.cote
 						local lat = r.CFrame.RightVector * (0.5 * e.cote)
 						local q = p + Vector3.new(lat.X, 0, lat.Z)
-						rond(q, course and 2.6 or 1.8, course and 1.1 or 1.3, course and 0.9 or 0.6)
-						eclabousser(gouttes, q, course and 9 or 3)
-						son(q, "eclabousse", course and 0.9 or 0.45)
+						rond(q, course and 2.8 or (accroupi and 1.1 or 1.8), course and 1.1 or 1.4, course and 1 or (accroupi and 0.3 or 0.6))
+						if course then eclabousser(gouttes, q, 12); son(q, "eclabousse", 1)
+						elseif not accroupi then eclabousser(gouttes, q, 2); son(q, "eclabousse", 0.35) end
 					end
 					e.calme = t
 				elseif t - e.calme > 2.5 then                                -- immobile : un léger rond de temps en temps
