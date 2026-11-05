@@ -504,6 +504,16 @@ def plan_attaque(t):
     CAMS = {'fouet': ((4, -12.5, 4.5), (4.2, 0, 2.4), 50), 'balayage': ((9, -13, 11), (0, 0, 1.0), 54), 'morsure': ((2.6, -9.5, 3.8), (2.6, 0, 1.2), 46)}
     c, cib, ang = CAMS[nom]; CAM = Vector(c); viser(CAM, cib); cd.angle_y = math.radians(ang)
     poser(Mw, Q, CAM)
+    if os.environ.get('DEBUG') and coup == 'fouet' and 'k' in FOUET_K:
+        bpy.context.view_layer.update()
+        k = FOUET_K['k']; T_ = T if T is not None else Vector((9, 0, 2))
+        Mrac = Mw @ arm.pose.bones['Racine'].bone.matrix_local; B = (Mrac @ rest_rel(CHAINES[k][0])).translation
+        loin = Vector((B.x - T_.x, B.y - T_.y, 0)).normalized()
+        Ja = articulations(B, chemin_fouet_arme(B, loin, haut_de(Mw)), LONG[k])
+        log(f't={t:.3f} k={k} B={tuple(round(x, 2) for x in B)} T={tuple(round(x, 2) for x in T_)} L={[round(x, 2) for x in LONG[k]]}')
+        log('  visé : ' + ' '.join(f'({p.x:+.1f},{p.y:+.1f},{p.z:+.1f})' for p in Ja))
+        log('  posé : ' + ' '.join(f'({p.x:+.1f},{p.y:+.1f},{p.z:+.1f})' for p in [arm.matrix_world @ pb.tail for pb in CHAINES[k]]))
+        log('  quat : ' + ' '.join(f'{Q[pb.name].angle:.2f}' for pb in CHAINES[k]) + ' mode ' + CHAINES[k][0].rotation_mode)
 def plan_etrangle(t):
     """gros plan : bras levés (0,7 s), puis saisie : elle se dresse, enroule ses deux bras avant autour du cou et serre"""
     t_signe = 0.5; t_sais = t_signe + 0.7; avant = Vector((1, 0, 0))
