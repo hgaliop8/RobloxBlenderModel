@@ -13,7 +13,7 @@ bpy.ops.wm.read_factory_settings(use_empty=True)
 sys.argv_sauve = sys.argv; sys.argv = ['nadir_build']
 import kit_meshes as K
 import nadir_build as B, nadir_props as P
-P.KIT = True
+P.KIT = True; B.KIT = True
 B.build_all(P.meubler)
 items = [it for it in B.sc.items if B.est_maillable(it)]
 log(f'{len(items)} pièces maillables sur {len(B.sc.items)}')

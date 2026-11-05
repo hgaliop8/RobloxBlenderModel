@@ -548,6 +548,79 @@ def tache(f, rng=None, s=None, col=(40, 30, 26)):
     rng = rng or random.Random(0); s = s or rng.uniform(1.5, 4)
     f.cyl((0, 0.025, 0), 0.03, s, 'y', 'SmoothPlastic', col, name='Tache', cc=False, shadow=False, tr=0.35)
 
+def banc_vestiaire(f, L=8.0):
+    f.box((0, 1.4, 0), (L, 0.3, 1.4), 'WoodPlanks', BOIS_C, name='Banc')
+
+def banc_muscu(f):
+    f.box((0, 1.6, 0), (2.4, 0.4, 6), 'Fabric', NOIR, name='Banc'); f.box((0, 0.8, 0), (0.4, 1.6, 4), 'Metal', GRIS, name='Pied')
+    f.cyl((0, 4.0, 1.8), 6.0, 0.25, 'x', 'Metal', ACIER, name='Barre'); [f.cyl((x, 4.0, 1.8), 0.4, 2.2, 'x', 'Metal', NOIR, name='Disque') for x in (-2.2, 2.2)]
+
+def lave_linge(f):
+    f.box((0, 1.9, 1.4), (2.8, 3.8, 2.8), 'SmoothPlastic', (230, 232, 230), name='LaveLinge')
+    f.cyl((0, 2.2, 2.85), 0.1, 1.8, 'z', 'Glass', (60, 70, 80), name='Hublot', cc=False)
+
+def incident(f, kind, rng=None):
+    """trace de l'incident posée au sol (version en blocs : à plat, discrète)"""
+    rng = rng or random.Random(0)
+    if kind.startswith(('tache_sang', 'trainee_sang')):
+        f.cyl((0, 0.02, 0), 0.03, 2.2 if kind.startswith('tache') else 1.2, 'y', 'SmoothPlastic', (58, 20, 16), name='Tache', cc=False, shadow=False, tr=0.1)
+    elif kind.startswith('flaque'):
+        it = f.cyl((0, 0.03, 0), 0.04, 4.0, 'y', 'Glass', (40, 60, 64), name='Flaque', cc=False, shadow=False); it['t'] = 0.35
+    elif kind.startswith(('papiers', 'carton')):
+        for i in range(6): f.box((rng.uniform(-2, 2), 0.02, rng.uniform(-2, 2)), (0.75, 0.02, 1.05), 'SmoothPlastic', (236, 234, 226), name='Feuille', cc=False, R=rot_y(rng.uniform(0, 3)))
+    elif kind.startswith('eclats'):
+        f.cyl((0, 0.02, 0), 0.02, 3.0, 'y', 'Glass', (200, 220, 225), name='Eclats', cc=False, shadow=False, tr=0.6)
+    elif kind.startswith('etagere'):
+        f.box((0, 1.0, 0), (6, 2.0, 7), 'Metal', (70, 74, 78), name='EtagereTombee')
+    else:
+        f.box((0, 0.8, 0), (1.5, 1.6, 1.5), 'Plastic', (70, 90, 120), name='ChaiseTombee', R=rot_z(1.4))
+
+# zones de la base et densité de désordre (la brèche est partie du labo C, secteur Recherche)
+_DESORDRE = {'Recherche': (2, 5), 'Vie': (1, 3), 'Machines': (0, 2), 'Arrivée': (0, 1), 'Arrivee': (0, 1), 'Fonds': (1, 2)}
+_PAR_TYPE = {
+    'labo': ['papiers_sol', 'eclats_verre', 'tabouret_renverse', 'flaque_eau', 'carton_renverse', 'tache_sang'],
+    'bureau': ['papiers_sol', 'papiers_sol', 'chaise_bureau_renversee', 'carton_renverse'],
+    'quartiers': ['chaise_renversee', 'papiers_sol', 'tache_sang', 'carton_renverse'],
+    'infirmerie': ['tache_sang', 'trainee_sang', 'papiers_sol', 'eclats_verre'],
+    'reserve': ['etagere_renversee', 'carton_renverse', 'carton_renverse', 'papiers_sol'],
+    'cuisine': ['chaise_renversee', 'flaque_eau', 'eclats_verre', 'papiers_sol'],
+    'machines': ['flaque_eau', 'carton_renverse', 'papiers_sol'],
+    'divers': ['papiers_sol', 'carton_renverse', 'chaise_renversee'],
+}
+_FAMILLE = {'labo': 'labo', 'dissection': 'labo', 'quarantaine': 'labo', 'laverie': 'labo', 'aquariums': 'labo', 'specimens': 'labo', 'stock_echant': 'labo',
+            'salle_cuves': 'labo', 'depot_labo': 'reserve', 'bureau': 'bureau', 'archives': 'bureau', 'salle_info': 'bureau', 'serveurs': 'bureau',
+            'imprimerie': 'bureau', 'salle_plans': 'bureau', 'local_comms': 'bureau', 'poste_garde': 'bureau', 'securite': 'bureau', 'crise': 'bureau',
+            'controle': 'bureau', 'radio': 'bureau', 'reunion': 'bureau', 'briefing': 'bureau', 'quartiers': 'quartiers', 'cellule': 'quartiers',
+            'cabine_cdt': 'quartiers', 'vestiaire': 'quartiers', 'detente': 'quartiers', 'jeux': 'quartiers', 'biblio': 'bureau', 'infirmerie': 'infirmerie',
+            'soins': 'infirmerie', 'pharmacie': 'infirmerie', 'morgue': 'infirmerie', 'reserve': 'reserve', 'stock': 'reserve', 'magasin': 'reserve',
+            'consigne': 'reserve', 'pieces': 'reserve', 'outillage': 'reserve', 'entrepot': 'reserve', 'reserve_m2': 'reserve', 'linge': 'reserve',
+            'cantine': 'cuisine', 'cuisine': 'cuisine', 'centrale': 'machines', 'turbines': 'machines', 'pompes': 'machines', 'vannes': 'machines',
+            'ateliers': 'machines', 'soudure': 'machines', 'chaufferie': 'machines', 'filtration': 'machines'}
+_TAILLE = {'etagere_renversee': 9.0, 'trainee_sang': 7.0, 'flaque_eau': 5.0, 'papiers_sol': 4.5, 'eclats_verre': 4.0, 'tache_sang': 4.0, 'carton_renverse': 4.5}
+
+def desordre(s, e, k):
+    """traces de l'incident au sol, dans l'espace libre du centre de la salle"""
+    r = random.Random(zlib.crc32((e.id + '/desordre').encode()))
+    sect = e.folder.split('/')[1] if '/' in e.folder else ''
+    lo, hi = _DESORDRE.get(sect, (0, 1))
+    n = r.randint(lo, hi) + (3 if e.id == 'labo_c' else 0)
+    if n == 0: return
+    choix = _PAR_TYPE[_FAMILLE.get(k, 'divers')]
+    if e.id == 'labo_c': choix = ['trainee_sang', 'flaque_eau', 'eclats_verre', 'tache_sang', 'papiers_sol']
+    for i in range(n):
+        kind = r.choice(choix)
+        if kind.startswith('tache_sang') or kind.startswith('trainee_sang'):
+            if sect != 'Recherche' and e.id != 'labo_c' and r.random() < 0.6: kind = 'papiers_sol'    # sang rare hors Recherche
+        t = _TAILLE.get(kind, 3.0)
+        c = s.centre(max(3.0, min(7.0, min(s.W, s.D)/2 - t/2 - 0.5)))
+        if not c: return
+        X0, Z0, X1, Z1 = c
+        for essai in range(25):
+            X, Z = r.uniform(X0, X1), r.uniform(Z0, Z1)
+            rect = (X - t/2, Z - t/2, X + t/2, Z + t/2)
+            if any(rect[0] < q[2] and rect[2] > q[0] and rect[1] < q[3] and rect[3] > q[1] for q in s.pris): continue
+            s.pris.append(rect); incident(s.fc(X, Z, r.uniform(0, 2*math.pi)), kind, rng=r); break
+
 # ================================================================ placement dans une salle
 class Salle:
     def __init__(s, sc, e):
@@ -650,7 +723,7 @@ def meubler(sc, e):
             f0 = s.fc(X, Z, 0); lit_superpose(f0.sub((0, 0, 0.05)), rng=r); lit_superpose(f0.sub((0, 0, -0.05), math.pi), rng=r)
     elif k == 'vestiaire':
         murs(7.0, casiers, 4, rng=r, cotes=L[:2])
-        for X, Z in s.grille_centre(8, 1.4, 3, 6, marge=7, maxn=3): s.fc(X, Z).box((0, 1.4, 0), (8, 0.3, 1.4), 'WoodPlanks', BOIS_C, name='Banc')
+        for X, Z in s.grille_centre(8, 1.4, 3, 6, marge=7, maxn=3): banc_vestiaire(s.fc(X, Z))
     elif k in ('serveurs', 'salle_info'):
         if k == 'serveurs':
             for X, Z in s.grille_centre(2.4*5, 3.6, 0, 6, marge=6):
@@ -694,8 +767,10 @@ def meubler(sc, e):
         for X, Z in s.grille_centre(10, 3, 4, 5, marge=6): table(s.fc(X, Z), 10, 3, chaises=8, rng=r)
         murs(10.4, comptoir_cuisine, rng=r, n=1, cotes=L[:1]); murs(1.4, poubelle, n=2, cotes=L[1:])
     elif k == 'cuisine':
-        murs(10.4, comptoir_cuisine, rng=r, cotes=L[:2]); murs(3.4, frigo, n=3, cotes=L[2:])
-        for X, Z in s.grille_centre(6, 3, 4, 4, marge=7, maxn=1): table(s.fc(X, Z), 6, 3, h=3.2, mat='Metal', col=(196, 200, 202), rng=r)
+        murs(10.4, comptoir_cuisine, rng=r, cotes=L[:2]); murs(3.4, frigo, n=3, cotes=L[2:3]); murs(6.2, etagere, 6, 2, 7, 4, rng=r, n=2, cotes=L[3:])
+        murs(1.4, poubelle, n=2, cotes=L[2:])
+        for X, Z in s.grille_centre(6, 3, 5, 5, marge=7, maxn=4): table(s.fc(X, Z), 6, 3, h=3.2, mat='Metal', col=(196, 200, 202), rng=r)
+        for X, Z in s.grille_centre(2.4, 1.6, 8, 8, marge=6, maxn=2): chariot(s.fc(X, Z, r.uniform(0, 3)), rng=r)
     elif k in ('infirmerie', 'soins'):
         def lit_rideau(f, rng=None): lit_hopital(f, rng=rng); rideau_lit(f.sub((2.6, 0, 0)))
         murs(5.6, lit_rideau, rng=r, cotes=L[:2]); murs(3.2, armoire_vitree, rng=r, n=4, cotes=L[2:3]); murs(5.2, bureau, rng=r, n=1, cotes=L[3:])
@@ -748,13 +823,11 @@ def meubler(sc, e):
             for X, Z in s.grille_centre(4, 4, 4, 4, marge=8, maxn=2): table(s.fc(X, Z), 4, 4, chaises=4, rng=r, col=(30, 90, 50), mat='Fabric')
     elif k == 'sport':
         for X, Z in s.grille_centre(3, 6, 4, 3, marge=7):
-            f = s.fc(X, Z); f.box((0, 1.6, 0), (2.4, 0.4, 6), 'Fabric', NOIR, name='Banc'); f.box((0, 0.8, 0), (0.4, 1.6, 4), 'Metal', GRIS, name='Pied')
-            f.cyl((0, 4.0, 1.8), 6.0, 0.25, 'x', 'Metal', ACIER, name='Barre'); [f.cyl((x, 4.0, 1.8), 0.4, 2.2, 'x', 'Metal', NOIR, name='Disque') for x in (-2.2, 2.2)]
+            banc_muscu(s.fc(X, Z))
         murs(3.0, armoire, col=(80, 80, 84), n=2)
     elif k in ('buanderie',):
         for c in L[:2]:
-            s.remplir(c, 3.0, lambda f: (f.box((0, 1.9, 1.4), (2.8, 3.8, 2.8), 'SmoothPlastic', (230, 232, 230), name='LaveLinge'),
-                                          f.cyl((0, 2.2, 2.85), 0.1, 1.8, 'z', 'Glass', (60, 70, 80), name='Hublot', cc=False)))
+            s.remplir(c, 3.0, lave_linge)
     elif k == 'serre':
         for X, Z in s.grille_centre(12, 2.6, 4, 4, marge=6): plantes(s.fc(X, Z), 12, rng=r)
     elif k in ('hangar',):
@@ -827,6 +900,7 @@ def meubler(sc, e):
             break
         else: continue
         break
+    desordre(s, e, k)
     # eau dans les salles inondées
     if e.d.get('eau'):
         it = Frame(sc, e.folder + '/Eau', (0, 0, 0)).box(((e.X0 + e.X1)/2, e.elev + e.d['eau']/2, (e.Z0 + e.Z1)/2), (s.W - 1.6, e.d['eau'], s.D - 1.6), 'Glass', (30, 70, 70),
@@ -856,7 +930,6 @@ KIT_MAP = {
     'paillasse': lambda f, a, kw: ('paillasse' if kw.get('evier', True) else 'paillasse_sec', (0, 0, 0), PI),
     'hotte': lambda f, a, kw: (_h16('hotte'), (0, 0, 0), PI),
     'bocaux': lambda f, a, kw: ('etagere_specimens', (0, 0, 0), PI),
-    'aquarium': lambda f, a, kw: ('aquarium', (0, 0, 0), PI),
     'lit_superpose': lambda f, a, kw: ('lit_superpose_%d' % (int(abs(f.pos[0]*7.3 + f.pos[2]*13.1)) % 3), (0, 0, 1.6), PI),
     'lit_hopital': lambda f, a, kw: ('lit_hopital', (0, 0, 3.6), -PI/2),
     'rack_serveur': lambda f, a, kw: ('rack_serveur', (0, 0, 0), PI),
@@ -886,7 +959,18 @@ KIT_MAP = {
     'table_autopsie': lambda f, a, kw: (_h16('table_autopsie'), (0, 0, 0), -PI/2),
     'chaise_simple': lambda f, a, kw: ('chaise', (0, 0, 0), 0.0),
     'rideau_lit': lambda f, a, kw: ('rideau_lit', (0, 0, 0), PI),
+    'aquarium': lambda f, a, kw: ('aquarium_brise' if kw.get('brise') else 'aquarium', (0, 0, 0), PI),
+    'ecran_mural': lambda f, a, kw: ('ecran_mural_%d' % min((6, 10, 12), key=lambda v: abs(v - _arg(a, kw, 0, 'w', 6.0))), (0, _arg(a, kw, 2, 'y', 6.0), 0), PI),
+    'banc_vestiaire': lambda f, a, kw: ('banc_vestiaire', (0, 0, 0), 0.0),
+    'banc_muscu': lambda f, a, kw: ('banc_musculation', (0, 0, 0), 0.0),
+    'lave_linge': lambda f, a, kw: ('lave_linge', (0, 0, 0), PI),
+    'incident': lambda f, a, kw: (_incident_kit(f, a[0] if a else kw.get('kind')), (0, 0, 0), 0.0),
 }
+_VARIANTES = {'papiers_sol': 3, 'tache_sang': 2, 'chaise_renversee': 3}
+def _incident_kit(f, kind):
+    n = _VARIANTES.get(kind)
+    return f'{kind}_{int(abs(f.pos[0]*3.1 + f.pos[2]*7.7)) % n}' if n else kind
+
 def _table(a, kw):
     w, d = _arg(a, kw, 0, 'w', 6.0), _arg(a, kw, 1, 'd', 3.0); n = kw.get('chaises', 0)
     if kw.get('mat') == 'Metal' and n == 0: return ('table_6x3_metal', (0, 0, 0), 0.0)

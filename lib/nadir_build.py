@@ -1,6 +1,6 @@
 """NADIR-4 — construction de la base pour Roblox à partir de nadir_layout.py.
 Usage : python nadir_build.py SORTIE_DIR  -> nadir4.rbxlx + nadir4.json (aperçus)"""
-import sys, os, math
+import sys, os, math, random, zlib
 sys.path.insert(0, os.path.dirname(__file__))
 import nadir_layout as N
 from nadir_kit import Scene, Frame, rot_y, rot_x, rot_z, I3, write_rbxlx, write_json
@@ -336,6 +336,14 @@ def build_corridor_dressing(e):
         fr.box(P(u0 + L/2, v, y0 + 0.02), S3(L - 0.4, 0.25, 0.04), 'SmoothPlastic', (186, 150, 30), name='BandeSol', cc=False, shadow=False)
 
 NOMS_SECT = dict(recherche='RECHERCHE', vie='VIE', machines='MACHINES', fonds='FONDS — BALLASTS', arrivee='ARRIVÉE — NAVETTE', hub='ROTONDE')
+KIT = False
+_kn = [0]
+def objet_kit(e, kit, pos, yaw):
+    """dossier « Objet_<kit>_<n> » : version en blocs + emplacement « Kit:<kit> » (repère au sol / au mur, devant vers +Z local)"""
+    _kn[0] += 1; folder = f'{e.folder}/Details/Objet_{kit}_{_kn[0]}'
+    if KIT: Frame(sc, folder, pos, rot_y(yaw)).box((0, 0, 0), (0.4, 0.4, 0.4), 'SmoothPlastic', (255, 0, 255), name='Kit:' + kit, tr=1.0, cc=False, shadow=False)
+    return Frame(sc, folder, (0, 0, 0))
+
 def build_corridor_details(e):
     if e.esc or e.d.get('verre'): return
     fr = Frame(sc, e.folder + '/Details', (0, 0, 0)); rr = sc.rng; sect = secteur_couloir(e.id)
@@ -356,20 +364,23 @@ def build_corridor_details(e):
     for si, side in enumerate(sides):
         H = e.wall_holes.get(side, []); v = WT + 0.15 if si == 0 else wid - WT - 0.15; sg = 1 if si == 0 else -1
         face = ('Back' if sg > 0 else 'Front') if along_x else ('Right' if sg > 0 else 'Left')
+        yaw = (math.pi if si == 0 else 0.0) if along_x else (-math.pi/2 if si == 0 else math.pi/2)
         for a, b in free_intervals(u0, u0 + L, H, y0, y0 + 9):
             u = a + 5 + rr.uniform(0, 8)
             while u < b - 4:
                 k = rr.random()
                 if k < 0.25:
-                    fr.box(P(u, v + sg*0.06, y0 + 3.4), S3(0.9, 0.12, 2.8), 'Metal', (170, 20, 20), name='SupportExtincteur', cc=False)
-                    fr.cyl(P(u, v + sg*0.45, y0 + 3.2), 1.8, 0.7, 'y', 'SmoothPlastic', (190, 20, 20), name='Extincteur', cc=False)
+                    fo = objet_kit(e, 'extincteur', P(u, v, y0), yaw)
+                    fo.box(P(u, v + sg*0.06, y0 + 3.4), S3(0.9, 0.12, 2.8), 'Metal', (170, 20, 20), name='SupportExtincteur', cc=False)
+                    fo.cyl(P(u, v + sg*0.45, y0 + 3.2), 1.8, 0.7, 'y', 'SmoothPlastic', (190, 20, 20), name='Extincteur', cc=False)
                     fr.text(P(u, v + sg*0.03, y0 + 5.6), S3(1.0, 0.05, 1.0), 'EXTINCTEUR', txtcol=(255, 255, 255), bg=(190, 20, 20), face=face, name='Pictogramme', cc=False)
                 elif k < 0.45:
-                    fr.box(P(u, v + sg*0.12, y0 + 5.0), S3(0.9, 0.25, 1.4), 'Metal', (60, 64, 68), name='Interphone', cc=False)
-                    fr.box(P(u, v + sg*0.27, y0 + 5.3), S3(0.5, 0.04, 0.3), 'SmoothPlastic', (30, 30, 30), name='HautParleur', cc=False)
-                    fr.box(P(u, v + sg*0.27, y0 + 4.7), S3(0.14, 0.05, 0.14), 'Neon', (255, 160, 40), name='Bouton', cc=False, shadow=False)
+                    fo = objet_kit(e, 'interphone', P(u, v, y0), yaw)
+                    fo.box(P(u, v + sg*0.12, y0 + 5.0), S3(0.9, 0.25, 1.4), 'Metal', (60, 64, 68), name='Interphone', cc=False)
+                    fo.box(P(u, v + sg*0.27, y0 + 5.3), S3(0.5, 0.04, 0.3), 'SmoothPlastic', (30, 30, 30), name='HautParleur', cc=False)
+                    fo.box(P(u, v + sg*0.27, y0 + 4.7), S3(0.14, 0.05, 0.14), 'Neon', (255, 160, 40), name='Bouton', cc=False, shadow=False)
                 elif k < 0.6:
-                    fr.box(P(u, v + sg*0.3, y0 + 4.5), S3(1.8, 0.6, 2.4), 'Metal', (150, 156, 150), name='Coffret', cc=False)
+                    objet_kit(e, 'coffret_elec', P(u, v, y0), yaw).box(P(u, v + sg*0.3, y0 + 4.5), S3(1.8, 0.6, 2.4), 'Metal', (150, 156, 150), name='Coffret', cc=False)
                     fr.pipe(P(u, v + sg*0.2, y0 + 5.7), P(u, v + sg*0.2, y0 + h - 0.6), 0.35, 'Metal', (110, 112, 110), name='Conduit', cc=False)
                 elif k < 0.72:
                     vv = wid*0.3 if si == 0 else wid*0.7
@@ -383,6 +394,15 @@ def build_corridor_details(e):
                 elif k < 0.86:
                     fr.text(P(u, v + sg*0.03, y0 + 5.2), S3(2.4, 0.05, 1.7), "PLAN D'ÉVACUATION\nVous êtes ici ●", txtcol=(20, 60, 20), bg=(236, 240, 230), face=face, name='PlanEvacuation', cc=False)
                 u += rr.uniform(14, 26)
+    # traces de l'incident au sol (plus fréquentes côté Recherche)
+    rc = random.Random(zlib.crc32((e.id + '/traces').encode()))
+    for i in range(rc.randint(0, 2 if sect == 'recherche' else 1)):
+        if L < 24: break
+        kind = rc.choice(['papiers_sol', 'flaque_eau'] + (['trainee_sang', 'tache_sang'] if sect == 'recherche' else []))
+        if kind in ('papiers_sol', 'tache_sang'): kind += '_%d' % rc.randint(0, 2 if kind == 'papiers_sol' else 1)
+        uu = u0 + rc.uniform(8, L - 8); fo = objet_kit(e, kind, P(uu, wid/2 + rc.uniform(-1, 1), y0 + 0.0), (0.0 if along_x else math.pi/2) + rc.choice([0, math.pi]))
+        it = fo.cyl(P(uu, wid/2, y0 + 0.02), 0.03, 2.4, 'y', 'SmoothPlastic', (58, 20, 16) if 'sang' in kind else (236, 234, 226) if 'papiers' in kind else (40, 60, 64),
+                    name='Trace', cc=False, shadow=False)
 
 def build_traces_ventouses():
     """cercles de ventouses autour de quelques grilles (The Witness est passée par là)"""
@@ -600,7 +620,7 @@ if __name__ == '__main__':
     out = sys.argv[1]; os.makedirs(out, exist_ok=True)
     try:
         import nadir_props as P
-        P.KIT = '--kit' in sys.argv
+        P.KIT = '--kit' in sys.argv; KIT = P.KIT
         meub = P.meubler
     except ImportError:
         meub = None

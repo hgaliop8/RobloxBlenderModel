@@ -90,3 +90,25 @@ REGISTRE.update({
     'table_6x3_metal': lambda: Q.table_chaises(6, 3, 0, seed=5, metal=True),
 })
 REGISTRE['rideau_lit'] = lambda: V.rideau_lit(7.0, seed=1)
+
+# traces de l'incident et derniers objets
+import kit_incident as I
+REGISTRE.update({
+    'chaise_renversee_0': lambda: I.chaise_renversee(0), 'chaise_renversee_1': lambda: I.chaise_renversee(1), 'chaise_renversee_2': lambda: I.chaise_renversee(2),
+    'chaise_bureau_renversee': lambda: I.chaise_bureau_renversee(1),
+    'tabouret_renverse': lambda: I.tabouret_renverse(1),
+    'etagere_renversee': lambda: I.etagere_renversee(1),
+    'papiers_sol_0': lambda: I.papiers_sol(0), 'papiers_sol_1': lambda: I.papiers_sol(1), 'papiers_sol_2': lambda: I.papiers_sol(2),
+    'carton_renverse': lambda: I.carton_renverse(1),
+    'eclats_verre': lambda: I.eclats_verre(1),
+    'flaque_eau': lambda: I.flaque_eau(1),
+    'tache_sang_0': lambda: I.tache_sang(0), 'tache_sang_1': lambda: I.tache_sang(1, 0.9),
+    'trainee_sang': lambda: I.trainee_sang(1),
+    'aquarium_brise': lambda: I.aquarium_brise(2),
+    'ecran_mural_6': lambda: I.ecran_mural(6.0, 3.4), 'ecran_mural_10': lambda: I.ecran_mural(10.0, 4.0), 'ecran_mural_12': lambda: I.ecran_mural(12.0, 5.0),
+    'interphone': lambda: I.interphone(),
+    'coffret_elec': lambda: I.coffret_elec(),
+    'banc_vestiaire': lambda: I.banc_vestiaire(),
+    'banc_musculation': lambda: I.banc_musculation(1),
+    'lave_linge': lambda: I.lave_linge(1),
+})
