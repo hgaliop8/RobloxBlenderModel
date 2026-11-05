@@ -216,7 +216,7 @@ function G.cheminTrainee(B: Vector3, centre: Vector3, avant: Vector3, haut: Vect
 	local cote = haut:Cross(avant).Unit
 	local rel = B - centre
 	local lat = rel:Dot(cote)
-	local E = centre - avant * 5.6 + cote * lat * 1.4 + haut * 0.25
+	local E = centre - avant * 5.6 + cote * lat * 2.0 + haut * 0.25
 	local dehors = rel - haut * rel:Dot(haut)
 	dehors = dehors.Magnitude > 1e-3 and dehors.Unit or -avant
 	local brut = {}

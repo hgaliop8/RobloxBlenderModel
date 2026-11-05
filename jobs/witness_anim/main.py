@@ -186,7 +186,7 @@ def chemin_pied(B, F, centre, haut):
     bezier(B, B + (Fp - B)*0.35 + haut*0.5, Fp - dh*1.0 + haut*0.25, Fp, 10, pts); pts += [Fp + dh*1.5, Fp + dh*4]; return pts
 def chemin_trainee(B, centre, avant, haut, t):
     cote = haut.cross(avant).normalized(); rel = B - centre; lat = rel.dot(cote)
-    E = centre - avant*5.6 + cote*lat*1.4 + haut*0.25
+    E = centre - avant*5.6 + cote*lat*2.0 + haut*0.25
     dh = rel - haut*rel.dot(haut); dh = dh.normalized() if dh.length > 1e-3 else -avant
     brut = []; bezier(B, B + dh*1.0 + haut*0.3, E + avant*3.0, E, 14, brut)
     pts = [B.copy()] + [p + cote*(0.35*(i/len(brut))*math.sin(t*9 - (i/len(brut))*5)) for i, p in enumerate(brut, 1)]
@@ -237,7 +237,7 @@ for x in range(int(L0) + 6, int(L1), 8):
     for sy in (-1, 1):
         if sy == -1 and PLAN != 'couloir': continue
         o = K.cube('Arche', (0.8, 0.6, H), (x, sy*(LARG/2 - 0.3), H/2), K.mat('metal_peint', (90, 96, 104)), 0.05); K.box_uv(o)
-    o = K.cube('ArcheHaut', (0.8, LARG, 0.6), (x, 0, H - 0.3), K.mat('metal_peint', (90, 96, 104)), 0.05); K.box_uv(o)
+    if PLAN in ('chute', 'etrangle'): o = K.cube('ArcheHaut', (0.8, LARG, 0.6), (x, 0, H - 0.3), K.mat('metal_peint', (90, 96, 104)), 0.05); K.box_uv(o)
 def lampe(loc, e, col=(1.0, 0.95, 0.88), size=2.0, cible=None, forme='SQUARE', size_y=None):
     ld = bpy.data.lights.new('A', 'AREA'); ld.size = size; ld.energy = e; ld.color = col; ld.shape = forme
     if size_y: ld.size_y = size_y
