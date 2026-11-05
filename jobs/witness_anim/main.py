@@ -409,6 +409,9 @@ elif PLAN in ('plafond', 'sol'):
         lampe((x + 5, -4.2, H - 0.4), 500, (0.85, 0.93, 1.0), 3.0, forme='RECTANGLE', size_y=0.5)
     CLE = lampe((0, -12, 8), 1600, (1.0, 0.95, 0.9), 6.0)
     CONTRE = lampe((0, 5, 6), 1100, (0.6, 0.85, 1.0), 4.0)
+    for L_ in (CLE, CONTRE): L_.visible_glossy = False; L_.visible_transmission = False     # pas de grande tache blanche reflétée dans l'eau
+    if PLAN == 'sol':                                   # sol et eau prolongés côté caméra : pas de bord coupé dans le champ
+        K.box_uv(K.cube('SolAvant', (LX, 16, 0.4), (CX, -14, -0.2), K.mat('tole_striee', (120, 124, 126)), 0))
 elif PLAN == 'chute':
     lampe((-6, -2, H - 0.5), 1400, (0.85, 0.93, 1.0), 3.0, forme='RECTANGLE', size_y=0.6)
     lampe((6, -2, H - 0.5), 1400, (0.85, 0.93, 1.0), 3.0, forme='RECTANGLE', size_y=0.6)
@@ -443,7 +446,7 @@ if PLAN in ('sol', 'couloir'):
         ob = bpy.data.objects.new(nom, me); sc.collection.objects.link(ob)
         so = ob.modifiers.new('volume', 'SOLIDIFY'); so.thickness = EAU_Z + 0.05; so.offset = -1; so.use_even_offset = False
         return ob, X.ravel(), Y.ravel()
-    if PLAN == 'sol': EAU = nappe('Eau', -40, 40, -6, 6, 0.22)
+    if PLAN == 'sol': EAU = nappe('Eau', -40, 40, -21, 6, 0.24)
     else:
         EAU = nappe('Eau', 40, 100, -6, 6, 0.25)
         o = K.cube('EauLoin', (120, 12, EAU_Z + 0.05), (-20, 0, (EAU_Z - 0.05)/2), me_, 0)
@@ -465,9 +468,9 @@ def emetteurs(t):
         p0 = fn(te)[0].translation; p1 = fn(te + 1/48)[0].translation
         if p0.z > 0.5: continue                            # au plafond ou en l'air : pas d'eau
         v = (p1 - p0).length*48
-        if v > 2: out.append((p0.x, p0.y, te, 0.05 + 0.004*v))
+        if v > 2: out.append((p0.x, p0.y, te, 0.08 + 0.006*v))
     for te, pp in POSES_PIEDS:
-        if t - 2.4 < te <= t and pp.z < 0.5: out.append((pp.x, pp.y, te, 0.035))
+        if t - 2.4 < te <= t and pp.z < 0.5: out.append((pp.x, pp.y, te, 0.05))
     if PLAN == 'couloir':
         tf = math.sqrt(2*H/G_JEU); ti = 3.0 + DECROCHAGE + tf
         out += [(68, 0.27, ti, 0.32), (68, 0.27, ti + 0.18, 0.16)]
