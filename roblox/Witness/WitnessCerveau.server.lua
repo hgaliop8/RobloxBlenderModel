@@ -373,6 +373,13 @@ end
 
 -- ================================================================ attaques
 local function effet(p, quoi, ...) if p and p.Parent then evEffet:FireClient(p, quoi, ...) end end
+-- elle se tourne vers sa cible ; les clients en tirent la direction des coups
+local function viser(p)
+	local r = hrp(p); if not r then return end
+	local d = Vector3.new(r.Position.X - W.pos.X, 0, r.Position.Z - W.pos.Z)
+	if d.Magnitude > 0.1 then W.avant = d.Unit; placer() end
+	racine:SetAttribute("Cible", p.UserId)
+end
 local function signe(coup)
 	racine:SetAttribute("Coup", coup); racine:SetAttribute("CoupT", workspace:GetServerTimeNow())
 	task.wait(C.COUPS[coup].signe or 0.5)
@@ -397,7 +404,8 @@ local function relacher()
 end
 
 local function coupFouet(p)
-	signe("fouet")
+	viser(p); signe("fouet")
+	task.wait(0.08)                                          -- le bout du bras arrive sur la cible
 	local r = hrp(p)
 	if r and (r.Position - W.pos).Magnitude <= C.COUPS.fouet.portee + 1 then
 		blesser(p, C.COUPS.fouet.degats, nil, (r.Position - W.pos).Unit * C.COUPS.fouet.recul)
@@ -413,14 +421,14 @@ local function coupBalayage()
 	recharger("balayage")
 end
 local function coupMorsure(p)
-	signe("morsure")
+	viser(p); signe("morsure")
 	local r = hrp(p)
 	if r and (r.Position - W.pos).Magnitude <= C.COUPS.morsure.portee + 1 then blesser(p, C.COUPS.morsure.degats) end
 	recharger("morsure")
 end
 -- saisie : la victime est soulevée et étranglée ; libérée si l'équipe inflige assez de dégâts ou utilise le feu
 local function coupSaisie(p, versGrille)
-	signe(versGrille and "enlevement" or "saisie")
+	viser(p); signe(versGrille and "enlevement" or "saisie")
 	local r = hrp(p); if not r or (r.Position - W.pos).Magnitude > C.COUPS.saisie.portee + 1 then recharger("saisie"); return end
 	W.saisie = { victime = p, degats = 0, debut = os.clock(), feu = false }
 	W.debats[p] = 0

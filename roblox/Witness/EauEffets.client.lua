@@ -136,6 +136,7 @@ local precedent = racine.Position; local vitesse = 0
 local prochainSillage, prochainRemous = 0, 0
 local derniereGerbe = 0
 local pointesY: { [number]: number } = {}
+local dejaVu: { [string]: number } = {}
 local function creature(t: number, dt: number)
 	local p = racine.Position
 	local d = Vector3.new(p.X - precedent.X, 0, p.Z - precedent.Z)
@@ -157,6 +158,38 @@ local function creature(t: number, dt: number)
 				rond(q, 5.5, 1.6, 1); rond(q, 3.5, 1.2, 0.9)
 				task.delay(0.18, function() rond(q, 7.5, 2.0, 0.7) end)
 				son(q, "eclabousse", 2)
+			end
+		end
+	end
+	-- attaques au sol : grand cercle du balayage, éclaboussure du fouet sur sa cible, de la morsure devant elle
+	local coup = racine:GetAttribute("Coup")
+	if mode == "sol" and (coup == "balayage" or coup == "fouet" or coup == "morsure") and dejaVu[coup] ~= coupT then
+		local info = C.COUPS[coup]
+		if workspace:GetServerTimeNow() - coupT >= (info and info.signe or 0.5) then
+			dejaVu[coup] = coupT
+			local s0 = Eau.surface(p, 2)
+			if s0 then
+				local q = Vector3.new(p.X, s0 + 0.03, p.Z)
+				if coup == "balayage" then
+					rond(q, 9, 1.3, 1); rond(q, 6, 1.0, 0.8)
+					for i = 0, 7 do
+						local a = i * math.pi / 4
+						eclabousser(gouttes, q + Vector3.new(math.cos(a) * 5, 0, math.sin(a) * 5), 6)
+					end
+					son(q, "eclabousse", 1.5)
+				elseif coup == "morsure" then
+					local av = racine.CFrame.LookVector
+					local m = q + Vector3.new(av.X, 0, av.Z) * 2.5
+					rond(m, 2.5, 1.0, 0.9); eclabousser(gouttes, m, 10); son(m, "eclabousse", 0.8)
+				else
+					local id = racine:GetAttribute("Cible")
+					local pl = id and Players:GetPlayerByUserId(id)
+					local r = pl and pl.Character and pl.Character:FindFirstChild("HumanoidRootPart") :: BasePart?
+					if r then
+						local m = Vector3.new(r.Position.X, s0 + 0.03, r.Position.Z)
+						rond(m, 2.2, 1.0, 0.8); eclabousser(gouttes, m, 8)
+					end
+				end
 			end
 		end
 	end
