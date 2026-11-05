@@ -140,11 +140,12 @@ def animer(t, vit, coup, e, saisie, ch):
     return Q
 
 # ---------------------------------------------------------------- attaques au contact (port de WitnessGestes)
-FOUET = dict(frappe=0.15, retour=0.35, rayon=1.6, serrage=0.25, portee_bras=5.5)
+FOUET = dict(frappe=0.15, retour=0.35, rayon=1.9, serrage=0.2, portee_bras=5.5)
 TOUR_B, ENF_B = 0.35, 0.3
 MORS = dict(bond=1.8, tenue=0.1, retour=0.35)
-def chemin_fouet_arme(B, loin, haut):
-    C = B + loin*FOUET['rayon'] + haut*0.8; pts = [B.copy()]
+def chemin_fouet_arme(B, loin, dehors, haut):
+    loin = (loin*0.5 + dehors*0.85).normalized()
+    C = B + loin*FOUET['rayon'] + haut*2.0; pts = [B.copy()]
     for i in range(45):
         phi = math.pi - (i/44)*2.2*math.pi; r = FOUET['rayon']*math.exp(-FOUET['serrage']*(math.pi - phi))
         pts.append(C + (loin*math.cos(phi) + haut*math.sin(phi))*r)
@@ -192,7 +193,8 @@ def gestes_attaque(Q, coup, e, signe, Mw, T):
         k = FOUET_K['k']; ch = CHAINES[k]; B = (Mrac @ rest_rel(ch[0])).translation
         glob, frappe, _ = fouet_g(e, signe, Vector((T.x - centre.x, T.y - centre.y, 0)).length)
         loin = Vector((B.x - T.x, B.y - T.y, 0)); loin = loin.normalized() if loin.length > 1e-3 else -(Mw.to_3x3() @ Vector((1, 0, 0)))
-        Ja = articulations(B, chemin_fouet_arme(B, loin, haut), LONG[k]); Jf = articulations(B, chemin_fouet_frappe(B, T), LONG[k])
+        dh = Vector((B.x - centre.x, B.y - centre.y, 0)); dh = dh.normalized() if dh.length > 1e-3 else loin
+        Ja = articulations(B, chemin_fouet_arme(B, loin, dh, haut), LONG[k]); Jf = articulations(B, chemin_fouet_frappe(B, T), LONG[k])
         orienter(ch, Mrac, [Ja[j].lerp(Jf[j], frappe(j + 1)) for j in range(8)], [glob]*8, Q)
     elif coup == 'balayage':
         _, om, w = balayage_g(e, signe)
@@ -473,18 +475,18 @@ def mannequins(t):
     if PLAN == 'morsure':
         tb = T0_ATT['morsure'] + 0.35; a = max(0.0, t - tb)
         sursaut = 0.25*math.exp(-a/0.15)*math.sin(a*40) if t > tb else 0.0
-        M = Matrix.Translation((4.2, 0, 0.55 + sursaut)) @ Matrix(((0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 0), (0, 0, 0, 1)))
+        M = Matrix.Translation((4.2, 0, 0.85 + sursaut)) @ Matrix(((0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 0), (0, 0, 0, 1)))
         MANN.libre(M, epaules=(0.6 + 0.8*lisse(a/0.15)*(1 - lisse((a - 0.4)/0.5)), 0.6 + 0.6*lisse(a/0.15)*(1 - lisse((a - 0.4)/0.5))), hanches=(0.3, -0.2))
         eclab += [(3.2, 0, tb, 0.16)]
         return MANN.racine.matrix_world.translation + Vector((-0.6, 0, 0.2)), eclab
     if PLAN == 'balayage':
-        for i, (mn, ang) in enumerate(zip(MANNS, (0.7, 2.8, 4.9))):
+        for i, (mn, ang) in enumerate(zip(MANNS, (0.4, 2.2, 3.5))):
             th = T0_ATT['balayage'] + 0.6 + 0.05 + 0.04*i; a = max(0.0, t - th)
             chute_ = (math.pi/2)*lisse(a/0.4)**1.6 if t > th else 0.0
             releve = lisse((t - 2.6 - 0.1*i)/0.6)
             chute_ *= (1 - releve)
             pieds = Vector((math.cos(ang)*7.5, math.sin(ang)*7.5, 0)); yaw = math.atan2(-pieds.y, -pieds.x)
-            mn.libre(bascule(pieds, yaw, chute_, 0.5*math.sin(chute_)), epaules=(0.9*min(1, chute_), 0.9*min(1, chute_)), ecart=0.4*min(1, chute_))
+            mn.libre(bascule(pieds, yaw, chute_, 0.8*math.sin(chute_)), epaules=(0.9*min(1, chute_), 0.9*min(1, chute_)), ecart=0.4*min(1, chute_))
             impact = pieds + Vector((math.cos(ang), math.sin(ang), 0))*2.5
             eclab += [(impact.x, impact.y, th + 0.4, 0.2)]
         eclab += [(0, 0, T0_ATT['balayage'] + 0.6, 0.3), (0, 0, T0_ATT['balayage'] + 0.75, 0.18)]
@@ -501,7 +503,7 @@ def plan_attaque(t):
     Mw = decalage_geste(coup, e, signe, T)
     if SIM['poids'] >= 0.01: locomotion(Q, t, Mw, SIM['vel'], SIM['m'], SIM['poids'])
     if coup: gestes_attaque(Q, coup, e, signe, Mw, T if T is not None else Vector((9, 0, 2)))
-    CAMS = {'fouet': ((4, -12.5, 4.5), (4.2, 0, 2.4), 50), 'balayage': ((9, -13, 11), (0, 0, 1.0), 54), 'morsure': ((2.6, -9.5, 3.8), (2.6, 0, 1.2), 46)}
+    CAMS = {'fouet': ((4, -12.5, 4.5), (4.2, 0, 2.4), 50), 'balayage': ((7, -11.5, 7.5), (0, 0, 1.0), 52), 'morsure': ((2.6, -9.5, 3.8), (2.6, 0, 1.2), 46)}
     c, cib, ang = CAMS[nom]; CAM = Vector(c); viser(CAM, cib); cd.angle_y = math.radians(ang)
     poser(Mw, Q, CAM)
     if os.environ.get('DEBUG') and coup == 'fouet' and 'k' in FOUET_K:
@@ -509,7 +511,7 @@ def plan_attaque(t):
         k = FOUET_K['k']; T_ = T if T is not None else Vector((9, 0, 2))
         Mrac = Mw @ arm.pose.bones['Racine'].bone.matrix_local; B = (Mrac @ rest_rel(CHAINES[k][0])).translation
         loin = Vector((B.x - T_.x, B.y - T_.y, 0)).normalized()
-        Ja = articulations(B, chemin_fouet_arme(B, loin, haut_de(Mw)), LONG[k])
+        Ja = articulations(B, chemin_fouet_arme(B, loin, Vector((B.x, B.y, 0)).normalized(), haut_de(Mw)), LONG[k])
         log(f't={t:.3f} k={k} B={tuple(round(x, 2) for x in B)} T={tuple(round(x, 2) for x in T_)} L={[round(x, 2) for x in LONG[k]]}')
         log('  visé : ' + ' '.join(f'({p.x:+.1f},{p.y:+.1f},{p.z:+.1f})' for p in Ja))
         log('  posé : ' + ' '.join(f'({p.x:+.1f},{p.y:+.1f},{p.z:+.1f})' for p in [arm.matrix_world @ pb.tail for pb in CHAINES[k]]))
@@ -549,6 +551,10 @@ elif PLAN in ('plafond', 'sol') + ('fouet', 'balayage', 'morsure'):
     CLE = lampe((0, -12, 8), 1600, (1.0, 0.95, 0.9), 6.0)
     CONTRE = lampe((0, 5, 6), 1100, (0.6, 0.85, 1.0), 4.0)
     for L_ in (CLE, CONTRE): L_.visible_glossy = False; L_.visible_transmission = False     # pas de grande tache blanche reflétée dans l'eau
+    if PLAN == 'balayage':                              # vue plongeante : les néons se reflètent en taches ; reflet doux d'un grand plafonnier à la place
+        for o in list(sc.objects):
+            if o.type == 'LIGHT' and o.data.type == 'AREA' and o.data.shape == 'RECTANGLE': o.visible_glossy = False
+        lampe((0, 0, H - 0.3), 260, (0.8, 0.9, 1.0), 26.0)
     if PLAN in ('sol',) + ('fouet', 'balayage', 'morsure'):                                   # sol et eau prolongés côté caméra : pas de bord coupé dans le champ
         K.box_uv(K.cube('SolAvant', (LX, 16, 0.4), (CX, -14, -0.2), K.mat('tole_striee', (120, 124, 126)), 0))
 elif PLAN == 'chute':

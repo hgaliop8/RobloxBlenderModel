@@ -231,14 +231,16 @@ function G.cheminTrainee(B: Vector3, centre: Vector3, avant: Vector3, haut: Vect
 end
 
 -- ================================================================ attaques au contact
-G.FOUET = { frappe = 0.15, retour = 0.35, rayon = 1.6, serrage = 0.25, portee_bras = 5.5 }
+G.FOUET = { frappe = 0.15, retour = 0.35, rayon = 1.9, serrage = 0.2, portee_bras = 5.5 }
 G.BALAYAGE = { tour = 0.35, enfoncement = 0.3 }
 G.MORSURE = { bond = 1.8, tenue = 0.1, retour = 0.35 }
 
--- fouet, armé : le bras monte puis s'enroule en crosse derrière lui (loin = direction opposée à la cible, horizontale)
-function G.cheminFouetArme(B: Vector3, loin: Vector3, haut: Vector3): { Vector3 }
+-- fouet, armé : le bras monte haut sur le côté, puis s'enroule en crosse vers l'arrière, bien dégagé du corps
+-- (loin = direction opposée à la cible, dehors = côté du bras ; tous deux horizontaux)
+function G.cheminFouetArme(B: Vector3, loin: Vector3, dehors: Vector3, haut: Vector3): { Vector3 }
 	local F = G.FOUET
-	local C = B + loin * F.rayon + haut * 0.8
+	loin = (loin * 0.5 + dehors * 0.85).Unit
+	local C = B + loin * F.rayon + haut * 2.0
 	local pts = { B }
 	for i = 0, 44 do
 		local phi = math.pi - (i / 44) * 2.2 * math.pi

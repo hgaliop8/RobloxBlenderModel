@@ -239,7 +239,8 @@ local function gestesAttaque(coup: string?, e: number, signe: number, coupT: num
 		local B = (parent * chn.os[1].CFrame).Position
 		local global, frappe = G.fouet(e, signe, horizontal(T - centre).Magnitude)
 		local loin = horizontal(B - T); loin = loin.Magnitude > 1e-3 and loin.Unit or -cfAffiche.RightVector
-		local Ja = G.articulations(B, G.cheminFouetArme(B, loin, haut), chn.L)
+		local dehors = horizontal(B - centre); dehors = dehors.Magnitude > 1e-3 and dehors.Unit or loin
+		local Ja = G.articulations(B, G.cheminFouetArme(B, loin, dehors, haut), chn.L)
 		local Jf = G.articulations(B, G.cheminFouetFrappe(B, T), chn.L)
 		local J, poids = {}, {}
 		for j = 1, 8 do J[j] = Ja[j]:Lerp(Jf[j], frappe(j)); poids[j] = global end
