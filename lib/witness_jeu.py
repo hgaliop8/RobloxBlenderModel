@@ -64,9 +64,12 @@ def construire(log=print, cible_tri=11000, seed=21):
         a = angle_bras(k); dd = Vector((math.cos(a), math.sin(a), 0)); sd = Vector((-dd.y, dd.x, 0)); s = 0.18; side = 1
         while s < L_BRAS - 0.15:
             r = rad_at(s, L_BRAS); rs = 0.55*r; c = CROWN*0 + dd*(0.15 + s) + sd*side*r*0.45 + Vector((0, 0, 0.0015))
-            o = bmesh.ops.create_cone(bm, cap_ends=True, cap_tris=True, segments=6, radius1=rs, radius2=rs*0.7, depth=rs*0.35)
+            o = bmesh.ops.create_cone(bm, cap_ends=True, cap_tris=True, segments=5, radius1=rs, radius2=rs*0.7, depth=rs*0.35)
+            zmax = max(v.co.z for v in o['verts'])                # disque du haut : noyé dans le bras, jamais visible, on le retire
+            fond = {fc for v in o['verts'] if v.co.z >= zmax - 1e-7 for fc in v.link_faces if all(w.co.z >= zmax - 1e-7 for w in fc.verts)}
+            bmesh.ops.delete(bm, geom=list(fond), context='FACES_ONLY')
             xf_verts(o['verts'], Matrix.Translation(c + Vector((0, 0, rs*0.17))))
-            side = -side; s += max(rs*2.6, 0.03)
+            side = -side; s += max(rs*3.5, 0.04)
     parts['ventouses'] = mesh_obj('Ventouses', bm, smooth=True)
     # ---------------------------------------------------------------- yeux : globe doré + fente lumineuse verte
     bmo, bmp = bmesh.new(), bmesh.new()
