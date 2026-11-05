@@ -109,7 +109,7 @@ def animer(t, vit, coup, e, saisie, ch):
                 yaw += marche*0.28*g*(1 - (j - 1)/4); pitch += marche*0.22*max(0, g)*(1 if j >= 2 else 0)
             if coup in ('saisie', 'enlevement') or saisie:
                 if avant:
-                    a = lisse(e/signe); pitch += a*(0.6 if j == 1 else (0.25 if j <= 4 else 0.45)); yaw += a*(0.2 if k <= 1 else -0.2)
+                    a = lisse(e/signe); pitch += a*(0.5 if j == 1 else (0.06 if j <= 4 else 0.12)); yaw += a*(0.2 if k <= 1 else -0.2)
             elif coup == 'descente' and ch:
                 prog, tau = ch['prog'], ch['tau']
                 if ch['phase'] == 'decroche':
@@ -134,7 +134,7 @@ def animer(t, vit, coup, e, saisie, ch):
 
 def enrouler(Q, tt, tete_bas, U, sol_z, Mw):
     """port de WitnessCorps.enrouler (étranglement) ; Mw = matrice monde de l'armature"""
-    r = 0.48 + (1.0 - 0.48)*math.exp(-tt*0.9) - 0.04*max(0, math.sin(tt*7))
+    r = 0.68 + 0.5*math.exp(-tt*0.9) - 0.04*max(0, math.sin(tt*7))
     Mrac = Mw @ arm.pose.bones['Racine'].bone.matrix_local @ Q['Racine'].to_matrix().to_4x4()
     centre = Mrac.translation; N = tete_bas
     fv = Vector((centre.x - N.x, centre.y - N.y, 0)); fv = fv.normalized() if fv.length > 1e-3 else Vector((1, 0, 0))
@@ -142,7 +142,7 @@ def enrouler(Q, tt, tete_bas, U, sol_z, Mw):
     for k in (0, 7):
         ch = CHAINES[k]; B = (Mrac @ rest_rel(ch[0])).translation
         sens = 1 if (B - N).dot(l) >= 0 else -1
-        pts = chemin_enroule(B, N, U, fv, r, 0.12 if k == 0 else -0.12, sens, 1.75)
+        pts = chemin_enroule(B, N, U, fv, r, 0.1 if k == 0 else 0.3, sens, 1.75)
         orienter(ch, Mrac, articulations(B, pts, LONG[k]), [lisse((tt - 0.05*j)/0.4) for j in range(8)], Q)
     w = 0.9*lisse(tt/0.5)
     for k in range(1, 7):
@@ -219,7 +219,7 @@ class Mannequin:
         a = lisse((tt - 0.15)/0.45) if saisi else 0.0
         for s in (-1, 1):
             # les mains montent vers le cou et tirent sur les bras qui l'étranglent
-            vis = Vector((0.9, -s*1.15, -0.1)).normalized()
+            vis = Vector((1.1, -s*1.05, -0.5)).normalized()
             q = Vector((0, 0, -1)).rotation_difference(vis)
             tir = 0.12*math.sin(tt*11 + s) if saisi else 0
             self.epaule[s].rotation_mode = 'QUATERNION'; self.epaule[s].rotation_quaternion = Quaternion().slerp(q, a) @ Quaternion((1, 0, 0), tir)
@@ -227,7 +227,7 @@ class Mannequin:
             self.hanche[s].rotation_mode = 'XYZ'; self.hanche[s].rotation_euler = (0.08*s*lisse(tt/0.6) if saisi else 0, k, 0)
         bpy.context.view_layer.update()
         U = (self.tete.matrix_world.to_3x3() @ Vector((0, 0, 1))).normalized()
-        return self.tete.matrix_world.translation - U*(0.6 + 0.05), U
+        return self.tete.matrix_world.translation - U*0.6, U
 
 # ---------------------------------------------------------------- plans
 def plan_couloir(t):
@@ -276,7 +276,7 @@ def plan_etrangle(t):
     Mw = Matrix.Identity(4) @ Mm
     if saisi:
         arm.matrix_world = Mw; bpy.context.view_layer.update(); enrouler(Q, tt, tete_bas, U, 0.0, Mw)
-    a = t/5.5; CAM = Vector((1.6 - 2.2*a, -9.4 + 0.6*a, 4.8 + 0.4*a)); viser(CAM, (1.1, 0, 3.5)); cd.angle_y = math.radians(46)
+    a = t/5.5; CAM = Vector((1.6 - 2.2*a, -9.4 + 0.6*a, 4.8 + 0.4*a)); viser(CAM, (1.3, 0, 3.8)); cd.angle_y = math.radians(40)
     poser(Mw, Q, CAM)
     if saisi and os.environ.get('DEBUG'):
         for k in (0, 7):

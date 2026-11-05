@@ -117,11 +117,11 @@ local function enrouler(t: number)
 		U = torse.CFrame.UpVector; N = torse.Position; rFin = math.max(torse.Size.X, torse.Size.Z) * 0.55; tours = 1.2
 	else
 		if not tete then return end
-		U = tete.CFrame.UpVector; N = tete.Position - U * (tete.Size.Y * 0.5 + 0.05); rFin = 0.48; tours = 1.75
+		U = tete.CFrame.UpVector; N = tete.Position - U * (tete.Size.Y * 0.5); rFin = math.max(tete.Size.X, tete.Size.Z) * 0.5 + 0.08; tours = 1.75   -- la gorge : juste sous la tête, au ras de sa largeur
 	end
 	local tt = saisieTemps()
 	-- le bras se resserre peu à peu, avec un serrement rythmé (même rythme que la secousse du serveur)
-	local r = rFin + (1.0 - rFin) * math.exp(-tt * 0.9) - 0.04 * math.max(0, math.sin(tt * 7))
+	local r = rFin + 0.5 * math.exp(-tt * 0.9) - 0.04 * math.max(0, math.sin(tt * 7))
 	local parent = mondeOs(osRacine)
 	local centre = parent.Position
 	local f = Vector3.new(centre.X - N.X, 0, centre.Z - N.Z); f = f.Magnitude > 1e-3 and f.Unit or Vector3.new(1, 0, 0)
@@ -132,7 +132,7 @@ local function enrouler(t: number)
 		if chn then
 			local B = (parent * chn.os[1].CFrame).Position
 			local sens = ((B - N):Dot(l) >= 0) and 1 or -1
-			local pts = G.cheminEnroule(B, N, U, f, r, (k == 0) and 0.12 or -0.12, sens, tours)
+			local pts = G.cheminEnroule(B, N, U, f, r, (k == 0) and 0.1 or 0.3, sens, tours)
 			for j = 1, 8 do poids[j] = G.lisse((tt - 0.05 * (j - 1)) / 0.4) end
 			G.orienter(chn, parent, G.articulations(B, pts, chn.L), poids)
 		end
@@ -186,7 +186,7 @@ local function animer(t, dt)
 				if e < signe then pitch -= 0.08 * lisse(e / signe) else yaw += 0.6 * math.sin(math.clamp((e - signe) / 0.35, 0, 1) * math.pi) end
 			elseif (coup == "saisie" or coup == "enlevement" or saisie) and (k == 0 or k == 7 or k == 1 or k == 6) then
 				local a = lisse(e / signe)
-				pitch += a * (j == 1 and 0.6 or (j <= 4 and 0.25 or 0.45))
+				pitch += a * (j == 1 and 0.5 or (j <= 4 and 0.06 or 0.12))        -- bras levés vers la proie, pointes recourbées
 				yaw += a * (k <= 1 and 0.2 or -0.2)
 			elseif coup == "chute" then
 				pitch += 0.12 + 0.03 * math.sin(t * 22 + k)                        -- tension, tremblement
