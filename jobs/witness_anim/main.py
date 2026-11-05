@@ -468,7 +468,7 @@ def emetteurs(t):
         p0 = fn(te)[0].translation; p1 = fn(te + 1/48)[0].translation
         if p0.z > 0.5: continue                            # au plafond ou en l'air : pas d'eau
         v = (p1 - p0).length*48
-        if v > 2: out.append((p0.x, p0.y, te, 0.08 + 0.006*v))
+        if v > 2: out.append((p0.x, p0.y, te, 0.11*(v/24) + 0.012))     # amplitude proportionnelle au chemin parcouru : pas de crête qui s'accumule
     for te, pp in POSES_PIEDS:
         if t - 2.4 < te <= t and pp.z < 0.5: out.append((pp.x, pp.y, te, 0.05))
     if PLAN == 'couloir':
@@ -484,7 +484,7 @@ def maj_eau(t):
         r = np.hypot(X - ex, Y - ey); u = r - 5.5*a; sig = 0.3 + 0.25*a
         m = np.abs(u) < 4*sig + 0.5
         if not m.any(): continue
-        h[m] += amp*math.exp(-a/0.9)/(1 + 1.4*a)*np.exp(-u[m]*u[m]/(2*sig*sig))*np.cos(2*math.pi*u[m]/1.0)
+        h[m] += amp*math.exp(-a/0.9)/(1 + 1.4*a)*np.exp(-u[m]*u[m]/(2*sig*sig))*np.cos(2*math.pi*u[m]/1.0 + (te*37.0 % 6.283)*0.35)
     co = np.stack([X, Y, EAU_Z + h], 1).ravel()
     ob.data.vertices.foreach_set('co', co); ob.data.update()
     if PLAN == 'couloir':
