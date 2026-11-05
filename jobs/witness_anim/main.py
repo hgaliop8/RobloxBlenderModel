@@ -32,37 +32,37 @@ FPS = int(os.environ.get('FPS', '24')); H = 12.0
 sc = bpy.context.scene; sc.render.engine = 'CYCLES'; sc.cycles.samples = int(os.environ.get('ECH', '32')); sc.cycles.use_denoising = True
 sc.cycles.max_bounces = 12; sc.cycles.transmission_bounces = 12; sc.cycles.transparent_max_bounces = 12
 sc.render.resolution_x, sc.render.resolution_y = (int(x) for x in os.environ.get('RES', '1280x720').split('x'))
-sc.view_settings.view_transform = 'AgX'; sc.view_settings.look = 'AgX - Medium High Contrast'; sc.view_settings.exposure = float(os.environ.get('EXPO', '0'))
-w = bpy.data.worlds.new('W'); w.use_nodes = True; w.node_tree.nodes['Background'].inputs['Color'].default_value = (0.003, 0.004, 0.005, 1); sc.world = w
-LARG = 12.0
-for nom, size, loc, mt in (('Sol', (120, LARG, 0.4), (0, 0, -0.2), K.mat('tole_striee', (120, 124, 126))),
-                           ('Plafond', (120, LARG, 0.4), (0, 0, H + 0.2), K.mat('plafond', (190, 192, 188))),
-                           ('MurN', (120, 0.4, H), (0, LARG/2 + 0.2, H/2), K.mat('metal_peint', (150, 156, 160))),
-                           ('MurS', (120, 0.4, H), (0, -LARG/2 - 0.2, H/2), K.mat('metal_peint', (150, 156, 160))),
-                           ('Fond', (0.4, LARG, H), (-55, 0, H/2), K.mat('metal_peint', (120, 126, 130)))):
+sc.view_settings.view_transform = 'AgX'; sc.view_settings.look = 'AgX - Medium High Contrast'; sc.view_settings.exposure = float(os.environ.get('EXPO', '1.6'))
+w = bpy.data.worlds.new('W'); w.use_nodes = True; w.node_tree.nodes['Background'].inputs['Color'].default_value = (0.006, 0.008, 0.011, 1); sc.world = w
+LARG = 12.0; L0, L1 = -80.0, 110.0; LX = L1 - L0; CX = (L0 + L1)/2
+for nom, size, loc, mt in (('Sol', (LX, LARG, 0.4), (CX, 0, -0.2), K.mat('tole_striee', (120, 124, 126))),
+                           ('Plafond', (LX, LARG, 0.4), (CX, 0, H + 0.2), K.mat('plafond', (190, 192, 188))),
+                           ('MurN', (LX, 0.4, H), (CX, LARG/2 + 0.2, H/2), K.mat('metal_peint', (150, 156, 160))),
+                           ('MurS', (LX, 0.4, H), (CX, -LARG/2 - 0.2, H/2), K.mat('metal_peint', (150, 156, 160))),
+                           ('Fond', (0.4, LARG, H), (L0 + 0.2, 0, H/2), K.mat('metal_peint', (120, 126, 130)))):
     o = K.cube(nom, size, loc, mt, 0); K.box_uv(o)
-for x in range(-50, 50, 8):                                 # arches et soubassement
+for x in range(int(L0) + 6, int(L1), 8):                                 # arches et soubassement
     for sy in (-1, 1): o = K.cube('Arche', (0.8, 0.6, H), (x, sy*(LARG/2 - 0.3), H/2), K.mat('metal_peint', (90, 96, 104)), 0.05); K.box_uv(o)
     o = K.cube('ArcheHaut', (0.8, LARG, 0.6), (x, 0, H - 0.3), K.mat('metal_peint', (90, 96, 104)), 0.05); K.box_uv(o)
 def lampe(loc, e, col=(1.0, 0.95, 0.88), size=2.0):
     ld = bpy.data.lights.new('A', 'AREA'); ld.size = size; ld.energy = e; ld.color = col
     ob = bpy.data.objects.new('A', ld); sc.collection.objects.link(ob); ob.location = loc; return ob
-for x in (-36, -12, 12):
-    lampe((x, 0, H - 0.8), 500, (1.0, 0.2, 0.12), 1.0)       # éclairage de secours rouge
-torche = bpy.data.lights.new('Torche', 'SPOT'); torche.energy = 2600; torche.spot_size = math.radians(40); torche.spot_blend = 0.5; torche.color = (1.0, 0.95, 0.85); torche.shadow_soft_size = 0.05
+for x in range(-36, 108, 16):
+    lampe((x + 4, 0, H - 0.8), 1400, (1.0, 0.2, 0.12), 1.0)  # éclairage de secours rouge, un tous les 16 studs
+torche = bpy.data.lights.new('Torche', 'SPOT'); torche.energy = 7000; torche.spot_size = math.radians(40); torche.spot_blend = 0.5; torche.color = (1.0, 0.95, 0.85); torche.shadow_soft_size = 0.05
 tob = bpy.data.objects.new('Torche', torche); sc.collection.objects.link(tob)
 cd = bpy.data.cameras.new('C'); cd.sensor_fit = 'VERTICAL'; cd.angle_y = math.radians(70); cam = bpy.data.objects.new('C', cd); sc.collection.objects.link(cam); sc.camera = cam
-CAM = Vector((40, -1.5, 5.0)); cam.location = CAM
+CAM = Vector((96, -1.5, 5.0)); cam.location = CAM
 
 # ---------------------------------------------------------------- scénario (racine) : temps -> (position, plafond?, coup, temps du coup)
 def racine(t):
-    if t < 3.0:   return Vector((-34 + 14*t, 0.4*math.sin(t*0.8), H)), 1.0, None, 0, 14.0
-    if t < 3.6:
+    if t < 3.0:   return Vector((26 + 14*t, 0.4*math.sin(t*0.8), H)), 1.0, None, 0, 14.0           # plafond, 14 studs/s
+    if t < 3.6:                                                                                   # chute au sol, 0,6 s
         a = (t - 3.0)/0.6; e = a*a*(3 - 2*a)
-        return Vector((8 + 4*a, 0.4*math.sin(2.4), H*(1 - e))), 1.0 - e, 'descente', 3.0, 8.0
-    if t < 5.0:
-        a = (t - 3.6)/1.4; return Vector((12 + 19.0*a, 0.3*math.sin(t*3), 0)), 0.0, None, 0, 26.0*0.5 + 13.0
-    return Vector((31, 0, 0)), 0.0, 'saisie', 5.0, 0.0
+        return Vector((68 + 4*a, 0.4*math.sin(2.4), H*(1 - e))), 1.0 - e, 'descente', 3.0, 8.0
+    if t < 4.22:                                                                                  # course au sol, 26 studs/s
+        a = (t - 3.6)/0.62; return Vector((72 + 16.0*a, 0.3*math.sin(t*3), 0)), 0.0, None, 0, 26.0
+    return Vector((88, 0, 0)), 0.0, 'saisie', 4.22, 0.0
 SIGNE = {'fouet': 0.5, 'balayage': 0.6, 'morsure': 0.35, 'saisie': 0.7, 'enlevement': 1.0, 'chute': 1.5, 'encre': 0.5, 'descente': 0.6}
 def lisse(a): a = max(0.0, min(1.0, a)); return a*a*(3 - 2*a)
 phases = {k: k*0.79 + (k % 3)*0.4 for k in range(8)}
@@ -92,7 +92,7 @@ def animer(t, vit, coup, coupT, mode):
     R['Tete'] = (0.03*math.sin(t*0.8), 0)
     return R
 
-IM = os.environ.get('IMAGES', '1-192'); i0, i1 = (int(x) for x in IM.split('-'))
+IM = os.environ.get('IMAGES', '1-156'); i0, i1 = (int(x) for x in IM.split('-'))
 prec = None
 for fr in range(i0, i1 + 1):
     t = (fr - 1)/FPS
