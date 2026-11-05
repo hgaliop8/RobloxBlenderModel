@@ -1,0 +1,74 @@
+{
+ "eclats_verre": {
+  "objets": 1,
+  "triangles": 232,
+  "dim": [
+   4.07,
+   4.33,
+   0.03
+  ],
+  "par_matiere": {
+   "Verre": 232
+  }
+ },
+ "flaque_eau": {
+  "objets": 3,
+  "triangles": 144,
+  "dim": [
+   6.43,
+   6.63,
+   0.0
+  ],
+  "par_matiere": {
+   "EauSol": 144
+  }
+ },
+ "tache_sang_0": {
+  "objets": 9,
+  "triangles": 144,
+  "dim": [
+   4.29,
+   3.87,
+   0.0
+  ],
+  "par_matiere": {
+   "SangSeche": 144
+  }
+ },
+ "trainee_sang": {
+  "objets": 6,
+  "triangles": 176,
+  "dim": [
+   7.17,
+   2.0,
+   0.0
+  ],
+  "par_matiere": {
+   "SangSeche": 176
+  }
+ },
+ "aquarium_brise": {
+  "objets": 43,
+  "triangles": 6000,
+  "dim": [
+   9.56,
+   8.45,
+   7.2
+  ],
+  "par_matiere": {
+   "metal_brut_(60, 62, 64)_None": 1296,
+   "Verre": 732,
+   "metal_peint_(50, 56, 62)_None": 108,
+   "EauAquarium": 12,
+   "plastique_(230, 226, 210)_None": 12,
+   "metal_peint_(60, 66, 72)_None": 324,
+   "plastique_(40, 40, 42)_None": 216,
+   "EauSol": 144,
+   "metal_brut_(200, 202, 204)_None": 396,
+   "beton_(150, 146, 136)_None": 1280,
+   "beton_(190, 176, 150)_None": 1328,
+   "metal_peint_(40, 42, 44)_None": 108,
+   "caoutchouc_(40, 40, 40)_None": 44
+  }
+ }
+}
