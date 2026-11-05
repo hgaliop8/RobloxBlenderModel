@@ -1,0 +1,98 @@
+{
+ "ecran_mural_10": {
+  "objets": 4,
+  "triangles": 240,
+  "dim": [
+   10.0,
+   0.47,
+   4.0
+  ],
+  "par_matiere": {
+   "plastique_(28, 28, 30)_None": 108,
+   "DalleOff": 12,
+   "metal_brut_(160, 160, 160)_None": 12,
+   "metal_peint_(40, 40, 42)_None": 108
+  }
+ },
+ "interphone": {
+  "objets": 6,
+  "triangles": 748,
+  "dim": [
+   0.9,
+   0.31,
+   3.7
+  ],
+  "par_matiere": {
+   "metal_peint_(60, 64, 68)_None": 108,
+   "BoutonInterphone": 60,
+   "plastique_(30, 30, 30)_None": 60,
+   "caoutchouc_(30, 30, 30)_None": 496,
+   "LCD": 12,
+   "grille_vent_(90, 90, 90)_None": 12
+  }
+ },
+ "coffret_elec": {
+  "objets": 6,
+  "triangles": 552,
+  "dim": [
+   1.8,
+   0.64,
+   2.4
+  ],
+  "par_matiere": {
+   "Chrome": 216,
+   "metal_peint_(150, 156, 150)_None": 108,
+   "plastique_(210, 170, 40)_None": 12,
+   "metal_peint_(160, 166, 160)_None": 108,
+   "plastique_(30, 30, 30)_None": 108
+  }
+ },
+ "banc_vestiaire": {
+  "objets": 12,
+  "triangles": 1296,
+  "dim": [
+   8.0,
+   1.42,
+   1.51
+  ],
+  "par_matiere": {
+   "bois_(180, 140, 96)_None": 324,
+   "caoutchouc_(40, 40, 40)_None": 324,
+   "metal_peint_(60, 64, 70)_None": 648
+  }
+ },
+ "banc_musculation": {
+  "objets": 15,
+  "triangles": 10776,
+  "dim": [
+   6.0,
+   6.1,
+   5.5
+  ],
+  "par_matiere": {
+   "simili_cuir_(30, 30, 32)_None": 9408,
+   "Chrome": 60,
+   "metal_peint_(40, 40, 42)_None": 844,
+   "caoutchouc_(25, 25, 26)_None": 464
+  }
+ },
+ "lave_linge": {
+  "objets": 8,
+  "triangles": 1768,
+  "dim": [
+   2.8,
+   2.93,
+   3.8
+  ],
+  "par_matiere": {
+   "plastique_(210, 212, 210)_None": 108,
+   "Chrome": 800,
+   "metal_peint_(232, 234, 232)_None": 108,
+   "VitreHublot": 124,
+   "tissu_(60, 90, 140)_None": 320,
+   "plastique_(180, 182, 180)_None": 76,
+   "metal_brut_(200, 202, 204)_None": 124,
+   "plastique_(220, 222, 220)_None": 108
+  }
+ }
+}
