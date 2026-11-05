@@ -1,3 +1,1 @@
-witness_anim PLAN=couloir IMAGES=20_80_128 RES=640x360 ECH=12
-witness_anim PLAN=chute FPS=48 IMAGES=30_42_56_70 RES=640x360 ECH=12
-witness_anim PLAN=etrangle IMAGES=20_45_70_125 RES=640x360 ECH=12
+witness_anim PLAN=etrangle IMAGES=36_60_90_130 RES=960x540 ECH=16 DEBUG=1

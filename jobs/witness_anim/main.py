@@ -219,7 +219,7 @@ class Mannequin:
         a = lisse((tt - 0.15)/0.45) if saisi else 0.0
         for s in (-1, 1):
             # les mains montent vers le cou et tirent sur les bras qui l'étranglent
-            vis = Vector((0.55, -s*1.2, 0.35)).normalized()
+            vis = Vector((0.9, -s*1.15, -0.1)).normalized()
             q = Vector((0, 0, -1)).rotation_difference(vis)
             tir = 0.12*math.sin(tt*11 + s) if saisi else 0
             self.epaule[s].rotation_mode = 'QUATERNION'; self.epaule[s].rotation_quaternion = Quaternion().slerp(q, a) @ Quaternion((1, 0, 0), tir)
@@ -276,8 +276,12 @@ def plan_etrangle(t):
     Mw = Matrix.Identity(4) @ Mm
     if saisi:
         arm.matrix_world = Mw; bpy.context.view_layer.update(); enrouler(Q, tt, tete_bas, U, 0.0, Mw)
-    a = t/5.5; CAM = Vector((5.5 + 2.0*a, -8.6 + 1.2*a, 4.4)); viser(CAM, (1.3, 0, 3.4)); cd.angle_y = math.radians(50)
+    a = t/5.5; CAM = Vector((1.6 - 2.2*a, -9.4 + 0.6*a, 4.8 + 0.4*a)); viser(CAM, (1.1, 0, 3.5)); cd.angle_y = math.radians(46)
     poser(Mw, Q, CAM)
+    if saisi and os.environ.get('DEBUG'):
+        for k in (0, 7):
+            pts = [arm.matrix_world @ pb.tail for pb in CHAINES[k]]
+            log(f't={t:.2f} bras {k} : ' + ' '.join(f'({(p - tete_bas).x:+.2f},{(p - tete_bas).y:+.2f},{(p - tete_bas).z:+.2f})' for p in pts))
 
 if PLAN == 'couloir':
     for x in range(-36, 108, 16):
