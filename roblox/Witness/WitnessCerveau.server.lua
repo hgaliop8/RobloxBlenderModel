@@ -65,7 +65,7 @@ end
 local function hrp(p) return p.Character and p.Character:FindFirstChild("HumanoidRootPart") end
 local function tete(p) return p.Character and p.Character:FindFirstChild("Head") end
 local function humanoide(p) return p.Character and p.Character:FindFirstChildOfClass("Humanoid") end
-local function courant() local v = RS:FindFirstChild("Courant"); return v and v.Value or false end
+local function courant() local v = RS:FindFirstChild("Courant"); if not v then return true end; return v.Value == true end   -- sans BoolValue : courant présent
 
 local function initialiserPV()
 	local n = math.max(1, #Players:GetPlayers())
