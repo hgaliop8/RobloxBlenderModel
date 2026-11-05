@@ -1,0 +1,98 @@
+{
+ "chaise_renversee_0": {
+  "objets": 5,
+  "triangles": 15640,
+  "dim": [
+   2.28,
+   3.76,
+   1.85
+  ],
+  "par_matiere": {
+   "plastique_(120, 60, 50)_None": 14080,
+   "metal_brut_(170, 172, 174)_None": 1560
+  }
+ },
+ "chaise_bureau_renversee": {
+  "objets": 24,
+  "triangles": 23668,
+  "dim": [
+   2.94,
+   4.75,
+   2.34
+  ],
+  "par_matiere": {
+   "plastique_(34, 34, 36)_None": 4792,
+   "tissu_(50, 54, 60)_None": 18816,
+   "Chrome": 60
+  }
+ },
+ "tabouret_renverse": {
+  "objets": 22,
+  "triangles": 8676,
+  "dim": [
+   3.04,
+   2.93,
+   2.04
+  ],
+  "par_matiere": {
+   "simili_cuir_(40, 40, 44)_None": 1152,
+   "plastique_(36, 36, 38)_None": 3476,
+   "Chrome": 4048
+  }
+ },
+ "etagere_renversee": {
+  "objets": 55,
+  "triangles": 8356,
+  "dim": [
+   6.88,
+   8.92,
+   2.84
+  ],
+  "par_matiere": {
+   "plastique_(200, 160, 40)_None": 656,
+   "plastique_(60, 120, 70)_None": 328,
+   "plastique_(150, 40, 40)_None": 656,
+   "plastique_(60, 90, 150)_None": 328,
+   "caoutchouc_(40, 60, 140)_None": 1280,
+   "caoutchouc_(200, 120, 30)_None": 1280,
+   "carton_(190, 156, 110)_None": 1080,
+   "carton_(176, 140, 100)_None": 216,
+   "carton_(226, 226, 220)_None": 540,
+   "carton_(200, 170, 120)_None": 216,
+   "metal_peint_(52, 84, 120)_None": 432,
+   "metal_peint_(120, 124, 128)_None": 1296,
+   "plastique_(190, 170, 120)_None": 48
+  }
+ },
+ "papiers_sol_0": {
+  "objets": 16,
+  "triangles": 1548,
+  "dim": [
+   4.89,
+   4.88,
+   1.0
+  ],
+  "par_matiere": {
+   "simili_cuir_(130, 40, 40)_None": 108,
+   "plastique_(230, 228, 220)_None": 288,
+   "plastique_(226, 232, 236)_None": 480,
+   "plastique_(236, 234, 226)_None": 384,
+   "plastique_(240, 236, 210)_None": 288
+  }
+ },
+ "carton_renverse": {
+  "objets": 11,
+  "triangles": 880,
+  "dim": [
+   4.61,
+   3.65,
+   2.33
+  ],
+  "par_matiere": {
+   "carton_(190, 156, 110)_None": 52,
+   "carton_(200, 170, 120)_None": 216,
+   "carton_(226, 226, 220)_None": 324,
+   "plastique_(236, 234, 226)_None": 288
+  }
+ }
+}
