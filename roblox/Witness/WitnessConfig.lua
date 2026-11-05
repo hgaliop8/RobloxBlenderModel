@@ -35,6 +35,11 @@ C.JAUGE = {
 	baisse = 5,
 	fouille = 40, chasse = 100,
 }
+-- eau (environ 30 cm partout dans la base) : réglages de gameplay, désactivés par défaut
+C.EAU = {
+	bruit_portee = 0,        -- > 0 : elle entend un joueur qui marche dans l'eau jusqu'à cette distance (ex. 15), même au pas
+	bruit = 12,              -- gain de jauge par seconde pour ce bruit
+}
 C.FIXEE_DUREE = 2            -- un joueur qui fixe ses lumières plus longtemps la fait partir
 
 -- phases (secondes depuis le début, preuves ramassées)
@@ -85,6 +90,7 @@ C.ENVERGURE = 12.1
 C.SONS = {
 	succion = "", goutte = "", chute = "", bip = "", coups = "", pas = "",
 	fouet = "", morsure = "", cri = "", encre = "", brulure = "", mort = "",
+	eclabousse = "", remous = "",    -- pas dans l'eau ; sillage de la créature
 }
 
 return C

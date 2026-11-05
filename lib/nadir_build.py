@@ -196,11 +196,23 @@ def duct_rects():
 DUCTS = duct_rects()
 GRILLE_W = [(x*S, -z*S, sid, soud) for x, z, sid, soud in N.GRILLES]
 
+# ---------------------------------------------------------------- eau : la base prend l'eau, environ 30 cm partout
+PROF_EAU = 1.1                      # studs (≈ 30 cm)
+SANS_EAU = {'navette'}              # la navette d'arrivée reste au sec
+def eau(e, X0, Z0, X1, Z1, niveau_sol):
+    """volume d'eau du sol jusqu'à la surface (verre teinté, traversable, ignoré par les tirs et les rayons)"""
+    if e.id in SANS_EAU or e.d.get('eau') or X1 - X0 < 0.5 or Z1 - Z0 < 0.5: return None
+    it = Frame(sc, 'Nadir4/Eau', (0, 0, 0)).box(((X0 + X1)/2, niveau_sol + PROF_EAU/2, (Z0 + Z1)/2), (X1 - X0, PROF_EAU, Z1 - Z0),
+                                                'Glass', (34, 66, 70), name='Eau', cc=False, shadow=False, tags=['Eau'])
+    it['t'] = 0.32; it['r'] = 0.12
+    return it
+
 def build_floor_ceiling(e):
     fr = Frame(sc, e.folder + '/Structure', (0, 0, 0)); st = e.st
     W, D = e.X1 - e.X0, e.Z1 - e.Z0; cx, cz = (e.X0 + e.X1)/2, (e.Z0 + e.Z1)/2
     if e.esc: return build_stairs(e, fr)
     fr.box((cx, e.elev - 0.5, cz), (W, 1, D), *st['floor'], name='Sol')
+    eau(e, e.X0, e.Z0, e.X1, e.Z1, e.elev)
     # plafond, percé là où une grille de gaine débouche
     yc = e.elev + e.h
     holes = [(gx - 2.4, gz - 2.4, gx + 2.4, gz + 2.4) for gx, gz, sid, soud in GRILLE_W if sid == e.id and e.h <= 12.5]
@@ -228,6 +240,8 @@ def build_stairs(e, fr):
     Zlow0, Zlow1 = Za, e.Z1                     # côté za (bas : plan z < za -> monde Z > Za)
     if Zlow1 - Zlow0 > 0.05: fr.box((cx, lo - 0.5, (Zlow0 + Zlow1)/2), (W, 1, Zlow1 - Zlow0), *st['floor'], name='Palier')
     if Zb - e.Z0 > 0.05: fr.box((cx, hi - 0.5, (e.Z0 + Zb)/2), (W, 1, Zb - e.Z0), *st['floor'], name='Palier')
+    eau(e, e.X0, Zb, e.X1, e.Z1, lo)                 # bas : palier et marches noyées, les suivantes sortent de l'eau
+    if Zb - e.Z0 > 0.05: eau(e, e.X0, e.Z0, e.X1, Zb, hi)
     n = int(round(abs(hi - lo))); tread = (Za - Zb)/n
     for k in range(n):
         top = lo + (k + 1)*(hi - lo)/n; Zc = Za - (k + 0.5)*tread
@@ -387,7 +401,7 @@ def build_corridor_details(e):
                     fr.box(P(u, vv, y0 + h - 1.0), S3(0.3, 0.3, 0.3), 'SmoothPlastic', (0, 0, 0), tr=1, cc=False, shadow=False, name='Fuite',
                            children=[dict(cls='ParticleEmitter', Rate=3, Lifetime=(0.6, 0.9), Speed=(0, 0.5), Size=0.08, Transp=(0.2, 0.4), Color=(170, 200, 210),
                                           Acc=(0, -40, 0), Spread=2, Dir=4)])
-                    it = fr.cyl(P(u, vv, y0 + 0.03), 0.04, rr.uniform(2.5, 4.5), 'y', 'Glass', (40, 60, 64), name='Flaque', cc=False, shadow=False); it['t'] = 0.35; it['r'] = 0.4
+                    rr.uniform(2.5, 4.5)            # (tirage conservé : la suite du hasard reste identique ; la flaque est sous l'eau)
                 elif k < 0.8:
                     fr.box(P(u, wid/2, y0 + h - 2.0), S3(3.2, 0.7, 0.25), 'SmoothPlastic', (200, 202, 198), name='PlafonnierDecroche', cc=False, R=(rot_z(0.6) if along_x else rot_x(0.6)))
                     fr.pipe(P(u - 1.2, wid/2, y0 + h - 0.4), P(u - 1.1, wid/2, y0 + h - 1.6), 0.08, 'SmoothPlastic', (20, 20, 20), name='Fil', cc=False, shadow=False)

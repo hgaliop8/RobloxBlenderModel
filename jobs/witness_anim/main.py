@@ -153,6 +153,7 @@ MR = dict(rayon=4.1, seuil=1.5, seuil_repos=0.6, avance=1.5, anticipation=0.15, 
 DIRS = {}
 for k in range(8):
     d = arm.data.bones[f'Bras{k}_8'].head_local - arm.data.bones[f'Bras{k}_1'].head_local; d.z = 0; DIRS[k] = d.normalized()
+POSES_PIEDS = []                     # (instant, position) de chaque pied qui se repose : petits ronds dans l'eau
 class Marche:
     def __init__(self): self.pieds = {}; self.air = {}; self.dernier = 0
 def haut_de(Mw): return (Mw.to_3x3() @ Vector((0, 0, 1))).normalized()
@@ -163,7 +164,7 @@ def maj_marche(m, t, Mw, vel):
         f0 = m.pieds.get(k)
         if f0 is None or (f0 - ideal[k]).length > 9 or abs((f0 - orig).dot(haut)) > 1.5: m.pieds[k] = ideal[k].copy(); m.air.pop(k, None)
     for k, a in list(m.air.items()):
-        if t - a['t0'] >= a['duree']: m.pieds[k] = a['fin']; del m.air[k]
+        if t - a['t0'] >= a['duree']: m.pieds[k] = a['fin']; del m.air[k]; POSES_PIEDS.append((a['t0'] + a['duree'], a['fin'].copy()))
     if m.air: return
     seuil = MR['seuil'] if v > 1 else MR['seuil_repos']; ec = [0.0, 0.0]
     for k in DIRS: ec[k % 2] = max(ec[k % 2], (m.pieds[k] - ideal[k]).length)
@@ -418,6 +419,79 @@ else:
     lampe((-4, 5, 8), 2200, (0.6, 0.85, 1.0), 4.0, cible=(1, 0, 3.5))
     lampe((1, 0, H - 0.5), 800, (0.85, 0.93, 1.0), 3.0, forme='RECTANGLE', size_y=0.6)
 
+# ---------------------------------------------------------------- eau : 30 cm (1,1 stud) dans toute la base
+import numpy as np
+EAU_Z = 1.1
+EAU = None
+if PLAN in ('sol', 'couloir'):
+    me_ = bpy.data.materials.new('Eau'); me_.use_nodes = True; nt = me_.node_tree; b = nt.nodes['Principled BSDF']
+    b.inputs['Base Color'].default_value = (0.03, 0.07, 0.075, 1); b.inputs['Roughness'].default_value = 0.03
+    b.inputs['Transmission Weight'].default_value = 1.0; b.inputs['IOR'].default_value = 1.33
+    va = nt.nodes.new('ShaderNodeVolumeAbsorption'); va.inputs['Color'].default_value = (0.32, 0.58, 0.56, 1); va.inputs['Density'].default_value = 0.45
+    nt.links.new(va.outputs[0], nt.nodes['Material Output'].inputs['Volume'])
+    tc = nt.nodes.new('ShaderNodeTexCoord'); nz = nt.nodes.new('ShaderNodeTexNoise'); nz.inputs['Scale'].default_value = 2.2; nz.inputs['Detail'].default_value = 3.0
+    bp = nt.nodes.new('ShaderNodeBump'); bp.inputs['Strength'].default_value = 0.06
+    nt.links.new(tc.outputs['Object'], nz.inputs['Vector']); nt.links.new(nz.outputs['Fac'], bp.inputs['Height']); nt.links.new(bp.outputs['Normal'], b.inputs['Normal'])
+    def nappe(nom, x0, x1, y0, y1, pas):
+        nx, ny = int((x1 - x0)/pas) + 1, int((y1 - y0)/pas) + 1
+        X, Y = np.meshgrid(np.linspace(x0, x1, nx), np.linspace(y0, y1, ny))
+        co = np.stack([X.ravel(), Y.ravel(), np.full(X.size, EAU_Z)], 1)
+        idx = np.arange(nx*ny).reshape(ny, nx)
+        faces = np.stack([idx[:-1, :-1].ravel(), idx[:-1, 1:].ravel(), idx[1:, 1:].ravel(), idx[1:, :-1].ravel()], 1)
+        me = bpy.data.meshes.new(nom); me.from_pydata(co.tolist(), [], faces.tolist()); me.materials.append(me_)
+        for pl in me.polygons: pl.use_smooth = True
+        ob = bpy.data.objects.new(nom, me); sc.collection.objects.link(ob)
+        so = ob.modifiers.new('volume', 'SOLIDIFY'); so.thickness = EAU_Z + 0.05; so.offset = -1; so.use_even_offset = False
+        return ob, X.ravel(), Y.ravel()
+    if PLAN == 'sol': EAU = nappe('Eau', -40, 40, -6, 6, 0.22)
+    else:
+        EAU = nappe('Eau', 40, 100, -6, 6, 0.25)
+        o = K.cube('EauLoin', (120, 12, EAU_Z + 0.05), (-20, 0, (EAU_Z - 0.05)/2), me_, 0)
+    # gouttes de la gerbe (trajectoires calculées, pesanteur réelle pour qu'on les voie voler)
+    GOUTTES = []
+    if PLAN == 'couloir':
+        mg = K.mat_plain('Goutte', (205, 228, 232), 0.05, transmission=1.0)
+        rg = __import__('random').Random(7)
+        for i in range(70):
+            bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=1, radius=rg.uniform(0.05, 0.13)); g = bpy.context.object; g.data.materials.append(mg)
+            a = rg.uniform(0, 2*math.pi); rad = rg.uniform(0.6, 2.2)
+            GOUTTES.append((g, Vector((math.cos(a)*rad, math.sin(a)*rad, 0)), Vector((math.cos(a)*rg.uniform(2, 7), math.sin(a)*rg.uniform(2, 7), rg.uniform(6, 13))), rg.uniform(0, 0.06)))
+def emetteurs(t):
+    """sources d'ondes : le corps qui avance dans l'eau, les pieds qui se reposent, l'impact de la chute"""
+    out = []; fn = racine_sol if PLAN == 'sol' else racine_couloir
+    for i in range(max(0, int((t - 2.4)*24)), int(t*24) + 1):
+        te = i/24
+        if te > t: break
+        p0 = fn(te)[0].translation; p1 = fn(te + 1/48)[0].translation
+        if p0.z > 0.5: continue                            # au plafond ou en l'air : pas d'eau
+        v = (p1 - p0).length*48
+        if v > 2: out.append((p0.x, p0.y, te, 0.05 + 0.004*v))
+    for te, pp in POSES_PIEDS:
+        if t - 2.4 < te <= t and pp.z < 0.5: out.append((pp.x, pp.y, te, 0.035))
+    if PLAN == 'couloir':
+        tf = math.sqrt(2*H/G_JEU); ti = 3.0 + DECROCHAGE + tf
+        out += [(68, 0.27, ti, 0.32), (68, 0.27, ti + 0.18, 0.16)]
+    return out
+def maj_eau(t):
+    if EAU is None: return
+    ob, X, Y = EAU; h = np.zeros_like(X)
+    for ex, ey, te, amp in emetteurs(t):
+        a = t - te
+        if a <= 0 or a > 2.4: continue
+        r = np.hypot(X - ex, Y - ey); u = r - 5.5*a; sig = 0.3 + 0.25*a
+        m = np.abs(u) < 4*sig + 0.5
+        if not m.any(): continue
+        h[m] += amp*math.exp(-a/0.9)/(1 + 1.4*a)*np.exp(-u[m]*u[m]/(2*sig*sig))*np.cos(2*math.pi*u[m]/1.0)
+    co = np.stack([X, Y, EAU_Z + h], 1).ravel()
+    ob.data.vertices.foreach_set('co', co); ob.data.update()
+    if PLAN == 'couloir':
+        tf = math.sqrt(2*H/G_JEU); ti = 3.0 + DECROCHAGE + tf
+        for g, p0, v0, dl in GOUTTES:
+            a = t - ti - dl
+            if a < 0: g.location = (0, 0, -50); continue
+            p = Vector((68, 0.27, EAU_Z)) + p0 + v0*a + Vector((0, 0, -0.5*35*a*a))
+            g.location = p if p.z > EAU_Z - 0.2 else (0, 0, -50)
+
 PLANS = {'couloir': lambda t: plan_marche(t, racine_couloir, cam_couloir), 'chute': plan_chute, 'etrangle': plan_etrangle,
          'plafond': lambda t: plan_marche(t, racine_plafond, cam_plafond), 'sol': lambda t: plan_marche(t, racine_sol, cam_sol)}
 IM = os.environ.get('IMAGES', '1-24')
@@ -426,6 +500,7 @@ else: LISTE = [int(x) for x in IM.split('_')]
 for fr in LISTE:
     t = (fr - 1)/FPS
     PLANS[PLAN](t)
+    maj_eau(t)
     if PLAN in ('plafond', 'sol'):                     # lumière principale et contre-jour qui suivent la créature
         c = arm.matrix_world.translation; cz = 9.0 if PLAN == 'plafond' else 2.0
         CLE.location = c + Vector((2, -11, 6 if PLAN == 'sol' else -6)); CLE.rotation_euler = (Vector((c.x, 0, cz)) - CLE.location).to_track_quat('-Z', 'Y').to_euler()

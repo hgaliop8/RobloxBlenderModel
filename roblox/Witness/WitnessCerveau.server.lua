@@ -20,6 +20,7 @@ local CollectionService = game:GetService("CollectionService")
 local dossier = RS:WaitForChild("Witness")
 local C = require(dossier:WaitForChild("WitnessConfig"))
 local Nav = require(dossier:WaitForChild("WitnessNav")).new(require(dossier:WaitForChild("NavWitness")))
+local Eau = require(dossier:WaitForChild("WitnessEau"))
 
 local function obtenir(nom, classe)
 	local o = dossier:FindFirstChild(nom)
@@ -138,6 +139,10 @@ local function percevoir(dt)
 			end
 		end
 		if vit > 15 and dist < J.course_portee then gain += J.course end
+		-- marcher dans l'eau s'entend (réglage C.EAU.bruit_portee, désactivé à 0)
+		if C.EAU.bruit_portee > 0 and vit > 2 and vit <= 15 and dist < C.EAU.bruit_portee and p.Character and Eau.pieds(p.Character) then
+			gain += C.EAU.bruit
+		end
 		if gain > 0 and not coequipierProche(p, J.seul_rayon) then gain *= J.seul_mult end
 		local avant = W.jauge[p] or 0
 		local apres = gain > 0 and math.min(J.chasse, avant + gain * dt) or math.max(0, avant - J.baisse * dt)
