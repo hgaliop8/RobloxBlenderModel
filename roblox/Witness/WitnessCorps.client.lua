@@ -8,12 +8,14 @@ local RS = game:GetService("ReplicatedStorage")
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local Lighting = game:GetService("Lighting")
+local UP = Vector3.new(0, 1, 0)
 local UserInputService = game:GetService("UserInputService")
 local TextChatService = game:GetService("TextChatService")
 
 local joueur = Players.LocalPlayer
 local dossier = RS:WaitForChild("Witness")
 local C = require(dossier:WaitForChild("WitnessConfig"))
+local G = require(dossier:WaitForChild("WitnessGestes"))
 local evEffet = dossier:WaitForChild("WitnessEffet")
 local evRegard = dossier:WaitForChild("WitnessRegard")
 local evDebat = dossier:WaitForChild("WitnessDebat")
@@ -51,6 +53,30 @@ corps.Parent = workspace
 local osRacine = os_["Racine"]
 if osRacine then corps.WorldPivot = CFrame.new(osRacine.WorldPosition) end
 
+-- chaînes des bras : os, longueurs, axe de chaque os dans son repère (vers l'os suivant)
+local BRAS = {}
+for k = 0, 7 do
+	local ch = { os = {}, L = {}, axe = {} }
+	for j = 1, 8 do ch.os[j] = os_[("Bras%d_%d"):format(k, j)] end
+	if #ch.os == 8 then
+		for j = 1, 7 do
+			local o = ch.os[j + 1].CFrame.Position
+			ch.L[j] = o.Magnitude; ch.axe[j] = o.Unit
+		end
+		ch.L[8] = ch.L[7] * 1.03; ch.axe[8] = ch.axe[7]
+		BRAS[k] = ch
+	end
+end
+-- repère monde d'un os, en tenant compte des Transform déjà posés sur ses parents et sur lui
+local function mondeOs(b: Bone): CFrame
+	local chaine = {}
+	local x: Instance? = b
+	while x and x:IsA("Bone") do table.insert(chaine, 1, x); x = x.Parent end
+	local cf = (x and x:IsA("BasePart")) and (x :: BasePart).CFrame or CFrame.identity
+	for _, o in ipairs(chaine) do cf = cf * o.CFrame * o.Transform end
+	return cf
+end
+
 -- halo et lampe d'imitation
 local ancre = Instance.new("Attachment"); ancre.Parent = osRacine or corps.PrimaryPart or pieces[1]
 local halo = Instance.new("PointLight"); halo.Color = Color3.fromRGB(86, 224, 208); halo.Range = 10; halo.Brightness = 0.6; halo.Shadows = false; halo.Parent = ancre
@@ -76,13 +102,62 @@ local function regarderVers(o, cible)
 	o.Transform = CFrame.fromAxisAngle(axe.Unit, math.min(angle, 0.7))
 end
 
+local chuteEtat = { phase = "", prog = 0, tau = 0, hautY = 1 }
+
+local function saisieTemps() return workspace:GetServerTimeNow() - (racine:GetAttribute("SaisieT") or workspace:GetServerTimeNow()) end
+local function enrouler(t: number)
+	local victime = Players:GetPlayerByUserId(racine:GetAttribute("Saisie") or 0)
+	local ch = victime and victime.Character; if not ch or not osRacine then return end
+	local enlevement = racine:GetAttribute("SaisieType") == "enlevement"
+	local tete = ch:FindFirstChild("Head") :: BasePart?
+	local torse = (ch:FindFirstChild("UpperTorso") or ch:FindFirstChild("Torso")) :: BasePart?
+	local N, U, rFin, tours
+	if enlevement then
+		if not torse then return end
+		U = torse.CFrame.UpVector; N = torse.Position; rFin = math.max(torse.Size.X, torse.Size.Z) * 0.55; tours = 1.2
+	else
+		if not tete then return end
+		U = tete.CFrame.UpVector; N = tete.Position - U * (tete.Size.Y * 0.5 + 0.05); rFin = 0.48; tours = 1.75
+	end
+	local tt = saisieTemps()
+	-- le bras se resserre peu à peu, avec un serrement rythmé (même rythme que la secousse du serveur)
+	local r = rFin + (1.0 - rFin) * math.exp(-tt * 0.9) - 0.04 * math.max(0, math.sin(tt * 7))
+	local parent = mondeOs(osRacine)
+	local centre = parent.Position
+	local f = Vector3.new(centre.X - N.X, 0, centre.Z - N.Z); f = f.Magnitude > 1e-3 and f.Unit or Vector3.new(1, 0, 0)
+	local l = U:Cross(f).Unit
+	local poids = {}
+	for _, k in ipairs({ 0, 7 }) do
+		local chn = BRAS[k]
+		if chn then
+			local B = (parent * chn.os[1].CFrame).Position
+			local sens = ((B - N):Dot(l) >= 0) and 1 or -1
+			local pts = G.cheminEnroule(B, N, U, f, r, (k == 0) and 0.12 or -0.12, sens, tours)
+			for j = 1, 8 do poids[j] = G.lisse((tt - 0.05 * (j - 1)) / 0.4) end
+			G.orienter(chn, parent, G.articulations(B, pts, chn.L), poids)
+		end
+	end
+	-- bras d'appui : vers le sol, en étoile autour d'elle
+	local solY = racine.Position.Y
+	local w = 0.9 * G.lisse(tt / 0.5)
+	for j = 1, 8 do poids[j] = w end
+	for k = 1, 6 do
+		local chn = BRAS[k]
+		if chn then
+			local B = (parent * chn.os[1].CFrame).Position
+			local dir = Vector3.new(B.X - centre.X, 0, B.Z - centre.Z); dir = dir.Magnitude > 1e-3 and dir.Unit or f
+			local Fpt = Vector3.new(centre.X, solY, centre.Z) + dir * 4.2
+			G.orienter(chn, parent, G.articulations(B, G.cheminSol(B, dir, Fpt, UP), chn.L), poids)
+		end
+	end
+end
 local function animer(t, dt)
 	local mode = racine:GetAttribute("Mode") or "plafond"
 	local coup = racine:GetAttribute("Coup"); local coupT = racine:GetAttribute("CoupT") or 0
 	local e = workspace:GetServerTimeNow() - coupT; local signe = coup and C.COUPS[coup] and C.COUPS[coup].signe or 0.5
 	local saisie = racine:GetAttribute("Saisie") ~= nil
 	local etat = racine:GetAttribute("Etat")
-	local v = vitesse
+	local v = (coup == "descente") and 0 or vitesse                       -- pendant une chute, la vitesse ne fait pas « marcher » les bras
 	local marche = math.clamp(v / 10, 0, 1)
 	local wg = 2 + v * 0.8
 	for k = 0, 7 do
@@ -115,8 +190,26 @@ local function animer(t, dt)
 				yaw += a * (k <= 1 and 0.2 or -0.2)
 			elseif coup == "chute" then
 				pitch += 0.12 + 0.03 * math.sin(t * 22 + k)                        -- tension, tremblement
-			elseif coup == "descente" then
-				pitch += lisse(e / 0.6) * (j >= 4 and 0.35 or 0.1)
+			elseif coup == "descente" and chuteEtat.phase ~= "" then
+				local avant = (k == 0 or k == 7 or k == 1 or k == 6)
+				local prog, tau = chuteEtat.prog, chuteEtat.tau
+				if chuteEtat.phase == "decroche" then
+					-- l'avant se décolle et pend, les bras arrière serrent le plafond
+					if avant then pitch += prog * (j == 1 and 0.55 or 0.16) + prog * 0.08 * math.sin(t * 9 + j + k)
+					elseif j <= 2 then pitch -= 0.3 * prog end
+				elseif chuteEtat.phase == "chute" then
+					-- les bras traînent vers le haut, puis s'ouvrent vers le sol juste avant l'impact
+					local trainee = chuteEtat.hautY * math.min(1, prog * 1.6)
+					local pose = lisse((prog - 0.6) / 0.4)
+					pitch = pitch * 0.3 + (1 - pose) * (j >= 2 and 0.28 or 0.1) * trainee + pose * (j <= 2 and -0.22 or 0.04)
+						+ 0.07 * math.sin(t * 24 + j * 0.8 + k)
+				else
+					-- impact : les bras claquent à plat puis rebondissent, les pointes se relèvent
+					local amorti = math.exp(-7 * tau)
+					if j <= 2 then pitch += -0.32 * amorti * math.cos(15 * tau)
+					elseif j >= 6 then pitch += 0.45 * math.exp(-5 * tau) end
+					yaw *= (1 - 0.6 * amorti)
+				end
 			elseif coup == "encre" and j <= 3 then
 				pitch -= 0.15 * math.sin(math.clamp(e / 0.8, 0, 1) * math.pi)
 			end
@@ -126,11 +219,16 @@ local function animer(t, dt)
 	-- manteau qui respire, tête, bec
 	local respi = math.sin(t * 1.25)
 	local contraction = (coup == "encre") and math.sin(math.clamp(e / 0.6, 0, 1) * math.pi) * 0.25 or 0
+	if coup == "descente" and chuteEtat.phase == "atterrit" then                 -- le manteau s'écrase à l'impact
+		contraction += 0.35 * math.exp(-7 * chuteEtat.tau) * math.cos(12 * chuteEtat.tau)
+	end
 	ang(os_.Manteau1, 0.05 * respi + contraction, 0.02 * math.sin(t * 0.7))
 	ang(os_.Manteau2, 0.08 * math.sin(t * 1.25 + 0.5) + contraction, 0.04 * math.sin(t * 0.6))
 	local morsure = (coup == "morsure") and math.sin(math.clamp(e / (signe + 0.2), 0, 1) * math.pi) or 0
 	ang(os_.Tete, -0.3 * morsure + 0.03 * math.sin(t * 0.8), 0)
 	ang(os_.Bec, 0.5 * morsure, 0)
+	-- saisie : les deux bras avant s'enroulent autour du cou (ou du torse pour un enlèvement), les autres prennent appui au sol
+	if saisie then enrouler(t) end
 	-- yeux : ils suivent la caméra du joueur s'il est assez proche
 	local cam = workspace.CurrentCamera
 	if cam and (cam.CFrame.Position - racine.Position).Magnitude < 70 and etat ~= "morte" then
@@ -200,7 +298,31 @@ RunService.RenderStepped:Connect(function(dt)
 	vitesse = vitesse + (((p - precedent).Magnitude / math.max(dt, 1e-3)) - vitesse) * math.min(1, dt * 6)
 	precedent = p
 	local cible = racine.CFrame * ROT
-	cfAffiche = cfAffiche:Lerp(cible, 1 - math.exp(-14 * dt))
+	local coup = racine:GetAttribute("Coup")
+	local depart = racine:GetAttribute("ChuteDepart")
+	local e = workspace:GetServerTimeNow() - (racine:GetAttribute("CoupT") or 0)
+	local d, tf = racine:GetAttribute("ChuteDecroche") or C.DECROCHAGE, racine:GetAttribute("ChuteTf") or 0.35
+	if coup == "descente" and typeof(depart) == "Vector3" and e < d + tf + C.ATTERRISSAGE then
+		-- chute : position et orientation calculées ici, à partir du même horaire que le serveur (pas de retard d'affichage)
+		local sol = racine:GetAttribute("ChuteSol"); if typeof(sol) ~= "Vector3" then sol = p end
+		local modele, tombe, phase, prog, tau = G.chute(e, d, tf, workspace.Gravity, C.ATTERRISSAGE)
+		local avant = racine.CFrame.LookVector; avant = Vector3.new(avant.X, 0, avant.Z)
+		if avant.Magnitude < 1e-3 then avant = Vector3.new(0, 0, -1) end
+		local pos
+		if tombe then
+			local u = math.clamp((e - d) / tf, 0, 1)
+			pos = Vector3.new(depart.X + (sol.X - depart.X) * u, depart.Y - tombe, depart.Z + (sol.Z - depart.Z) * u)
+		else pos = sol end
+		cfAffiche = CFrame.lookAt(pos, pos + avant.Unit, UP) * ROT * modele
+		chuteEtat.phase, chuteEtat.prog, chuteEtat.tau = phase, prog, tau
+		chuteEtat.hautY = cfAffiche:VectorToObjectSpace(UP).Y
+	else
+		chuteEtat.phase = ""
+		if racine:GetAttribute("Saisie") and racine:GetAttribute("SaisieType") ~= "enlevement" then
+			cible = cible * G.cabrer(workspace:GetServerTimeNow() - (racine:GetAttribute("SaisieT") or 0))
+		end
+		cfAffiche = cfAffiche:Lerp(cible, 1 - math.exp(-14 * dt))
+	end
 	corps:PivotTo(cfAffiche)
 	animer(t, dt)
 	majLumieres(t)
@@ -230,6 +352,41 @@ local function lumieresJoueur(actif)
 	end
 end
 
+-- étouffement vu par la victime : l'image s'assombrit et se décolore à mesure que la vie baisse, la caméra tremble à chaque serrement
+local etouffe = { actif = false, debut = 0, cc = nil :: ColorCorrectionEffect?, flou = nil :: BlurEffect? }
+local function etouffer(actif: boolean)
+	if actif == etouffe.actif then return end
+	etouffe.actif = actif
+	if actif then
+		etouffe.debut = os.clock()
+		local cc = Instance.new("ColorCorrectionEffect"); cc.Name = "WitnessEtouffe"; cc.Parent = Lighting; etouffe.cc = cc
+		local fl = Instance.new("BlurEffect"); fl.Name = "WitnessEtouffe"; fl.Size = 0; fl.Parent = Lighting; etouffe.flou = fl
+		RunService:BindToRenderStep("WitnessEtouffe", Enum.RenderPriority.Camera.Value + 1, function()
+			local ch = personnage(); local h = ch and ch:FindFirstChildOfClass("Humanoid")
+			local manque = h and (1 - math.clamp(h.Health / math.max(h.MaxHealth, 1), 0, 1)) or 0
+			local tt = os.clock() - etouffe.debut
+			local serre = math.max(0, math.sin(tt * 7))
+			if etouffe.cc then
+				etouffe.cc.Brightness = -0.1 - 0.45 * manque - 0.08 * serre
+				etouffe.cc.Saturation = -0.3 - 0.6 * manque
+				etouffe.cc.TintColor = Color3.new(1, 1 - 0.25 * manque, 1 - 0.3 * manque)
+			end
+			if etouffe.flou then etouffe.flou.Size = 2 + 14 * manque + 4 * serre end
+			noir.BackgroundTransparency = 1 - (0.15 + 0.6 * manque) * (0.85 + 0.15 * serre)
+			local cam = workspace.CurrentCamera
+			if cam then
+				local a = 0.006 + 0.012 * serre
+				cam.CFrame = cam.CFrame * CFrame.Angles(math.sin(tt * 31) * a, math.sin(tt * 23 + 1) * a, 0)
+			end
+		end)
+	else
+		RunService:UnbindFromRenderStep("WitnessEtouffe")
+		if etouffe.cc then etouffe.cc:Destroy(); etouffe.cc = nil end
+		if etouffe.flou then etouffe.flou:Destroy(); etouffe.flou = nil end
+		noir.BackgroundTransparency = 1
+	end
+end
+
 local debat
 evEffet.OnClientEvent:Connect(function(quoi, a, b, c)
 	local ch = personnage(); local h = ch and ch:FindFirstChildOfClass("Humanoid"); local r = ch and ch:FindFirstChild("HumanoidRootPart")
@@ -240,13 +397,16 @@ evEffet.OnClientEvent:Connect(function(quoi, a, b, c)
 		task.delay(a or 1.5, function() if h.Parent then h:ChangeState(Enum.HumanoidStateType.GettingUp) end end)
 	elseif quoi == "saisi" then
 		aide.Text = "Débats-toi ! (ESPACE)"
+		if a ~= "enlevement" then etouffer(true) end
 		debat = UserInputService.InputBegan:Connect(function(io, traite)
 			if not traite and (io.KeyCode == Enum.KeyCode.Space or io.KeyCode == Enum.KeyCode.ButtonA) then evDebat:FireServer() end
 		end)
 	elseif quoi == "relache" then
 		aide.Text = ""; if debat then debat:Disconnect(); debat = nil end
+		etouffer(false)
 	elseif quoi == "elimine" then
 		aide.Text = ""; if debat then debat:Disconnect(); debat = nil end
+		etouffer(false)
 		if a == "devore" then noir.BackgroundTransparency = 0; son(r and r.Position or racine.Position, "morsure", 2)
 		else for i = 1, 20 do noir.BackgroundTransparency = 1 - i / 20; task.wait(0.04) end end
 		task.delay(4, function() noir.BackgroundTransparency = 1 end)

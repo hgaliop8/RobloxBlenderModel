@@ -303,11 +303,33 @@ local function solPoint(p)
 	local r = workspace:Raycast(p + UP * 2, -UP * 60, params)
 	return r and r.Position or p
 end
+--[[ se laisser tomber du plafond, en trois temps partagés avec les clients (attributs Chute*) :
+décrochage (elle reste accrochée par l'arrière), chute libre avec la gravité du jeu, atterrissage. Bloquant. ]]
+local function tomber(sol, decrochage)
+	local depart = W.pos
+	local h = math.max(0.5, depart.Y - sol.Y)
+	local g = workspace.Gravity
+	local tf = math.sqrt(2 * h / g)
+	racine:SetAttribute("ChuteDepart", depart); racine:SetAttribute("ChuteSol", sol)
+	racine:SetAttribute("ChuteDecroche", decrochage); racine:SetAttribute("ChuteTf", tf)
+	racine:SetAttribute("Coup", "descente"); racine:SetAttribute("CoupT", workspace:GetServerTimeNow())
+	task.wait(decrochage)
+	local t0 = os.clock()
+	while true do
+		local a = math.min(tf, os.clock() - t0)
+		local u = a / tf
+		W.pos = Vector3.new(depart.X + (sol.X - depart.X) * u, depart.Y - 0.5 * g * a * a, depart.Z + (sol.Z - depart.Z) * u)
+		racine.CFrame = orienter(W.avant, false)
+		if a >= tf then break end
+		RunService.Heartbeat:Wait()
+	end
+	W.pos = sol; W.mode = "sol"; placer(); sonEn(sol, "chute")
+	task.wait(C.ATTERRISSAGE)
+end
 local function descendre()
 	W.occupe = true
-	sonEn(W.pos, "goutte"); racine:SetAttribute("Coup", "descente"); racine:SetAttribute("CoupT", workspace:GetServerTimeNow())
-	local sol = solPoint(W.pos - UP * 3)
-	glisser(sol, C.CHUTE_DUREE, "sol", false); sonEn(sol, "chute")
+	sonEn(W.pos, "goutte")
+	tomber(solPoint(W.pos - UP * 3), C.DECROCHAGE)
 	W.solDebut = os.clock(); W.noeud = nil; W.chemin = nil
 	W.occupe = false
 end
@@ -396,7 +418,10 @@ local function coupSaisie(p, versGrille)
 	W.saisie = { victime = p, degats = 0, debut = os.clock(), feu = false }
 	W.debats[p] = 0
 	r.Anchored = true; effet(p, "saisi", versGrille and "enlevement" or "saisie")
-	racine:SetAttribute("Saisie", p.UserId)
+	local versVictime = Vector3.new(r.Position.X - W.pos.X, 0, r.Position.Z - W.pos.Z)
+	if versVictime.Magnitude > 0.1 then W.avant = versVictime.Unit; placer() end        -- elle fait face à sa proie
+	racine:SetAttribute("Saisie", p.UserId); racine:SetAttribute("SaisieT", workspace:GetServerTimeNow())
+	racine:SetAttribute("SaisieType", versGrille and "enlevement" or "saisie")
 	local duree = math.random() * (C.COUPS.saisie.duree_max - C.COUPS.saisie.duree_min) + C.COUPS.saisie.duree_min
 	local depart = W.pos
 	while W.saisie and W.saisie.victime == p do
@@ -419,7 +444,11 @@ local function coupSaisie(p, versGrille)
 		else
 			local deb = (W.debats[p] or 0) > 0 and 0.5 or 1; W.debats[p] = math.max(0, (W.debats[p] or 0) - dt * 4)
 			h:TakeDamage(C.COUPS.saisie.dps * deb * dt)
-			r.CFrame = CFrame.new(W.pos + W.avant * 3 + UP * 3)
+			-- soulevée en 0,8 s, face à elle, puis secouée à chaque serrement
+			local lev = math.min(1, tt / 0.8); lev = lev * lev * (3 - 2 * lev)
+			local secousse = 0.08 * math.sin(tt * 7)
+			local pos = W.pos + W.avant * C.SAISIE_DEVANT + UP * (3 + (C.SAISIE_HAUTEUR - 3) * lev + secousse)
+			r.CFrame = CFrame.lookAt(pos, pos - W.avant)
 			if tt > duree then eliminer(p, "etrangle"); break end
 		end
 	end
@@ -437,7 +466,7 @@ local function coupChute(p)
 	local h = Vector3.new(r.Position.X - W.pos.X, 0, r.Position.Z - W.pos.Z).Magnitude
 	if h <= C.COUPS.chute.rayon + 0.5 then
 		local sol = solPoint(r.Position)
-		glisser(sol, 0.35, "sol", false)
+		tomber(sol, C.DECROCHAGE_EMBUSCADE)
 		eliminer(p, "devore")
 		task.wait(1.2)
 	end

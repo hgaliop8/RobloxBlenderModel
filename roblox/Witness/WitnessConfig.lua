@@ -12,7 +12,12 @@ C.SOL_DUREE_MAX = 6          -- course au sol d'affilée
 C.SOL_REPOS_MIN = 8          -- temps minimal en hauteur avant une nouvelle course
 C.VIRAGE_LENT = 18           -- vitesse pendant 0,5 s après un virage serré au sol
 C.GRILLE_PASSAGE = 1.2       -- entrer / sortir d'une grille
-C.CHUTE_DUREE, C.MONTEE_DUREE = 0.6, 1.5
+C.MONTEE_DUREE = 1.5         -- sol -> plafond par le mur
+-- se laisser tomber du plafond : décrochage (l'avant pend, les bras arrière tiennent), chute libre (gravité du jeu), atterrissage
+C.DECROCHAGE = 0.3           -- descente volontaire
+C.DECROCHAGE_EMBUSCADE = 0.12 -- chute dévorante sur un joueur : presque sans prévenir
+C.ATTERRISSAGE = 0.45        -- impact, corps écrasé, bras qui s'étalent puis se reprennent
+C.SAISIE_DEVANT, C.SAISIE_HAUTEUR = 2.1, 3.6   -- position du joueur étranglé (centre du torse) par rapport à elle : devant, au-dessus du sol
 
 -- perception
 C.PROCHE = 6                 -- en dessous : repéré même immobile dans le noir
