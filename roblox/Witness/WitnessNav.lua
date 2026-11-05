@@ -3,7 +3,7 @@ Charge le réseau généré (NavWitness) : plafonds, gaines, portes, grilles ; p
 local Nav = {}
 Nav.__index = Nav
 
-local PLAFOND, GAINE = 1, 2
+local GAINE = 2
 Nav.TYPES = { [1] = "plafond", [2] = "gaine", [3] = "porte", [4] = "ouverture", [5] = "grille", [6] = "puits" }
 local CELLULE = 16
 

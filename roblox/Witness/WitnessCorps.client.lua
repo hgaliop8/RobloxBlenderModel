@@ -35,7 +35,7 @@ for _, d in ipairs(corps:GetDescendants()) do
 			d.Material = Enum.Material.Glass; d.Transparency = 0.78; d.Color = Color3.fromHex(rest); d.CastShadow = false; d.Reflectance = 0.05
 			table.insert(verre, d)
 		elseif kind == "P" then
-			local hex, r, m, e = rest:match("^(%x%x%x%x%x%x)_(%d+)_(%d+)_(%d+)$")
+			local hex, _r, m, e = rest:match("^(%x%x%x%x%x%x)_(%d+)_(%d+)_(%d+)$")
 			d.Color = Color3.fromHex(hex or "C8C8C8")
 			if e and tonumber(e) > 0 then
 				d.Material = Enum.Material.Neon; d.CastShadow = false

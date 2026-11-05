@@ -48,7 +48,7 @@ local W = {
 	chemin = nil, etape = 1, noeud = nil, occupe = false, cible = nil, jauge = {}, regard = {}, debats = {},
 	dernierSignal = nil, dernierVu = {}, cachettes = {}, recharges = {}, solDebut = 0, solFin = -100,
 	pv = C.PV_BASE, pvMax = C.PV_BASE, paliers = {}, degatsRecents = {}, brulure = 0, saisie = nil, premierMort = false,
-	fixeeJusqua = 0, etatDepuis = os.clock(), imitationJusqua = 0, historiqueChat = {},
+	fixeeJusqua = 0, etatDepuis = os.clock(), imitationJusqua = 0, historiqueChat = {}, virageJusqua = 0,
 }
 
 local function regler(etat)
