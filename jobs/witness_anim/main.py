@@ -276,7 +276,9 @@ def plan_etrangle(t):
     Mw = Matrix.Identity(4) @ Mm
     if saisi:
         arm.matrix_world = Mw; bpy.context.view_layer.update(); enrouler(Q, tt, tete_bas, U, 0.0, Mw)
-    a = t/6.0; CAM = Vector((1.4 - 1.8*a, -8.0 + 0.5*a, 4.3 + 0.3*a)); viser(CAM, (1.4, 0, 3.9)); cd.angle_y = math.radians(42)
+    a = t/6.0; z = lisse((t - 1.0)/1.6)                  # plan large, puis on se rapproche de la gorge
+    CAM = Vector((1.4 - 1.8*a, -10.5 + 2.5*z, 4.0 + 0.6*z)); viser(CAM, Vector((0.9, 0, 2.4)).lerp(Vector((1.4, 0, 3.9)), z))
+    cd.angle_y = math.radians(56 - 14*z)
     poser(Mw, Q, CAM)
     if saisi and os.environ.get('DEBUG'):
         for k in (0, 7):
