@@ -129,4 +129,105 @@ function G.orienter(chaine, parent: CFrame, J: { Vector3 }, poids: { number })
 	end
 end
 
+-- ================================================================ marche
+--[[ Au pas (plafond, sol) : chaque bras a un « pied » collé à la surface ; le corps avance entre ses bras, et quand un pied
+est trop loin de sa place, son groupe (un bras sur deux) se décolle et se repose plus loin, en avance sur le corps.
+En course rapide, les bras se rassemblent derrière elle en faisceau, avec une seule ondulation commune. ]]
+G.MARCHE = {
+	rayon = 4.1,          -- distance du centre à laquelle chaque bras se pose
+	seuil = 1.5,          -- écart qui déclenche un pas (studs)
+	seuil_repos = 0.6,    -- à l'arrêt, les pieds se replacent proprement
+	avance = 1.5,         -- le pied se repose en avance de 1,5 × (vitesse × durée du pas)
+	anticipation = 0.15,  -- s : la place visée tient compte de la vitesse
+	course_debut = 16, course_plein = 22,   -- studs/s : passage de la marche à la course en faisceau
+}
+
+function G.nouvelleMarche()
+	return { pieds = {} :: { [number]: Vector3 }, air = {} :: { [number]: any }, dernier = 1 }
+end
+
+local function surPlan(p: Vector3, origine: Vector3, haut: Vector3): Vector3
+	return p - haut * (p - origine):Dot(haut)
+end
+
+-- met à jour les pieds. cf = repère affiché du modèle, dirs[k] = direction du bras k (repère du modèle), vel = vitesse (monde)
+function G.majMarche(m, t: number, cf: CFrame, dirs: { [number]: Vector3 }, vel: Vector3)
+	local M = G.MARCHE
+	local haut = cf.UpVector; local origine = cf.Position
+	vel = vel - haut * vel:Dot(haut)
+	local v = vel.Magnitude
+	local ideal = {}
+	for k, d in pairs(dirs) do
+		ideal[k] = surPlan(cf:PointToWorldSpace(d * M.rayon), origine, haut) + vel * M.anticipation
+		local p = m.pieds[k]
+		if not p or (p - ideal[k]).Magnitude > 9 or math.abs((p - origine):Dot(haut)) > 1.5 then
+			m.pieds[k] = ideal[k]; m.air[k] = nil                -- nouveau plan (chute, changement de surface) : on repart propre
+		end
+	end
+	for k, a in pairs(m.air) do
+		if t - a.t0 >= a.duree then m.pieds[k] = a.fin; m.air[k] = nil end
+	end
+	if next(m.air) ~= nil then return end
+	local seuil = v > 1 and M.seuil or M.seuil_repos
+	local ecarts = { 0, 0 }
+	for k in pairs(dirs) do
+		local g = (k % 2) + 1
+		ecarts[g] = math.max(ecarts[g], (m.pieds[k] - ideal[k]).Magnitude)
+	end
+	local g
+	if ecarts[1] > seuil and ecarts[2] > seuil then g = (m.dernier == 1) and 2 or 1
+	elseif ecarts[1] > seuil then g = 1 elseif ecarts[2] > seuil then g = 2 end
+	if not g then return end
+	m.dernier = g
+	local duree = math.clamp(0.3 - v * 0.005, 0.18, 0.3)
+	for k in pairs(dirs) do
+		if (k % 2) + 1 == g then
+			local fin = ideal[k] + vel * duree * M.avance
+			if (m.pieds[k] - fin).Magnitude > 0.3 then
+				m.air[k] = { t0 = t, duree = duree, debut = m.pieds[k], fin = fin, hauteur = 0.8 + v * 0.025 }
+			end
+		end
+	end
+end
+
+-- position actuelle du pied k (en l'air : arc au-dessus de la surface)
+function G.pied(m, k: number, t: number, haut: Vector3): Vector3?
+	local a = m.air[k]
+	if a then
+		local u = lisse((t - a.t0) / a.duree)
+		return a.debut:Lerp(a.fin, u) + haut * (a.hauteur * math.sin(math.pi * u))
+	end
+	return m.pieds[k]
+end
+
+-- chemin d'un bras posé : il se cambre au-dessus de la surface jusqu'au pied, puis s'étale au-delà
+function G.cheminPied(B: Vector3, F: Vector3, centre: Vector3, haut: Vector3): { Vector3 }
+	local dehors = F - centre; dehors = dehors - haut * dehors:Dot(haut)
+	dehors = dehors.Magnitude > 1e-3 and dehors.Unit or Vector3.new(1, 0, 0)
+	local Fp = F + haut * 0.2
+	local pts = { B }
+	bezier(B, B + (Fp - B) * 0.35 + haut * 0.5, Fp - dehors * 1.0 + haut * 0.25, Fp, 10, pts)
+	table.insert(pts, Fp + dehors * 1.5); table.insert(pts, Fp + dehors * 4)
+	return pts
+end
+
+-- chemin d'un bras en course : ramené derrière elle, ondulation commune à tous les bras
+function G.cheminTrainee(B: Vector3, centre: Vector3, avant: Vector3, haut: Vector3, t: number): { Vector3 }
+	local cote = haut:Cross(avant).Unit
+	local rel = B - centre
+	local lat = rel:Dot(cote)
+	local E = centre - avant * 5.6 + cote * lat * 1.4 + haut * 0.25
+	local dehors = rel - haut * rel:Dot(haut)
+	dehors = dehors.Magnitude > 1e-3 and dehors.Unit or -avant
+	local brut = {}
+	bezier(B, B + dehors * 1.0 + haut * 0.3, E + avant * 3.0, E, 14, brut)
+	local pts = { B }
+	for i, p in ipairs(brut) do
+		local u = i / #brut
+		table.insert(pts, p + cote * (0.35 * u * math.sin(t * 9 - u * 5)))
+	end
+	table.insert(pts, E - avant * 3)
+	return pts
+end
+
 return G

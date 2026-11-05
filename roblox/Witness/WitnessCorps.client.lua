@@ -86,7 +86,7 @@ fausseLampe.Brightness = 0; fausseLampe.Face = Enum.NormalId.Right; fausseLampe.
 -- ================================================================ animation des os
 local ROT = CFrame.Angles(0, math.pi / 2, 0)            -- le devant du modèle (+X) suit le LookVector de la racine
 local cfAffiche = racine.CFrame * ROT
-local precedent = racine.Position; local vitesse = 0
+local precedent = racine.Position; local vitesse = 0; local vitesseV = Vector3.zero
 local phases = {}; for k = 0, 7 do phases[k] = k * 0.79 + (k % 3) * 0.4 end
 local function ang(pb, x, z) if pb then pb.Transform = CFrame.Angles(x, 0, z) end end
 local function lisse(a) a = math.clamp(a, 0, 1); return a * a * (3 - 2 * a) end
@@ -151,6 +151,45 @@ local function enrouler(t: number)
 		end
 	end
 end
+-- ================================================================ marche à pieds posés
+local DIRS = {}                       -- direction de chaque bras au repos, dans le repère du modèle
+do
+	local piv = corps:GetPivot()
+	for k, chn in pairs(BRAS) do
+		local d = piv:VectorToObjectSpace(chn.os[8].WorldPosition - chn.os[1].WorldPosition)
+		d = Vector3.new(d.X, 0, d.Z)
+		if d.Magnitude > 1e-3 then DIRS[k] = d.Unit end
+	end
+end
+local marcheEtat = G.nouvelleMarche()
+local poidsLoco = 0
+local P_POSE = { 1, 1, 1, 1, 1, 1, 0.75, 0.5 }       -- les pointes gardent leur enroulement
+local P_COURSE = { 1, 1, 1, 1, 1, 1, 0.85, 0.7 }
+local function locomotion(t: number, dt: number, actif: boolean)
+	poidsLoco += ((actif and 1 or 0) - poidsLoco) * math.min(1, dt * 6)
+	if poidsLoco < 0.01 or not osRacine then marcheEtat = G.nouvelleMarche(); return end
+	local cf = cfAffiche
+	local haut = cf.UpVector
+	local vel = vitesseV - haut * vitesseV:Dot(haut)
+	G.majMarche(marcheEtat, t, cf, DIRS, vel)
+	local course = G.lisse((vel.Magnitude - G.MARCHE.course_debut) / (G.MARCHE.course_plein - G.MARCHE.course_debut))
+	local parent = mondeOs(osRacine)
+	local centre = parent.Position
+	local avant = vel.Magnitude > 0.5 and vel.Unit or cf.RightVector       -- RightVector du repère affiché = avant du modèle (+X)
+	local wp, wc = {}, {}
+	for j = 1, 8 do wp[j] = P_POSE[j] * poidsLoco * (1 - course); wc[j] = P_COURSE[j] * poidsLoco * course end
+	for k, chn in pairs(BRAS) do
+		local B = (parent * chn.os[1].CFrame).Position
+		if course < 0.999 then
+			local F = G.pied(marcheEtat, k, t, haut)
+			if F then G.orienter(chn, parent, G.articulations(B, G.cheminPied(B, F, centre, haut), chn.L), wp) end
+		end
+		if course > 0.001 then
+			G.orienter(chn, parent, G.articulations(B, G.cheminTrainee(B, centre, avant, haut, t), chn.L), wc)
+		end
+	end
+end
+
 local function animer(t, dt)
 	local mode = racine:GetAttribute("Mode") or "plafond"
 	local coup = racine:GetAttribute("Coup"); local coupT = racine:GetAttribute("CoupT") or 0
@@ -158,16 +197,17 @@ local function animer(t, dt)
 	local saisie = racine:GetAttribute("Saisie") ~= nil
 	local etat = racine:GetAttribute("Etat")
 	local v = (coup == "descente") and 0 or vitesse                       -- pendant une chute, la vitesse ne fait pas « marcher » les bras
-	local marche = math.clamp(v / 10, 0, 1)
-	local wg = 2 + v * 0.8
+	-- au mur seulement, les bras rament (ailleurs, la marche à pieds posés s'en charge)
+	local marche = (mode == "mur") and math.clamp(v / 10, 0, 1) or 0
+	local wg = math.min(2 + v * 0.5, 8)
 	for k = 0, 7 do
 		local ph = phases[k]
 		for j = 1, 8 do
 			local b = os_[("Bras%d_%d"):format(k, j)]
 			-- ondulation de repos : vague qui descend le bras
-			local yaw = 0.13 * math.sin(t * 1.3 - j * 0.55 + ph)
-			local pitch = 0.04 * math.sin(t * 0.9 + j * 0.6 + ph)
-			if j >= 7 then pitch += 0.22 + 0.08 * math.sin(t * 1.7 + ph) end          -- pointes qui s'enroulent
+			local yaw = 0.05 * math.sin(t * 1.1 - j * 0.5 + ph)
+			local pitch = 0.025 * math.sin(t * 0.8 + j * 0.6 + ph)
+			if j >= 7 then pitch += 0.22 + 0.05 * math.sin(t * 1.4 + ph) end          -- pointes qui s'enroulent
 			-- marche : deux groupes de bras qui rament en alternance, les bras levés pendant le retour
 			if marche > 0.05 and j <= 4 then
 				local g = math.sin(t * wg + (k % 2) * math.pi)
@@ -227,6 +267,10 @@ local function animer(t, dt)
 	local morsure = (coup == "morsure") and math.sin(math.clamp(e / (signe + 0.2), 0, 1) * math.pi) or 0
 	ang(os_.Tete, -0.3 * morsure + 0.03 * math.sin(t * 0.8), 0)
 	ang(os_.Bec, 0.5 * morsure, 0)
+	-- marche : pieds posés au plafond et au sol, faisceau en course (hors gestes d'attaque, chute, saisie)
+	local geste = saisie or chuteEtat.phase ~= "" or (coup ~= nil and coup ~= "avorte" and e < signe + 0.8)
+		or etat == "morte" or etat == "etourdie"
+	locomotion(t, dt, not geste and (mode == "plafond" or mode == "sol"))
 	-- saisie : les deux bras avant s'enroulent autour du cou (ou du torse pour un enlèvement), les autres prennent appui au sol
 	if saisie then enrouler(t) end
 	-- yeux : ils suivent la caméra du joueur s'il est assez proche
@@ -297,6 +341,7 @@ RunService.RenderStepped:Connect(function(dt)
 	local p = racine.Position
 	vitesse = vitesse + (((p - precedent).Magnitude / math.max(dt, 1e-3)) - vitesse) * math.min(1, dt * 6)
 	precedent = p
+	local avantAff = cfAffiche.Position
 	local cible = racine.CFrame * ROT
 	local coup = racine:GetAttribute("Coup")
 	local depart = racine:GetAttribute("ChuteDepart")
@@ -324,6 +369,8 @@ RunService.RenderStepped:Connect(function(dt)
 		cfAffiche = cfAffiche:Lerp(cible, 1 - math.exp(-14 * dt))
 	end
 	corps:PivotTo(cfAffiche)
+	-- vitesse du corps affiché (lissé) : sert à la marche à pieds posés
+	vitesseV = vitesseV:Lerp((cfAffiche.Position - avantAff) / math.max(dt, 1e-3), math.min(1, dt * 10))
 	animer(t, dt)
 	majLumieres(t)
 	regard(t)

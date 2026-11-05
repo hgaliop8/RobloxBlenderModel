@@ -1,8 +1,2 @@
-witness_anim PLAN=etrangle FPS=24 IMAGES=1-18 RES=960x540 ECH=24 V=3
-witness_anim PLAN=etrangle FPS=24 IMAGES=19-36 RES=960x540 ECH=24 V=3
-witness_anim PLAN=etrangle FPS=24 IMAGES=37-54 RES=960x540 ECH=24 V=3
-witness_anim PLAN=etrangle FPS=24 IMAGES=55-72 RES=960x540 ECH=24 V=3
-witness_anim PLAN=etrangle FPS=24 IMAGES=73-90 RES=960x540 ECH=24 V=3
-witness_anim PLAN=etrangle FPS=24 IMAGES=91-108 RES=960x540 ECH=24 V=3
-witness_anim PLAN=etrangle FPS=24 IMAGES=109-126 RES=960x540 ECH=24 V=3
-witness_anim PLAN=etrangle FPS=24 IMAGES=127-144 RES=960x540 ECH=24 V=3
+witness_anim PLAN=plafond IMAGES=10_30_50_70_90 RES=640x360 ECH=12
+witness_anim PLAN=sol IMAGES=10_40_55_80_100 RES=640x360 ECH=12

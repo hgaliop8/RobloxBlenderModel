@@ -98,15 +98,12 @@ def orienter(chaine, Mparent, J, poids, Q):
 phases = {k: k*0.79 + (k % 3)*0.4 for k in range(8)}
 def animer(t, vit, coup, e, saisie, ch):
     """port de WitnessCorps.animer : quaternion de chaque os"""
-    signe = SIGNE.get(coup, 0.5); marche = max(0.0, min(1.0, vit/10)); wg = 2 + vit*0.8; Q = {}
+    signe = SIGNE.get(coup, 0.5); Q = {}
     for k in range(8):
         ph = phases[k]; avant = k in (0, 7, 1, 6)
         for j in range(1, 9):
-            yaw = 0.13*math.sin(t*1.3 - j*0.55 + ph); pitch = 0.04*math.sin(t*0.9 + j*0.6 + ph)
-            if j >= 7: pitch += 0.22 + 0.08*math.sin(t*1.7 + ph)
-            if marche > 0.05 and j <= 4:
-                g = math.sin(t*wg + (k % 2)*math.pi)
-                yaw += marche*0.28*g*(1 - (j - 1)/4); pitch += marche*0.22*max(0, g)*(1 if j >= 2 else 0)
+            yaw = 0.05*math.sin(t*1.1 - j*0.5 + ph); pitch = 0.025*math.sin(t*0.8 + j*0.6 + ph)
+            if j >= 7: pitch += 0.22 + 0.05*math.sin(t*1.4 + ph)
             if coup in ('saisie', 'enlevement') or saisie:
                 if avant:
                     a = lisse(e/signe); pitch += a*(0.5 if j == 1 else (0.06 if j <= 4 else 0.12)); yaw += a*(0.2 if k <= 1 else -0.2)
@@ -151,6 +148,63 @@ def enrouler(Q, tt, tete_bas, U, sol_z, Mw):
         F = Vector((centre.x, centre.y, sol_z)) + dv*4.2
         orienter(ch, Mrac, articulations(B, chemin_sol(B, dv, F, UPV), LONG[k]), [w]*8, Q)
 
+# ---------------------------------------------------------------- marche à pieds posés (port de WitnessGestes)
+MR = dict(rayon=4.1, seuil=1.5, seuil_repos=0.6, avance=1.5, anticipation=0.15, course_debut=16, course_plein=22)
+DIRS = {}
+for k in range(8):
+    d = arm.data.bones[f'Bras{k}_8'].head_local - arm.data.bones[f'Bras{k}_1'].head_local; d.z = 0; DIRS[k] = d.normalized()
+class Marche:
+    def __init__(self): self.pieds = {}; self.air = {}; self.dernier = 0
+def haut_de(Mw): return (Mw.to_3x3() @ Vector((0, 0, 1))).normalized()
+def maj_marche(m, t, Mw, vel):
+    haut = haut_de(Mw); orig = Mw.translation; vel = vel - haut*vel.dot(haut); v = vel.length; ideal = {}
+    for k, d in DIRS.items():
+        p = Mw @ (d*MR['rayon']); p = p - haut*(p - orig).dot(haut); ideal[k] = p + vel*MR['anticipation']
+        f0 = m.pieds.get(k)
+        if f0 is None or (f0 - ideal[k]).length > 9 or abs((f0 - orig).dot(haut)) > 1.5: m.pieds[k] = ideal[k].copy(); m.air.pop(k, None)
+    for k, a in list(m.air.items()):
+        if t - a['t0'] >= a['duree']: m.pieds[k] = a['fin']; del m.air[k]
+    if m.air: return
+    seuil = MR['seuil'] if v > 1 else MR['seuil_repos']; ec = [0.0, 0.0]
+    for k in DIRS: ec[k % 2] = max(ec[k % 2], (m.pieds[k] - ideal[k]).length)
+    if ec[0] > seuil and ec[1] > seuil: g = 1 if m.dernier == 0 else 0
+    elif ec[0] > seuil: g = 0
+    elif ec[1] > seuil: g = 1
+    else: return
+    m.dernier = g; duree = max(0.18, min(0.3, 0.3 - v*0.005))
+    for k in DIRS:
+        if k % 2 == g:
+            fin = ideal[k] + vel*duree*MR['avance']
+            if (m.pieds[k] - fin).length > 0.3: m.air[k] = dict(t0=t, duree=duree, debut=m.pieds[k].copy(), fin=fin, hauteur=0.8 + v*0.025)
+def pied(m, k, t, haut):
+    a = m.air.get(k)
+    if a: u = lisse((t - a['t0'])/a['duree']); return a['debut'].lerp(a['fin'], u) + haut*(a['hauteur']*math.sin(math.pi*u))
+    return m.pieds.get(k)
+def chemin_pied(B, F, centre, haut):
+    dh = F - centre; dh = dh - haut*dh.dot(haut); dh = dh.normalized() if dh.length > 1e-3 else Vector((1, 0, 0))
+    Fp = F + haut*0.2; pts = [B.copy()]
+    bezier(B, B + (Fp - B)*0.35 + haut*0.5, Fp - dh*1.0 + haut*0.25, Fp, 10, pts); pts += [Fp + dh*1.5, Fp + dh*4]; return pts
+def chemin_trainee(B, centre, avant, haut, t):
+    cote = haut.cross(avant).normalized(); rel = B - centre; lat = rel.dot(cote)
+    E = centre - avant*5.6 + cote*lat*1.4 + haut*0.25
+    dh = rel - haut*rel.dot(haut); dh = dh.normalized() if dh.length > 1e-3 else -avant
+    brut = []; bezier(B, B + dh*1.0 + haut*0.3, E + avant*3.0, E, 14, brut)
+    pts = [B.copy()] + [p + cote*(0.35*(i/len(brut))*math.sin(t*9 - (i/len(brut))*5)) for i, p in enumerate(brut, 1)]
+    pts.append(E - avant*3); return pts
+P_POSE = [1, 1, 1, 1, 1, 1, 0.75, 0.5]; P_COURSE = [1, 1, 1, 1, 1, 1, 0.85, 0.7]
+def locomotion(Q, t, Mw, vel, m, poids):
+    haut = haut_de(Mw); vel = vel - haut*vel.dot(haut)
+    course = lisse((vel.length - MR['course_debut'])/(MR['course_plein'] - MR['course_debut']))
+    Mrac = Mw @ arm.pose.bones['Racine'].bone.matrix_local; centre = Mrac.translation
+    avant = vel.normalized() if vel.length > 0.5 else (Mw.to_3x3() @ Vector((1, 0, 0))).normalized()
+    wp = [x*poids*(1 - course) for x in P_POSE]; wc = [x*poids*course for x in P_COURSE]
+    for k in range(8):
+        ch = CHAINES[k]; B = (Mrac @ rest_rel(ch[0])).translation
+        if course < 0.999:
+            F = pied(m, k, t, haut)
+            if F is not None: orienter(ch, Mrac, articulations(B, chemin_pied(B, F, centre, haut), LONG[k]), wp, Q)
+        if course > 0.001: orienter(ch, Mrac, articulations(B, chemin_trainee(B, centre, avant, haut, t), LONG[k]), wc, Q)
+
 def poser(Mw, Q, cam_pos):
     arm.matrix_world = Mw
     for nm, q in Q.items(): arm.pose.bones[nm].rotation_quaternion = q
@@ -166,7 +220,7 @@ sc = bpy.context.scene; sc.render.engine = 'CYCLES'; sc.cycles.samples = int(os.
 sc.cycles.max_bounces = 12; sc.cycles.transmission_bounces = 12; sc.cycles.transparent_max_bounces = 12
 sc.render.resolution_x, sc.render.resolution_y = (int(x) for x in os.environ.get('RES', '1280x720').split('x'))
 sc.view_settings.view_transform = 'AgX'; sc.view_settings.look = 'AgX - Medium High Contrast'
-EXPO = {'couloir': 0.0, 'chute': 0.0, 'etrangle': 0.0}[PLAN]
+EXPO = {'couloir': 0.0, 'chute': 0.0, 'etrangle': 0.0, 'plafond': 0.0, 'sol': 0.0}[PLAN]
 sc.view_settings.exposure = float(os.environ.get('EXPO', EXPO))
 w = bpy.data.worlds.new('W'); w.use_nodes = True; w.node_tree.nodes['Background'].inputs['Color'].default_value = (0.01, 0.012, 0.016, 1); sc.world = w
 H = 12.0; LARG = 12.0
@@ -177,8 +231,7 @@ for nom, size, loc, mt in (('Sol', (LX, LARG, 0.4), (CX, 0, -0.2), K.mat('tole_s
                            ('MurN', (LX, 0.4, H), (CX, LARG/2 + 0.2, H/2), K.mat('metal_peint', (150, 156, 160))),
                            ('MurS', (LX, 0.4, H), (CX, -LARG/2 - 0.2, H/2), K.mat('metal_peint', (150, 156, 160))),
                            ('Fond', (0.4, LARG, H), (L0 + 0.2, 0, H/2), K.mat('metal_peint', (120, 126, 130)))):
-    if PLAN == 'chute' and nom == 'MurS': continue          # vue de côté : mur retiré côté caméra
-    if PLAN == 'etrangle' and nom == 'MurS': continue
+    if PLAN != 'couloir' and nom == 'MurS': continue        # vue de côté : mur retiré côté caméra
     o = K.cube(nom, size, loc, mt, 0); K.box_uv(o)
 for x in range(int(L0) + 6, int(L1), 8):
     for sy in (-1, 1):
@@ -230,7 +283,65 @@ class Mannequin:
         return self.tete.matrix_world.translation - U*0.6, U
 
 # ---------------------------------------------------------------- plans
-def plan_couloir(t):
+def profil(cles, x0):
+    """position le long de X pour une vitesse définie par des points (temps, vitesse) reliés en ligne droite"""
+    def pos(t):
+        x = x0
+        for (ta, va), (tb, vb) in zip(cles, cles[1:]):
+            if t <= ta: break
+            u = min(t, tb) - ta; x += va*u + 0.5*(vb - va)/(tb - ta)*u*u
+        if t > cles[-1][0]: x += cles[-1][1]*(t - cles[-1][0])
+        return x
+    return pos
+X_PLAF = profil([(0, 0), (0.6, 0), (1.0, 14), (3.6, 14), (4.2, 0), (4.8, 0)], -24)
+X_SOL = profil([(0, 0), (0.5, 0), (1.0, 8), (2.2, 8), (2.8, 26), (4.0, 26), (4.6, 0), (5.2, 0)], -30)
+def racine_plafond(t): return Matrix.Translation((X_PLAF(t), 0, H)) @ RETOURNE, None, 0.0, None
+def racine_sol(t): return Matrix.Translation((X_SOL(t), 0, 0)), None, 0.0, None
+def racine_couloir(t):
+    tf = math.sqrt(2*H/G_JEU); t_ch = 3.0; fin_ch = t_ch + DECROCHAGE + tf + ATTERR; t_run = 0.65
+    if t < t_ch: return Matrix.Translation((26 + 14*t, 0.4*math.sin(t*0.8), H)) @ RETOURNE, None, 0.0, None
+    if t < fin_ch:
+        Mm, tombe, phase, prog, tau = chute(t - t_ch, DECROCHAGE, tf)
+        ch = {'phase': phase, 'prog': prog, 'tau': tau, 'hautY': (Mm.to_3x3().inverted() @ UPV).z}
+        return Matrix.Translation((68, 0.4*math.sin(2.4), H - tombe if tombe is not None else 0)) @ Mm, 'descente', t - t_ch, ch
+    if t < fin_ch + t_run:
+        a = (t - fin_ch)/t_run; return Matrix.Translation((68 + 17*a, 0.3*math.sin(t*3), 0)), 'descente', t - t_ch, None
+    return Matrix.Translation((85, 0, 0)), 'saisie', t - fin_ch - t_run, None
+SIM = {'t': -1.0, 'm': Marche(), 'poids': 0.0}
+def avancer(racine_fn, t_fin):
+    """simule la marche pas à pas (1/96 s) jusqu'à t_fin, comme le ferait chaque image du jeu"""
+    h = 1/96
+    def vitesse(t):
+        t0 = max(0.0, t - h); return (racine_fn(t + h)[0].translation - racine_fn(t0)[0].translation)/(t + h - t0)
+    def etape(t, dt):
+        Mw, coup, e, ch = racine_fn(t); vel = vitesse(t)
+        geste = ch is not None or (coup is not None and e < SIGNE.get(coup, 0.5) + 0.8)
+        cible = 0.0 if geste else 1.0
+        SIM['poids'] = cible if dt is None else SIM['poids'] + (cible - SIM['poids'])*min(1.0, dt*6)
+        if SIM['poids'] < 0.01: SIM['m'] = Marche()
+        else: maj_marche(SIM['m'], t, Mw, vel)
+        SIM['t'] = t; SIM['vel'] = vel
+    if SIM['t'] < 0: etape(0.0, None)
+    while SIM['t'] < t_fin - 1e-9:
+        t = min(SIM['t'] + h, t_fin); etape(t, t - SIM['t'])
+    return racine_fn(t_fin)
+def plan_marche(t, racine_fn, camera_fn):
+    Mw, coup, e, ch = avancer(racine_fn, t)
+    Q = animer(t, 0, coup, e, False, ch)
+    if SIM['poids'] >= 0.01: locomotion(Q, t, Mw, SIM['vel'], SIM['m'], SIM['poids'])
+    CAM = camera_fn(t, Mw)
+    poser(Mw, Q, CAM)
+def cam_plafond(t, Mw):
+    x = Mw.translation.x; xc = X_PLAF(max(0, t - 0.3)) - 1.5
+    CAM = Vector((xc, -10.5, 2.6)); viser(CAM, (x + 0.5, 0, 10.0)); cd.angle_y = math.radians(56); return CAM
+def cam_sol(t, Mw):
+    x = Mw.translation.x; xc = X_SOL(max(0, t - 0.25)) + 1.0
+    CAM = Vector((xc, -13.5, 5.2)); viser(CAM, (x + 0.8, 0, 1.0)); cd.angle_y = math.radians(48); return CAM
+def cam_couloir(t, Mw):
+    pos = Mw.translation; CAM = Vector((96, -1.5, 5.0)); cible = pos + Vector((0, 0, -1.2 if pos.z > H - 1 else 1.4))
+    dist = (cible - CAM).length; cd.angle_y = max(math.radians(24), min(math.radians(70), 2*math.atan(6.5/dist)))
+    viser(CAM, cible); return CAM
+def plan_couloir_ancien(t):
     """vu par un joueur au bout du couloir : plafond 14 studs/s, chute, course 26 studs/s, bras qui se lèvent"""
     tf = math.sqrt(2*H/G_JEU); t_ch = 3.0; fin_ch = t_ch + DECROCHAGE + tf + ATTERR; t_run = 0.65
     ch = None; coup = None; e = 0.0
@@ -291,6 +402,12 @@ if PLAN == 'couloir':
         lampe((x + 12, 0, H - 0.8), 250, (1.0, 0.2, 0.12), 1.0)                                  # voyants de secours
     torche = bpy.data.lights.new('Torche', 'SPOT'); torche.energy = 4000; torche.spot_size = math.radians(36); torche.spot_blend = 0.5; torche.color = (1.0, 0.95, 0.85)
     tob = bpy.data.objects.new('Torche', torche); sc.collection.objects.link(tob); tob.location = (96.6, -2.0, 4.2)
+elif PLAN in ('plafond', 'sol'):
+    for x in range(-36, 40, 10):
+        lampe((x, 4.2, H - 0.4), 700, (0.85, 0.93, 1.0), 3.0, forme='RECTANGLE', size_y=0.5)
+        lampe((x + 5, -4.2, H - 0.4), 500, (0.85, 0.93, 1.0), 3.0, forme='RECTANGLE', size_y=0.5)
+    CLE = lampe((0, -12, 8), 1600, (1.0, 0.95, 0.9), 6.0)
+    CONTRE = lampe((0, 5, 6), 1100, (0.6, 0.85, 1.0), 4.0)
 elif PLAN == 'chute':
     lampe((-6, -2, H - 0.5), 1400, (0.85, 0.93, 1.0), 3.0, forme='RECTANGLE', size_y=0.6)
     lampe((6, -2, H - 0.5), 1400, (0.85, 0.93, 1.0), 3.0, forme='RECTANGLE', size_y=0.6)
@@ -301,13 +418,18 @@ else:
     lampe((-4, 5, 8), 2200, (0.6, 0.85, 1.0), 4.0, cible=(1, 0, 3.5))
     lampe((1, 0, H - 0.5), 800, (0.85, 0.93, 1.0), 3.0, forme='RECTANGLE', size_y=0.6)
 
-PLANS = {'couloir': plan_couloir, 'chute': plan_chute, 'etrangle': plan_etrangle}
+PLANS = {'couloir': lambda t: plan_marche(t, racine_couloir, cam_couloir), 'chute': plan_chute, 'etrangle': plan_etrangle,
+         'plafond': lambda t: plan_marche(t, racine_plafond, cam_plafond), 'sol': lambda t: plan_marche(t, racine_sol, cam_sol)}
 IM = os.environ.get('IMAGES', '1-24')
 if '-' in IM: i0, i1 = (int(x) for x in IM.split('-')); LISTE = range(i0, i1 + 1)
 else: LISTE = [int(x) for x in IM.split('_')]
 for fr in LISTE:
     t = (fr - 1)/FPS
     PLANS[PLAN](t)
+    if PLAN in ('plafond', 'sol'):                     # lumière principale et contre-jour qui suivent la créature
+        c = arm.matrix_world.translation; cz = 9.0 if PLAN == 'plafond' else 2.0
+        CLE.location = c + Vector((2, -11, 6 if PLAN == 'sol' else -6)); CLE.rotation_euler = (Vector((c.x, 0, cz)) - CLE.location).to_track_quat('-Z', 'Y').to_euler()
+        CONTRE.location = c + Vector((-3, 5, 4 if PLAN == 'sol' else -3)); CONTRE.rotation_euler = (Vector((c.x, 0, cz)) - CONTRE.location).to_track_quat('-Z', 'Y').to_euler()
     if PLAN == 'couloir':
         tob.rotation_euler = (arm.matrix_world.translation + Vector((0, 0.2*math.sin(t*1.5), 0.6)) - tob.location).to_track_quat('-Z', 'Y').to_euler()
     bpy.context.view_layer.update()
