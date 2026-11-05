@@ -124,10 +124,10 @@ def flaque_eau(seed=0, R=2.2):
         o.append(tache_plate('Goutte', R*rnd.uniform(0.08, 0.25), (d*math.cos(a), d*math.sin(a), 0), mat_liquide('EauSol', (110, 140, 140), 0.3), seed=rnd.uniform(0, 50), rug=0.3))
     parent_all(o, root); return root
 
-SANG = (78, 16, 12); SANG_SEC = (58, 20, 16)
+SANG = (60, 14, 10); SANG_SEC = (42, 15, 11)
 def tache_sang(seed=0, R=1.2):
     """sang séché : tache principale sombre, éclaboussures, quelques gouttes"""
-    rnd = random.Random(seed); root = empty(f'TacheSang_{seed}'); Ms = mat_plain('SangSeche', SANG_SEC, rough=0.5)
+    rnd = random.Random(seed); root = empty(f'TacheSang_{seed}'); Ms = mat_plain('SangSeche', SANG_SEC, rough=0.32)
     o = [tache_plate('Tache', R, (0, 0, 0), Ms, seed=rnd.uniform(0, 50), rug=0.55)]
     for k in range(rnd.randint(5, 10)):
         a = rnd.uniform(0, 6.28); d = R*rnd.uniform(1.1, 2.4)
@@ -136,7 +136,7 @@ def tache_sang(seed=0, R=1.2):
 
 def trainee_sang(seed=0, L=6.0):
     """traînée : bande irrégulière qui s'amincit, comme un corps tiré"""
-    rnd = random.Random(seed); root = empty(f'TraineeSang_{seed}'); Ms = mat_plain('SangSeche', SANG_SEC, rough=0.5)
+    rnd = random.Random(seed); root = empty(f'TraineeSang_{seed}'); Ms = mat_plain('SangSeche', SANG_SEC, rough=0.32)
     bm = bmesh.new(); prev = None; n = 40
     for i in range(n + 1):
         t = i/n; x = (t - 0.5)*L; yc = 0.4*noise.noise(Vector((t*2 + seed, 0, 0)))

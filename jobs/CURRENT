@@ -1,5 +1,4 @@
-catalogue OBJETS=chaise_renversee_0,chaise_bureau_renversee,tabouret_renverse,etagere_renversee,papiers_sol_0,carton_renverse
-catalogue OBJETS=eclats_verre,flaque_eau,tache_sang_0,trainee_sang,aquarium_brise
-catalogue OBJETS=ecran_mural_10,interphone,coffret_elec,banc_vestiaire,banc_musculation,lave_linge
-archi VUES=labo_c,aquariums,cuisine SECTEURS=Vie,Recherche ECH=40 PUIS=900
-archi VUES=sport,buanderie,bureau_cherch SECTEURS=Vie,Recherche ECH=40 PUIS=900
+export_kit OBJETS=@1/3 FICHIER=kit_1 MATIERES=1
+export_kit OBJETS=@2/3 FICHIER=kit_2
+export_kit OBJETS=@3/3 FICHIER=kit_3
+archi

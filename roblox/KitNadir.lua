@@ -1,7 +1,7 @@
 --[[ NADIR-4 : préparation et placement du kit 3D et de l'architecture maillée.
 À coller dans la barre de commande de Roblox Studio (Affichage > Barre de commande), APRÈS avoir importé :
   1. matieres.glb   -> renommer le modèle importé « Matieres » et le ranger dans ServerStorage
-  2. kit_1.glb et kit_2.glb -> les ranger dans ServerStorage > KitNadir
+  2. kit_1.glb, kit_2.glb et kit_3.glb -> les ranger dans ServerStorage > KitNadir
   3. archi_*.glb (un par secteur) -> les laisser dans Workspace, où l'import les a mis (le script les recale tout seul)
 Le script :
   a) habille chaque MeshPart du kit d'après son nom (texture PBR teintée, verre, liquide, matière unie / néon) ;
