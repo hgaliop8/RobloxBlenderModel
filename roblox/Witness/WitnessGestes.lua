@@ -151,7 +151,8 @@ local function surPlan(p: Vector3, origine: Vector3, haut: Vector3): Vector3
 end
 
 -- met à jour les pieds. cf = repère affiché du modèle, dirs[k] = direction du bras k (repère du modèle), vel = vitesse (monde)
-function G.majMarche(m, t: number, cf: CFrame, dirs: { [number]: Vector3 }, vel: Vector3)
+-- surface (facultatif) : fonction qui ramène un point sur la vraie surface (coin sol/mur/plafond pendant une escalade)
+function G.majMarche(m, t: number, cf: CFrame, dirs: { [number]: Vector3 }, vel: Vector3, surface: ((Vector3) -> Vector3)?)
 	local M = G.MARCHE
 	local haut = cf.UpVector; local origine = cf.Position
 	vel = vel - haut * vel:Dot(haut)
@@ -159,8 +160,9 @@ function G.majMarche(m, t: number, cf: CFrame, dirs: { [number]: Vector3 }, vel:
 	local ideal = {}
 	for k, d in pairs(dirs) do
 		ideal[k] = surPlan(cf:PointToWorldSpace(d * M.rayon), origine, haut) + vel * M.anticipation
+		if surface then ideal[k] = surface(ideal[k]) end
 		local p = m.pieds[k]
-		if not p or (p - ideal[k]).Magnitude > 9 or math.abs((p - origine):Dot(haut)) > 1.5 then
+		if not p or (p - ideal[k]).Magnitude > 9 or (not surface and math.abs((p - origine):Dot(haut)) > 1.5) then
 			m.pieds[k] = ideal[k]; m.air[k] = nil                -- nouveau plan (chute, changement de surface) : on repart propre
 		end
 	end
@@ -183,6 +185,7 @@ function G.majMarche(m, t: number, cf: CFrame, dirs: { [number]: Vector3 }, vel:
 	for k in pairs(dirs) do
 		if (k % 2) + 1 == g then
 			local fin = ideal[k] + vel * duree * M.avance
+			if surface then fin = surface(fin) end
 			if (m.pieds[k] - fin).Magnitude > 0.3 then
 				m.air[k] = { t0 = t, duree = duree, debut = m.pieds[k], fin = fin, hauteur = 0.8 + v * 0.025 }
 			end
@@ -526,6 +529,127 @@ function G.aCoups(u: number, nb: number?): number
 	local i = math.min(n - 1, math.floor(u * n))
 	local f = u * n - i
 	return (i + lisse(math.min(1, f / 0.45))) / n
+end
+
+-- ================================================================ passage d'une grille (plafond <-> gaine)
+local UPV = Vector3.yAxis
+local function dirH(v: Vector3, defaut: Vector3): Vector3
+	local h = Vector3.new(v.X, 0, v.Z)
+	return h.Magnitude > 0.3 and h.Unit or defaut
+end
+local function angleH(v: Vector3): number return math.atan2(v.Z, v.X) end
+local function versH(a: number): Vector3 return Vector3.new(math.cos(a), 0, math.sin(a)) end
+local function ecartAngle(a: number, b: number): number return (b - a + math.pi) % (2 * math.pi) - math.pi end
+
+--[[ Montée (plafond -> gaine) : sous la grille, elle se tourne (tête à l'opposé de la gaine où elle va) pendant que ses bras
+passent entre les barreaux et s'agrippent au fond de la gaine ; puis elle s'y hisse par à-coups en basculant (tête d'abord,
+le ventre contre la paroi), le manteau passe en dernier et se rabat derrière elle. Descente : l'inverse, tête la première.
+u = 0..1 ; de / vers = positions de la racine au départ et à l'arrivée ; passage = centre de la grille ; avant0 = direction
+du corps au départ. Renvoie le repère affiché (X = avant du modèle, Y = dessus) et deux réglages d'écrasement du corps :
+serre (bras ramenés contre le corps quand il passe les barreaux) et etire (manteau allongé quand il passe). ]]
+G.TRAV = { a1 = 0.28, a2 = 0.72 }
+function G.traversee(u: number, de: Vector3, vers: Vector3, passage: Vector3, avant0: Vector3, montee: boolean): (CFrame, number, number)
+	local T = G.TRAV
+	u = math.clamp(u, 0, 1)
+	local a0 = dirH(avant0, Vector3.new(1, 0, 0))
+	local serre = math.sin(math.pi * math.clamp((u - T.a1) / (0.9 - T.a1), 0, 1))
+	local etire = math.sin(math.pi * math.clamp((u - 0.5) / 0.45, 0, 1))
+	if montee then
+		local d = dirH(vers - passage, a0)
+		local Q1 = Vector3.new(passage.X, de.Y, passage.Z)
+		local Q2 = Vector3.new(passage.X, vers.Y, passage.Z)
+		if u < T.a1 then
+			local s = lisse(u / T.a1)
+			local psi = angleH(a0) + ecartAngle(angleH(a0), angleH(-d)) * s
+			return CFrame.fromMatrix(de:Lerp(Q1, s), versH(psi), -UPV), 0, 0
+		end
+		local th, pos
+		if u < T.a2 then
+			local v = G.aCoups((u - T.a1) / (T.a2 - T.a1), 3)
+			pos = Q1:Lerp(Q2, v); th = math.pi / 2 * v
+		else
+			local w = lisse((u - T.a2) / (1 - T.a2))
+			pos = Q2:Lerp(vers, w) + UPV * (0.3 * math.sin(math.pi * w)); th = math.pi / 2 * (1 + w)
+		end
+		return CFrame.fromMatrix(pos, -d * math.cos(th) + UPV * math.sin(th), -d * math.sin(th) - UPV * math.cos(th)), serre, etire
+	else
+		local d = dirH(passage - de, a0)
+		local Q2 = Vector3.new(passage.X, de.Y, passage.Z)
+		local Q1 = Vector3.new(passage.X, vers.Y, passage.Z)
+		if u < T.a1 then
+			local s = lisse(u / T.a1)
+			local psi = angleH(a0) + ecartAngle(angleH(a0), angleH(d)) * s
+			return CFrame.fromMatrix(de:Lerp(Q2, s), versH(psi), UPV), 0, 0
+		end
+		local th, pos
+		if u < T.a2 then
+			local v = G.aCoups((u - T.a1) / (T.a2 - T.a1), 3)
+			pos = Q2:Lerp(Q1, v); th = math.pi / 2 * v
+		else
+			local w = lisse((u - T.a2) / (1 - T.a2))
+			pos = Q1:Lerp(vers, w) - UPV * (0.3 * math.sin(math.pi * w)); th = math.pi / 2 * (1 + w)
+		end
+		return CFrame.fromMatrix(pos, d * math.cos(th) - UPV * math.sin(th), d * math.sin(th) + UPV * math.cos(th)), serre, etire
+	end
+end
+
+--[[ bras pendant le passage : chacun passe entre deux barreaux (G) puis s'agrippe de l'autre côté (A, sur la surface
+d'arrivée de normale n), et s'y étale. Quand la base du bras est déjà passée, le détour par les barreaux disparaît. ]]
+function G.cheminTraversee(B: Vector3, Gk: Vector3, A: Vector3, n: Vector3, passage: Vector3, dehors: Vector3): { Vector3 }
+	local h = (B - passage):Dot(n)
+	local V = Gk:Lerp(B, lisse(h / 0.8))
+	local pts = { B }
+	if (V - B).Magnitude > 0.05 then bezier(B, B + (V - B) * 0.4, V - n * 0.7, V, 6, pts) end
+	bezier(V, V + n * 0.7, A + n * 0.8, A, 8, pts)
+	table.insert(pts, A + dehors * 2); table.insert(pts, A + dehors * 4.5)
+	return pts
+end
+G.FENTES = { -1.55, -0.93, -0.31, 0.31, 0.93, 1.55 }      -- espaces entre les barreaux d'une grille (studs, depuis le centre)
+
+-- ================================================================ escalade d'un mur (sol -> mur -> plafond)
+--[[ La racine roule autour de l'arête du bas (rayon R), monte le long du mur, puis roule autour de l'arête du haut. Vitesse
+constante sur le mur, accélération et freinage doux aux extrémités. E0 = pied du mur au sol, n = normale du mur (vers la
+salle), yH = hauteur du plafond, V = vitesse. ]]
+G.ESCALADE = { rayon = 1.3, acc = 0.3 }
+function G.escaladeDuree(h: number, V: number): number
+	local R = G.ESCALADE.rayon
+	return (math.pi * R + math.max(0, h - 2 * R)) / V + G.ESCALADE.acc
+end
+function G.escalade(x: number, E0: Vector3, n: Vector3, yH: number, V: number): CFrame
+	local R, ta = G.ESCALADE.rayon, G.ESCALADE.acc
+	local h = yH - E0.Y
+	local Lm = math.max(0, h - 2 * R)
+	local A1 = R * math.pi / 2
+	local Lt = 2 * A1 + Lm
+	local D = Lt / V + ta
+	x = math.clamp(x, 0, D)
+	local s
+	if x < ta then s = V * x * x / (2 * ta)
+	elseif x > D - ta then s = Lt - V * (D - x) ^ 2 / (2 * ta)
+	else s = V * (x - ta / 2) end
+	if s < A1 then
+		local phi = s / R
+		return CFrame.fromMatrix(E0 + (n * math.cos(phi) + UPV * math.sin(phi)) * R,
+			-n * math.cos(phi) + UPV * math.sin(phi), UPV * math.cos(phi) + n * math.sin(phi))
+	elseif s < A1 + Lm then
+		return CFrame.fromMatrix(E0 + UPV * (R + (s - A1)), UPV, n)
+	end
+	local phi = math.min(math.pi / 2, (s - A1 - Lm) / R)
+	local E1 = Vector3.new(E0.X, yH, E0.Z)
+	return CFrame.fromMatrix(E1 + (-UPV * math.cos(phi) + n * math.sin(phi)) * R,
+		UPV * math.cos(phi) + n * math.sin(phi), n * math.cos(phi) - UPV * math.sin(phi))
+end
+-- surface du coin sol/mur/plafond : où poser un pied (le point le plus proche sur le sol, le mur ou le plafond)
+local function coin(p: Vector3, E: Vector3, L: Vector3, dA: Vector3, dB: Vector3): Vector3
+	local r = p - E
+	local x, y, l = r:Dot(dA), r:Dot(dB), r:Dot(L)
+	if y <= x then return E + L * l + dA * math.max(x, 0) end
+	return E + L * l + dB * math.max(y, 0)
+end
+function G.surfaceEscalade(p: Vector3, E0: Vector3, n: Vector3, yH: number): Vector3
+	local L = n:Cross(UPV)
+	if p.Y < (E0.Y + yH) / 2 then return coin(p, E0, L, n, UPV) end
+	return coin(p, Vector3.new(E0.X, yH, E0.Z), L, -UPV, n)
 end
 
 return G

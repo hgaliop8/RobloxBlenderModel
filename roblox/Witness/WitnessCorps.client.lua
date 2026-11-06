@@ -7,6 +7,7 @@ Modèle attendu : ReplicatedStorage > Witness > WitnessModele (import de witness
 local RS = game:GetService("ReplicatedStorage")
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
+local CollectionService = game:GetService("CollectionService")
 local Lighting = game:GetService("Lighting")
 local UP = Vector3.new(0, 1, 0)
 local UserInputService = game:GetService("UserInputService")
@@ -294,6 +295,87 @@ end
 -- enlèvement : son corps est caché dans la gaine ; ses bras passent entre les barreaux de la grille.
 -- Quatre bras agrippent le rebord du plafond ; les quatre bras avant s'allongent jusqu'à la proie, l'enroulent,
 -- puis raccourcissent à mesure qu'ils la hissent.
+-- ================================================================ passage de grille, escalade : horaires partagés avec le serveur
+local function traverseeInfo()
+	local t0 = racine:GetAttribute("TravT"); if not t0 then return nil end
+	local de, vers, pas, av = racine:GetAttribute("TravDe"), racine:GetAttribute("TravVers"), racine:GetAttribute("TravPassage"), racine:GetAttribute("TravAvant")
+	if typeof(de) ~= "Vector3" or typeof(vers) ~= "Vector3" or typeof(pas) ~= "Vector3" or typeof(av) ~= "Vector3" then return nil end
+	local x = workspace:GetServerTimeNow() - t0
+	if x < 0 or x > C.GRILLE_PASSAGE then return nil end
+	return { u = x / C.GRILLE_PASSAGE, de = de, vers = vers, passage = pas, avant = av, montee = racine:GetAttribute("TravMontee") == true, t0 = t0 }
+end
+local escDernier: { E0: Vector3, n: Vector3, yH: number, fin: number }? = nil
+local function escaladeInfo()
+	local t0 = racine:GetAttribute("EscT"); if not t0 then return nil end
+	local E0, n, yH = racine:GetAttribute("EscPied"), racine:GetAttribute("EscNormale"), racine:GetAttribute("EscHaut")
+	if typeof(E0) ~= "Vector3" or typeof(n) ~= "Vector3" or type(yH) ~= "number" then return nil end
+	local D = G.escaladeDuree(yH - E0.Y, C.VITESSE.mur)
+	local x = workspace:GetServerTimeNow() - t0
+	if x < 0 or x > D then return nil end
+	escDernier = { E0 = E0, n = n, yH = yH, fin = t0 + D }
+	return { x = x, E0 = E0, n = n, yH = yH }
+end
+-- pieds posés sur le coin sol/mur/plafond pendant l'escalade, et encore une seconde après (les pieds restés au mur)
+local function surfaceMarche(): ((Vector3) -> Vector3)?
+	local e = escDernier
+	if not e or workspace:GetServerTimeNow() > e.fin + 1 then return nil end
+	return function(p: Vector3): Vector3 return G.surfaceEscalade(p, e.E0, e.n, e.yH) end
+end
+
+-- écrasement du corps entre les barreaux : bases des bras ramenées vers le centre, manteau allongé
+local SERRE_OS: { [Bone]: Vector3 } = {}
+for k, chn in pairs(BRAS) do SERRE_OS[chn.os[1]] = chn.os[1].Position end
+local MANTEAU_OS: { [Bone]: Vector3 } = {}
+for _, nm in ipairs({ "Manteau1", "Manteau2" }) do local b = os_[nm]; if b then MANTEAU_OS[b] = b.Position end end
+local serreActuel, etireActuel = 0, 0
+local function ecraser(serre: number, etire: number)
+	if math.abs(serre - serreActuel) > 1e-3 then
+		serreActuel = serre
+		for b, p0 in pairs(SERRE_OS) do b.Position = Vector3.new(p0.X * (1 - 0.45 * serre), p0.Y, p0.Z * (1 - 0.45 * serre)) end
+	end
+	if math.abs(etire - etireActuel) > 1e-3 then
+		etireActuel = etire
+		for b, p0 in pairs(MANTEAU_OS) do b.Position = p0 * (1 + 0.4 * etire) end
+	end
+end
+
+-- bras pendant le passage d'une grille : entre les barreaux, puis agrippés de l'autre côté
+local grilleAxes = { t = nil :: number?, barre = Vector3.zAxis, fente = Vector3.xAxis }
+local function traverseeBras(t: number, info)
+	if not osRacine then return end
+	if grilleAxes.t ~= info.t0 then                                    -- orientation des barreaux de cette grille
+		grilleAxes.t = info.t0; grilleAxes.barre = Vector3.zAxis; grilleAxes.fente = Vector3.xAxis
+		local best, bd = nil, 6
+		for _, g in ipairs(CollectionService:GetTagged("Grille")) do
+			if g:IsA("BasePart") and (g.Position - info.passage).Magnitude < bd then best, bd = g, (g.Position - info.passage).Magnitude end
+		end
+		if best then grilleAxes.barre = (best :: BasePart).CFrame.LookVector; grilleAxes.fente = (best :: BasePart).CFrame.RightVector end
+	end
+	local u = info.u
+	local n = info.montee and UP or -UP
+	local fin = G.traversee(1, info.de, info.vers, info.passage, info.avant, info.montee)
+	local base = Vector3.new(info.passage.X, info.vers.Y, info.passage.Z) + n * 0.05
+	local d = fin.RightVector; d = Vector3.new(d.X, 0, d.Z); d = d.Magnitude > 1e-3 and d.Unit or Vector3.xAxis
+	local lat = Vector3.new(-d.Z, 0, d.X)
+	local parent = mondeOs(osRacine)
+	for k, chn in pairs(BRAS) do
+		local a = k * math.pi / 4 + math.pi / 8
+		local r = fin:VectorToWorldSpace(Vector3.new(math.cos(a), 0, -math.sin(a)))
+		r = Vector3.new(r.X, 0, r.Z); r = r.Magnitude > 1e-3 and r.Unit or d
+		local A = base + d * (r:Dot(d) * 2.6) + lat * (r:Dot(lat) * 1.8)
+		local fx, best = (r:Dot(grilleAxes.fente)) * 1.7, G.FENTES[1]
+		for _, f in ipairs(G.FENTES) do if math.abs(f - fx) < math.abs(best - fx) then best = f end end
+		local Gk = info.passage + grilleAxes.fente * best + grilleAxes.barre * math.clamp(r:Dot(grilleAxes.barre) * 1.7, -1.8, 1.8)
+		local B = (parent * chn.os[1].CFrame).Position
+		local ordre = ({ [0] = 0, [7] = 0, [1] = 1, [6] = 1, [2] = 2, [5] = 2, [3] = 3, [4] = 3 })[k] or 0
+		local p = lisse((u - 0.03 - 0.05 * ordre) / 0.3) * (1 - lisse((u - 0.86) / 0.14))
+		local poids = {}
+		for j = 1, 8 do poids[j] = G.poidsChaine(p, j) end
+		G.orienter(chn, parent, G.articulations(B, G.cheminTraversee(B, Gk, A, n, info.passage, r), chn.L), poids)
+	end
+	_ = t
+end
+
 local grilleCache = { t = nil :: number?, f = nil :: Vector3?, sens = {} :: { [number]: number } }
 local function grille(t: number)
 	local g = racine:GetAttribute("Grille")
@@ -406,7 +488,7 @@ local function locomotion(t: number, dt: number, actif: boolean)
 	local cf = cfAffiche
 	local haut = cf.UpVector
 	local vel = vitesseV - haut * vitesseV:Dot(haut)
-	G.majMarche(marcheEtat, t, cf, DIRS, vel)
+	G.majMarche(marcheEtat, t, cf, DIRS, vel, surfaceMarche())
 	local course = G.lisse((vel.Magnitude - G.MARCHE.course_debut) / (G.MARCHE.course_plein - G.MARCHE.course_debut))
 	local parent = mondeOs(osRacine)
 	local centre = parent.Position
@@ -567,7 +649,9 @@ local function animer(t, dt)
 	local geste = saisie or chuteEtat.phase ~= "" or (coup ~= nil and coup ~= "avorte" and e < signe + 0.8)
 		or racine:GetAttribute("Plaque") ~= nil or racine:GetAttribute("Devore") ~= nil or bondEnVol()
 		or etat == "morte" or etat == "etourdie"
-	locomotion(t, dt, not geste and (mode == "plafond" or mode == "sol"))
+	local trav = traverseeInfo()
+	geste = geste or trav ~= nil
+	locomotion(t, dt, not geste and (mode == "plafond" or mode == "sol" or escaladeInfo() ~= nil))
 	-- attaques au contact : bras du fouet, bras tendus du balayage
 	gestesAttaque(coup, e, signe, coupT)
 	-- plaquage : en vol, bras ramenés en faisceau ; une fois posée, poignets et chevilles tenus ; chute dévorante : cage de bras
@@ -605,6 +689,7 @@ local function animer(t, dt)
 	end
 	if racine:GetAttribute("Plaque") then plaquer(t) end
 	if racine:GetAttribute("Grille") then grille(t) end
+	if trav then traverseeBras(t, trav) end
 	-- chute dévorante : pendant l'attente, bras ramassés à plat contre le plafond (rien ne pend) ; en tombant ils s'ouvrent
 	-- en ombrelle sous elle, centrée sur la tête ; à l'impact l'ombrelle se referme en cage
 	if coup == "chute" and e < signe + 0.5 then
@@ -709,6 +794,17 @@ RunService.RenderStepped:Connect(function(dt)
 		cfAffiche = CFrame.lookAt(pos, pos + avant.Unit, UP) * ROT * modele
 		chuteEtat.phase, chuteEtat.prog, chuteEtat.tau = phase, prog, tau
 		chuteEtat.hautY = cfAffiche:VectorToObjectSpace(UP).Y
+	elseif traverseeInfo() then
+		-- passage d'une grille : repère calculé ici, même horaire que le serveur
+		chuteEtat.phase = ""
+		local tr = traverseeInfo() :: any
+		local cf, serre, etire = G.traversee(tr.u, tr.de, tr.vers, tr.passage, tr.avant, tr.montee)
+		cfAffiche = cf; ecraser(serre, etire)
+	elseif escaladeInfo() then
+		-- escalade : elle roule autour de l'arête du bas, monte le mur, roule sur le plafond
+		chuteEtat.phase = ""
+		local es = escaladeInfo() :: any
+		cfAffiche = G.escalade(es.x, es.E0, es.n, es.yH, C.VITESSE.mur)
 	elseif coup == "plaquage" and bondEnVol() then
 		-- bond : parabole calculée ici ; en fin de vol elle se redresse pour arriver le dessous contre sa poitrine
 		chuteEtat.phase = ""
@@ -736,6 +832,7 @@ RunService.RenderStepped:Connect(function(dt)
 	end
 	local coupG = racine:GetAttribute("Coup")
 	local signeG = coupG and C.COUPS[coupG] and C.COUPS[coupG].signe or 0.5
+	if not traverseeInfo() then ecraser(0, 0) end
 	corps:PivotTo(cfAffiche * decalageGeste(coupG, workspace:GetServerTimeNow() - (racine:GetAttribute("CoupT") or 0), signeG))
 	-- vitesse du corps affiché (lissé) : sert à la marche à pieds posés
 	vitesseV = vitesseV:Lerp((cfAffiche.Position - avantAff) / math.max(dt, 1e-3), math.min(1, dt * 10))

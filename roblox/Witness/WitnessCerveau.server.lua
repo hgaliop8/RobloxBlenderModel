@@ -265,13 +265,32 @@ end
 
 local function franchirArete(et)
 	if et.type == "grille" then
+		-- elle s'écrase entre les barreaux : bras d'abord, puis le corps par à-coups, le manteau en dernier (G.traversee,
+		-- même horaire chez les clients)
 		W.occupe = true
-		sonEn(et.passage or et.pos, "succion")
+		local montee = Nav:estGaine(et.noeud)
+		local passage = et.passage or et.pos
+		local de = W.pos
+		local vers = et.pos + (montee and -UP * 2.3 or Vector3.new(0, 0.3, 0))
+		local avant0 = W.avant
+		sonEn(passage, "succion")
 		racine:SetAttribute("Passage", os.clock())
-		local versGaine = Nav:estGaine(et.noeud)
-		glisser(et.passage or et.pos, C.GRILLE_PASSAGE * 0.5, nil, not versGaine)
-		W.mode = versGaine and "gaine" or "plafond"
-		glisser(et.pos + (versGaine and -UP * 2.3 or Vector3.zero), C.GRILLE_PASSAGE * 0.5, W.mode, W.mode == "plafond")
+		racine:SetAttribute("TravDe", de); racine:SetAttribute("TravVers", vers); racine:SetAttribute("TravPassage", passage)
+		racine:SetAttribute("TravAvant", avant0); racine:SetAttribute("TravMontee", montee)
+		racine:SetAttribute("TravT", workspace:GetServerTimeNow())
+		local t0 = os.clock()
+		local cf = CFrame.new(de)
+		while true do
+			local u = math.min(1, (os.clock() - t0) / C.GRILLE_PASSAGE)
+			cf = G.traversee(u, de, vers, passage, avant0, montee)
+			W.pos = cf.Position; racine.CFrame = cf * ROT_MODELE:Inverse()
+			if u >= 1 then break end
+			RunService.Heartbeat:Wait()
+		end
+		local fin = Vector3.new(cf.RightVector.X, 0, cf.RightVector.Z)
+		if fin.Magnitude > 1e-3 then W.avant = fin.Unit end
+		W.pos = vers; W.mode = montee and "gaine" or "plafond"; placer()
+		racine:SetAttribute("TravT", nil)
 		W.occupe = false
 	elseif et.type == "porte" and et.passage then
 		W.occupe = true; W.mode = "mur"
@@ -342,13 +361,65 @@ local function descendre()
 	W.solDebut = os.clock(); W.noeud = nil; W.chemin = nil
 	W.occupe = false
 end
+--[[ le mur le plus proche qui monte vraiment jusqu'au plafond (rayons horizontaux tout autour, puis vérification à trois
+hauteurs : une caisse ou une machine ne compte pas). Renvoie pied du mur, normale, hauteur du plafond, ou nil. ]]
+local function murProche(p, portee)
+	local hits = {}
+	for i = 0, 15 do
+		local a = i * math.pi / 8
+		local r = workspace:Raycast(p + UP * 2, Vector3.new(math.cos(a), 0, math.sin(a)) * portee, params)
+		if r and math.abs(r.Normal.Y) < 0.3 then table.insert(hits, r) end
+	end
+	table.sort(hits, function(a, b) return a.Distance < b.Distance end)
+	for _, r in ipairs(hits) do
+		local nrm = Vector3.new(r.Normal.X, 0, r.Normal.Z).Unit
+		local E0 = Vector3.new(r.Position.X, p.Y, r.Position.Z)
+		local haut = workspace:Raycast(E0 + nrm * 1.5 + UP * 2, UP * 40, params)
+		if haut then
+			local yH = haut.Position.Y
+			local ok = true
+			for _, hh in ipairs({ p.Y + 2, (p.Y + yH) / 2, yH - 1.2 }) do
+				local q = Vector3.new(E0.X, hh, E0.Z) + nrm
+				local w = workspace:Raycast(q, -nrm * 2.5, params)
+				if not w or math.abs(w.Normal:Dot(nrm)) < 0.9 then ok = false; break end
+			end
+			if ok then return E0, nrm, yH end
+		end
+	end
+	return nil
+end
+--[[ sol -> plafond par le mur le plus proche : elle court jusqu'au pied du mur, roule autour de l'arête, monte en posant ses
+bras sur la paroi, puis roule sur le plafond (G.escalade, même horaire chez les clients). ]]
 local function remonter()
 	W.occupe = true
 	local n = Nav:plusProche(W.pos, 1, 128)
 	if n then
-		W.mode = "mur"
-		local p = Nav:position(n) + Vector3.new(0, 0.3, 0)
-		glisser(Vector3.new(W.pos.X, p.Y, W.pos.Z), C.MONTEE_DUREE, "plafond", true)
+		local plafondY = Nav:position(n).Y + 0.3
+		local E0, nrm, yH = murProche(W.pos, 30)
+		if E0 and nrm and yH then
+			local sol = W.pos.Y
+			local pied = E0 + nrm * G.ESCALADE.rayon
+			W.avant = -nrm
+			local dist = (pied - W.pos).Magnitude
+			if dist > 0.2 then glisser(pied, math.max(0.25, dist / C.VITESSE.sol), nil, false) end
+			W.mode = "mur"; racine:SetAttribute("Mode", "mur")
+			racine:SetAttribute("EscPied", E0); racine:SetAttribute("EscNormale", nrm); racine:SetAttribute("EscHaut", yH)
+			racine:SetAttribute("EscT", workspace:GetServerTimeNow())
+			local D = G.escaladeDuree(yH - sol, C.VITESSE.mur)
+			local t0 = os.clock()
+			while true do
+				local x = math.min(D, os.clock() - t0)
+				local cf = G.escalade(x, E0, nrm, yH, C.VITESSE.mur)
+				W.pos = cf.Position; racine.CFrame = cf * ROT_MODELE:Inverse()
+				if x >= D then break end
+				RunService.Heartbeat:Wait()
+			end
+			W.avant = nrm; W.mode = "plafond"; placer()
+			racine:SetAttribute("EscT", nil)
+		else                                                      -- aucun mur à portée (grande salle) : montée directe
+			W.mode = "mur"
+			glisser(Vector3.new(W.pos.X, plafondY, W.pos.Z), C.MONTEE_DUREE, "plafond", true)
+		end
 		W.noeud = nil
 	end
 	W.solFin = os.clock(); W.occupe = false

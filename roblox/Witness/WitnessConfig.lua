@@ -11,7 +11,7 @@ C.VITESSE = { plafond = 14, plafond_pointe = 18, gaine = 26, mur = 12, sol = 26,
 C.SOL_DUREE_MAX = 6          -- course au sol d'affilée
 C.SOL_REPOS_MIN = 8          -- temps minimal en hauteur avant une nouvelle course
 C.VIRAGE_LENT = 18           -- vitesse pendant 0,5 s après un virage serré au sol
-C.GRILLE_PASSAGE = 1.2       -- entrer / sortir d'une grille
+C.GRILLE_PASSAGE = 1.8       -- entrer / sortir d'une grille (bras, corps par à-coups, manteau)
 C.MONTEE_DUREE = 1.5         -- sol -> plafond par le mur
 -- se laisser tomber du plafond : décrochage (l'avant pend, les bras arrière tiennent), chute libre (gravité du jeu), atterrissage
 C.DECROCHAGE = 0.3           -- descente volontaire
