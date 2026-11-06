@@ -715,7 +715,7 @@ def maj_encre(t):
         for g, d, D, dl in PAILLETTES: g.location = (0, 0, -50)
         return
     R_ = 12*(1 - math.exp(-a/0.5)); NUAGE.location = CENTRE_ENCRE + Vector((0, 0, 0.6*a)); NUAGE.scale = (R_, R_*0.85, R_*0.42)
-    NUAGE.active_material.node_tree.nodes['Densite'].inputs[1].default_value = 2.2*min(1, a/0.15)
+    NUAGE.active_material.node_tree.nodes['Densite'].inputs[1].default_value = 3.0*min(1, a/0.15)
     rn = 2 + 10*(1 - math.exp(-a/0.45)); NAPPE.location = (CENTRE_ENCRE.x, 0, EAU_Z + 0.03); NAPPE.scale = (rn, rn, 1)
     for g, d, D, dl in PAILLETTES:
         dist = D*(1 - math.exp(-a/dl)); g.location = CENTRE_ENCRE + d*dist + Vector((0, 0, 0.3*a))
