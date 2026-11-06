@@ -280,7 +280,9 @@ def maj_marche(m, t, Mw, vel, glisse=False):
     m.dernier = g; duree = max(0.18, min(0.3, 0.3 - v*0.005))
     for k in DIRS:
         if k % 2 == g:
-            fin = ideal[k] + vel*duree*MR['avance']
+            av = vel*duree*MR['avance']
+            if av.length > 3.5: av = av.normalized()*3.5
+            fin = ideal[k] + av
             if surf: fin = surf(fin)
             if (m.pieds[k] - fin).length > 0.3: m.air[k] = dict(t0=t, duree=duree, debut=m.pieds[k].copy(), fin=fin, hauteur=0.8 + v*0.025)
 def pied(m, k, t, haut):
@@ -479,8 +481,9 @@ def avancer(racine_fn, t_fin):
         if SIM.get('preset'): SIM['preset'](t, SIM['m'])
         haut = haut_de(Mw); vh = vel - haut*vel.dot(haut)
         brute = lisse((vh.length - MR['course_debut'])/(MR['course_plein'] - MR['course_debut']))
-        SIM['course'] = brute if dt is None else SIM.get('course', 0.0) + (brute - SIM.get('course', 0.0))*min(1.0, dt*7)
-        if SIM['poids'] >= 0.01: maj_marche(SIM['m'], t, Mw, vel, SIM['course'] > 0.6)
+        c0 = SIM.get('course', 0.0)
+        SIM['course'] = brute if dt is None else c0 + (brute - c0)*min(1.0, dt*(14 if brute > c0 else 6))
+        if SIM['poids'] >= 0.01: maj_marche(SIM['m'], t, Mw, vel, max(brute, SIM['course']) > 0.5)
         SIM['t'] = t; SIM['vel'] = vel
     if SIM['t'] < 0: etape(0.0, None)
     while SIM['t'] < t_fin - 1e-9:

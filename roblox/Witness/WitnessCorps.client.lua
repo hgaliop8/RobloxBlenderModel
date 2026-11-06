@@ -550,9 +550,9 @@ local function locomotion(t: number, dt: number, actif: boolean)
 	local vel = vitesseV - haut * vitesseV:Dot(haut)
 	-- passage marche <-> course lissé dans le temps (un arrêt net ne fait pas basculer les bras en une image)
 	local brute = G.lisse((vel.Magnitude - G.MARCHE.course_debut) / (G.MARCHE.course_plein - G.MARCHE.course_debut))
-	courseLisse += (brute - courseLisse) * math.min(1, dt * 7)
+	courseLisse += (brute - courseLisse) * math.min(1, dt * ((brute > courseLisse) and 14 or 6))   -- vite en accélérant
 	local course = courseLisse
-	G.majMarche(marcheEtat, t, cf, DIRS, vel, surfaceMarche(), course > 0.6)
+	G.majMarche(marcheEtat, t, cf, DIRS, vel, surfaceMarche(), math.max(brute, course) > 0.5)
 	local parent = mondeOs(osRacine)
 	local centre = parent.Position
 	local avant = vel.Magnitude > 0.5 and vel.Unit or cf.RightVector       -- RightVector du repère affiché = avant du modèle (+X)

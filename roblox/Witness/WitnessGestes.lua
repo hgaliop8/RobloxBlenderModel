@@ -190,7 +190,9 @@ function G.majMarche(m, t: number, cf: CFrame, dirs: { [number]: Vector3 }, vel:
 	local duree = math.clamp(0.3 - v * 0.005, 0.18, 0.3)
 	for k in pairs(dirs) do
 		if (k % 2) + 1 == g then
-			local fin = ideal[k] + vel * duree * M.avance
+			local av = vel * duree * M.avance
+			if av.Magnitude > 3.5 then av = av.Unit * 3.5 end                 -- pas plus long que 3,5 studs d'avance
+			local fin = ideal[k] + av
 			if surface then fin = surface(fin) end
 			if (m.pieds[k] - fin).Magnitude > 0.3 then
 				m.air[k] = { t0 = t, duree = duree, debut = m.pieds[k], fin = fin, hauteur = 0.8 + v * 0.025 }
