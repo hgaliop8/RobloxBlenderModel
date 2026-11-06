@@ -355,4 +355,16 @@ function G.ramasse(e: number, signe: number): CFrame
 	return CFrame.new(-0.4 * a, -0.3 * a, 0) * autourPivot(G.CABRE_PIVOT, 0.1 * a)
 end
 
+-- enlèvement : suspendue à la grille (repère retourné du plafond : +Y du modèle = vers le bas). Pendant le signe, prog = 0..1 ;
+-- ensuite tt = temps depuis la saisie : elle remonte à mesure qu'elle hisse la victime, puis rentre dans la gaine.
+function G.suspendre(prog: number, tt: number?, E: any): CFrame
+	local h, rentre = lisse(prog), 0
+	if tt then
+		h = 1 - 0.7 * lisse((tt - E.trainee) / E.levee)
+		rentre = lisse((tt - E.trainee - E.levee) / E.avalee)
+		h *= (1 - rentre)
+	end
+	return CFrame.new(0, 2.5 * h - 2.5 * rentre, 0) * autourPivot(G.PIVOT_ARRIERE, 0.9 * h)
+end
+
 return G

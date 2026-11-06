@@ -466,6 +466,56 @@ local function coupSaisie(p, versGrille)
 	recharger("saisie")
 end
 -- chute dévorante : elle se laisse tomber sur la tête du joueur, l'englobe, l'enserre de ses bras ; il s'effondre dans l'eau
+-- enlèvement : suspendue à une grille ouverte du plafond, elle enroule le torse du joueur, le traîne sous la grille,
+-- le hisse jusqu'au plafond et l'avale dans la gaine. Libéré si l'équipe inflige assez de dégâts ou utilise le feu.
+local function coupEnlevement(p, g)
+	local E = C.COUPS.enlevement
+	local sousGrille = Vector3.new(g.X, W.pos.Y, g.Z)
+	if (sousGrille - W.pos).Magnitude > 0.5 then glisser(sousGrille, 0.4, "plafond", true) end
+	viser(p); racine.CFrame = orienter(W.avant, true)
+	signe("enlevement")
+	local r = hrp(p); if not r then recharger("enlevement"); return end
+	local sol = solPoint(r.Position)
+	if Vector3.new(r.Position.X - g.X, 0, r.Position.Z - g.Z).Magnitude > E.portee then recharger("enlevement"); return end
+	W.saisie = { victime = p, degats = 0, debut = os.clock(), feu = false }
+	W.debats[p] = 0
+	r.Anchored = true; effet(p, "saisi", "enlevement")
+	racine:SetAttribute("Saisie", p.UserId); racine:SetAttribute("SaisieT", workspace:GetServerTimeNow())
+	racine:SetAttribute("SaisieType", "enlevement")
+	local depart = r.Position
+	local dessous = Vector3.new(g.X, sol.Y + 5, g.Z)                -- traîné sous la grille, déjà soulevé
+	local haut = Vector3.new(g.X, g.Y - 1.5, g.Z)                   -- la tête dans la grille
+	local dedans = Vector3.new(g.X, g.Y + 3, g.Z)                   -- avalé par la gaine
+	local lisse = function(x) x = math.clamp(x, 0, 1); return x * x * (3 - 2 * x) end
+	local avale = false
+	while W.saisie and W.saisie.victime == p do
+		RunService.Heartbeat:Wait()
+		local h = humanoide(p); if not h or h.Health <= 0 then break end
+		if W.saisie.degats >= E.liberation or W.saisie.feu or W.etat == "etourdie" then break end
+		local tt = os.clock() - W.saisie.debut
+		local pos
+		if tt < E.trainee then pos = depart:Lerp(dessous, lisse(tt / E.trainee))
+		elseif tt < E.trainee + E.levee then pos = dessous:Lerp(haut, lisse((tt - E.trainee) / E.levee))
+		elseif tt < E.trainee + E.levee + E.avalee then pos = haut:Lerp(dedans, lisse((tt - E.trainee - E.levee) / E.avalee))
+		else avale = true; break end
+		local face = Vector3.new(W.pos.X - pos.X, 0, W.pos.Z - pos.Z)
+		r.CFrame = (face.Magnitude > 0.2) and CFrame.lookAt(pos, pos + face.Unit) or CFrame.new(pos) * (r.CFrame - r.CFrame.Position)
+	end
+	racine:SetAttribute("Saisie", nil)
+	if avale then
+		eliminer(p, "enleve")
+		local corps = p.Character
+		task.delay(0.1, function() if corps and corps.Parent then corps:PivotTo(CFrame.new(dedans)) end end)
+		W.saisie = nil
+		-- elle remonte dans la gaine par la grille
+		local n = Nav:plusProche(Vector3.new(g.X, g.Y + 2, g.Z), 2, 20)
+		if n then W.pos = Nav:position(n); W.mode = "gaine"; W.noeud = n; placer() end
+	else
+		relacher()
+	end
+	recharger("enlevement")
+end
+
 local function coupChute(p)
 	signe("chute")
 	local r = hrp(p); if not r then return end
@@ -596,7 +646,9 @@ local function attaquer(p)
 	for _, q in ipairs(joueursVivants()) do local s = hrp(q); if s and (s.Position - W.pos).Magnitude < 10 then groupe += 1 end end
 	if W.mode == "plafond" and horiz <= C.COUPS.chute.rayon and seul and pret("chute") then coupChute(p)
 	elseif W.mode == "sol" and groupe >= 2 and pret("balayage") then coupBalayage()
-	elseif W.phase >= 3 and grilleProche(C.COUPS.enlevement.portee_grille) and dist <= C.COUPS.saisie.portee and pret("enlevement") then coupSaisie(p, grilleProche(C.COUPS.enlevement.portee_grille))
+	elseif W.mode == "plafond" and pret("enlevement") and grilleProche(C.COUPS.enlevement.portee_grille)
+		and (function() local g = grilleProche(C.COUPS.enlevement.portee_grille); return r ~= nil and Vector3.new(r.Position.X - g.X, 0, r.Position.Z - g.Z).Magnitude <= C.COUPS.enlevement.portee end)() then
+		coupEnlevement(p, grilleProche(C.COUPS.enlevement.portee_grille))
 	elseif W.mode == "sol" and dist <= C.COUPS.saisie.portee and pret("saisie") then coupSaisie(p, nil)
 	elseif W.mode == "sol" and horiz >= C.COUPS.plaquage.portee_min and horiz <= C.COUPS.plaquage.portee and pret("plaquage") then coupPlaquage(p)
 	elseif dist <= C.COUPS.fouet.portee and pret("fouet") then coupFouet(p)

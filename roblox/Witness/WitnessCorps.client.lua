@@ -16,6 +16,7 @@ local joueur = Players.LocalPlayer
 local dossier = RS:WaitForChild("Witness")
 local C = require(dossier:WaitForChild("WitnessConfig"))
 local G = require(dossier:WaitForChild("WitnessGestes"))
+local Eau = require(dossier:WaitForChild("WitnessEau"))
 local evEffet = dossier:WaitForChild("WitnessEffet")
 local evRegard = dossier:WaitForChild("WitnessRegard")
 local evDebat = dossier:WaitForChild("WitnessDebat")
@@ -140,27 +141,31 @@ local function enrouler(t: number)
 	local f = Vector3.new(centre.X - N.X, 0, centre.Z - N.Z); f = f.Magnitude > 1e-3 and f.Unit or Vector3.new(1, 0, 0)
 	local l = U:Cross(f).Unit
 	local poids = {}
-	for _, k in ipairs({ 0, 7 }) do
+	-- enlèvement : quatre bras autour du torse (deux hauts, deux bas) ; étranglement : les deux bras avant autour du cou
+	local tenants = enlevement and { [0] = 0.1, [7] = 0.3, [1] = -0.7, [6] = -0.5 } or { [0] = 0.1, [7] = 0.3 }
+	for k, h0 in pairs(tenants) do
 		local chn = BRAS[k]
 		if chn then
 			local B = (parent * chn.os[1].CFrame).Position
 			local sens = ((B - N):Dot(l) >= 0) and 1 or -1
-			local pts = G.cheminEnroule(B, N, U, f, r, (k == 0) and 0.1 or 0.3, sens, tours)
+			local pts = G.cheminEnroule(B, N, U, f, r, h0, sens, tours)
 			for j = 1, 8 do poids[j] = G.lisse((tt - 0.05 * (j - 1)) / 0.4) end
 			G.orienter(chn, parent, G.articulations(B, pts, chn.L), poids)
 		end
 	end
-	-- bras d'appui : vers le sol, en étoile autour d'elle
-	local solY = racine.Position.Y
+	-- bras d'appui : en étoile sur la surface où elle se tient (le sol, ou le plafond autour de la grille)
+	local surf = racine.CFrame.UpVector                      -- vers le haut au sol, vers le bas au plafond
+	local plan = racine.Position
 	local w = 0.9 * G.lisse(tt / 0.5)
 	for j = 1, 8 do poids[j] = w end
 	for k = 1, 6 do
 		local chn = BRAS[k]
-		if chn then
+		if chn and not tenants[k] then
 			local B = (parent * chn.os[1].CFrame).Position
-			local dir = Vector3.new(B.X - centre.X, 0, B.Z - centre.Z); dir = dir.Magnitude > 1e-3 and dir.Unit or f
-			local Fpt = Vector3.new(centre.X, solY, centre.Z) + dir * 4.2
-			G.orienter(chn, parent, G.articulations(B, G.cheminSol(B, dir, Fpt, UP), chn.L), poids)
+			local dir = B - centre; dir = dir - surf * dir:Dot(surf); dir = dir.Magnitude > 1e-3 and dir.Unit or f
+			local c0 = centre - surf * (centre - plan):Dot(surf)
+			local Fpt = c0 + dir * 4.2
+			G.orienter(chn, parent, G.articulations(B, G.cheminSol(B, dir, Fpt, surf), chn.L), poids)
 		end
 	end
 end
@@ -556,6 +561,10 @@ RunService.RenderStepped:Connect(function(dt)
 		chuteEtat.phase = ""
 		if racine:GetAttribute("Saisie") and racine:GetAttribute("SaisieType") ~= "enlevement" then
 			cible = cible * G.cabrer(workspace:GetServerTimeNow() - (racine:GetAttribute("SaisieT") or 0))
+		elseif racine:GetAttribute("Mode") == "plafond" and racine:GetAttribute("SaisieType") == "enlevement" and racine:GetAttribute("Saisie") then
+			cible = cible * G.suspendre(1, workspace:GetServerTimeNow() - (racine:GetAttribute("SaisieT") or 0), C.COUPS.enlevement)
+		elseif racine:GetAttribute("Mode") == "plafond" and coup == "enlevement" and e < C.COUPS.enlevement.signe + 0.2 then
+			cible = cible * G.suspendre(e / C.COUPS.enlevement.signe, nil, C.COUPS.enlevement)    -- elle se laisse pendre de la grille
 		end
 		cfAffiche = cfAffiche:Lerp(cible, 1 - math.exp(-14 * dt))
 	end
@@ -627,6 +636,52 @@ local function etouffer(actif: boolean)
 	end
 end
 
+-- nuage d'encre : brume sombre qui gonfle, paillettes vertes lumineuses, nappe noire qui s'étale sur l'eau
+local function nuageEncre(pos: Vector3, rayon: number, duree: number)
+	local base = Instance.new("Part"); base.Anchored = true; base.CanCollide = false; base.CanQuery = false; base.CanTouch = false
+	base.Transparency = 1; base.Size = Vector3.one; base.Position = pos + Vector3.new(0, 1, 0); base.Name = "Encre"; base.Parent = workspace
+	local att = Instance.new("Attachment"); att.Parent = base
+	local fumee = Instance.new("ParticleEmitter")
+	fumee.Texture = "rbxasset://textures/particles/smoke_main.dds"; fumee.Enabled = false; fumee.Rate = 0
+	fumee.Color = ColorSequence.new(Color3.fromRGB(12, 34, 32), Color3.fromRGB(4, 12, 12))
+	fumee.LightInfluence = 1; fumee.LightEmission = 0
+	fumee.Size = NumberSequence.new({ NumberSequenceKeypoint.new(0, 2.5), NumberSequenceKeypoint.new(0.3, 7), NumberSequenceKeypoint.new(1, 11) })
+	fumee.Transparency = NumberSequence.new({ NumberSequenceKeypoint.new(0, 0.05), NumberSequenceKeypoint.new(0.7, 0.35), NumberSequenceKeypoint.new(1, 1) })
+	fumee.Lifetime = NumberRange.new(duree * 0.8, duree + 1.5); fumee.Speed = NumberRange.new(10, 22); fumee.Drag = 2.2
+	fumee.SpreadAngle = Vector2.new(180, 180); fumee.Acceleration = Vector3.new(0, 0.6, 0)
+	fumee.Rotation = NumberRange.new(0, 360); fumee.RotSpeed = NumberRange.new(-20, 20); fumee.Parent = att
+	local paillettes = Instance.new("ParticleEmitter")
+	paillettes.Texture = "rbxasset://textures/particles/sparkles_main.dds"; paillettes.Enabled = false; paillettes.Rate = 0
+	paillettes.Color = ColorSequence.new(Color3.fromRGB(100, 255, 160)); paillettes.LightEmission = 1; paillettes.LightInfluence = 0
+	paillettes.Size = NumberSequence.new(0.25, 0.08)
+	paillettes.Transparency = NumberSequence.new({ NumberSequenceKeypoint.new(0, 0), NumberSequenceKeypoint.new(0.8, 0.2), NumberSequenceKeypoint.new(1, 1) })
+	paillettes.Lifetime = NumberRange.new(duree - 0.5, duree + 1); paillettes.Speed = NumberRange.new(6, 18); paillettes.Drag = 2.4
+	paillettes.SpreadAngle = Vector2.new(180, 180); paillettes.Parent = att
+	fumee:Emit(80); paillettes:Emit(180)
+	local s = Eau.surface(pos, 3)
+	if s then
+		local nappe = Instance.new("Part"); nappe.Anchored = true; nappe.CanCollide = false; nappe.CanQuery = false; nappe.CanTouch = false
+		nappe.Transparency = 1; nappe.Size = Vector3.new(2, 0.05, 2); nappe.CFrame = CFrame.new(pos.X, s + 0.04, pos.Z); nappe.Name = "NappeEncre"
+		local sg = Instance.new("SurfaceGui"); sg.Face = Enum.NormalId.Top; sg.SizingMode = Enum.SurfaceGuiSizingMode.PixelsPerStud
+		sg.PixelsPerStud = 8; sg.LightInfluence = 1; sg.Parent = nappe
+		local f = Instance.new("Frame"); f.Size = UDim2.fromScale(1, 1); f.BackgroundColor3 = Color3.fromRGB(5, 14, 14); f.BorderSizePixel = 0; f.Parent = sg
+		local coin = Instance.new("UICorner"); coin.CornerRadius = UDim.new(0.5, 0); coin.Parent = f
+		nappe.Parent = workspace
+		task.spawn(function()
+			local t0 = os.clock()
+			while os.clock() - t0 < duree + 2.5 do
+				local x = os.clock() - t0
+				local d = 2 + (rayon * 2 - 2) * (1 - math.exp(-x / 0.45))
+				nappe.Size = Vector3.new(d, 0.05, d)
+				f.BackgroundTransparency = 0.2 + 0.8 * math.clamp((x - duree) / 2.5, 0, 1)
+				task.wait()
+			end
+			nappe:Destroy()
+		end)
+	end
+	task.delay(duree + 3, function() base:Destroy() end)
+end
+
 local debat
 evEffet.OnClientEvent:Connect(function(quoi, a, b, c)
 	local ch = personnage(); local h = ch and ch:FindFirstChildOfClass("Humanoid"); local r = ch and ch:FindFirstChild("HumanoidRootPart")
@@ -668,14 +723,10 @@ evEffet.OnClientEvent:Connect(function(quoi, a, b, c)
 		task.delay(4, function() noir.BackgroundTransparency = 1 end)
 	elseif quoi == "encre" then
 		local pos, rayon, duree = a, b, c
-		local nuage = Instance.new("Part"); nuage.Anchored = true; nuage.CanCollide = false; nuage.CanQuery = false; nuage.Transparency = 1
-		nuage.Size = Vector3.one; nuage.Position = pos; nuage.Parent = workspace
-		local pe = Instance.new("ParticleEmitter"); pe.Color = ColorSequence.new(Color3.fromRGB(40, 255, 160), Color3.fromRGB(10, 40, 30))
-		pe.LightEmission = 0.6; pe.Size = NumberSequence.new(4, 9); pe.Transparency = NumberSequence.new(0.3, 1); pe.Lifetime = NumberRange.new(2, 4)
-		pe.Rate = 60; pe.Speed = NumberRange.new(4, 9); pe.SpreadAngle = Vector2.new(180, 180); pe.Parent = nuage
-		task.delay(0.6, function() pe.Enabled = false end); task.delay(duree + 4, function() nuage:Destroy() end)
+		nuageEncre(pos, rayon, duree)
 		son(pos, "encre", 1.5)
 		if r and (r.Position - pos).Magnitude < rayon then
+			task.wait(math.min(0.6, (r.Position - pos).Magnitude / 20))          -- le nuage arrive jusqu'à lui
 			local flou = Instance.new("BlurEffect"); flou.Size = 24; flou.Parent = Lighting
 			local cc = Instance.new("ColorCorrectionEffect"); cc.TintColor = Color3.fromRGB(120, 255, 190); cc.Brightness = -0.15; cc.Parent = Lighting
 			lumieresJoueur(false)
