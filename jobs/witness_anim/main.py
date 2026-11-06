@@ -945,7 +945,7 @@ def plan_escalade(t):
     Mw, coup, e, ch = avancer(racine_escalade, t)
     Q = animer(t, 0, None, 0.0, False, None)
     if SIM['poids'] >= 0.01: locomotion(Q, t, Mw, SIM['vel'], SIM['m'], SIM['poids'])
-    CAM = Vector((-4.0, -6.5, 4.5)); viser(CAM, (2.0, 4.5, 6.3)); cd.angle_y = math.radians(74)
+    CAM = Vector((-4.0, -6.5, 4.5)); viser(CAM, (2.0, 4.0, 5.4)); cd.angle_y = math.radians(74)
     poser(Mw, Q, CAM)
 # plan « traversee » : montée par la grille dans la gaine, pause, redescente
 TR_PAS = Vector((0, 0, H)); TR_BAS = Vector((-3.5, 0, H)); TR_HAUT = Vector((3.2, 0, H + 0.5)); TR_T1 = 0.5; TR_T2 = 3.1
@@ -985,7 +985,7 @@ def plan_traversee(t):
     elif TR_T2 <= t < TR_T2 + D:
         av = traversee(1, TR_BAS, TR_HAUT, TR_PAS, Vector((1, 0, 0)), True)[0].to_3x3() @ Vector((1, 0, 0))
         traversee_bras(Q, Mw, (t - TR_T2)/D, TR_DE2, TR_BAS, TR_PAS, av, False)
-    CAM = Vector((1.0, -12.5, 10.6)); viser(CAM, (0.3, 0, 12.6)); cd.angle_y = math.radians(56)
+    CAM = Vector((1.0, -12.0, 12.25)); viser(CAM, (0.2, 0, 12.4)); cd.angle_y = math.radians(52)
     poser(Mw, Q, CAM)
 
 def decalage_ramasse(e):
@@ -1044,8 +1044,9 @@ elif PLAN in ('plafond', 'sol') + ('fouet', 'balayage', 'devore', 'plaquage', 'e
     CONTRE = lampe((0, 5, 6), 1100, (0.6, 0.85, 1.0), 4.0)
     for L_ in (CLE, CONTRE): L_.visible_glossy = False; L_.visible_transmission = False     # pas de grande tache blanche reflétée dans l'eau
     if PLAN == 'traversee':                             # néons de la gaine
-        lampe((-4, 1.2, H + 4.8), 260, (0.85, 0.93, 1.0), 2.0, forme='RECTANGLE', size_y=0.4)
-        lampe((6, 1.2, H + 4.8), 200, (0.85, 0.93, 1.0), 2.0, forme='RECTANGLE', size_y=0.4)
+        lampe((-4, 1.2, H + 4.8), 700, (0.85, 0.93, 1.0), 2.0, forme='RECTANGLE', size_y=0.4)
+        lampe((5, 1.2, H + 4.8), 600, (0.85, 0.93, 1.0), 2.0, forme='RECTANGLE', size_y=0.4)
+        lampe((1, -8, 14.5), 900, (1.0, 0.95, 0.9), 4.0, cible=(0, 0, 13.2))                  # appoint côté caméra dans la gaine
     if PLAN in ('balayage', 'encre', 'plaquage', 'escalade'):       # vue plongeante : les néons se reflètent en taches ; reflet doux d'un grand plafonnier à la place
         for o in list(sc.objects):
             if o.type == 'LIGHT' and o.data.type == 'AREA' and o.data.shape == 'RECTANGLE': o.visible_glossy = False
