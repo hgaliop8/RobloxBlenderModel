@@ -264,12 +264,15 @@ def maj_marche(m, t, Mw, vel, glisse=False):
         p = Mw @ (d*MR['rayon']); p = p - haut*(p - orig).dot(haut); ideal[k] = p + vel*MR['anticipation']
         if surf: ideal[k] = surf(ideal[k])
         f0 = m.pieds.get(k)
-        if f0 is None or (f0 - ideal[k]).length > 13 or (not surf and abs((f0 - orig).dot(haut)) > 1.5): m.pieds[k] = ideal[k].copy(); m.air.pop(k, None)
+        if f0 is None or (f0 - ideal[k]).length > 25 or (not surf and abs((f0 - orig).dot(haut)) > 1.5): m.pieds[k] = ideal[k].copy(); m.air.pop(k, None)
     if glisse:
         for k in DIRS: m.pieds[k] = ideal[k].copy()
         m.air = {}; return
     for k, a in list(m.air.items()):
         if t - a['t0'] >= a['duree']: m.pieds[k] = a['fin']; del m.air[k]; POSES_PIEDS.append((a['t0'] + a['duree'], a['fin'].copy()))
+    for k in DIRS:                                           # pied resté trop loin : un pas rapide tout de suite
+        if k not in m.air and (m.pieds[k] - ideal[k]).length > 7:
+            m.air[k] = dict(t0=t, duree=0.16, debut=m.pieds[k].copy(), fin=ideal[k].copy(), hauteur=1.0)
     if m.air: return
     seuil = MR['seuil'] if v > 1 else MR['seuil_repos']; ec = [0.0, 0.0]
     for k in DIRS: ec[k % 2] = max(ec[k % 2], (m.pieds[k] - ideal[k]).length)

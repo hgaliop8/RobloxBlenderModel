@@ -163,7 +163,7 @@ function G.majMarche(m, t: number, cf: CFrame, dirs: { [number]: Vector3 }, vel:
 		ideal[k] = surPlan(cf:PointToWorldSpace(d * M.rayon), origine, haut) + vel * M.anticipation
 		if surface then ideal[k] = surface(ideal[k]) end
 		local p = m.pieds[k]
-		if not p or (p - ideal[k]).Magnitude > 13 or (not surface and math.abs((p - origine):Dot(haut)) > 1.5) then
+		if not p or (p - ideal[k]).Magnitude > 25 or (not surface and math.abs((p - origine):Dot(haut)) > 1.5) then
 			m.pieds[k] = ideal[k]; m.air[k] = nil                -- nouveau plan (chute, changement de surface) : on repart propre
 		end
 	end
@@ -174,6 +174,12 @@ function G.majMarche(m, t: number, cf: CFrame, dirs: { [number]: Vector3 }, vel:
 	end
 	for k, a in pairs(m.air) do
 		if t - a.t0 >= a.duree then m.pieds[k] = a.fin; m.air[k] = nil end
+	end
+	-- pied resté trop loin (forte accélération, demi-tour) : un pas rapide tout de suite, sans attendre l'autre groupe
+	for k in pairs(dirs) do
+		if not m.air[k] and (m.pieds[k] - ideal[k]).Magnitude > 7 then
+			m.air[k] = { t0 = t, duree = 0.16, debut = m.pieds[k], fin = ideal[k], hauteur = 1.0 }
+		end
 	end
 	if next(m.air) ~= nil then return end
 	local seuil = v > 1 and M.seuil or M.seuil_repos
