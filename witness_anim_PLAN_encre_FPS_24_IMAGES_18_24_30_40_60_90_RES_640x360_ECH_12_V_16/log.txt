@@ -1,0 +1,14 @@
+>> peau : 146042 faces remaillées -> 11000 triangles
+>> échelle ×2.258 (envergure 5.36 m -> 12.1 studs)
+>> modèle prêt
+Blender 4.2.3 LTS (hash 0e22e4fcea03 built 2024-10-14 23:31:34)
+Error: Node type ShaderNodePrincipledVolume undefined
+Traceback (most recent call last):
+  File "/home/runner/work/RobloxBlenderModel/RobloxBlenderModel/jobs/witness_anim/main.py", line 680, in <module>
+    pv = nt.nodes.new('ShaderNodePrincipledVolume'); pv.inputs['Color'].default_value = (0.02, 0.07, 0.065, 1)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Error: Node type ShaderNodePrincipledVolume undefined
+
+
+Blender quit
+duree_s=16
