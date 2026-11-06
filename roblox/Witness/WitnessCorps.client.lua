@@ -294,6 +294,7 @@ end
 -- enlèvement : son corps est caché dans la gaine ; ses bras passent entre les barreaux de la grille.
 -- Quatre bras agrippent le rebord du plafond ; les quatre bras avant s'allongent jusqu'à la proie, l'enroulent,
 -- puis raccourcissent à mesure qu'ils la hissent.
+local grilleCache = { t = nil :: number?, f = nil :: Vector3?, sens = {} :: { [number]: number } }
 local function grille(t: number)
 	local g = racine:GetAttribute("Grille")
 	if typeof(g) ~= "Vector3" or not osRacine then return end
@@ -307,6 +308,7 @@ local function grille(t: number)
 	local torse = ch and (ch:FindFirstChild("UpperTorso") or ch:FindFirstChild("Torso")) :: BasePart?
 	local w0 = lisse(e / 0.3)
 	local signe = C.COUPS.enlevement.signe
+	local nouveaux = false
 	for k, chn in pairs(BRAS) do
 		local B = (parent * chn.os[1].CFrame).Position
 		local dir = Vector3.new(B.X - centre.X, 0, B.Z - centre.Z); dir = dir.Magnitude > 1e-3 and dir.Unit or Vector3.new(1, 0, 0)
@@ -318,9 +320,15 @@ local function grille(t: number)
 			-- vers le torse, puis autour : le bras s'allonge le long de ce chemin (jusqu'au contact pendant le signe)
 			local U = torse.CFrame.UpVector
 			local N = torse.Position
-			local f = Vector3.new(O.X - N.X, 0, O.Z - N.Z); f = f.Magnitude > 1e-3 and f.Unit or Vector3.new(1, 0, 0)
-			local l = U:Cross(f).Unit
-			local sens = ((passage - N):Dot(l) >= 0) and 1 or -1
+			-- direction vers la grille et sens d'enroulement : figés à la saisie (sous la grille ils ne sont plus définis)
+			local f, sens
+			local fige = tient and grilleCache.t == racine:GetAttribute("SaisieT") and grilleCache.f
+			if fige then f = fige; sens = grilleCache.sens[k] or 1
+			else
+				f = Vector3.new(O.X - N.X, 0, O.Z - N.Z); f = f.Magnitude > 1e-3 and f.Unit or Vector3.new(1, 0, 0)
+				sens = ((passage - N):Dot(U:Cross(f).Unit) >= 0) and 1 or -1
+				if tient then grilleCache.f = f; grilleCache.sens[k] = sens; nouveaux = true end
+			end
 			local r = 1.1 + 0.4 * math.exp(-tt * 0.9) - 0.04 * math.max(0, math.sin(tt * 7))
 			local h0 = ({ [0] = 0.3, [7] = 0.5, [1] = -0.5, [6] = -0.3 })[k] or 0
 			local complet = G.parLaGrille(B, passage, G.cheminEnroule(passage, N, U, f, r, h0, sens, 0.9))
@@ -342,6 +350,7 @@ local function grille(t: number)
 		for j = 1, 8 do poids[j] = tient and math.max(w0, lisse((tt - 0.04 * (j - 1)) / 0.4)) or w0 end
 		G.orienter(chn, parent, G.articulations(B, chemin, longueursEtirees(k, s)), poids)
 	end
+	if nouveaux then grilleCache.t = racine:GetAttribute("SaisieT") end
 end
 
 -- chute dévorante, pendant l'attente : bras enroulés à plat contre le plafond ; serre = resserrement juste avant de se lâcher

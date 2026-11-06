@@ -759,8 +759,9 @@ def plan_enlevement(t):
             if k not in (0, 1, 6, 7):
                 chemin = par_la_grille(B, pas_, chemin_sol(pas_, dv, Vector((GRILLE.x, GRILLE.y, H - 0.25)) + dv*2.8, Vector((0, 0, -1))))
             else:                                                # s'allonge jusqu'au torse, l'enroule, puis raccourcit en le hissant
-                fv = Vector((O.x - N.x, O.y - N.y, 0)); fv = fv.normalized() if fv.length > 1e-3 else Vector((1, 0, 0))
-                l_ = U.cross(fv).normalized(); sens = 1 if (pas_ - N).dot(l_) >= 0 else -1
+                Nf = depart if tient else N                          # direction et sens figés à la saisie (sous la grille ils ne sont plus définis)
+                fv = Vector((O.x - Nf.x, O.y - Nf.y, 0)); fv = fv.normalized() if fv.length > 1e-3 else Vector((1, 0, 0))
+                l_ = U.cross(fv).normalized(); sens = 1 if (pas_ - Nf).dot(l_) >= 0 else -1
                 ttp = max(tt, 0.0)
                 r = 1.1 + 0.4*math.exp(-ttp*0.9) - 0.04*max(0, math.sin(ttp*7))
                 complet = par_la_grille(B, pas_, chemin_enroule(pas_, N, U, fv, r, {0: 0.3, 7: 0.5, 1: -0.5, 6: -0.3}[k], sens, 0.9))
@@ -992,6 +993,9 @@ for fr in LISTE:
                 pb = arm.pose.bones[f'Bras{k}_{j}']; q = arm.matrix_world @ pb.tail
                 if (k, j) in prec: pires.append(((q - prec[(k, j)]).length, k, j))
                 prec[(k, j)] = q
+        if os.environ.get('DIAGK') and int(os.environ['DIAGK']) in range(8):
+            kk = int(os.environ['DIAGK'])
+            log(f'joints {fr} ' + ' '.join(f'({v.x:.1f},{v.y:.1f},{v.z:.1f})' for v in (arm.matrix_world @ arm.pose.bones[f'Bras{kk}_{j}'].tail for j in range(1, 9))))
         if pires:
             m = max(pires); log(f'diag {fr} t={t:.3f} saut max {m[0]:.2f} (bras {m[1]} os {m[2]}) etire {dict((k, round(v, 2)) for k, v in ETIRE.items())}')
         continue
