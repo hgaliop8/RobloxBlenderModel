@@ -330,7 +330,7 @@ sc = bpy.context.scene; sc.render.engine = 'CYCLES'; sc.cycles.samples = int(os.
 sc.cycles.max_bounces = 12; sc.cycles.transmission_bounces = 12; sc.cycles.transparent_max_bounces = 12
 sc.render.resolution_x, sc.render.resolution_y = (int(x) for x in os.environ.get('RES', '1280x720').split('x'))
 sc.view_settings.view_transform = 'AgX'; sc.view_settings.look = 'AgX - Medium High Contrast'
-EXPO = {'couloir': 0.0, 'chute': 0.0, 'etrangle': 0.0, 'plafond': 0.0, 'sol': 0.0, 'fouet': 0.0, 'balayage': 0.0, 'morsure': 0.0, 'devore': 0.0, 'plaquage': 0.0, 'enlevement': 0.0, 'encre': 0.0, 'escalade': 0.0, 'traversee': 0.0}[PLAN]
+EXPO = {'couloir': 0.0, 'chute': 0.0, 'etrangle': 0.0, 'plafond': 0.0, 'sol': 0.0, 'fouet': 0.0, 'balayage': 0.0, 'morsure': 0.0, 'devore': 0.0, 'plaquage': 0.0, 'enlevement': 0.0, 'encre': 0.0, 'escalade': 0.0, 'traversee': 0.0, 'porte': 0.0}[PLAN]
 sc.view_settings.exposure = float(os.environ.get('EXPO', EXPO))
 w = bpy.data.worlds.new('W'); w.use_nodes = True; w.node_tree.nodes['Background'].inputs['Color'].default_value = (0.01, 0.012, 0.016, 1); sc.world = w
 H = 12.0; LARG = 12.0
@@ -342,6 +342,12 @@ for nom, size, loc, mt in (('Sol', (LX, LARG, 0.4), (CX, 0, -0.2), K.mat('tole_s
                            ('MurS', (LX, 0.4, H), (CX, -LARG/2 - 0.2, H/2), K.mat('metal_peint', (150, 156, 160))),
                            ('Fond', (0.4, LARG, H), (L0 + 0.2, 0, H/2), K.mat('metal_peint', (120, 126, 130)))):
     if PLAN != 'couloir' and nom == 'MurS': continue        # vue de côté : mur retiré côté caméra
+    if PLAN == 'porte' and nom == 'Fond':                    # mur percé d'une porte en x = 0 (coupé côté caméra, au bord de la porte)
+        mp = K.mat('metal_peint', (150, 156, 160)); mf = K.mat('metal_peint', (70, 74, 78))
+        K.box_uv(K.cube('MurPorte', (1.0, 9.0, H - 8.2), (0, 1.5, (H + 8.2)/2), mp, 0))
+        K.box_uv(K.cube('Jambage', (1.0, 3.0, 8.2), (0, 4.5, 4.1), mp, 0))
+        K.box_uv(K.cube('Linteau', (1.0, 6.6, 0.6), (0, 0.0, 8.2 + 0.3 - 0.0), mf, 0.03))
+        K.box_uv(K.cube('Montant', (1.0, 0.6, 8.2), (0, 3.0 - 0.3, 4.1), mf, 0.03))
     if PLAN == 'traversee' and nom == 'Plafond':             # plafond percé d'une vraie trouée sous la grille, gaine au-dessus (en coupe)
         pl = K.mat('plafond', (190, 192, 188)); mg = K.mat('metal_peint', (120, 126, 128))
         for sz_, lc_ in (((LX, 6 - 2.2, 0.5), (CX, -(6 + 2.2)/2, H + 0.25)), ((LX, 6 - 2.2, 0.5), (CX, (6 + 2.2)/2, H + 0.25)),
@@ -988,6 +994,78 @@ def plan_traversee(t):
     CAM = Vector((1.0, -12.0, 12.25)); viser(CAM, (0.2, 0, 12.4)); cd.angle_y = math.radians(52)
     poser(Mw, Q, CAM)
 
+# ---------------------------------------------------------------- passage d'une porte par le haut (port de WitnessGestes)
+PORTE = dict(o=0.35, R=1.3, arete=0.32, coin=0.42, approche=1.2, acc=0.25)
+def porte_parcours(c, a, fA, fB, yL, yHA, yHB, V):
+    o, R = PORTE['o'], PORTE['R']; segs = []
+    h = lambda x, y: Vector((c.x, c.y, y)) + a*x
+    def ligne(p0, p1, X, Y):
+        L = (p1 - p0).length
+        if L > 1e-3: segs.append(dict(arc=False, p0=p0, p1=p1, X0=X, Y0=Y, X1=X, Y1=Y, d=L/V))
+    def arc(C, u0, u1, r, X0, X1, Y0, Y1, d): segs.append(dict(arc=True, C=C, u0=u0, u1=u1, r=r, X0=X0, X1=X1, Y0=Y0, Y1=Y1, d=d))
+    C1, C2 = h(fA, yHA), h(fB, yHB); E2, E3 = h(fA, yL), h(fB, yL); dc = max(R*math.pi/2/V, PORTE['coin'])
+    ligne(C1 - a*(R + PORTE['approche']), C1 - a*R, a, -UPV)
+    arc(C1, -a, -UPV, R, a, -UPV, -UPV, -a, dc)
+    ligne(C1 - UPV*R, E2 - a*o, -UPV, -a)
+    arc(E2, -a, -UPV, o, -UPV, a, -a, -UPV, PORTE['arete'])
+    ligne(E2 - UPV*o, E3 - UPV*o, a, -UPV)
+    arc(E3, -UPV, a, o, a, UPV, -UPV, a, PORTE['arete'])
+    ligne(E3 + a*o, C2 - UPV*R, UPV, a)
+    arc(C2, -UPV, a, R, UPV, a, a, -UPV, dc)
+    ligne(C2 + a*R, C2 + a*(R + PORTE['approche']), a, -UPV)
+    return dict(segs=segs, D=sum(sg['d'] for sg in segs))
+def porte_duree(pc): return pc['D'] + PORTE['acc']
+def cadre_nominal(pc, tau):
+    segs = pc['segs']
+    if tau <= 0:
+        sg = segs[0]; dv = (sg['p1'] - sg['p0']).normalized(); return repere(sg['p0'] + dv*(tau*(sg['p1'] - sg['p0']).length/sg['d']), sg['X0'], sg['Y0'])
+    for i, sg in enumerate(segs):
+        if tau <= sg['d'] or i == len(segs) - 1:
+            if i == len(segs) - 1 and tau > sg['d']:
+                dv = (sg['p1'] - sg['p0']).normalized(); return repere(sg['p1'] + dv*((tau - sg['d'])*(sg['p1'] - sg['p0']).length/sg['d']), sg['X1'], sg['Y1'])
+            u = max(0.0, min(1.0, tau/sg['d']))
+            if not sg['arc']: return repere(sg['p0'].lerp(sg['p1'], u), sg['X0'], sg['Y0'])
+            ph = u*math.pi/2; cs, sn = math.cos(ph), math.sin(ph)
+            return repere(sg['C'] + (sg['u0']*cs + sg['u1']*sn)*sg['r'], sg['X0']*cs + sg['X1']*sn, sg['Y0']*cs + sg['Y1']*sn)
+        tau -= sg['d']
+def tau_porte(pc, x):
+    ta, D = PORTE['acc'], pc['D']; T = D + ta; x = max(0.0, min(T, x))
+    if x < ta: return x*x/(2*ta)
+    if x > T - ta: return D - (T - x)**2/(2*ta)
+    return x - ta/2
+def porte_cadre(pc, x): return cadre_nominal(pc, tau_porte(pc, x))
+def lateral(M): return (M.to_3x3() @ Vector((0, 1, 0))).normalized()
+def chemin_porte(pc, x, B, lat, t):
+    tau = tau_porte(pc, x); pts = [B.copy()]; long_ = 0.0; prec = B
+    for i in range(1, 41):
+        M = cadre_nominal(pc, tau - i*0.03); u = min(1.0, long_/5.5)
+        q = M.translation + lateral(M)*(lat*(1 - 0.6*u)) + haut_de(M)*0.25 + lateral(M)*(0.25*u*math.sin(t*8 - u*5))
+        long_ += (q - prec).length; prec = q; pts.append(q)
+        if long_ > 7: break
+    return pts
+PO_PC = porte_parcours(Vector((0, 0, 0)), Vector((1, 0, 0)), -0.5, 0.5, 8.2, H, H, 12.0)
+PO_T0 = 0.7; PO_D = porte_duree(PO_PC)
+def racine_porte(t):
+    debut = porte_cadre(PO_PC, 0); fin = porte_cadre(PO_PC, PO_D)
+    if t < PO_T0:
+        a = lisse((t - 0.1)/(PO_T0 - 0.1)); return repere(Vector((-7.5, 0, H)).lerp(debut.translation, a), Vector((1, 0, 0)), -UPV), None, 0.0, None
+    if t < PO_T0 + PO_D: return porte_cadre(PO_PC, t - PO_T0), None, 0.0, 'porte'
+    a = lisse((t - PO_T0 - PO_D)/0.9); return repere(fin.translation.lerp(Vector((fin.translation.x + 3.5, 0, H)), a), Vector((1, 0, 0)), -UPV), None, 0.0, None
+def plan_porte(t):
+    Mw, coup, e, ch = avancer(racine_porte, t)
+    Q = animer(t, 0, None, 0.0, False, None)
+    if SIM['poids'] >= 0.01: locomotion(Q, t, Mw, SIM['vel'], SIM['m'], SIM['poids'])
+    x = t - PO_T0
+    if 0 <= x <= PO_D:
+        arm.matrix_world = Mw; bpy.context.view_layer.update()
+        Mrac = Mw @ arm.pose.bones['Racine'].bone.matrix_local; centre = Mrac.translation; Z = lateral(Mw)
+        p_ = lisse(x/0.25)*(1 - lisse((x - PO_D + 0.3)/0.3))
+        for k in range(8):
+            chn = CHAINES[k]; B = (Mrac @ rest_rel(chn[0])).translation
+            orienter(chn, Mrac, articulations(B, chemin_porte(PO_PC, x, B, (B - centre).dot(Z), t), LONG[k]), [poids_chaine(p_, j + 1) for j in range(8)], Q)
+    CAM = Vector((0.6, -13.5, 8.6)); viser(CAM, (0.0, 0, 9.4)); cd.angle_y = math.radians(58)
+    poser(Mw, Q, CAM)
+
 def decalage_ramasse(e):
     a = lisse(e/PLAQ['signe']); return Matrix.Translation((-0.4*a, 0, -0.3*a)) @ autour(P_CAB, 0.1*a)
 
@@ -1036,7 +1114,7 @@ if PLAN == 'couloir':
         lampe((x + 12, 0, H - 0.8), 250, (1.0, 0.2, 0.12), 1.0)                                  # voyants de secours
     torche = bpy.data.lights.new('Torche', 'SPOT'); torche.energy = 4000; torche.spot_size = math.radians(36); torche.spot_blend = 0.5; torche.color = (1.0, 0.95, 0.85)
     tob = bpy.data.objects.new('Torche', torche); sc.collection.objects.link(tob); tob.location = (96.6, -2.0, 4.2)
-elif PLAN in ('plafond', 'sol') + ('fouet', 'balayage', 'devore', 'plaquage', 'enlevement', 'encre', 'escalade', 'traversee'):
+elif PLAN in ('plafond', 'sol') + ('fouet', 'balayage', 'devore', 'plaquage', 'enlevement', 'encre', 'escalade', 'traversee', 'porte'):
     for x in range(-36, 40, 10):
         lampe((x, 4.2, H - 0.4), 700, (0.85, 0.93, 1.0), 3.0, forme='RECTANGLE', size_y=0.5)
         lampe((x + 5, -4.2, H - 0.4), 500, (0.85, 0.93, 1.0), 3.0, forme='RECTANGLE', size_y=0.5)
@@ -1051,7 +1129,7 @@ elif PLAN in ('plafond', 'sol') + ('fouet', 'balayage', 'devore', 'plaquage', 'e
         for o in list(sc.objects):
             if o.type == 'LIGHT' and o.data.type == 'AREA' and o.data.shape == 'RECTANGLE': o.visible_glossy = False
         lampe((0, 0, H - 0.3), 260, (0.8, 0.9, 1.0), 26.0)
-    if PLAN in ('sol',) + ('fouet', 'balayage', 'devore', 'plaquage', 'enlevement', 'encre', 'escalade', 'traversee'):                                   # sol et eau prolongés côté caméra : pas de bord coupé dans le champ
+    if PLAN in ('sol',) + ('fouet', 'balayage', 'devore', 'plaquage', 'enlevement', 'encre', 'escalade', 'traversee', 'porte'):                                   # sol et eau prolongés côté caméra : pas de bord coupé dans le champ
         K.box_uv(K.cube('SolAvant', (LX, 16, 0.4), (CX, -14, -0.2), K.mat('tole_striee', (120, 124, 126)), 0))
 elif PLAN == 'chute':
     lampe((-6, -2, H - 0.5), 1400, (0.85, 0.93, 1.0), 3.0, forme='RECTANGLE', size_y=0.6)
@@ -1103,7 +1181,7 @@ if PLAN in ('sol', 'couloir') + ('fouet', 'balayage', 'devore', 'plaquage', 'enl
             GOUTTES.append((g, Vector((math.cos(a)*rad, math.sin(a)*rad, 0)), Vector((math.cos(a)*rg.uniform(2, 7), math.sin(a)*rg.uniform(2, 7), rg.uniform(6, 13))), rg.uniform(0, 0.06)))
 def emetteurs(t):
     """sources d'ondes : le corps qui avance dans l'eau, les pieds qui se reposent, l'impact de la chute"""
-    if PLAN in ('fouet', 'balayage', 'devore', 'plaquage', 'enlevement', 'encre', 'escalade', 'traversee'):
+    if PLAN in ('fouet', 'balayage', 'devore', 'plaquage', 'enlevement', 'encre', 'escalade', 'traversee', 'porte'):
         return [x for x in ECLAB if x[2] <= t] + [(pp.x, pp.y, te, 0.05) for te, pp in POSES_PIEDS if t - 2.4 < te <= t and pp.z < 0.6]
     out = []; fn = racine_sol if PLAN == 'sol' else racine_couloir
     for i in range(max(0, int((t - 2.4)*24)), int(t*24) + 1):
@@ -1142,7 +1220,7 @@ def maj_eau(t):
 PLANS = {'couloir': lambda t: plan_marche(t, racine_couloir, cam_couloir), 'chute': plan_chute, 'etrangle': plan_etrangle,
          'plafond': lambda t: plan_marche(t, racine_plafond, cam_plafond), 'sol': lambda t: plan_marche(t, racine_sol, cam_sol),
          'fouet': plan_attaque, 'balayage': plan_attaque, 'devore': plan_devore, 'plaquage': plan_plaquage,
-         'enlevement': plan_enlevement, 'encre': plan_encre, 'escalade': plan_escalade, 'traversee': plan_traversee}
+         'enlevement': plan_enlevement, 'encre': plan_encre, 'escalade': plan_escalade, 'traversee': plan_traversee, 'porte': plan_porte}
 IM = os.environ.get('IMAGES', '1-24')
 if '-' in IM: i0, i1 = (int(x) for x in IM.split('-')); LISTE = range(i0, i1 + 1)
 else: LISTE = [int(x) for x in IM.split('_')]
@@ -1166,13 +1244,14 @@ for fr in LISTE:
             m = max(pires); log(f'diag {fr} t={t:.3f} saut max {m[0]:.2f} (bras {m[1]} os {m[2]}) etire {dict((k, round(v, 2)) for k, v in ETIRE.items())}')
         continue
     maj_eau(t)
-    if PLAN in ('plafond', 'sol') + ('fouet', 'balayage', 'devore', 'plaquage', 'enlevement', 'encre', 'escalade', 'traversee'):                     # lumière principale et contre-jour qui suivent la créature
+    if PLAN in ('plafond', 'sol') + ('fouet', 'balayage', 'devore', 'plaquage', 'enlevement', 'encre', 'escalade', 'traversee', 'porte'):                     # lumière principale et contre-jour qui suivent la créature
         c = arm.matrix_world.translation.copy(); cz = 9.0 if PLAN == 'plafond' else 2.0
         if PLAN == 'devore': c.z = 2.0; cz = 4.5
         if PLAN == 'enlevement': c = Vector((1.5, 0, 3.0)); cz = 6.5
         if PLAN == 'encre': c = Vector((2.0, 0, 1.0))
         if PLAN == 'traversee': c = Vector((0, 0, 12.0)); cz = 12.5
         if PLAN == 'escalade': c = Vector((2, 3, 6.0)); cz = 6.0
+        if PLAN == 'porte': c = Vector((0, 0, 10.0)); cz = 10.0
         CLE.location = c + Vector((2, -11, 6 if PLAN == 'sol' else -6)); CLE.rotation_euler = (Vector((c.x, 0, cz)) - CLE.location).to_track_quat('-Z', 'Y').to_euler()
         CONTRE.location = c + Vector((-3, 5, 4 if PLAN == 'sol' else -3)); CONTRE.rotation_euler = (Vector((c.x, 0, cz)) - CONTRE.location).to_track_quat('-Z', 'Y').to_euler()
     if PLAN == 'couloir':

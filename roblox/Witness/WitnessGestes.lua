@@ -688,4 +688,90 @@ function G.surfaceEscalade(p: Vector3, E0: Vector3, n: Vector3, yH: number): Vec
 	return coin(p, Vector3.new(E0.X, yH, E0.Z), L, -UPV, n)
 end
 
+-- ================================================================ passage d'une porte par le haut (plafond -> mur -> sous le linteau -> mur -> plafond)
+--[[ Parcours de la racine fait de segments droits et d'arcs, chacun avec le repère du corps à ses deux bouts (X = avant,
+Y = dessus) ; le long d'un arc, le repère tourne autour de l'axe latéral. c = milieu de la porte (horizontal), a = axe de la
+porte (côté A -> côté B), fA / fB = position des faces du linteau le long de a (fA < 0 < fB), yL = dessous du linteau,
+yHA / yHB = plafonds des deux côtés. Coins rentrants (plafond/mur) : arc de rayon R ; arêtes du linteau : arc de rayon o,
+passées lentement. Au plafond et au mur, la racine est au ras de la surface, comme ailleurs. ]]
+G.PORTE = { o = 0.35, R = 1.3, arete = 0.32, coin = 0.42, approche = 1.2, acc = 0.25 }
+function G.porteParcours(c: Vector3, a: Vector3, fA: number, fB: number, yL: number, yHA: number, yHB: number, V: number)
+	local P = G.PORTE
+	local o, R = P.o, P.R
+	local function h(x: number, y: number): Vector3 return Vector3.new(c.X, y, c.Z) + a * x end
+	local segs = {}
+	local function ligne(p0: Vector3, p1: Vector3, X: Vector3, Y: Vector3)
+		local L = (p1 - p0).Magnitude
+		if L > 1e-3 then table.insert(segs, { arc = false, p0 = p0, p1 = p1, X0 = X, Y0 = Y, X1 = X, Y1 = Y, d = L / V }) end
+	end
+	local function arc(C: Vector3, u0: Vector3, u1: Vector3, r: number, X0: Vector3, X1: Vector3, Y0: Vector3, Y1: Vector3, d: number)
+		table.insert(segs, { arc = true, C = C, u0 = u0, u1 = u1, r = r, X0 = X0, X1 = X1, Y0 = Y0, Y1 = Y1, d = d })
+	end
+	local C1 = h(fA, yHA)                                   -- arêtes rentrantes plafond/mur (la racine reste au ras des surfaces)
+	local C2 = h(fB, yHB)
+	local E2, E3 = h(fA, yL), h(fB, yL)                     -- arêtes du linteau (la racine s'en écarte de o pour les contourner)
+	ligne(C1 - a * (R + P.approche), C1 - a * R, a, -UPV)                                              -- au plafond, vers le mur
+	arc(C1, -a, -UPV, R, a, -UPV, -UPV, -a, math.max(R * math.pi / 2 / V, P.coin))                    -- coin plafond/mur : tête en bas
+	ligne(C1 - UPV * R, E2 - a * o, -UPV, -a)                                                           -- descend le mur
+	arc(E2, -a, -UPV, o, -UPV, a, -a, -UPV, P.arete)                                                    -- arête du linteau
+	ligne(E2 - UPV * o, E3 - UPV * o, a, -UPV)                                                          -- sous le linteau
+	arc(E3, -UPV, a, o, a, UPV, -UPV, a, P.arete)                                                       -- arête de l'autre côté
+	ligne(E3 + a * o, C2 - UPV * R, UPV, a)                                                             -- remonte le mur
+	arc(C2, -UPV, a, R, UPV, a, a, -UPV, math.max(R * math.pi / 2 / V, P.coin))                       -- coin mur/plafond
+	ligne(C2 + a * R, C2 + a * (R + P.approche), a, -UPV)                                              -- au plafond, de l'autre côté
+	local D = 0
+	for _, sg in ipairs(segs) do D += sg.d end
+	return { segs = segs, D = D }
+end
+function G.porteDuree(pc): number return pc.D + G.PORTE.acc end
+-- repère au temps « nominal » tau (0..D) ; avant 0 et après D, le parcours se prolonge en ligne droite
+local function cadreNominal(pc, tau: number): CFrame
+	local segs = pc.segs
+	if tau <= 0 then
+		local sg = segs[1]; local dir = (sg.p1 - sg.p0).Unit
+		return CFrame.fromMatrix(sg.p0 + dir * (tau * (sg.p1 - sg.p0).Magnitude / sg.d), sg.X0, sg.Y0)
+	end
+	for i, sg in ipairs(segs) do
+		if tau <= sg.d or i == #segs then
+			local u = math.clamp(tau / sg.d, 0, 1)
+			if i == #segs and tau > sg.d then
+				local dir = (sg.p1 - sg.p0).Unit
+				return CFrame.fromMatrix(sg.p1 + dir * ((tau - sg.d) * (sg.p1 - sg.p0).Magnitude / sg.d), sg.X1, sg.Y1)
+			end
+			if not sg.arc then return CFrame.fromMatrix(sg.p0:Lerp(sg.p1, u), sg.X0, sg.Y0) end
+			local phi = u * math.pi / 2
+			local cs, sn = math.cos(phi), math.sin(phi)
+			return CFrame.fromMatrix(sg.C + (sg.u0 * cs + sg.u1 * sn) * sg.r, sg.X0 * cs + sg.X1 * sn, sg.Y0 * cs + sg.Y1 * sn)
+		end
+		tau -= sg.d
+	end
+	return CFrame.identity
+end
+-- temps réel x -> temps nominal (départ et arrivée en douceur)
+local function tauPorte(pc, x: number): number
+	local ta, D = G.PORTE.acc, pc.D
+	local T = D + ta
+	x = math.clamp(x, 0, T)
+	if x < ta then return x * x / (2 * ta) end
+	if x > T - ta then return D - (T - x) ^ 2 / (2 * ta) end
+	return x - ta / 2
+end
+function G.porte(pc, x: number): CFrame return cadreNominal(pc, tauPorte(pc, x)) end
+--[[ bras pendant le passage : en faisceau, ils suivent le chemin que le corps vient de parcourir (ils passent les arêtes
+après lui, au même endroit). lat = écart latéral de la base du bras, t = temps (ondulation). ]]
+function G.cheminPorte(pc, x: number, B: Vector3, lat: number, t: number): { Vector3 }
+	local tau = tauPorte(pc, x)
+	local pts = { B }
+	local long, prec = 0, B
+	for i = 1, 40 do
+		local cf = cadreNominal(pc, tau - i * 0.03)
+		local u = math.min(1, long / 5.5)
+		local q = cf.Position + cf.ZVector * (lat * (1 - 0.6 * u)) + cf.UpVector * 0.25 + cf.ZVector * (0.25 * u * math.sin(t * 8 - u * 5))
+		long += (q - prec).Magnitude; prec = q
+		table.insert(pts, q)
+		if long > 7 then break end
+	end
+	return pts
+end
+
 return G

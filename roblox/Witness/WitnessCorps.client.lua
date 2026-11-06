@@ -315,6 +315,33 @@ local function escaladeInfo()
 	escDernier = { E0 = E0, n = n, yH = yH, fin = t0 + D }
 	return { x = x, E0 = E0, n = n, yH = yH }
 end
+-- passage d'une porte par le haut (parcours recalculé une fois par passage)
+local porteCache = { t = nil :: number?, pc = nil :: any }
+local function porteInfo()
+	local t0 = racine:GetAttribute("PorteT"); if not t0 then return nil end
+	local c, a, f, y = racine:GetAttribute("PorteC"), racine:GetAttribute("PorteA"), racine:GetAttribute("PorteF"), racine:GetAttribute("PorteY")
+	if typeof(c) ~= "Vector3" or typeof(a) ~= "Vector3" or typeof(f) ~= "Vector3" or typeof(y) ~= "Vector3" then return nil end
+	if porteCache.t ~= t0 then porteCache.t = t0; porteCache.pc = G.porteParcours(c, a, f.X, f.Y, y.X, y.Y, y.Z, C.VITESSE.mur) end
+	local pc = porteCache.pc
+	local x = workspace:GetServerTimeNow() - t0
+	if x < 0 or x > G.porteDuree(pc) then return nil end
+	return { pc = pc, x = x, D = G.porteDuree(pc) }
+end
+-- bras pendant le passage d'une porte : en faisceau, ils suivent le chemin du corps
+local function porteBras(t: number, info)
+	if not osRacine then return end
+	local parent = mondeOs(osRacine)
+	local centre = parent.Position
+	local Z = cfAffiche.ZVector
+	local p = lisse(info.x / 0.25) * (1 - lisse((info.x - info.D + 0.3) / 0.3))
+	local poids = {}
+	for j = 1, 8 do poids[j] = G.poidsChaine(p, j) end
+	for _, chn in pairs(BRAS) do
+		local B = (parent * chn.os[1].CFrame).Position
+		G.orienter(chn, parent, G.articulations(B, G.cheminPorte(info.pc, info.x, B, (B - centre):Dot(Z), t), chn.L), poids)
+	end
+end
+
 -- pieds posés sur le coin sol/mur/plafond pendant l'escalade, et encore une seconde après (les pieds restés au mur)
 local function surfaceMarche(): ((Vector3) -> Vector3)?
 	local e = escDernier
@@ -573,7 +600,7 @@ local function animer(t, dt)
 	local etat = racine:GetAttribute("Etat")
 	local v = (coup == "descente") and 0 or vitesse                       -- pendant une chute, la vitesse ne fait pas « marcher » les bras
 	-- au mur seulement, les bras rament (ailleurs, la marche à pieds posés s'en charge)
-	local marche = (mode == "mur" and not escaladeInfo()) and math.clamp(v / 10, 0, 1) or 0   -- (escalade : pieds posés)
+	local marche = (mode == "mur" and not escaladeInfo() and not porteInfo()) and math.clamp(v / 10, 0, 1) or 0   -- (escalade : pieds posés)
 	local wg = math.min(2 + v * 0.5, 8)
 	for k = 0, 7 do
 		local ph = phases[k]
@@ -688,6 +715,8 @@ local function animer(t, dt)
 	if racine:GetAttribute("Plaque") then plaquer(t) end
 	if racine:GetAttribute("Grille") then grille(t) end
 	if trav then traverseeBras(t, trav) end
+	local po = porteInfo()
+	if po then porteBras(t, po) end
 	-- chute dévorante : pendant l'attente, bras ramassés à plat contre le plafond (rien ne pend) ; en tombant ils s'ouvrent
 	-- en ombrelle sous elle, centrée sur la tête ; à l'impact l'ombrelle se referme en cage
 	if coup == "chute" and e < signe + 0.5 then
@@ -798,6 +827,11 @@ RunService.RenderStepped:Connect(function(dt)
 		local tr = traverseeInfo() :: any
 		local cf, serre, etire = G.traversee(tr.u, tr.de, tr.vers, tr.passage, tr.avant, tr.montee)
 		cfAffiche = cf; ecraser(serre, etire)
+	elseif porteInfo() then
+		-- passage d'une porte par le haut : même parcours que le serveur
+		chuteEtat.phase = ""
+		local po = porteInfo() :: any
+		cfAffiche = G.porte(po.pc, po.x)
 	elseif escaladeInfo() then
 		-- escalade : elle roule autour de l'arête du bas, monte le mur, roule sur le plafond
 		chuteEtat.phase = ""

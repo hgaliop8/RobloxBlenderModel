@@ -263,6 +263,35 @@ local function allerVers(posCible, couche)
 	return ch ~= nil
 end
 
+--[[ géométrie d'une porte pour le passage par le haut, mesurée par rayons : axe de la porte (perpendiculaire au mur),
+dessous du linteau, faces du linteau des deux côtés, plafonds des deux côtés. passage = point sous le linteau (réseau),
+versB = nœud du côté d'arrivée. nil si quelque chose manque. ]]
+local function porteGeometrie(passage, versB)
+	local ab = Vector3.new(versB.X - passage.X, 0, versB.Z - passage.Z)
+	if ab.Magnitude < 0.5 then return nil end
+	ab = ab.Unit
+	local haut = workspace:Raycast(passage, UP * 4, params)
+	if not haut then return nil end
+	local yL = haut.Position.Y
+	local ref = Vector3.new(passage.X, yL + 0.15, passage.Z)
+	local fa = workspace:Raycast(ref - ab * 5, ab * 5, params)                -- face côté A
+	if not fa then return nil end
+	local a = -Vector3.new(fa.Normal.X, 0, fa.Normal.Z)
+	if a.Magnitude < 0.5 then return nil end
+	a = a.Unit
+	local fb = workspace:Raycast(ref + a * 5, -a * 5, params)                 -- face côté B
+	if not fb then return nil end
+	local c = Vector3.new(passage.X, 0, passage.Z)
+	local fA = (fa.Position - c):Dot(a); local fB = (fb.Position - c):Dot(a)
+	if fB - fA < 0.2 or fB - fA > 6 then return nil end
+	local hA = workspace:Raycast(Vector3.new(passage.X, yL + 1, passage.Z) + a * (fA - 2), UP * 30, params)
+	local hB = workspace:Raycast(Vector3.new(passage.X, yL + 1, passage.Z) + a * (fB + 2), UP * 30, params)
+	if not hA or not hB then return nil end
+	local P = G.PORTE
+	if hA.Position.Y - yL < P.R + P.o + 0.3 or hB.Position.Y - yL < P.R + P.o + 0.3 then return nil end
+	return { c = c, a = a, fA = fA, fB = fB, yL = yL, yHA = hA.Position.Y, yHB = hB.Position.Y }
+end
+
 local function franchirArete(et)
 	if et.type == "grille" then
 		-- elle s'écrase entre les barreaux : bras d'abord, puis le corps par à-coups, le manteau en dernier (G.traversee,
@@ -293,14 +322,40 @@ local function franchirArete(et)
 		racine:SetAttribute("TravT", nil)
 		W.occupe = false
 	elseif et.type == "porte" and et.passage then
-		W.occupe = true; W.mode = "mur"
-		glisser(et.passage, ((et.passage - W.pos).Magnitude) / C.VITESSE.mur, nil, false)
+		W.occupe = true
 		if et.porte and string.find(et.porte, "badge") then
 			bPorte:Fire(et.passage, et.porte); sonEn(et.passage, "bip")
 			local reg = RS:GetAttribute("RegistreBadges") or ""
 			RS:SetAttribute("RegistreBadges", reg .. string.format("%s;ALDANE I.\n", os.date("!%H:%M:%S")))
 		end
-		glisser(et.pos, ((et.pos - W.pos).Magnitude) / C.VITESSE.mur, "plafond", true)
+		local geo = porteGeometrie(et.passage, et.pos)
+		if geo then
+			-- par le haut : elle descend le mur au-dessus de la porte, passe sous le linteau, remonte de l'autre côté
+			local pc = G.porteParcours(geo.c, geo.a, geo.fA, geo.fB, geo.yL, geo.yHA, geo.yHB, C.VITESSE.mur)
+			local debut = G.porte(pc, 0)
+			W.avant = geo.a
+			glisser(debut.Position, math.max(0.2, (debut.Position - W.pos).Magnitude / C.VITESSE.plafond), nil, true)
+			W.mode = "mur"; racine:SetAttribute("Mode", "mur")
+			racine:SetAttribute("PorteC", geo.c); racine:SetAttribute("PorteA", geo.a)
+			racine:SetAttribute("PorteF", Vector3.new(geo.fA, geo.fB, 0)); racine:SetAttribute("PorteY", Vector3.new(geo.yL, geo.yHA, geo.yHB))
+			racine:SetAttribute("PorteT", workspace:GetServerTimeNow())
+			local D = G.porteDuree(pc)
+			local t0 = os.clock()
+			local cf = debut
+			while true do
+				local x = math.min(D, os.clock() - t0)
+				cf = G.porte(pc, x)
+				W.pos = cf.Position; racine.CFrame = cf * ROT_MODELE:Inverse()
+				if x >= D then break end
+				RunService.Heartbeat:Wait()
+			end
+			W.avant = geo.a; W.mode = "plafond"; placer()
+			racine:SetAttribute("PorteT", nil)
+		else                                                      -- géométrie introuvable : ancien passage glissé
+			W.mode = "mur"
+			glisser(et.passage, ((et.passage - W.pos).Magnitude) / C.VITESSE.mur, nil, false)
+			glisser(et.pos, ((et.pos - W.pos).Magnitude) / C.VITESSE.mur, "plafond", true)
+		end
 		W.occupe = false
 	end
 end
