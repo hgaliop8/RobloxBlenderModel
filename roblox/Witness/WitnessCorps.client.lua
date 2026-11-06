@@ -271,22 +271,23 @@ end
 -- bras qui s'allongent : on écarte les os d'un bras (Bone.Position), la peau s'étire entre eux
 local POS0: { [number]: { [number]: Vector3 } } = {}
 local ETIRE: { [number]: number } = {}
-local BASE_L: { [number]: number } = {}                 -- longueur étirable d'un bras (os 1 à 7), la pointe (os 8) ne s'étire pas
+local NPROX = 5                                        -- seuls les cinq premiers os s'étirent : les trois derniers gardent leur
+local BASE_L: { [number]: number } = {}                 -- longueur pour pouvoir s'enrouler serré (un os trop long « saute » l'enroulement)
+local DIST_L: { [number]: number } = {}
 for k, chn in pairs(BRAS) do
-	POS0[k] = {}; ETIRE[k] = 1; BASE_L[k] = 0
+	POS0[k] = {}; ETIRE[k] = 1; BASE_L[k] = 0; DIST_L[k] = 0
 	for j = 2, 8 do POS0[k][j] = chn.os[j].Position end
-	for j = 1, 7 do BASE_L[k] += chn.L[j] end
+	for j = 1, 8 do if j <= NPROX then BASE_L[k] += chn.L[j] else DIST_L[k] += chn.L[j] end end
 end
 local function etirer(k: number, s: number)
 	if math.abs((ETIRE[k] or 1) - s) < 1e-3 then return end
 	ETIRE[k] = s
 	local chn = BRAS[k]
-	for j = 2, 8 do chn.os[j].Position = POS0[k][j] * s end
+	for j = 2, NPROX + 1 do chn.os[j].Position = POS0[k][j] * s end
 end
 local function longueursEtirees(k: number, s: number): { number }
 	local chn = BRAS[k]; local L = {}
-	for j = 1, 7 do L[j] = chn.L[j] * s end
-	L[8] = chn.L[8]
+	for j = 1, 8 do L[j] = chn.L[j] * (j <= NPROX and s or 1) end
 	return L
 end
 
@@ -323,14 +324,14 @@ local function grille(t: number)
 			local r = 1.1 + 0.4 * math.exp(-tt * 0.9) - 0.04 * math.max(0, math.sin(tt * 7))
 			local h0 = ({ [0] = 0.3, [7] = 0.5, [1] = -0.5, [6] = -0.3 })[k] or 0
 			local complet = G.parLaGrille(B, passage, G.cheminEnroule(passage, N, U, f, r, h0, sens, 0.9))
-			local contact = G.longueur(table.move(complet, 1, math.min(#complet, 17), 1, {}))   -- jusqu'au premier contact
-			local repos = BASE_L[k] + chn.L[8]
-			local lg
-			if tient then lg = contact + (G.longueur(complet) - contact) * lisse(tt / 0.4)
-			else lg = repos + math.max(0, contact - repos) * lisse((e - 0.15 - 0.04 * (k % 4)) / (signe - 0.35)) end
-			lg = math.max(lg, repos)
-			s = math.clamp((lg - chn.L[8]) / BASE_L[k], 1, G.ETIRE_MAX)
-			chemin = G.tronquer(complet, lg)
+			-- longueur du haut du bras (étiré) : pendant le signe, assez pour que la pointe touche le torse ; une fois saisi,
+			-- jusqu'au contact (la pointe, de longueur normale, enroule le torse) ; elle diminue à mesure qu'il est hissé
+			local contact = G.longueur(table.move(complet, 1, math.min(#complet, 17), 1, {}))
+			local lp
+			if tient then lp = math.max(0, contact - DIST_L[k]) + math.min(contact, DIST_L[k]) * lisse(tt / 0.4)
+			else lp = BASE_L[k] + math.max(0, contact - DIST_L[k] - BASE_L[k]) * lisse((e - 0.15 - 0.04 * (k % 4)) / (signe - 0.35)) end
+			s = math.clamp(lp / BASE_L[k], 1, G.ETIRE_MAX)
+			chemin = complet
 		elseif avantBras then
 			chemin = G.parLaGrille(B, passage, G.cheminPendant(passage, O + dir * 4 - Vector3.new(0, 4, 0), t, k))
 		else                                                            -- agrippé au rebord, à plat sous le plafond

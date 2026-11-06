@@ -85,16 +85,17 @@ def articulations(base, pts, L):
 CHAINES = {k: [arm.pose.bones[f'Bras{k}_{j}'] for j in range(1, 9)] for k in range(8)}
 LONG = {k: [pb.bone.length for pb in CHAINES[k]] for k in range(8)}
 REST_REL = {pb.name: pb.parent.bone.matrix_local.inverted() @ pb.bone.matrix_local for pb in arm.pose.bones if pb.parent}
+NPROX = 5                                                    # seuls les 5 premiers os s'étirent (la pointe s'enroule serré)
 ETIRE = {}                                                   # bras qui s'allongent : k -> facteur (os 2 à 8 écartés de leur parent)
 def etire_os(nm):
-    if not nm.startswith('Bras') or nm.endswith('_1'): return 1.0
+    if not nm.startswith('Bras') or int(nm.split('_')[1]) > NPROX + 1 or nm.endswith('_1'): return 1.0
     return ETIRE.get(int(nm[4]), 1.0)
 def rest_rel(pb):
     M = REST_REL[pb.name]; s_ = etire_os(pb.name)
     if s_ == 1.0: return M
     M = M.copy(); M.translation = M.translation*s_; return M
 def longueurs(k):
-    s_ = ETIRE.get(k, 1.0); return [L*s_ for L in LONG[k][:7]] + [LONG[k][7]]
+    s_ = ETIRE.get(k, 1.0); return [L*s_ for L in LONG[k][:NPROX]] + LONG[k][NPROX:]
 def orienter(chaine, Mparent, J, poids, Q):
     Mc = Mparent
     for j, pb in enumerate(chaine):
@@ -603,7 +604,7 @@ def tronquer(pts, l):
         if s_ + seg >= l: out.append(a.lerp(b, (l - s_)/max(seg, 1e-6))); return out
         s_ += seg; out.append(b)
     return out
-ETIRE_MAX = 3.2
+ETIRE_MAX = 4.5
 PLAQUE_OFF = Vector((0.6, 0, 0.2))                               # Roblox (0, 0,2, -0,6) dans le repère du joueur
 def plaque_repere(Mv):
     R = Mv.to_3x3(); return repere(Mv @ PLAQUE_OFF, R @ Vector((0, 0, 1)), R @ Vector((1, 0, 0)))
@@ -763,12 +764,11 @@ def plan_enlevement(t):
                 ttp = max(tt, 0.0)
                 r = 1.1 + 0.4*math.exp(-ttp*0.9) - 0.04*max(0, math.sin(ttp*7))
                 complet = par_la_grille(B, pas_, chemin_enroule(pas_, N, U, fv, r, {0: 0.3, 7: 0.5, 1: -0.5, 6: -0.3}[k], sens, 0.9))
-                contact = longueur(complet[:17]); repos = sum(LONG[k])
-                if tient: lg = contact + (longueur(complet) - contact)*lisse(tt/0.4)
-                else: lg = repos + max(0.0, contact - repos)*lisse((e - 0.15 - 0.04*(k % 4))/(ENL['signe'] - 0.35))
-                lg = max(lg, repos)
-                ETIRE[k] = max(1.0, min(ETIRE_MAX, (lg - LONG[k][7])/sum(LONG[k][:7])))
-                chemin = tronquer(complet, lg)
+                contact = longueur(complet[:17]); BL = sum(LONG[k][:NPROX]); DL = sum(LONG[k][NPROX:])
+                if tient: lp = max(0.0, contact - DL) + min(contact, DL)*lisse(tt/0.4)
+                else: lp = BL + max(0.0, contact - DL - BL)*lisse((e - 0.15 - 0.04*(k % 4))/(ENL['signe'] - 0.35))
+                ETIRE[k] = max(1.0, min(ETIRE_MAX, lp/BL))
+                chemin = complet
             poids = [max(w0, lisse((tt - 0.04*j)/0.4)) if tient else w0 for j in range(8)]
             orienter(chn, Mrac, articulations(B, chemin, longueurs(k)), poids, Q)
     CAM = Vector((2.5, -9.0, 4.0)); viser(CAM, (1.2, 0, 7.4)); cd.angle_y = math.radians(62)

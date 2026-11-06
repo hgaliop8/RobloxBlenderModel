@@ -450,7 +450,7 @@ function G.tronquer(pts: { Vector3 }, l: number): { Vector3 }
 	end
 	return out
 end
-G.ETIRE_MAX = 3.2                                                       -- un bras peut s'allonger jusqu'à 3,2 fois sa longueur
+G.ETIRE_MAX = 4.5                                                       -- le haut d'un bras peut s'allonger jusqu'à 4,5 fois sa longueur
 
 -- ================================================================ plaquage : un bras planté sur un membre
 -- il s'enroule autour du membre (P, axe) puis s'enfonce vers le sol pour le clouer
