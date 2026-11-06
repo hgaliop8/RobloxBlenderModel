@@ -571,7 +571,8 @@ local function locomotion(t: number, dt: number, actif: boolean)
 		end
 		if course > 0.001 then
 			local tr = G.cheminTrainee(B, centre, avant, haut, t)
-			chemin = chemin and G.melangerChemins(chemin, tr, course) or tr
+			local cote = ((B - centre):Dot(haut:Cross(avant)) >= 0) and 1 or -1
+			chemin = chemin and G.balayerChemins(chemin, tr, course, B, haut, cote) or tr
 		end
 		if chemin then G.orienter(chn, parent, G.articulations(B, chemin, chn.L), w) end
 	end

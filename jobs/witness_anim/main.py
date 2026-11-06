@@ -322,7 +322,8 @@ def locomotion(Q, t, Mw, vel, m, poids):
             F = pied(m, k, t, haut)
             if F is not None: chemin = chemin_pied(B, F, centre, haut)
         if course > 0.001:
-            tr = chemin_trainee(B, centre, avant, haut, t); chemin = melanger_chemins(chemin, tr, course) if chemin else tr
+            tr = chemin_trainee(B, centre, avant, haut, t); cote = 1 if (B - centre).dot(haut.cross(avant)) >= 0 else -1
+            chemin = balayer_chemins(chemin, tr, course, B, haut, cote) if chemin else tr
         if chemin: orienter(ch, Mrac, articulations(B, chemin, LONG[k]), w, Q)
 
 def poser(Mw, Q, cam_pos):
@@ -1119,6 +1120,16 @@ def reechantillonner(pts, n):
                 out.append(pts[i - 1].lerp(pts[i], max(0.0, min(1.0, (cible - acc)/max(seg, 1e-6))))); break
             acc += seg; i += 1
     return out
+def balayer_chemins(a, b, w, B, haut, cote):
+    if w <= 0: return a
+    if w >= 1: return b
+    A, Bm = reechantillonner(a, 30), reechantillonner(b, 30)
+    def dplan(p):
+        d = p - B; d = d - haut*d.dot(haut); return d.normalized() if d.length > 1e-3 else Vector((0, 0, 0))
+    dA, dB = dplan(A[11]), dplan(Bm[11]); ang = math.atan2(dA.cross(dB).dot(haut), dA.dot(dB))
+    if abs(ang) > 2.4: ang = cote*abs(ang)
+    R = Matrix.Rotation(ang*w, 3, haut)
+    return [(B + R @ (A[i] - B)).lerp(Bm[i], w) for i in range(30)]
 def melanger_chemins(a, b, w):
     if w <= 0: return a
     if w >= 1: return b

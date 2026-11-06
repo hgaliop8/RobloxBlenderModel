@@ -838,6 +838,27 @@ function G.reechantillonner(pts: { Vector3 }, n: number): { Vector3 }
 	end
 	return out
 end
+--[[ comme melangerChemins, mais le bras pivote autour de sa base (axe haut) pendant qu'il change de forme : quand les deux
+formes partent dans des directions opposées (bras posé devant -> faisceau derrière), il passe par son côté (cote = +1/-1)
+au lieu de s'écraser sur le corps. ]]
+function G.balayerChemins(a: { Vector3 }, b: { Vector3 }, w: number, B: Vector3, haut: Vector3, cote: number): { Vector3 }
+	if w <= 0 then return a elseif w >= 1 then return b end
+	local A, Bm = G.reechantillonner(a, 30), G.reechantillonner(b, 30)
+	local function dirPlan(p: Vector3): Vector3
+		local d = p - B; d = d - haut * d:Dot(haut)
+		return d.Magnitude > 1e-3 and d.Unit or Vector3.zero
+	end
+	local dA, dB = dirPlan(A[12]), dirPlan(Bm[12])
+	local ang = math.atan2(dA:Cross(dB):Dot(haut), dA:Dot(dB))
+	if math.abs(ang) > 2.4 then ang = cote * math.abs(ang) end
+	local rot = CFrame.fromAxisAngle(haut, ang * w)
+	local out = {}
+	for i = 1, 30 do
+		local p = B + rot:VectorToWorldSpace(A[i] - B)
+		out[i] = p:Lerp(Bm[i], w)
+	end
+	return out
+end
 function G.melangerChemins(a: { Vector3 }, b: { Vector3 }, w: number): { Vector3 }
 	if w <= 0 then return a elseif w >= 1 then return b end
 	local A, Bm = G.reechantillonner(a, 30), G.reechantillonner(b, 30)
