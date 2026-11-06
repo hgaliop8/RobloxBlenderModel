@@ -979,9 +979,22 @@ PLANS = {'couloir': lambda t: plan_marche(t, racine_couloir, cam_couloir), 'chut
 IM = os.environ.get('IMAGES', '1-24')
 if '-' in IM: i0, i1 = (int(x) for x in IM.split('-')); LISTE = range(i0, i1 + 1)
 else: LISTE = [int(x) for x in IM.split('_')]
+DIAG = os.environ.get('DIAG') == '1'
+prec = {}
 for fr in LISTE:
     t = (fr - 1)/FPS
     PLANS[PLAN](t)
+    if DIAG:                                                      # pas de rendu : sauts d'une image à l'autre des articulations des bras
+        bpy.context.view_layer.update()
+        pires = []
+        for k in range(8):
+            for j in range(1, 9):
+                pb = arm.pose.bones[f'Bras{k}_{j}']; q = arm.matrix_world @ pb.tail
+                if (k, j) in prec: pires.append(((q - prec[(k, j)]).length, k, j))
+                prec[(k, j)] = q
+        if pires:
+            m = max(pires); log(f'diag {fr} t={t:.3f} saut max {m[0]:.2f} (bras {m[1]} os {m[2]}) etire {dict((k, round(v, 2)) for k, v in ETIRE.items())}')
+        continue
     maj_eau(t)
     if PLAN in ('plafond', 'sol') + ('fouet', 'balayage', 'devore', 'plaquage', 'enlevement', 'encre'):                     # lumière principale et contre-jour qui suivent la créature
         c = arm.matrix_world.translation.copy(); cz = 9.0 if PLAN == 'plafond' else 2.0
