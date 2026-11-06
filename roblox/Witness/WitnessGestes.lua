@@ -237,7 +237,7 @@ G.FOUET = {
 	suite = 0.55,         -- s : le bras continue, retombe dans l'eau et se reprend
 	arme = 2.3,           -- rad : bras levé en arrière (0 = vers la cible, à l'horizontale)
 	courbure = 0.24,      -- rad par os : le bras s'enroule vers la pointe pendant l'armé
-	depasse = 0.45,       -- rad : la base passe sous la cible
+	depasse = 0.3,        -- rad : la base passe sous la cible
 	portee_bras = 5.5,    -- au-delà, elle bondit vers sa cible
 	contact = 0.28,       -- s après le signe : le bout du bras arrive sur la cible (pour les dégâts et l'éclaboussure)
 }
@@ -264,7 +264,7 @@ function G.fouetBras(e: number, signe: number, B: Vector3, T: Vector3, centre: V
 	local avant = vers.Magnitude > 1e-3 and vers.Unit or Vector3.new(1, 0, 0)
 	local lat = B - centre; lat = lat - haut * lat:Dot(haut) - avant * lat:Dot(avant)
 	local cote = lat.Magnitude > 1e-3 and lat.Unit or haut:Cross(avant).Unit
-	local plan = (haut * 0.75 + cote * 0.65).Unit
+	local plan = (haut * 0.9 + cote * 0.45).Unit
 	local v = T - B
 	local aCible = math.atan2(v:Dot(plan), v:Dot(avant))
 	local frappe = lisse((e - signe) / F.frappe)
@@ -291,8 +291,9 @@ function G.fouetCorps(e: number, signe: number, distance: number, cote: number):
 	local fin = 1 - lisse((e - signe - F.frappe - 0.1) / 0.4)
 	local bond = math.clamp(distance - F.portee_bras, 0, 3.5)
 	local pivot = cote * (0.16 * arme * (1 - coup) - 0.2 * coup) * fin
-	return CFrame.new(bond * coup, 0, 0) * CFrame.Angles(0, pivot, 0)
-		* autourPivot(G.CABRE_PIVOT, (0.12 * arme * (1 - coup) - 0.1 * coup) * fin)
+	-- elle se dresse sur ses bras arrière pour frapper de haut, puis se rabat vers l'avant
+	return CFrame.new(bond * coup, 0.9 * arme * fin, 0) * CFrame.Angles(0, pivot, 0)
+		* autourPivot(G.CABRE_PIVOT, (0.22 * arme * (1 - coup) - 0.08 * coup) * fin)
 end
 
 -- balayage : elle s'aplatit, puis fait un tour complet ; renvoie le repère du corps, la vitesse de rotation et le poids des bras tendus

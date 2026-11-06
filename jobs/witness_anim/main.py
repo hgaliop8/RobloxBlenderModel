@@ -137,7 +137,7 @@ def animer(t, vit, coup, e, saisie, ch):
     return Q
 
 # ---------------------------------------------------------------- attaques au contact (port de WitnessGestes)
-FOUET = dict(frappe=0.18, retard=0.018, suite=0.55, arme=2.3, courbure=0.24, depasse=0.45, portee_bras=5.5, contact=0.28)
+FOUET = dict(frappe=0.18, retard=0.018, suite=0.55, arme=2.3, courbure=0.24, depasse=0.3, portee_bras=5.5, contact=0.28)
 TOUR_B, ENF_B = 0.35, 0.3
 MORS = dict(bond=1.8, tenue=0.1, retour=0.35)
 def angle_fouet(x, signe, a_repos, a_cible):
@@ -153,7 +153,7 @@ def fouet_bras(e, signe, B, T, centre, haut, L):
     vers = T - B; vers = vers - haut*vers.dot(haut); avant = vers.normalized() if vers.length > 1e-3 else Vector((1, 0, 0))
     lat = B - centre; lat = lat - haut*lat.dot(haut) - avant*lat.dot(avant)
     cote = lat.normalized() if lat.length > 1e-3 else haut.cross(avant).normalized()
-    plan = (haut*0.75 + cote*0.65).normalized(); v = T - B; a_c = math.atan2(v.dot(plan), v.dot(avant))
+    plan = (haut*0.9 + cote*0.45).normalized(); v = T - B; a_c = math.atan2(v.dot(plan), v.dot(avant))
     frappe = lisse((e - signe)/F['frappe'])
     courbe = F['courbure']*lisse(e/signe)*(1 - frappe) - 0.05*frappe*(1 - lisse((e - signe - F['frappe'])/0.3)) + 0.04*lisse((e - signe - F['frappe'])/0.3)
     J = []; cur = B.copy()
@@ -166,7 +166,7 @@ def fouet_corps(e, signe, distance, cote):
     coup = lisse((e - signe + 0.04)/F['frappe'])*(1 - lisse((e - signe - F['frappe'] - 0.1)/0.4))
     fin = 1 - lisse((e - signe - F['frappe'] - 0.1)/0.4)
     bond = max(0.0, min(3.5, distance - F['portee_bras'])); pivot = cote*(0.16*arme*(1 - coup) - 0.2*coup)*fin
-    return Matrix.Translation((bond*coup, 0, 0)) @ Matrix.Rotation(pivot, 4, 'Z') @ autour(P_CAB, (0.12*arme*(1 - coup) - 0.1*coup)*fin)
+    return Matrix.Translation((bond*coup, 0, 0.9*arme*fin)) @ Matrix.Rotation(pivot, 4, 'Z') @ autour(P_CAB, (0.22*arme*(1 - coup) - 0.08*coup)*fin)
 def balayage_g(e, signe):
     if e < signe: return Matrix.Translation((0, 0, -ENF_B*lisse(e/signe))), 0.0, 0.0
     u = max(0.0, min(1.0, (e - signe)/TOUR_B)); ang = 2*math.pi*(1 - (1 - u)**3)
@@ -465,9 +465,9 @@ def mannequins(t):
         th = T0_ATT['fouet'] + 0.5 + FOUET['contact']; a = max(0.0, t - th)
         recul = 4*(1 - math.exp(-a/0.12)) if t > th else 0.0
         tilt = (0.6*math.sin(math.pi*min(1, a/1.2))) if t > th else 0.0
-        pieds = Vector((8 + recul, 0, 0))
+        pieds = Vector((8 + recul, -1.2, 0))
         MANN.libre(bascule(pieds, math.pi, tilt), epaules=(1.2*lisse(a/0.2)*(1 - lisse((a - 0.8)/0.6)),)*2, ecart=0.5*lisse(a/0.2)*(1 - lisse((a - 0.8)/0.6)))
-        eclab += [(8, 0, th, 0.14), (8 + 2, 0, th + 0.12, 0.08)]
+        eclab += [(8, -1.2, th, 0.14), (8 + 2, -1.2, th + 0.12, 0.08)]
         return MANN.racine.matrix_world.translation, eclab
     if PLAN == 'morsure':
         tb = T0_ATT['morsure'] + 0.35; a = max(0.0, t - tb)
@@ -503,7 +503,7 @@ def plan_attaque(t):
     Mw = decalage_geste(coup, e, signe, T)
     if SIM['poids'] >= 0.01: locomotion(Q, t, Mw, SIM['vel'], SIM['m'], SIM['poids'])
     if coup: gestes_attaque(Q, coup, e, signe, Mw, T if T is not None else Vector((9, 0, 2)))
-    CAMS = {'fouet': ((4, -12.5, 4.5), (4.2, 0, 2.4), 50), 'balayage': ((7, -11.5, 7.5), (0, 0, 1.0), 52), 'morsure': ((2.6, -9.5, 3.8), (2.6, 0, 1.2), 46)}
+    CAMS = {'fouet': ((4, -13.5, 5.2), (4.2, -0.5, 2.6), 50), 'balayage': ((7, -11.5, 7.5), (0, 0, 1.0), 52), 'morsure': ((2.6, -9.5, 3.8), (2.6, 0, 1.2), 46)}
     c, cib, ang = CAMS[nom]; CAM = Vector(c); viser(CAM, cib); cd.angle_y = math.radians(ang)
     poser(Mw, Q, CAM)
 def plan_etrangle(t):
