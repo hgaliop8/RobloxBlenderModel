@@ -752,8 +752,8 @@ def plan_enlevement(t):
         arm.matrix_world = Mw; bpy.context.view_layer.update()
         Mrac = Mw @ arm.pose.bones['Racine'].bone.matrix_local; centre = Mrac.translation
         tient = tt >= 0
-        p0 = lisse(e/0.5)*(1 - 0.85*lisse((tt - T2)/ENL['avalee']))
-        N = MANN.racine.matrix_world.translation; U = (MANN.racine.matrix_world.to_3x3() @ Vector((0, 0, 1))).normalized()
+        p0 = lisse(e/0.7)
+        N = MANN.racine.matrix_world.translation.copy(); N.z = min(N.z, O.z - 1.3); U = (MANN.racine.matrix_world.to_3x3() @ Vector((0, 0, 1))).normalized()
         ETIRE.clear()
         for k in range(8):
             chn = CHAINES[k]; B = (Mrac @ rest_rel(chn[0])).translation

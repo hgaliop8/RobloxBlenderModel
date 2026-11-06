@@ -307,9 +307,8 @@ local function grille(t: number)
 	local ch = persoDe("Saisie") or persoDe("Cible")
 	local torse = ch and (ch:FindFirstChild("UpperTorso") or ch:FindFirstChild("Torso")) :: BasePart?
 	local signe = C.COUPS.enlevement.signe
-	local E = C.COUPS.enlevement
-	-- arrivée des bras (0,5 s), puis relâchement pendant qu'il est avalé (la gaine le prend)
-	local p0 = lisse(e / 0.5) * (1 - 0.85 * lisse((tt - E.trainee - E.levee) / E.avalee))
+	-- arrivée des bras, régulière sur 0,7 s
+	local p0 = lisse(e / 0.7)
 	local nouveaux = false
 	for k, chn in pairs(BRAS) do
 		local B = (parent * chn.os[1].CFrame).Position
@@ -321,7 +320,9 @@ local function grille(t: number)
 		if avantBras and torse then
 			-- vers le torse, puis autour : le bras s'allonge le long de ce chemin (jusqu'au contact pendant le signe)
 			local U = torse.CFrame.UpVector
+			-- quand il passe la grille, les bras glissent le long de son corps et le poussent par les jambes
 			local N = torse.Position
+			if N.Y > O.Y - 1.3 then N = Vector3.new(N.X, O.Y - 1.3, N.Z) end
 			-- direction vers la grille et sens d'enroulement : figés à la saisie (sous la grille ils ne sont plus définis)
 			local f, sens
 			local fige = tient and grilleCache.t == racine:GetAttribute("SaisieT") and grilleCache.f
