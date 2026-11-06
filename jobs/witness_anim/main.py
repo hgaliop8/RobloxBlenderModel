@@ -465,7 +465,8 @@ def avancer(racine_fn, t_fin):
         cible = 0.0 if geste else 1.0
         SIM['poids'] = cible if dt is None else SIM['poids'] + (cible - SIM['poids'])*min(1.0, dt*6)
         if SIM['poids'] < 0.01: SIM['m'] = Marche()
-        else: maj_marche(SIM['m'], t, Mw, vel)
+        if SIM.get('preset'): SIM['preset'](t, SIM['m'])
+        if SIM['poids'] >= 0.01: maj_marche(SIM['m'], t, Mw, vel)
         SIM['t'] = t; SIM['vel'] = vel
     if SIM['t'] < 0: etape(0.0, None)
     while SIM['t'] < t_fin - 1e-9:
@@ -886,24 +887,28 @@ def chemin_traversee(B, Gk, A, n, passage, dehors):
     h = (B - passage).dot(n); V = Gk.lerp(B, lisse(h/0.8)); pts = [B.copy()]
     if (V - B).length > 0.05: bezier(B, B + (V - B)*0.4, V - n*0.7, V, 6, pts)
     bezier(V, V + n*0.7, A + n*0.8, A, 8, pts); return pts + [A + dehors*2, A + dehors*4.5]
-def traversee_bras(Q, Mw, u, de, vers, passage, avant0, montee):
+def ancres_traversee(de, vers, passage, avant0, montee):
     n = UPV if montee else -UPV
     fin, _, _ = traversee(1, de, vers, passage, avant0, montee)
     base = Vector((passage.x, passage.y, vers.z)) + n*0.05
     d = fin.to_3x3() @ Vector((1, 0, 0)); d = Vector((d.x, d.y, 0)).normalized(); lat = Vector((-d.y, d.x, 0))
-    barre, fente = Vector((0, 1, 0)), Vector((1, 0, 0))
-    arm.matrix_world = Mw; bpy.context.view_layer.update()
-    Mrac = Mw @ arm.pose.bones['Racine'].bone.matrix_local
+    barre, fente = Vector((0, 1, 0)), Vector((1, 0, 0)); A, R, Gs = {}, {}, {}
     for k in range(8):
         a = k*math.pi/4 + math.pi/8
         r = fin.to_3x3() @ Vector((math.cos(a), math.sin(a), 0)); r = Vector((r.x, r.y, 0)); r = r.normalized() if r.length > 1e-3 else d
-        A = base + d*(r.dot(d)*2.6) + lat*(r.dot(lat)*1.8)
+        A[k] = base + d*(r.dot(d)*2.6) + lat*(r.dot(lat)*1.8); R[k] = r
         fx = r.dot(fente)*1.7; best = min(FENTES, key=lambda f: abs(f - fx))
-        Gk = passage + fente*best + barre*max(-1.8, min(1.8, r.dot(barre)*1.7))
+        Gs[k] = passage + fente*best + barre*max(-1.8, min(1.8, r.dot(barre)*1.7))
+    return A, R, Gs, n
+def traversee_bras(Q, Mw, u, de, vers, passage, avant0, montee):
+    A, R, Gs, n = ancres_traversee(de, vers, passage, avant0, montee)
+    arm.matrix_world = Mw; bpy.context.view_layer.update()
+    Mrac = Mw @ arm.pose.bones['Racine'].bone.matrix_local
+    for k in range(8):
         chn = CHAINES[k]; B = (Mrac @ rest_rel(chn[0])).translation
         ordre = {0: 0, 7: 0, 1: 1, 6: 1, 2: 2, 5: 2, 3: 3, 4: 3}[k]
-        p_ = lisse((u - 0.03 - 0.05*ordre)/0.3)*(1 - lisse((u - 0.86)/0.14))
-        orienter(chn, Mrac, articulations(B, chemin_traversee(B, Gk, A, n, passage, r), LONG[k]), [poids_chaine(p_, j + 1) for j in range(8)], Q)
+        p_ = lisse((u - 0.1 - 0.05*ordre)/0.3)*(1 - lisse((u - 0.86)/0.14))
+        orienter(chn, Mrac, articulations(B, chemin_traversee(B, Gs[k], A[k], n, passage, R[k]), LONG[k]), [poids_chaine(p_, j + 1) for j in range(8)], Q)
 ESC = dict(rayon=1.3, arete=0.45, V=12.0)
 def escalade_duree(h): return 2*ESC['arete'] + max(0.0, h - 2*ESC['rayon'])/ESC['V']
 def escalade(x, E0, n, yH):
@@ -945,15 +950,27 @@ def plan_escalade(t):
 # plan « traversee » : montée par la grille dans la gaine, pause, redescente
 TR_PAS = Vector((0, 0, H)); TR_BAS = Vector((-3.5, 0, H)); TR_HAUT = Vector((3.2, 0, H + 0.5)); TR_T1 = 0.5; TR_T2 = 3.1
 def racine_traversee(t):
+    """marche au plafond seulement (dans la gaine, bras au repos) : 'trav' coupe la marche"""
     D = TRAV['duree']
     if t < TR_T1: return repere(TR_BAS, Vector((1, 0, 0)), -UPV), None, 0.0, None
-    if t < TR_T1 + D: return traversee((t - TR_T1)/D, TR_BAS, TR_HAUT, TR_PAS, Vector((1, 0, 0)), True)[0], None, 0.0, 'trav'
+    if t < TR_T1 + D:
+        u = (t - TR_T1)/D; return traversee(u, TR_BAS, TR_HAUT, TR_PAS, Vector((1, 0, 0)), True)[0], None, 0.0, (None if u < 0.5 else 'trav')
     fin_m = traversee(1, TR_BAS, TR_HAUT, TR_PAS, Vector((1, 0, 0)), True)[0]
-    if t < TR_T2: return fin_m, None, 0.0, None
+    if t < TR_T2: return fin_m, None, 0.0, 'trav'
     av = fin_m.to_3x3() @ Vector((1, 0, 0))
-    if t < TR_T2 + D: return traversee((t - TR_T2)/D, TR_HAUT, TR_BAS, TR_PAS, av, False)[0], None, 0.0, 'trav'
+    if t < TR_T2 + D:
+        u = (t - TR_T2)/D; return traversee(u, TR_HAUT, TR_BAS, TR_PAS, av, False)[0], None, 0.0, (None if u >= 0.75 else 'trav')
     return traversee(1, TR_HAUT, TR_BAS, TR_PAS, av, False)[0], None, 0.0, None
+def preset_traversee(t, m):
+    """relais vers la marche (descente, u = 0,75) : les pieds sont là où les bras se sont agrippés"""
+    D = TRAV['duree']; u = (t - TR_T2)/D
+    if u >= 0.75 and not SIM.get('relais'):
+        SIM['relais'] = True
+        av = traversee(1, TR_BAS, TR_HAUT, TR_PAS, Vector((1, 0, 0)), True)[0].to_3x3() @ Vector((1, 0, 0))
+        A = ancres_traversee(TR_HAUT, TR_BAS, TR_PAS, av, False)[0]
+        m.pieds = {k: A[k].copy() for k in range(8)}; m.air = {}
 def plan_traversee(t):
+    SIM['preset'] = preset_traversee
     Mw, coup, e, ch = avancer(racine_traversee, t)
     D = TRAV['duree']; ECRASE['serre'] = ECRASE['etire'] = 0.0
     if TR_T1 <= t < TR_T1 + D:

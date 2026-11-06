@@ -608,6 +608,27 @@ function G.cheminTraversee(B: Vector3, Gk: Vector3, A: Vector3, n: Vector3, pass
 	return pts
 end
 G.FENTES = { -1.55, -0.93, -0.31, 0.31, 0.93, 1.55 }      -- espaces entre les barreaux d'une grille (studs, depuis le centre)
+--[[ où chaque bras s'agrippe de l'autre côté (A[k], direction d'étalement r[k]) et entre quels barreaux il passe (Gk[k]).
+barre / fente = axes des barreaux et de leurs intervalles. Ces points servent aussi de pieds quand elle repart en marchant. ]]
+function G.ancresTraversee(de: Vector3, vers: Vector3, passage: Vector3, avant0: Vector3, montee: boolean, barre: Vector3, fente: Vector3)
+	local n = montee and UPV or -UPV
+	local fin = G.traversee(1, de, vers, passage, avant0, montee)
+	local base = Vector3.new(passage.X, vers.Y, passage.Z) + n * 0.05
+	local d = Vector3.new(fin.RightVector.X, 0, fin.RightVector.Z); d = d.Magnitude > 1e-3 and d.Unit or Vector3.xAxis
+	local lat = Vector3.new(-d.Z, 0, d.X)
+	local A, R, Gs = {}, {}, {}
+	for k = 0, 7 do
+		local a = k * math.pi / 4 + math.pi / 8
+		local r = fin:VectorToWorldSpace(Vector3.new(math.cos(a), 0, -math.sin(a)))
+		r = Vector3.new(r.X, 0, r.Z); r = r.Magnitude > 1e-3 and r.Unit or d
+		A[k] = base + d * (r:Dot(d) * 2.6) + lat * (r:Dot(lat) * 1.8)
+		R[k] = r
+		local fx, best = r:Dot(fente) * 1.7, G.FENTES[1]
+		for _, f in ipairs(G.FENTES) do if math.abs(f - fx) < math.abs(best - fx) then best = f end end
+		Gs[k] = passage + fente * best + barre * math.clamp(r:Dot(barre) * 1.7, -1.8, 1.8)
+	end
+	return A, R, Gs, n
+end
 
 -- ================================================================ escalade d'un mur (sol -> mur -> plafond)
 --[[ La racine roule autour de l'arête du bas (rayon R), monte le long du mur, puis roule autour de l'arête du haut. Les arêtes

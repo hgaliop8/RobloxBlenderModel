@@ -339,8 +339,10 @@ local function ecraser(serre: number, etire: number)
 	end
 end
 
--- bras pendant le passage d'une grille : entre les barreaux, puis agrippés de l'autre côté
-local grilleAxes = { t = nil :: number?, barre = Vector3.zAxis, fente = Vector3.xAxis }
+local marcheEtat = G.nouvelleMarche()
+-- bras pendant le passage d'une grille : entre les barreaux, puis agrippés de l'autre côté. La marche continue dessous :
+-- le passage prend le dessus bras par bras, et à la fin les pieds repartent des points où les bras se sont agrippés.
+local grilleAxes = { t = nil :: number?, barre = Vector3.zAxis, fente = Vector3.xAxis, relais = nil :: number? }
 local function traverseeBras(t: number, info)
 	if not osRacine then return end
 	if grilleAxes.t ~= info.t0 then                                    -- orientation des barreaux de cette grille
@@ -351,27 +353,21 @@ local function traverseeBras(t: number, info)
 		end
 		if best then grilleAxes.barre = (best :: BasePart).CFrame.LookVector; grilleAxes.fente = (best :: BasePart).CFrame.RightVector end
 	end
+	local A, R, Gs, n = G.ancresTraversee(info.de, info.vers, info.passage, info.avant, info.montee, grilleAxes.barre, grilleAxes.fente)
 	local u = info.u
-	local n = info.montee and UP or -UP
-	local fin = G.traversee(1, info.de, info.vers, info.passage, info.avant, info.montee)
-	local base = Vector3.new(info.passage.X, info.vers.Y, info.passage.Z) + n * 0.05
-	local d = fin.RightVector; d = Vector3.new(d.X, 0, d.Z); d = d.Magnitude > 1e-3 and d.Unit or Vector3.xAxis
-	local lat = Vector3.new(-d.Z, 0, d.X)
+	if u >= 0.75 and grilleAxes.relais ~= info.t0 then               -- relais vers la marche : les pieds sont là où les bras tiennent
+		grilleAxes.relais = info.t0
+		marcheEtat.pieds = {}; marcheEtat.air = {}
+		for k = 0, 7 do marcheEtat.pieds[k] = A[k] end
+	end
 	local parent = mondeOs(osRacine)
 	for k, chn in pairs(BRAS) do
-		local a = k * math.pi / 4 + math.pi / 8
-		local r = fin:VectorToWorldSpace(Vector3.new(math.cos(a), 0, -math.sin(a)))
-		r = Vector3.new(r.X, 0, r.Z); r = r.Magnitude > 1e-3 and r.Unit or d
-		local A = base + d * (r:Dot(d) * 2.6) + lat * (r:Dot(lat) * 1.8)
-		local fx, best = (r:Dot(grilleAxes.fente)) * 1.7, G.FENTES[1]
-		for _, f in ipairs(G.FENTES) do if math.abs(f - fx) < math.abs(best - fx) then best = f end end
-		local Gk = info.passage + grilleAxes.fente * best + grilleAxes.barre * math.clamp(r:Dot(grilleAxes.barre) * 1.7, -1.8, 1.8)
 		local B = (parent * chn.os[1].CFrame).Position
 		local ordre = ({ [0] = 0, [7] = 0, [1] = 1, [6] = 1, [2] = 2, [5] = 2, [3] = 3, [4] = 3 })[k] or 0
-		local p = lisse((u - 0.03 - 0.05 * ordre) / 0.3) * (1 - lisse((u - 0.86) / 0.14))
+		local p = lisse((u - 0.1 - 0.05 * ordre) / 0.3) * (1 - lisse((u - 0.86) / 0.14))
 		local poids = {}
 		for j = 1, 8 do poids[j] = G.poidsChaine(p, j) end
-		G.orienter(chn, parent, G.articulations(B, G.cheminTraversee(B, Gk, A, n, info.passage, r), chn.L), poids)
+		G.orienter(chn, parent, G.articulations(B, G.cheminTraversee(B, Gs[k], A[k], n, info.passage, R[k]), chn.L), poids)
 	end
 	_ = t
 end
@@ -478,7 +474,6 @@ do
 		if d.Magnitude > 1e-3 then DIRS[k] = d.Unit end
 	end
 end
-local marcheEtat = G.nouvelleMarche()
 local poidsLoco = 0
 local P_POSE = { 1, 1, 1, 1, 1, 1, 0.75, 0.5 }       -- les pointes gardent leur enroulement
 local P_COURSE = { 1, 1, 1, 1, 1, 1, 0.85, 0.7 }
@@ -578,7 +573,7 @@ local function animer(t, dt)
 	local etat = racine:GetAttribute("Etat")
 	local v = (coup == "descente") and 0 or vitesse                       -- pendant une chute, la vitesse ne fait pas « marcher » les bras
 	-- au mur seulement, les bras rament (ailleurs, la marche à pieds posés s'en charge)
-	local marche = (mode == "mur") and math.clamp(v / 10, 0, 1) or 0
+	local marche = (mode == "mur" and not escaladeInfo()) and math.clamp(v / 10, 0, 1) or 0   -- (escalade : pieds posés)
 	local wg = math.min(2 + v * 0.5, 8)
 	for k = 0, 7 do
 		local ph = phases[k]
@@ -651,9 +646,10 @@ local function animer(t, dt)
 	local geste = saisie or chuteEtat.phase ~= "" or (coup ~= nil and coup ~= "avorte" and e < signe + 0.8)
 		or racine:GetAttribute("Plaque") ~= nil or racine:GetAttribute("Devore") ~= nil or bondEnVol()
 		or etat == "morte" or etat == "etourdie"
-	local trav = traverseeInfo()
-	geste = geste or trav ~= nil
-	locomotion(t, dt, not geste and (mode == "plafond" or mode == "sol" or escaladeInfo() ~= nil))
+	local trav = traverseeInfo()                                     -- (la marche continue pendant un passage de grille)
+	local surSurface = mode == "plafond" or mode == "sol" or escaladeInfo() ~= nil
+	if trav then surSurface = (trav.montee and trav.u < 0.5) or (not trav.montee and trav.u >= 0.75) end   -- au plafond seulement
+	locomotion(t, dt, not geste and surSurface)
 	-- attaques au contact : bras du fouet, bras tendus du balayage
 	gestesAttaque(coup, e, signe, coupT)
 	-- plaquage : en vol, bras ramenés en faisceau ; une fois posée, poignets et chevilles tenus ; chute dévorante : cage de bras
