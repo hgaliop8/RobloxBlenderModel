@@ -604,7 +604,7 @@ def tronquer(pts, l):
         s_ += seg; out.append(b)
     return out
 ETIRE_MAX = 3.2
-PLAQUE_OFF = Vector((0.6, 0, -0.4))                              # Roblox (0, -0,4, -0,6) dans le repère du joueur
+PLAQUE_OFF = Vector((0.6, 0, 0.2))                               # Roblox (0, 0,2, -0,6) dans le repère du joueur
 def plaque_repere(Mv):
     R = Mv.to_3x3(); return repere(Mv @ PLAQUE_OFF, R @ Vector((0, 0, 1)), R @ Vector((1, 0, 0)))
 def bond_repere(dep, arr, hauteur, u):
@@ -695,7 +695,7 @@ def plan_plaquage(t):
             if wT > 0.001: orienter(chn, Mrac, articulations(B, chemin_trainee(B, centre, dirv, UPV, t), LONG[k]), [wT]*8, Q)
             if wA > 0.001:
                 P = pts[PLAQ['assign'][k]][0]
-                orienter(chn, Mrac, articulations(B, [B.copy(), B + (P - B).normalized()*12], LONG[k]), [wA]*8, Q)
+                orienter(chn, Mrac, articulations(B, [B.copy(), P, P + (P - B).normalized()*0.8], LONG[k]), [wA]*8, Q)
     if t >= ta:                                                  # huit bras plantés, deux par membre, dès le contact
         tt = t - ta; haut = (Mw.to_3x3() @ UPV).normalized()
         for k, i in PLAQ['assign'].items():
@@ -880,7 +880,7 @@ elif PLAN in ('plafond', 'sol') + ('fouet', 'balayage', 'devore', 'plaquage', 'e
     CLE = lampe((0, -12, 8), 1600, (1.0, 0.95, 0.9), 6.0)
     CONTRE = lampe((0, 5, 6), 1100, (0.6, 0.85, 1.0), 4.0)
     for L_ in (CLE, CONTRE): L_.visible_glossy = False; L_.visible_transmission = False     # pas de grande tache blanche reflétée dans l'eau
-    if PLAN in ('balayage', 'encre'):                   # vue plongeante : les néons se reflètent en taches ; reflet doux d'un grand plafonnier à la place
+    if PLAN in ('balayage', 'encre', 'plaquage'):       # vue plongeante : les néons se reflètent en taches ; reflet doux d'un grand plafonnier à la place
         for o in list(sc.objects):
             if o.type == 'LIGHT' and o.data.type == 'AREA' and o.data.shape == 'RECTANGLE': o.visible_glossy = False
         lampe((0, 0, H - 0.3), 260, (0.8, 0.9, 1.0), 26.0)

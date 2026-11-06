@@ -586,7 +586,7 @@ local function animer(t, dt)
 					P = arr + dir + rad * 1.5
 				end
 				local vise = P :: Vector3
-				G.orienter(chn, parent, G.articulations(B, { B, B + (vise - B).Unit * 12 }, chn.L), pA)
+				G.orienter(chn, parent, G.articulations(B, { B, vise, vise + (vise - B).Unit * 0.8 }, chn.L), pA)   -- jusqu'au membre, pas au travers
 			end
 		end
 	end
@@ -697,7 +697,7 @@ RunService.RenderStepped:Connect(function(dt)
 		chuteEtat.phase, chuteEtat.prog, chuteEtat.tau = phase, prog, tau
 		chuteEtat.hautY = cfAffiche:VectorToObjectSpace(UP).Y
 	elseif coup == "plaquage" and bondEnVol() then
-		-- bond : parabole calculée ici, avant relevé au départ et plongeant à l'arrivée
+		-- bond : parabole calculée ici ; en fin de vol elle se redresse pour arriver le dessous contre sa poitrine
 		chuteEtat.phase = ""
 		local dep, arr = racine:GetAttribute("BondDepart"), racine:GetAttribute("BondArrivee")
 		local P = C.COUPS.plaquage

@@ -351,7 +351,7 @@ end
 
 --[[ plaquage : à l'impact elle se colle contre la poitrine du joueur, le dessous (bras, ventouses) contre lui, la tête vers
 la sienne ; quand il tombe à la renverse, elle reste collée et finit couchée sur lui. v = repère du HumanoidRootPart. ]]
-G.PLAQUE_OFF = Vector3.new(0, -0.4, -0.6)                   -- dans le repère du joueur : devant la poitrine, un peu plus bas
+G.PLAQUE_OFF = Vector3.new(0, 0.2, -0.6)                    -- dans le repère du joueur : contre la poitrine
 function G.plaqueRepere(v: CFrame): CFrame
 	return CFrame.fromMatrix(v * G.PLAQUE_OFF, v.UpVector, v.LookVector)   -- X (avant du modèle) = vers sa tête, Y = hors de sa poitrine
 end
