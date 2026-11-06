@@ -537,7 +537,7 @@ local function coupPlaquage(p)
 	local horiz = Vector3.new(r.Position.X - arrivee.X, 0, r.Position.Z - arrivee.Z).Magnitude
 	if horiz > 3 or not humanoide(p) or humanoide(p).Health <= 0 then recharger("plaquage"); return end   -- raté : il a esquivé
 	-- la victime tombe sur le dos, la tête vers l'arrière ; elle se pose sur sa poitrine
-	local couche = solPoint(r.Position) + dir * 1.0 + UP * 0.55
+	local couche = solPoint(r.Position) + dir * 1.0 + UP * 0.75
 	r.Anchored = true
 	local debout = r.CFrame
 	local allonge = CFrame.fromMatrix(couche, dir:Cross(-UP), dir, -UP)

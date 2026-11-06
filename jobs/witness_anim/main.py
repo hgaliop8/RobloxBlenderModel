@@ -549,13 +549,13 @@ def plan_devore(t):
         for k in range(8):
             chn = CHAINES[k]; B = (Mrac @ rest_rel(chn[0])).translation
             orienter(chn, Mrac, articulations(B, chemin_cage(B, N, U, 1 if k % 2 == 0 else -1), LONG[k]), [w*lisse((tt - 0.03*j)/0.25) for j in range(8)], Q)
-    CAM = Vector((2.5, -13.5, 5.6)); viser(CAM, (0.6, 0, 4.6)); cd.angle_y = math.radians(56)
+    CAM = Vector((2.2, -10.8, 5.2)); viser(CAM, (0.8, 0, 4.4)); cd.angle_y = math.radians(52)
     poser(Mw, Q, CAM)
 def plan_plaquage(t):
     """ramassé, bond en arc, le joueur bascule sur le dos ; elle se pose sur sa poitrine et lui tient poignets et chevilles"""
     t0 = 0.3; tb = t0 + PLAQ['signe']; ta = tb + PLAQ['vol']; tp = ta + 0.25
     dep = Vector((0, 0, 0)); arr = Vector((10, 0, 0)); dirv = Vector((1, 0, 0))
-    couche = Vector((10 + 1.0, 0, 0.55)); W_pos = couche + Vector((0, 0, 0.6)) - dirv*0.4
+    couche = Vector((10 + 1.0, 0, 0.75)); W_pos = couche + Vector((0, 0, 0.6)) - dirv*0.4
     # joueur : debout, puis bascule en arrière (0,25 s), couché bras et jambes écartés, se débat
     pieds = Vector((10, 0, 0))
     if t < ta:
@@ -608,7 +608,7 @@ def plan_plaquage(t):
             dv = Vector((B.x - centre.x, B.y - centre.y, 0)); dv = dv.normalized() if dv.length > 1e-3 else -dirv
             F = Vector((centre.x, centre.y, 0)) + dv*4
             orienter(chn, Mrac, articulations(B, chemin_sol(B, dv, F, UPV), LONG[k]), [w]*8, Q)
-    CAM = Vector((6.5, -13.0, 5.2)); viser(CAM, (6.0, 0, 1.6)); cd.angle_y = math.radians(54)
+    CAM = Vector((7.5, -10.5, 7.0)); viser(CAM, (8.0, 0, 1.0)); cd.angle_y = math.radians(56)
     poser(Mw, Q, CAM)
 def decalage_ramasse(e):
     a = lisse(e/PLAQ['signe']); return Matrix.Translation((-0.4*a, 0, -0.3*a)) @ autour(P_CAB, 0.1*a)
@@ -689,7 +689,7 @@ if PLAN in ('sol', 'couloir') + ('fouet', 'balayage', 'devore', 'plaquage'):
     me_ = bpy.data.materials.new('Eau'); me_.use_nodes = True; nt = me_.node_tree; b = nt.nodes['Principled BSDF']
     b.inputs['Base Color'].default_value = (0.03, 0.07, 0.075, 1); b.inputs['Roughness'].default_value = 0.03
     b.inputs['Transmission Weight'].default_value = 1.0; b.inputs['IOR'].default_value = 1.33
-    va = nt.nodes.new('ShaderNodeVolumeAbsorption'); va.inputs['Color'].default_value = (0.32, 0.58, 0.56, 1); va.inputs['Density'].default_value = 0.45
+    va = nt.nodes.new('ShaderNodeVolumeAbsorption'); va.inputs['Color'].default_value = (0.32, 0.58, 0.56, 1); va.inputs['Density'].default_value = 0.15 if PLAN == 'plaquage' else 0.45
     nt.links.new(va.outputs[0], nt.nodes['Material Output'].inputs['Volume'])
     tc = nt.nodes.new('ShaderNodeTexCoord'); nz = nt.nodes.new('ShaderNodeTexNoise'); nz.inputs['Scale'].default_value = 2.2; nz.inputs['Detail'].default_value = 3.0
     bp = nt.nodes.new('ShaderNodeBump'); bp.inputs['Strength'].default_value = 0.06
