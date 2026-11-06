@@ -594,14 +594,15 @@ def plan_devore(t):
     Q = animer(t, 0, coup, e, False, ch)
     if t < t_f: coupe(Q, Mw, t, lisse(e/0.6), 1.6, tete_c)                     # signe : bras ramassés en coupe vers sa tête
     elif t < ti: coupe(Q, Mw, t, 1.0, 1.35, tete_c)                             # chute : la coupe vise la tête
+    if 0 <= tt < 0.3: coupe(Q, Mw, t, 1.0, 1.35, tete_c)                    # la cage part de la coupe
     if 0 <= tt < D + 0.4:
-        w = lisse(tt/0.25)*(1 - lisse((tt - D)/0.4)); arm.matrix_world = Mw; bpy.context.view_layer.update()
+        w = 1 - lisse((tt - D)/0.4); arm.matrix_world = Mw; bpy.context.view_layer.update()
         Mrac = Mw @ arm.pose.bones['Racine'].bone.matrix_local
         U = (MANN.tete.matrix_world.to_3x3() @ Vector((0, 0, 1))).normalized(); N = tete_c - U*0.6
         for k in range(8):
             chn = CHAINES[k]; B = (Mrac @ rest_rel(chn[0])).translation
             orienter(chn, Mrac, articulations(B, chemin_cage(B, N, U, 1 if k % 2 == 0 else -1), LONG[k]), [w*lisse((tt - 0.03*j)/0.25) for j in range(8)], Q)
-    CAM = Vector((2.2, -10.8, 5.2)); viser(CAM, (0.8, 0, 4.4)); cd.angle_y = math.radians(52)
+    CAM = Vector((2.2, -11.5, 6.0)); viser(CAM, (0.8, 0, 5.8)); cd.angle_y = math.radians(60)
     poser(Mw, Q, CAM)
 def plan_plaquage(t):
     """ramassé, bond en arc, le joueur bascule sur le dos ; elle se pose sur sa poitrine et lui tient poignets et chevilles"""
@@ -636,8 +637,8 @@ def plan_plaquage(t):
     if SIM['poids'] >= 0.01 and t < t0 + 0.3: locomotion(Q, t, Mw, SIM['vel'], SIM['m'], SIM['poids'])
     arm.matrix_world = Mw; bpy.context.view_layer.update()
     Mrac = Mw @ arm.pose.bones['Racine'].bone.matrix_local; centre = Mrac.translation
-    if tb <= t < ta:                                             # en vol : faisceau, puis bras tendus vers la proie en éventail
-        u = (t - tb)/PLAQ['vol']; wT = 1 - lisse((u - 0.25)/0.3); wA = lisse((u - 0.3)/0.4)
+    if tb <= t < ta + 0.6:                                       # en vol : faisceau, puis bras tendus vers la proie en éventail
+        u = (t - tb)/PLAQ['vol']; wT = 1 - lisse((u - 0.25)/0.3); wA = lisse((u - 0.3)/0.4)*(1 - lisse((t - ta - 0.3)/0.3))
         for k in range(8):
             chn = CHAINES[k]; B = (Mrac @ rest_rel(chn[0])).translation
             if wT > 0.001: orienter(chn, Mrac, articulations(B, chemin_trainee(B, centre, dirv, UPV, t), LONG[k]), [wT]*8, Q)
@@ -645,8 +646,8 @@ def plan_plaquage(t):
                 rad = Vector((B.x - centre.x, B.y - centre.y, 0)); rad = rad.normalized() if rad.length > 1e-3 else dirv
                 vise = arr + rad*2.5 + UPV*0.6
                 orienter(chn, Mrac, articulations(B, [B.copy(), B + (vise - B).normalized()*12], LONG[k]), [wA]*8, Q)
-    if t >= ta + 0.05:                                         # huit bras plantés, deux par membre
-        tt = t - ta - 0.05; pts = MANN.points_membres()
+    if t >= tp:                                                  # huit bras plantés, deux par membre
+        tt = t - tp; pts = MANN.points_membres()
         if 'assign' not in PLAQ:
             PLAQ['assign'] = attribuer({k: (Mrac @ rest_rel(CHAINES[k][0])).translation for k in range(8)}, [p_ for p_, _ in pts], centre, UPV, dirv)
         for k, i in PLAQ['assign'].items():
@@ -716,7 +717,7 @@ def plan_enlevement(t):
                 suite = chemin_pendant(pas_, N, t, k)
             poids = [max(w0, lisse((tt - 0.04*j)/0.4)) if tient else w0 for j in range(8)]
             orienter(chn, Mrac, articulations(B, par_la_grille(B, pas_, suite), LONG[k]), poids, Q)
-    CAM = Vector((3.5, -12.5, 3.2)); viser(CAM, (2.0, 0, 6.8)); cd.angle_y = math.radians(62)
+    CAM = Vector((2.5, -9.0, 4.0)); viser(CAM, (1.2, 0, 7.4)); cd.angle_y = math.radians(62)
     poser(Mw, Q, CAM)
 NUAGE = None
 if PLAN == 'encre':

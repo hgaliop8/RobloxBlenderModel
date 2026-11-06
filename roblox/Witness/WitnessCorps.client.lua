@@ -485,13 +485,16 @@ local function animer(t, dt)
 	-- attaques au contact : bras du fouet, bras tendus du balayage
 	gestesAttaque(coup, e, signe, coupT)
 	-- plaquage : en vol, bras ramenés en faisceau ; une fois posée, poignets et chevilles tenus ; chute dévorante : cage de bras
-	if coup == "plaquage" and bondEnVol() and osRacine then
+	local bt = racine:GetAttribute("BondT")
+	local xb = bt and (workspace:GetServerTimeNow() - bt) or -1
+	local volB = C.COUPS.plaquage.vol
+	if coup == "plaquage" and xb >= 0 and xb < volB + 0.6 and osRacine and typeof(racine:GetAttribute("BondArrivee")) == "Vector3" then
 		local dep, arr = racine:GetAttribute("BondDepart"), racine:GetAttribute("BondArrivee")
-		local u = (workspace:GetServerTimeNow() - (racine:GetAttribute("BondT") or 0)) / C.COUPS.plaquage.vol
+		local u = xb / volB
 		local dir = Vector3.new(arr.X - dep.X, 0, arr.Z - dep.Z); dir = dir.Magnitude > 1e-3 and dir.Unit or cfAffiche.RightVector
 		local parent = mondeOs(osRacine)
 		local wT = 1 - lisse((u - 0.25) / 0.3)                     -- d'abord ramenés en faisceau...
-		local wA = lisse((u - 0.3) / 0.4)                          -- ...puis tendus vers la proie, en éventail
+		local wA = lisse((u - 0.3) / 0.4) * (1 - lisse((xb - volB - 0.3) / 0.3))   -- ...puis tendus vers la proie, jusqu'à ce qu'ils se plantent
 		local pT, pA = {}, {}
 		for j = 1, 8 do pT[j] = wT; pA[j] = wA end
 		local centre = parent.Position
@@ -508,7 +511,8 @@ local function animer(t, dt)
 	if racine:GetAttribute("Plaque") then plaquer(t) end
 	if racine:GetAttribute("Grille") then grille(t) end
 	if coup == "chute" and e < signe + 0.5 then coupe(t, lisse(e / 0.6), 1.6)
-	elseif racine:GetAttribute("Devore") and not racine:GetAttribute("DevoreT") then coupe(t, 1, 1.35) end
+	elseif racine:GetAttribute("Devore") and (not racine:GetAttribute("DevoreT")
+		or workspace:GetServerTimeNow() - racine:GetAttribute("DevoreT") < 0.3) then coupe(t, 1, 1.35) end   -- la cage part de la coupe
 	if racine:GetAttribute("Devore") then cage(t) end
 	-- saisie : les deux bras avant s'enroulent autour du cou (ou du torse pour un enlèvement), les autres prennent appui au sol
 	if saisie and not racine:GetAttribute("Grille") then enrouler(t) end
