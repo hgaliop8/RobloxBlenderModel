@@ -68,7 +68,6 @@ C.PHASES = {
 C.COUPS = {
 	fouet     = { portee = 10, degats = 25, recul = 4, signe = 0.5, recharge = 4, phase = 1 },
 	balayage  = { portee = 9, degats = 15, renverse = 1.5, signe = 0.6, recharge = 10, phase = 2 },
-	morsure   = { portee = 4, degats = 40, signe = 0.35, recharge = 6, phase = 2 },
 	saisie    = { portee = 8, dps = 12, duree_min = 5, duree_max = 8, liberation = 150, signe = 0.7, recharge = 20, phase = 2 },
 	enlevement= { portee_grille = 12, portee = 8, trainee = 3, liberation = 100, signe = 1.0, recharge = 0, phase = 3 },
 	chute     = { rayon = 3, signe = 1.5, recharge = 0, phase = 2 },
@@ -103,7 +102,7 @@ C.ENVERGURE = 12.1
 -- sons : identifiants d'assets Roblox à renseigner (bibliothèque du Creator Store). Vide = pas de son.
 C.SONS = {
 	succion = "", goutte = "", chute = "", bip = "", coups = "", pas = "",
-	fouet = "", morsure = "", cri = "", encre = "", brulure = "", mort = "",
+	fouet = "", morsure = "", cri = "", encre = "", brulure = "", mort = "",   -- « morsure » : son de la chute dévorante
 	eclabousse = "", remous = "",    -- pas dans l'eau ; sillage de la créature
 }
 

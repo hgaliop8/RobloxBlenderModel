@@ -161,11 +161,12 @@ local function creature(t: number, dt: number)
 			end
 		end
 	end
-	-- attaques au sol : grand cercle du balayage, éclaboussure du fouet sur sa cible, de la morsure devant elle
+	-- attaques au sol : grand cercle du balayage, éclaboussure du fouet sur sa cible
 	local coup = racine:GetAttribute("Coup")
-	if mode == "sol" and (coup == "balayage" or coup == "fouet" or coup == "morsure") and dejaVu[coup] ~= coupT then
+	if mode == "sol" and (coup == "balayage" or coup == "fouet") and dejaVu[coup] ~= coupT then
 		local info = C.COUPS[coup]
-		if workspace:GetServerTimeNow() - coupT >= (info and info.signe or 0.5) then
+		local retard = (coup == "fouet") and 0.28 or 0                    -- le bout du fouet arrive après le signe
+		if workspace:GetServerTimeNow() - coupT >= (info and info.signe or 0.5) + retard then
 			dejaVu[coup] = coupT
 			local s0 = Eau.surface(p, 2)
 			if s0 then
@@ -177,10 +178,6 @@ local function creature(t: number, dt: number)
 						eclabousser(gouttes, q + Vector3.new(math.cos(a) * 5, 0, math.sin(a) * 5), 6)
 					end
 					son(q, "eclabousse", 1.5)
-				elseif coup == "morsure" then
-					local av = racine.CFrame.LookVector
-					local m = q + Vector3.new(av.X, 0, av.Z) * 2.5
-					rond(m, 2.5, 1.0, 0.9); eclabousser(gouttes, m, 10); son(m, "eclabousse", 0.8)
 				else
 					local id = racine:GetAttribute("Cible")
 					local pl = id and Players:GetPlayerByUserId(id)

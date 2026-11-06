@@ -198,31 +198,27 @@ local function cibleAttaque(): Vector3?
 	return r and r.Position or nil
 end
 local function horizontal(v: Vector3): Vector3 return Vector3.new(v.X, 0, v.Z) end
+local fouetBras = { coupT = -1, k = 0 }
 -- décalage du corps affiché pendant une attaque (bond, bascule, tour sur elle-même), dans le repère du modèle
 local function decalageGeste(coup: string?, e: number, signe: number): CFrame
-	if coup == "fouet" and e < signe + G.FOUET.frappe + G.FOUET.retour then
+	if coup == "fouet" and e < signe + G.FOUET.frappe + G.FOUET.suite then
 		local T = cibleAttaque()
 		local dist = T and horizontal(T - racine.Position).Magnitude or 0
-		local _, _, corpsCF = G.fouet(e, signe, dist)
-		return corpsCF
+		return G.fouetCorps(e, signe, dist, (fouetBras.k == 7) and -1 or 1)
 	elseif coup == "balayage" and e < signe + G.BALAYAGE.tour + 0.4 then
 		local corpsCF = G.balayage(e, signe)
-		return corpsCF
-	elseif coup == "morsure" and e < signe + G.MORSURE.tenue + G.MORSURE.retour then
-		local corpsCF = G.morsure(e, signe)
 		return corpsCF
 	end
 	return CFrame.identity
 end
-local fouetBras = { coupT = -1, k = 0 }
 local P_BALAYAGE = { 1, 1, 1, 1, 1, 1, 0.85, 0.7 }
 local function gestesAttaque(coup: string?, e: number, signe: number, coupT: number)
 	if not osRacine then return end
 	local parent = mondeOs(osRacine)
 	local centre = parent.Position
 	local haut = cfAffiche.UpVector
-	if coup == "fouet" and e < signe + G.FOUET.frappe + G.FOUET.retour then
-		local T = cibleAttaque() or (centre + cfAffiche.RightVector * 9 - haut * 1)
+	if coup == "fouet" and e < signe + G.FOUET.frappe + G.FOUET.suite then
+		local T = cibleAttaque() or (centre + cfAffiche.RightVector * 9 + haut * 2)
 		if fouetBras.coupT ~= coupT then                     -- le bras avant le plus proche de la cible
 			fouetBras.coupT = coupT
 			local best, bd = 0, math.huge
@@ -237,13 +233,9 @@ local function gestesAttaque(coup: string?, e: number, signe: number, coupT: num
 		end
 		local chn = BRAS[fouetBras.k]; if not chn then return end
 		local B = (parent * chn.os[1].CFrame).Position
-		local global, frappe = G.fouet(e, signe, horizontal(T - centre).Magnitude)
-		local loin = horizontal(B - T); loin = loin.Magnitude > 1e-3 and loin.Unit or -cfAffiche.RightVector
-		local dehors = horizontal(B - centre); dehors = dehors.Magnitude > 1e-3 and dehors.Unit or loin
-		local Ja = G.articulations(B, G.cheminFouetArme(B, loin, dehors, haut), chn.L)
-		local Jf = G.articulations(B, G.cheminFouetFrappe(B, T), chn.L)
-		local J, poids = {}, {}
-		for j = 1, 8 do J[j] = Ja[j]:Lerp(Jf[j], frappe(j)); poids[j] = global end
+		local J, global = G.fouetBras(e, signe, B, T, centre, haut, chn.L)
+		local poids = {}
+		for j = 1, 8 do poids[j] = global end
 		G.orienter(chn, parent, J, poids)
 	elseif coup == "balayage" then
 		local _, omega, w = G.balayage(e, signe)
@@ -267,8 +259,6 @@ local function animer(t, dt)
 	-- au mur seulement, les bras rament (ailleurs, la marche à pieds posés s'en charge)
 	local marche = (mode == "mur") and math.clamp(v / 10, 0, 1) or 0
 	local wg = math.min(2 + v * 0.5, 8)
-	local becMorsure, ecartMorsure = 0, 0
-	if coup == "morsure" then _, becMorsure, ecartMorsure = G.morsure(e, signe) end
 	for k = 0, 7 do
 		local ph = phases[k]
 		for j = 1, 8 do
@@ -294,10 +284,6 @@ local function animer(t, dt)
 				-- elle s'aplatit, pointes enroulées ; les bras tendus du tour sont posés plus bas (gestesAttaque)
 				local a = (e < signe) and lisse(e / signe) or 1
 				pitch += (j <= 2 and -0.1 or (j >= 6 and 0.3 or 0)) * a
-			elseif coup == "morsure" and (k == 0 or k == 1 or k == 6 or k == 7) then
-				-- les bras avant s'écartent pour dégager le bec
-				yaw += ((k <= 1) and 1 or -1) * 0.5 * ecartMorsure * (j <= 2 and 1 or 0.3)
-				pitch -= 0.1 * ecartMorsure
 			elseif (coup == "saisie" or coup == "enlevement" or saisie) and (k == 0 or k == 7 or k == 1 or k == 6) then
 				local a = lisse(e / signe)
 				pitch += a * (j == 1 and 0.5 or (j <= 4 and 0.06 or 0.12))        -- bras levés vers la proie, pointes recourbées
@@ -338,8 +324,8 @@ local function animer(t, dt)
 	end
 	ang(os_.Manteau1, 0.05 * respi + contraction, 0.02 * math.sin(t * 0.7))
 	ang(os_.Manteau2, 0.08 * math.sin(t * 1.25 + 0.5) + contraction, 0.04 * math.sin(t * 0.6))
-	ang(os_.Tete, -0.3 * ecartMorsure + 0.03 * math.sin(t * 0.8), 0)
-	ang(os_.Bec, 0.6 * becMorsure, 0)
+	ang(os_.Tete, 0.03 * math.sin(t * 0.8), 0)
+	ang(os_.Bec, 0, 0)
 	-- marche : pieds posés au plafond et au sol, faisceau en course (hors gestes d'attaque, chute, saisie)
 	local geste = saisie or chuteEtat.phase ~= "" or (coup ~= nil and coup ~= "avorte" and e < signe + 0.8)
 		or etat == "morte" or etat == "etourdie"

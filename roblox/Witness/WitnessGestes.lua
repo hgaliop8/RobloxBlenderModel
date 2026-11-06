@@ -231,42 +231,68 @@ function G.cheminTrainee(B: Vector3, centre: Vector3, avant: Vector3, haut: Vect
 end
 
 -- ================================================================ attaques au contact
-G.FOUET = { frappe = 0.15, retour = 0.35, rayon = 1.9, serrage = 0.2, portee_bras = 5.5 }
+G.FOUET = {
+	frappe = 0.18,        -- s : la base passe de l'armé au bout de sa course (le reste du bras suit en retard)
+	retard = 0.018,       -- s de retard de chaque os sur le précédent : la boucle se déroule et le bout claque en dernier
+	suite = 0.55,         -- s : le bras continue, retombe dans l'eau et se reprend
+	arme = 2.3,           -- rad : bras levé en arrière (0 = vers la cible, à l'horizontale)
+	courbure = 0.24,      -- rad par os : le bras s'enroule vers la pointe pendant l'armé
+	depasse = 0.45,       -- rad : la base passe sous la cible
+	portee_bras = 5.5,    -- au-delà, elle bondit vers sa cible
+	contact = 0.28,       -- s après le signe : le bout du bras arrive sur la cible (pour les dégâts et l'éclaboussure)
+}
 G.BALAYAGE = { tour = 0.35, enfoncement = 0.3 }
-G.MORSURE = { bond = 1.8, tenue = 0.1, retour = 0.35 }
 
--- fouet, armé : le bras monte haut sur le côté, puis s'enroule en crosse vers l'arrière, bien dégagé du corps
--- (loin = direction opposée à la cible, dehors = côté du bras ; tous deux horizontaux)
-function G.cheminFouetArme(B: Vector3, loin: Vector3, dehors: Vector3, haut: Vector3): { Vector3 }
+-- angle de la base du bras dans le plan du coup, à l'instant x (x < 0 : avant le geste)
+local function angleFouet(x: number, signe: number, aRepos: number, aCible: number): number
 	local F = G.FOUET
-	loin = (loin * 0.5 + dehors * 0.85).Unit
-	local C = B + loin * F.rayon + haut * 2.0
-	local pts = { B }
-	for i = 0, 44 do
-		local phi = math.pi - (i / 44) * 2.2 * math.pi
-		local r = F.rayon * math.exp(-F.serrage * (math.pi - phi))
-		table.insert(pts, C + (loin * math.cos(phi) + haut * math.sin(phi)) * r)
+	if x <= 0 then return aRepos end
+	if x < signe then return aRepos + (F.arme - aRepos) * lisse(x / signe) end
+	local fin = aCible - F.depasse
+	local u = (x - signe) / F.frappe
+	if u < 1 then return F.arme + (fin - F.arme) * (u ^ 2.2) end           -- accélère jusqu'au bout : coup de fouet
+	local tau = x - signe - F.frappe
+	return fin - 0.25 * lisse(tau / 0.35) - 0.2 * math.sin(tau * 10) * math.exp(-tau * 7)   -- retombe et rebondit
+end
+
+--[[ fouet : articulations du bras (B = départ du bras, T = cible, cote = côté du bras) et poids global du geste.
+Le coup est un arc en biais (de côté et vers le bas), dans un plan qui contient la direction de la cible. Chaque os suit
+la base avec un retard croissant : pendant la frappe le bras forme une boucle qui se déroule jusqu'à la pointe. ]]
+function G.fouetBras(e: number, signe: number, B: Vector3, T: Vector3, centre: Vector3, haut: Vector3, L: { number }): ({ Vector3 }, number)
+	local F = G.FOUET
+	local vers = T - B; vers = vers - haut * vers:Dot(haut)
+	local avant = vers.Magnitude > 1e-3 and vers.Unit or Vector3.new(1, 0, 0)
+	local lat = B - centre; lat = lat - haut * lat:Dot(haut) - avant * lat:Dot(avant)
+	local cote = lat.Magnitude > 1e-3 and lat.Unit or haut:Cross(avant).Unit
+	local plan = (haut * 0.75 + cote * 0.65).Unit
+	local v = T - B
+	local aCible = math.atan2(v:Dot(plan), v:Dot(avant))
+	local frappe = lisse((e - signe) / F.frappe)
+	local courbe = F.courbure * lisse(e / signe) * (1 - frappe) - 0.05 * frappe * (1 - lisse((e - signe - F.frappe) / 0.3)) + 0.04 * lisse((e - signe - F.frappe) / 0.3)
+	local J = {}
+	local cur = B
+	for j = 1, #L do
+		local x = e - F.retard * (j - 1)
+		local a = angleFouet(x, signe, 0.15, aCible) + courbe * (j - 1)
+		a += 0.06 * math.sin(9 * e - 0.9 * j) * (1 - frappe)                -- le bras ondule pendant l'armé
+		cur = cur + (avant * math.cos(a) + plan * math.sin(a)) * L[j]
+		J[j] = cur
 	end
-	return pts
+	local global = lisse(e / 0.15) * (1 - lisse((e - signe - F.frappe - 0.25) / 0.3))
+	return J, global
 end
--- fouet, détendu : droit vers la cible, au-delà
-function G.cheminFouetFrappe(B: Vector3, T: Vector3): { Vector3 }
-	local d = T - B; d = d.Magnitude > 1e-3 and d.Unit or Vector3.new(1, 0, 0)
-	return { B, B + d * 14 }
-end
---[[ état du fouet à l'instant e (signe = durée de l'armé) : poids global (0 = pose habituelle), poids de la frappe pour l'os j
-(la vague part de la base et arrive au bout), décalage du corps (bond vers l'avant, bascule) ]]
-function G.fouet(e: number, signe: number, distance: number): (number, (number) -> number, CFrame)
+
+-- fouet : corps qui recule et pivote pendant l'armé, puis bondit vers la cible et pivote dans l'autre sens à la frappe
+-- (cote = +1 si le bras qui frappe est à gauche, -1 à droite)
+function G.fouetCorps(e: number, signe: number, distance: number, cote: number): CFrame
 	local F = G.FOUET
-	local global
-	if e < signe + F.frappe then global = lisse(e / 0.12)
-	else global = 1 - lisse((e - signe - F.frappe) / F.retour) end
-	local function frappe(j: number): number return lisse((e - signe - 0.015 * (j - 1)) / 0.07) end
-	local bond = math.clamp(distance - F.portee_bras, 0, 3.5)
 	local arme = lisse(e / signe)
-	local coup = lisse((e - signe) / F.frappe) * (1 - lisse((e - signe - F.frappe) / F.retour))
-	local corps = CFrame.new(bond * coup, 0, 0) * autourPivot(G.CABRE_PIVOT, 0.12 * arme * (1 - coup) - 0.1 * coup)
-	return global, frappe, corps
+	local coup = lisse((e - signe + 0.04) / F.frappe) * (1 - lisse((e - signe - F.frappe - 0.1) / 0.4))
+	local fin = 1 - lisse((e - signe - F.frappe - 0.1) / 0.4)
+	local bond = math.clamp(distance - F.portee_bras, 0, 3.5)
+	local pivot = cote * (0.16 * arme * (1 - coup) - 0.2 * coup) * fin
+	return CFrame.new(bond * coup, 0, 0) * CFrame.Angles(0, pivot, 0)
+		* autourPivot(G.CABRE_PIVOT, (0.12 * arme * (1 - coup) - 0.1 * coup) * fin)
 end
 
 -- balayage : elle s'aplatit, puis fait un tour complet ; renvoie le repère du corps, la vitesse de rotation et le poids des bras tendus
@@ -296,18 +322,6 @@ function G.cheminBalayage(B: Vector3, centre: Vector3, haut: Vector3, omega: num
 		table.insert(pts, centre + (d * math.cos(a) + cote * math.sin(a)) * (r0 + s) + haut * (0.6 * math.min(1, s / 1.5)))
 	end
 	return pts
-end
-
--- morsure : bond vers l'avant, l'avant plonge ; renvoie le repère du corps, l'ouverture du bec (0..1) et l'écartement des bras avant
-function G.morsure(e: number, signe: number): (CFrame, number, number)
-	local M = G.MORSURE
-	local a
-	if e < signe then a = lisse(e / signe)
-	elseif e < signe + M.tenue then a = 1
-	else a = 1 - lisse((e - signe - M.tenue) / M.retour) end
-	local saut = 0.4 * math.sin(math.pi * math.min(1, e / signe))
-	local bec = (e < signe) and lisse(e / signe) or (1 - lisse((e - signe) / 0.05))
-	return CFrame.new(M.bond * a, saut, 0) * autourPivot(Vector3.new(1.2, 0, 0), -0.3 * a), bec, a
 end
 
 return G

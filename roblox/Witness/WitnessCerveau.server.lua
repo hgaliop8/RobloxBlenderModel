@@ -405,7 +405,7 @@ end
 
 local function coupFouet(p)
 	viser(p); signe("fouet")
-	task.wait(0.08)                                          -- le bout du bras arrive sur la cible
+	task.wait(0.28)                                          -- le bout du bras arrive sur la cible (WitnessGestes : G.FOUET.contact)
 	local r = hrp(p)
 	if r and (r.Position - W.pos).Magnitude <= C.COUPS.fouet.portee + 1 then
 		blesser(p, C.COUPS.fouet.degats, nil, (r.Position - W.pos).Unit * C.COUPS.fouet.recul)
@@ -419,12 +419,6 @@ local function coupBalayage()
 		if r and (r.Position - W.pos).Magnitude <= C.COUPS.balayage.portee then blesser(q, C.COUPS.balayage.degats, C.COUPS.balayage.renverse) end
 	end
 	recharger("balayage")
-end
-local function coupMorsure(p)
-	viser(p); signe("morsure")
-	local r = hrp(p)
-	if r and (r.Position - W.pos).Magnitude <= C.COUPS.morsure.portee + 1 then blesser(p, C.COUPS.morsure.degats) end
-	recharger("morsure")
 end
 -- saisie : la victime est soulevée et étranglée ; libérée si l'équipe inflige assez de dégâts ou utilise le feu
 local function coupSaisie(p, versGrille)
@@ -507,13 +501,11 @@ local function attaquer(p)
 	W.occupe = true; regler("attaque")
 	local r = hrp(p); local dist = r and (r.Position - W.pos).Magnitude or 99
 	local seul = not coequipierProche(p, C.JAUGE.seul_rayon)
-	local renverse = r and humanoide(p) and humanoide(p):GetState() == Enum.HumanoidStateType.FallingDown
 	local horiz = r and Vector3.new(r.Position.X - W.pos.X, 0, r.Position.Z - W.pos.Z).Magnitude or 99
 	local groupe = 0
 	for _, q in ipairs(joueursVivants()) do local s = hrp(q); if s and (s.Position - W.pos).Magnitude < 10 then groupe += 1 end end
 	if W.mode == "plafond" and horiz <= C.COUPS.chute.rayon and seul and pret("chute") then coupChute(p)
 	elseif W.mode == "sol" and groupe >= 2 and pret("balayage") then coupBalayage()
-	elseif renverse and dist <= C.COUPS.morsure.portee + 1 and pret("morsure") then coupMorsure(p)
 	elseif W.phase >= 3 and grilleProche(C.COUPS.enlevement.portee_grille) and dist <= C.COUPS.saisie.portee and pret("enlevement") then coupSaisie(p, grilleProche(C.COUPS.enlevement.portee_grille))
 	elseif W.mode == "sol" and dist <= C.COUPS.saisie.portee and pret("saisie") then coupSaisie(p, nil)
 	elseif dist <= C.COUPS.fouet.portee and pret("fouet") then coupFouet(p)

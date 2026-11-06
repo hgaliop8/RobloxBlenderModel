@@ -100,7 +100,6 @@ def animer(t, vit, coup, e, saisie, ch):
     """port de WitnessCorps.animer : quaternion de chaque os"""
     signe = SIGNE.get(coup, 0.5); Q = {}
     bec_m, ecart_m = 0.0, 0.0
-    if coup == 'morsure': _, bec_m, ecart_m = morsure_g(e, signe)
     for k in range(8):
         ph = phases[k]; avant = k in (0, 7, 1, 6)
         for j in range(1, 9):
@@ -114,8 +113,6 @@ def animer(t, vit, coup, e, saisie, ch):
             elif coup == 'balayage':
                 a = lisse(e/signe) if e < signe else 1.0
                 pitch += (-0.1 if j <= 2 else (0.3 if j >= 6 else 0.0))*a
-            elif coup == 'morsure' and avant:
-                yaw += (1 if k <= 1 else -1)*0.5*ecart_m*(1 if j <= 2 else 0.3); pitch -= 0.1*ecart_m
             elif coup == 'descente' and ch:
                 prog, tau = ch['prog'], ch['tau']
                 if ch['phase'] == 'decroche':
@@ -140,25 +137,36 @@ def animer(t, vit, coup, e, saisie, ch):
     return Q
 
 # ---------------------------------------------------------------- attaques au contact (port de WitnessGestes)
-FOUET = dict(frappe=0.15, retour=0.35, rayon=1.9, serrage=0.2, portee_bras=5.5)
+FOUET = dict(frappe=0.18, retard=0.018, suite=0.55, arme=2.3, courbure=0.24, depasse=0.45, portee_bras=5.5, contact=0.28)
 TOUR_B, ENF_B = 0.35, 0.3
 MORS = dict(bond=1.8, tenue=0.1, retour=0.35)
-def chemin_fouet_arme(B, loin, dehors, haut):
-    loin = (loin*0.5 + dehors*0.85).normalized()
-    C = B + loin*FOUET['rayon'] + haut*2.0; pts = [B.copy()]
-    for i in range(45):
-        phi = math.pi - (i/44)*2.2*math.pi; r = FOUET['rayon']*math.exp(-FOUET['serrage']*(math.pi - phi))
-        pts.append(C + (loin*math.cos(phi) + haut*math.sin(phi))*r)
-    return pts
-def chemin_fouet_frappe(B, T):
-    d = T - B; d = d.normalized() if d.length > 1e-3 else Vector((1, 0, 0)); return [B.copy(), B + d*14]
-def fouet_g(e, signe, distance):
-    if e < signe + FOUET['frappe']: glob = lisse(e/0.12)
-    else: glob = 1 - lisse((e - signe - FOUET['frappe'])/FOUET['retour'])
-    frappe = lambda j: lisse((e - signe - 0.015*(j - 1))/0.07)
-    bond = max(0.0, min(3.5, distance - FOUET['portee_bras'])); arme = lisse(e/signe)
-    cp = lisse((e - signe)/FOUET['frappe'])*(1 - lisse((e - signe - FOUET['frappe'])/FOUET['retour']))
-    return glob, frappe, Matrix.Translation((bond*cp, 0, 0)) @ autour(P_CAB, 0.12*arme*(1 - cp) - 0.1*cp)
+def angle_fouet(x, signe, a_repos, a_cible):
+    F = FOUET
+    if x <= 0: return a_repos
+    if x < signe: return a_repos + (F['arme'] - a_repos)*lisse(x/signe)
+    fin = a_cible - F['depasse']; u = (x - signe)/F['frappe']
+    if u < 1: return F['arme'] + (fin - F['arme'])*u**2.2
+    tau = x - signe - F['frappe']
+    return fin - 0.25*lisse(tau/0.35) - 0.2*math.sin(tau*10)*math.exp(-tau*7)
+def fouet_bras(e, signe, B, T, centre, haut, L):
+    F = FOUET
+    vers = T - B; vers = vers - haut*vers.dot(haut); avant = vers.normalized() if vers.length > 1e-3 else Vector((1, 0, 0))
+    lat = B - centre; lat = lat - haut*lat.dot(haut) - avant*lat.dot(avant)
+    cote = lat.normalized() if lat.length > 1e-3 else haut.cross(avant).normalized()
+    plan = (haut*0.75 + cote*0.65).normalized(); v = T - B; a_c = math.atan2(v.dot(plan), v.dot(avant))
+    frappe = lisse((e - signe)/F['frappe'])
+    courbe = F['courbure']*lisse(e/signe)*(1 - frappe) - 0.05*frappe*(1 - lisse((e - signe - F['frappe'])/0.3)) + 0.04*lisse((e - signe - F['frappe'])/0.3)
+    J = []; cur = B.copy()
+    for j in range(1, len(L) + 1):
+        a = angle_fouet(e - F['retard']*(j - 1), signe, 0.15, a_c) + courbe*(j - 1) + 0.06*math.sin(9*e - 0.9*j)*(1 - frappe)
+        cur = cur + (avant*math.cos(a) + plan*math.sin(a))*L[j - 1]; J.append(cur)
+    return J, lisse(e/0.15)*(1 - lisse((e - signe - F['frappe'] - 0.25)/0.3))
+def fouet_corps(e, signe, distance, cote):
+    F = FOUET; arme = lisse(e/signe)
+    coup = lisse((e - signe + 0.04)/F['frappe'])*(1 - lisse((e - signe - F['frappe'] - 0.1)/0.4))
+    fin = 1 - lisse((e - signe - F['frappe'] - 0.1)/0.4)
+    bond = max(0.0, min(3.5, distance - F['portee_bras'])); pivot = cote*(0.16*arme*(1 - coup) - 0.2*coup)*fin
+    return Matrix.Translation((bond*coup, 0, 0)) @ Matrix.Rotation(pivot, 4, 'Z') @ autour(P_CAB, (0.12*arme*(1 - coup) - 0.1*coup)*fin)
 def balayage_g(e, signe):
     if e < signe: return Matrix.Translation((0, 0, -ENF_B*lisse(e/signe))), 0.0, 0.0
     u = max(0.0, min(1.0, (e - signe)/TOUR_B)); ang = 2*math.pi*(1 - (1 - u)**3)
@@ -172,30 +180,19 @@ def chemin_balayage(B, centre, haut, om):
         s_ = i*0.35; a = -kap*s_
         pts.append(centre + (d*math.cos(a) + cote*math.sin(a))*(r0 + s_) + haut*(0.6*min(1, s_/1.5)))
     return pts
-def morsure_g(e, signe):
-    if e < signe: a = lisse(e/signe)
-    elif e < signe + MORS['tenue']: a = 1.0
-    else: a = 1 - lisse((e - signe - MORS['tenue'])/MORS['retour'])
-    saut = 0.4*math.sin(math.pi*min(1, e/signe)); bec = lisse(e/signe) if e < signe else 1 - lisse((e - signe)/0.05)
-    return Matrix.Translation((MORS['bond']*a, 0, saut)) @ autour(Vector((1.2, 0, 0)), -0.3*a), bec, a
 def decalage_geste(coup, e, signe, T):
-    if coup == 'fouet' and e < signe + FOUET['frappe'] + FOUET['retour']:
-        dist = (Vector((T.x, T.y, 0))).length if T is not None else 0; return fouet_g(e, signe, dist)[2]
+    if coup == 'fouet' and e < signe + FOUET['frappe'] + FOUET['suite']:
+        dist = (Vector((T.x, T.y, 0))).length if T is not None else 0
+        return fouet_corps(e, signe, dist, 1 if FOUET_K.get('k', 0) == 0 else -1)
     if coup == 'balayage' and e < signe + TOUR_B + 0.4: return balayage_g(e, signe)[0]
-    if coup == 'morsure' and e < signe + MORS['tenue'] + MORS['retour']: return morsure_g(e, signe)[0]
     return Matrix.Identity(4)
 FOUET_K = {}
 def gestes_attaque(Q, coup, e, signe, Mw, T):
     Mrac = Mw @ arm.pose.bones['Racine'].bone.matrix_local; centre = Mrac.translation; haut = haut_de(Mw)
-    if coup == 'fouet' and e < signe + FOUET['frappe'] + FOUET['retour']:
-        if 'k' not in FOUET_K:
-            FOUET_K['k'] = min((0, 7), key=lambda k: ((Mrac @ rest_rel(CHAINES[k][0])).translation - T).length)
+    if coup == 'fouet' and e < signe + FOUET['frappe'] + FOUET['suite']:
         k = FOUET_K['k']; ch = CHAINES[k]; B = (Mrac @ rest_rel(ch[0])).translation
-        glob, frappe, _ = fouet_g(e, signe, Vector((T.x - centre.x, T.y - centre.y, 0)).length)
-        loin = Vector((B.x - T.x, B.y - T.y, 0)); loin = loin.normalized() if loin.length > 1e-3 else -(Mw.to_3x3() @ Vector((1, 0, 0)))
-        dh = Vector((B.x - centre.x, B.y - centre.y, 0)); dh = dh.normalized() if dh.length > 1e-3 else loin
-        Ja = articulations(B, chemin_fouet_arme(B, loin, dh, haut), LONG[k]); Jf = articulations(B, chemin_fouet_frappe(B, T), LONG[k])
-        orienter(ch, Mrac, [Ja[j].lerp(Jf[j], frappe(j + 1)) for j in range(8)], [glob]*8, Q)
+        J, glob = fouet_bras(e, signe, B, T, centre, haut, LONG[k])
+        orienter(ch, Mrac, J, [glob]*8, Q)
     elif coup == 'balayage':
         _, om, w = balayage_g(e, signe)
         if w < 0.001: return
@@ -465,7 +462,7 @@ def mannequins(t):
     """pose des mannequins ; renvoie le centre du torse visé (fouet, morsure) et les éclaboussures (x, y, instant, force)"""
     eclab = []
     if PLAN == 'fouet':
-        th = T0_ATT['fouet'] + 0.5 + 0.08; a = max(0.0, t - th)
+        th = T0_ATT['fouet'] + 0.5 + FOUET['contact']; a = max(0.0, t - th)
         recul = 4*(1 - math.exp(-a/0.12)) if t > th else 0.0
         tilt = (0.6*math.sin(math.pi*min(1, a/1.2))) if t > th else 0.0
         pieds = Vector((8 + recul, 0, 0))
@@ -497,6 +494,9 @@ def plan_attaque(t):
     nom = PLAN; t0 = T0_ATT[nom]; signe = SIGNE[nom]
     coup = nom if t >= t0 else None; e = t - t0
     T, ec = mannequins(t); ECLAB[:] = ec
+    if nom == 'fouet' and 'k' not in FOUET_K:               # le bras avant le plus proche de la cible
+        Mr0 = arm.pose.bones['Racine'].bone.matrix_local
+        FOUET_K['k'] = min((0, 7), key=lambda k: ((Mr0 @ rest_rel(CHAINES[k][0])).translation - T).length)
     racine_fn = lambda tt: (Matrix.Identity(4), nom if tt >= t0 else None, tt - t0, None)
     avancer(racine_fn, t)
     Q = animer(t, 0, coup, e, False, None)
@@ -506,16 +506,6 @@ def plan_attaque(t):
     CAMS = {'fouet': ((4, -12.5, 4.5), (4.2, 0, 2.4), 50), 'balayage': ((7, -11.5, 7.5), (0, 0, 1.0), 52), 'morsure': ((2.6, -9.5, 3.8), (2.6, 0, 1.2), 46)}
     c, cib, ang = CAMS[nom]; CAM = Vector(c); viser(CAM, cib); cd.angle_y = math.radians(ang)
     poser(Mw, Q, CAM)
-    if os.environ.get('DEBUG') and coup == 'fouet' and 'k' in FOUET_K:
-        bpy.context.view_layer.update()
-        k = FOUET_K['k']; T_ = T if T is not None else Vector((9, 0, 2))
-        Mrac = Mw @ arm.pose.bones['Racine'].bone.matrix_local; B = (Mrac @ rest_rel(CHAINES[k][0])).translation
-        loin = Vector((B.x - T_.x, B.y - T_.y, 0)).normalized()
-        Ja = articulations(B, chemin_fouet_arme(B, loin, Vector((B.x, B.y, 0)).normalized(), haut_de(Mw)), LONG[k])
-        log(f't={t:.3f} k={k} B={tuple(round(x, 2) for x in B)} T={tuple(round(x, 2) for x in T_)} L={[round(x, 2) for x in LONG[k]]}')
-        log('  visé : ' + ' '.join(f'({p.x:+.1f},{p.y:+.1f},{p.z:+.1f})' for p in Ja))
-        log('  posé : ' + ' '.join(f'({p.x:+.1f},{p.y:+.1f},{p.z:+.1f})' for p in [arm.matrix_world @ pb.tail for pb in CHAINES[k]]))
-        log('  quat : ' + ' '.join(f'{Q[pb.name].angle:.2f}' for pb in CHAINES[k]) + ' mode ' + CHAINES[k][0].rotation_mode)
 def plan_etrangle(t):
     """gros plan : bras levés (0,7 s), puis saisie : elle se dresse, enroule ses deux bras avant autour du cou et serre"""
     t_signe = 0.5; t_sais = t_signe + 0.7; avant = Vector((1, 0, 0))
