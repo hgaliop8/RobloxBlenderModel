@@ -798,4 +798,31 @@ function G.spasme(t: number, k: number, frequence: number): number
 	return math.exp(-((x - 0.5) / 0.07) ^ 2)
 end
 
+-- même chemin rééchantillonné en n points régulièrement espacés ; puis mélange de deux chemins point à point (la forme du bras
+-- glisse de l'une à l'autre, sans les retournements qu'on aurait en mélangeant les rotations des os)
+function G.reechantillonner(pts: { Vector3 }, n: number): { Vector3 }
+	local total = G.longueur(pts)
+	local out = { pts[1] }
+	local i, acc = 2, 0
+	for m = 1, n - 1 do
+		local cible = total * m / (n - 1)
+		while i <= #pts do
+			local seg = (pts[i] - pts[i - 1]).Magnitude
+			if acc + seg >= cible or i == #pts then
+				table.insert(out, pts[i - 1]:Lerp(pts[i], math.clamp((cible - acc) / math.max(seg, 1e-6), 0, 1)))
+				break
+			end
+			acc += seg; i += 1
+		end
+	end
+	return out
+end
+function G.melangerChemins(a: { Vector3 }, b: { Vector3 }, w: number): { Vector3 }
+	if w <= 0 then return a elseif w >= 1 then return b end
+	local A, Bm = G.reechantillonner(a, 30), G.reechantillonner(b, 30)
+	local out = {}
+	for i = 1, 30 do out[i] = A[i]:Lerp(Bm[i], w) end
+	return out
+end
+
 return G

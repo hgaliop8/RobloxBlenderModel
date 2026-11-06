@@ -1091,6 +1091,27 @@ def ramasser_sol(Q, Mw, t, w):
     for k in range(8):
         chn = CHAINES[k]; B = (Mrac @ rest_rel(chn[0])).translation
         orienter(chn, Mrac, articulations(B, chemin_ramasse(B, centre, haut, 1.0, t, k), LONG[k]), [poids_chaine(w, j + 1) for j in range(8)], Q)
+def reechantillonner(pts, n):
+    total = longueur(pts); out = [pts[0].copy()]; i = 1; acc = 0.0
+    for m in range(1, n):
+        cible = total*m/(n - 1)
+        while i < len(pts):
+            seg = (pts[i] - pts[i - 1]).length
+            if acc + seg >= cible or i == len(pts) - 1:
+                out.append(pts[i - 1].lerp(pts[i], max(0.0, min(1.0, (cible - acc)/max(seg, 1e-6))))); break
+            acc += seg; i += 1
+    return out
+def melanger_chemins(a, b, w):
+    if w <= 0: return a
+    if w >= 1: return b
+    A, Bm = reechantillonner(a, 30), reechantillonner(b, 30); return [A[i].lerp(Bm[i], w) for i in range(30)]
+def agonie(Q, Mw, t, force, enroule):
+    arm.matrix_world = Mw; bpy.context.view_layer.update()
+    Mrac = Mw @ arm.pose.bones['Racine'].bone.matrix_local; centre = Mrac.translation; haut = haut_de(Mw)
+    for k in range(8):
+        chn = CHAINES[k]; B = (Mrac @ rest_rel(chn[0])).translation
+        a = chemin_inerte(B, centre, haut, k, force*spasme(t, k, 2.4)); b = chemin_ramasse(B, centre, haut, 1.0, t, k)
+        orienter(chn, Mrac, articulations(B, melanger_chemins(a, b, enroule), LONG[k]), [1.0]*8, Q)
 def tordre(Q, t, wb):
     """brûlure : torsions rapides par-dessus tout le reste"""
     for k in range(8):
@@ -1110,7 +1131,7 @@ ET = dict(br=0.6, brd=3.0, et=1.4, etd=3.6, fu=5.0)
 def racine_etats(t):
     if t < ET['fu']: return Matrix.Identity(4), None, 0.0, ('etat' if ET['et'] <= t < ET['et'] + ET['etd'] - 0.6 else None)
     a = t - ET['fu']; x = -0.5*40*a*a if a < 0.6 else -0.5*40*0.36 - 24*(a - 0.6)
-    return Matrix.Translation((x, 0, 0)) @ Matrix.Rotation(math.pi, 4, 'Z'), None, 0.0, None
+    return Matrix.Translation((x, 0, 0)) @ Matrix.Rotation(math.pi*lisse(a/0.35), 4, 'Z'), None, 0.0, None   # demi-tour progressif
 def plan_etats(t):
     Mw, coup, e, ch = avancer(racine_etats, t)
     Q = animer(t, 0, None, 0.0, False, None)
@@ -1136,7 +1157,7 @@ def plan_etats(t):
     elif 0 <= xf < 4: photophores(1.4 if (t*9) % 1 < 0.5 else 0.05)
     else: photophores(1.0)
     FLAMME.data.energy = 900*math.exp(-max(0.0, xb)/0.35) if xb >= 0 else 0.0; FLAMME.location = Mw.translation + Vector((-1.8, -1.2, 1.4))
-    CAM = Vector((4, -13, 6.5)); viser(CAM, (-3, 0, 1.0)); cd.angle_y = math.radians(56)
+    CAM = Vector((3.0, -8.5, 4.6)); viser(CAM, (-1.2, 0, 0.7)); cd.angle_y = math.radians(54)
     poser(Mw, Q, CAM)
 MO_T = 0.5
 def racine_mort(t): return Matrix.Identity(4), None, 0.0, ('etat' if t >= MO_T else None)
@@ -1151,15 +1172,14 @@ def plan_mort(t):
         wm = lisse(xm/2.2); souf = 1 - lisse(xm/1.2); ctr = 0.25*math.exp(-xm/0.9)*math.sin(t*19)
         Q['Manteau1'] = Euler(((0.05*math.sin(t*1.25) + ctr)*souf - 0.45*wm, 0, 0), 'XYZ').to_quaternion()
         Q['Manteau2'] = Euler(((0.08*math.sin(t*1.25 + 0.5) + ctr)*souf - 0.35*wm, 0, 0), 'XYZ').to_quaternion()
-        inertes(Q, Mw, t, 1.0, 2.4, 1.4*math.exp(-xm/1.1))
-        ramasser_sol(Q, Mw, t, lisse((xm - 0.9)/2.0))
+        agonie(Q, Mw, t, 1.4*math.exp(-xm/1.1), lisse((xm - 0.9)/2.0))
         lait = lisse((xm - 1.0)/3.0)
         c0, c1 = (215, 236, 240), (230, 232, 228)
         teinte(tuple(int(a + (b - a)*lait) for a, b in zip(c0, c1)), 1.0 - 0.9*lait, 0.04 + 0.4*lait)
         photophores(max(0.0, 1 - max(0.0, xm - 0.2)/1.2))
     else:
         teinte((215, 236, 240)); photophores(1.0)
-    CAM = Vector((6, -10.5, 6.5)); viser(CAM, (0, 0, 0.8)); cd.angle_y = math.radians(48)
+    CAM = Vector((3.5, -6.8, 4.6)); viser(CAM, (0, 0, 0.5)); cd.angle_y = math.radians(46)
     poser(Mw, Q, CAM)
 
 def decalage_ramasse(e):
@@ -1221,7 +1241,7 @@ elif PLAN in ('plafond', 'sol') + ('fouet', 'balayage', 'devore', 'plaquage', 'e
         lampe((-4, 1.2, H + 4.8), 700, (0.85, 0.93, 1.0), 2.0, forme='RECTANGLE', size_y=0.4)
         lampe((5, 1.2, H + 4.8), 600, (0.85, 0.93, 1.0), 2.0, forme='RECTANGLE', size_y=0.4)
         lampe((1, -8, 14.5), 900, (1.0, 0.95, 0.9), 4.0, cible=(0, 0, 13.2))                  # appoint côté caméra dans la gaine
-    if PLAN in ('balayage', 'encre', 'plaquage', 'escalade'):       # vue plongeante : les néons se reflètent en taches ; reflet doux d'un grand plafonnier à la place
+    if PLAN in ('balayage', 'encre', 'plaquage', 'escalade', 'etats', 'mort'):       # vue plongeante : les néons se reflètent en taches ; reflet doux d'un grand plafonnier à la place
         for o in list(sc.objects):
             if o.type == 'LIGHT' and o.data.type == 'AREA' and o.data.shape == 'RECTANGLE': o.visible_glossy = False
         lampe((0, 0, H - 0.3), 260, (0.8, 0.9, 1.0), 26.0)
@@ -1245,7 +1265,7 @@ if PLAN in ('sol', 'couloir') + ('fouet', 'balayage', 'devore', 'plaquage', 'enl
     me_ = bpy.data.materials.new('Eau'); me_.use_nodes = True; nt = me_.node_tree; b = nt.nodes['Principled BSDF']
     b.inputs['Base Color'].default_value = (0.03, 0.07, 0.075, 1); b.inputs['Roughness'].default_value = 0.03
     b.inputs['Transmission Weight'].default_value = 1.0; b.inputs['IOR'].default_value = 1.33
-    va = nt.nodes.new('ShaderNodeVolumeAbsorption'); va.inputs['Color'].default_value = (0.32, 0.58, 0.56, 1); va.inputs['Density'].default_value = 0.15 if PLAN == 'plaquage' else 0.45
+    va = nt.nodes.new('ShaderNodeVolumeAbsorption'); va.inputs['Color'].default_value = (0.32, 0.58, 0.56, 1); va.inputs['Density'].default_value = 0.12 if PLAN in ('plaquage', 'etats', 'mort') else 0.45
     nt.links.new(va.outputs[0], nt.nodes['Material Output'].inputs['Volume'])
     tc = nt.nodes.new('ShaderNodeTexCoord'); nz = nt.nodes.new('ShaderNodeTexNoise'); nz.inputs['Scale'].default_value = 2.2; nz.inputs['Detail'].default_value = 3.0
     bp = nt.nodes.new('ShaderNodeBump'); bp.inputs['Strength'].default_value = 0.06

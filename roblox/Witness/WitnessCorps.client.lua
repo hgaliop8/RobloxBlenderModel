@@ -513,6 +513,21 @@ local function inertes(t: number, w: number, frequence: number, force: number)
 	end
 end
 
+-- mort : bras qui se débattent au sol (secousses qui s'éteignent), puis qui s'enroulent sur eux-mêmes (forme mélangée)
+local function agonie(t: number, force: number, enroule: number)
+	if not osRacine then return end
+	local parent = mondeOs(osRacine)
+	local centre = parent.Position
+	local haut = cfAffiche.UpVector
+	local poids = { 1, 1, 1, 1, 1, 1, 1, 1 }
+	for k, chn in pairs(BRAS) do
+		local B = (parent * chn.os[1].CFrame).Position
+		local a = G.cheminInerte(B, centre, haut, k, force * G.spasme(t, k, 2.4))
+		local b = G.cheminRamasse(B, centre, haut, 1, t, k)
+		G.orienter(chn, parent, G.articulations(B, G.melangerChemins(a, b, enroule), chn.L), poids)
+	end
+end
+
 -- ================================================================ marche à pieds posés
 local DIRS = {}                       -- direction de chaque bras au repos, dans le repère du modèle
 do
@@ -776,8 +791,7 @@ local function animer(t, dt)
 	end
 	if etat == "morte" and mortT then
 		local xm = maintenantE - mortT
-		inertes(t, 1, 2.4, 1.4 * math.exp(-xm / 1.1))
-		ramasser(t, lisse((xm - 0.9) / 2.0), 1)
+		agonie(t, 1.4 * math.exp(-xm / 1.1), lisse((xm - 0.9) / 2.0))
 	end
 	-- brûlure : les bras se tordent dans tous les sens (par-dessus tout le reste)
 	local bf = racine:GetAttribute("Brule")
