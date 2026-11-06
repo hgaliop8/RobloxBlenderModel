@@ -21,6 +21,7 @@ local dossier = RS:WaitForChild("Witness")
 local C = require(dossier:WaitForChild("WitnessConfig"))
 local Nav = require(dossier:WaitForChild("WitnessNav")).new(require(dossier:WaitForChild("NavWitness")))
 local Eau = require(dossier:WaitForChild("WitnessEau"))
+local G = require(dossier:WaitForChild("WitnessGestes"))
 
 local function obtenir(nom, classe)
 	local o = dossier:FindFirstChild(nom)
@@ -470,36 +471,51 @@ end
 -- le hisse jusqu'au plafond et l'avale dans la gaine. Libéré si l'équipe inflige assez de dégâts ou utilise le feu.
 local function coupEnlevement(p, g)
 	local E = C.COUPS.enlevement
+	local lisse = function(x) x = math.clamp(x, 0, 1); return x * x * (3 - 2 * x) end
+	-- elle rejoint la grille et se glisse dans la gaine, juste au-dessus : seuls ses bras sortiront entre les barreaux
 	local sousGrille = Vector3.new(g.X, W.pos.Y, g.Z)
 	if (sousGrille - W.pos).Magnitude > 0.5 then glisser(sousGrille, 0.4, "plafond", true) end
-	viser(p); racine.CFrame = orienter(W.avant, true)
-	signe("enlevement")
-	local r = hrp(p); if not r then recharger("enlevement"); return end
+	W.mode = "gaine"; W.pos = g + UP * 4; placer()
+	racine:SetAttribute("Grille", g)
+	viser(p); racine:SetAttribute("Coup", "enlevement"); racine:SetAttribute("CoupT", workspace:GetServerTimeNow())
+	sonEn(g, "succion")
+	local t0 = os.clock()
+	while os.clock() - t0 < E.signe do                         -- elle descend contre la grille : les bras se déversent
+		W.pos = g + UP * (4 - 2.8 * lisse((os.clock() - t0) / E.signe)); placer()
+		RunService.Heartbeat:Wait()
+	end
+	local r = hrp(p)
+	if not r or Vector3.new(r.Position.X - g.X, 0, r.Position.Z - g.Z).Magnitude > E.portee then
+		racine:SetAttribute("Grille", nil); recharger("enlevement"); return
+	end
 	local sol = solPoint(r.Position)
-	if Vector3.new(r.Position.X - g.X, 0, r.Position.Z - g.Z).Magnitude > E.portee then recharger("enlevement"); return end
 	W.saisie = { victime = p, degats = 0, debut = os.clock(), feu = false }
 	W.debats[p] = 0
 	r.Anchored = true; effet(p, "saisi", "enlevement")
 	racine:SetAttribute("Saisie", p.UserId); racine:SetAttribute("SaisieT", workspace:GetServerTimeNow())
 	racine:SetAttribute("SaisieType", "enlevement")
 	local depart = r.Position
-	local dessous = Vector3.new(g.X, sol.Y + 5, g.Z)                -- traîné sous la grille, déjà soulevé
-	local haut = Vector3.new(g.X, g.Y - 1.5, g.Z)                   -- la tête dans la grille
+	local dessous = Vector3.new(g.X, sol.Y + 4, g.Z)               -- traîné sous la grille, déjà soulevé
+	local haut = Vector3.new(g.X, g.Y - 1.5, g.Z)                   -- la tête contre la grille
 	local dedans = Vector3.new(g.X, g.Y + 3, g.Z)                   -- avalé par la gaine
-	local lisse = function(x) x = math.clamp(x, 0, 1); return x * x * (3 - 2 * x) end
 	local avale = false
 	while W.saisie and W.saisie.victime == p do
 		RunService.Heartbeat:Wait()
 		local h = humanoide(p); if not h or h.Health <= 0 then break end
 		if W.saisie.degats >= E.liberation or W.saisie.feu or W.etat == "etourdie" then break end
 		local tt = os.clock() - W.saisie.debut
-		local pos
-		if tt < E.trainee then pos = depart:Lerp(dessous, lisse(tt / E.trainee))
-		elseif tt < E.trainee + E.levee then pos = dessous:Lerp(haut, lisse((tt - E.trainee) / E.levee))
-		elseif tt < E.trainee + E.levee + E.avalee then pos = haut:Lerp(dedans, lisse((tt - E.trainee - E.levee) / E.avalee))
+		local pos, prog
+		if tt < E.trainee then pos = depart:Lerp(dessous, lisse(tt / E.trainee)); prog = 0
+		elseif tt < E.trainee + E.levee then
+			prog = G.aCoups((tt - E.trainee) / E.levee, 3)           -- hissé par à-coups
+			pos = dessous:Lerp(haut, prog)
+		elseif tt < E.trainee + E.levee + E.avalee then pos = haut:Lerp(dedans, lisse((tt - E.trainee - E.levee) / E.avalee)); prog = 1
 		else avale = true; break end
-		local face = Vector3.new(W.pos.X - pos.X, 0, W.pos.Z - pos.Z)
-		r.CFrame = (face.Magnitude > 0.2) and CFrame.lookAt(pos, pos + face.Unit) or CFrame.new(pos) * (r.CFrame - r.CFrame.Position)
+		local balance = 0.35 * math.sin(tt * 4) * math.exp(-tt * 0.4)
+		pos += Vector3.new(balance, 0, 0)
+		local face = Vector3.new(g.X - pos.X, 0, g.Z - pos.Z)
+		r.CFrame = (face.Magnitude > 0.3) and CFrame.lookAt(pos, pos + face.Unit) or CFrame.new(pos) * (r.CFrame - r.CFrame.Position)
+		W.pos = g + UP * (1.2 + 0.5 * prog + 2.5 * lisse((tt - E.trainee - E.levee) / E.avalee)); placer()
 	end
 	racine:SetAttribute("Saisie", nil)
 	if avale then
@@ -507,16 +523,17 @@ local function coupEnlevement(p, g)
 		local corps = p.Character
 		task.delay(0.1, function() if corps and corps.Parent then corps:PivotTo(CFrame.new(dedans)) end end)
 		W.saisie = nil
-		-- elle remonte dans la gaine par la grille
-		local n = Nav:plusProche(Vector3.new(g.X, g.Y + 2, g.Z), 2, 20)
-		if n then W.pos = Nav:position(n); W.mode = "gaine"; W.noeud = n; placer() end
 	else
 		relacher()
 	end
+	racine:SetAttribute("Grille", nil)
+	local n = Nav:plusProche(g + UP * 2, 2, 20)                     -- elle repart par la gaine
+	if n then W.pos = Nav:position(n); W.mode = "gaine"; W.noeud = n; placer() end
 	recharger("enlevement")
 end
 
 local function coupChute(p)
+	racine:SetAttribute("Cible", p.UserId)                    -- les clients orientent la coupe de ses bras vers sa tête
 	signe("chute")
 	local r = hrp(p); if not r then return end
 	local regard = W.regard[p]; local lampe = lampeAllumee(p)
@@ -531,9 +548,10 @@ local function coupChute(p)
 	r.Anchored = true
 	effet(p, "englouti", C.COUPS.chute.etreinte)
 	local haut = tete.Position + UP * (tete.Size.Y * 0.5)
+	racine:SetAttribute("Devore", p.UserId); racine:SetAttribute("DevoreT", nil)   -- en chute : bras en coupe vers sa tête
 	tomber(haut, C.DECROCHAGE_EMBUSCADE, true)
 	-- étreinte : elle glisse sur la tête, la victime se débat puis s'effondre en arrière, elle reste accrochée
-	racine:SetAttribute("Devore", p.UserId); racine:SetAttribute("DevoreT", workspace:GetServerTimeNow())
+	racine:SetAttribute("DevoreT", workspace:GetServerTimeNow())
 	local pieds = solPoint(r.Position)
 	local avant = W.avant
 	local axe = UP:Cross(avant).Unit                           -- elle tombe en arrière, loin de la créature
@@ -556,7 +574,7 @@ local function coupChute(p)
 		racine.CFrame = CFrame.lookAt(W.pos, W.pos + (av.Magnitude > 1e-3 and av.Unit or avant), hautCorps)
 	end
 	eliminer(p, "devore")
-	racine:SetAttribute("Devore", nil)
+	racine:SetAttribute("Devore", nil); racine:SetAttribute("DevoreT", nil)
 	r.Anchored = false
 	W.pos = solPoint(W.pos + UP * 2); W.mode = "sol"; placer()
 	task.wait(0.6)

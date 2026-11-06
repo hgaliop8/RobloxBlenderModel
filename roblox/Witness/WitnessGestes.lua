@@ -367,4 +367,91 @@ function G.suspendre(prog: number, tt: number?, E: any): CFrame
 	return CFrame.new(0, 2.5 * h - 2.5 * rentre, 0) * autourPivot(G.PIVOT_ARRIERE, 0.9 * h)
 end
 
+-- ================================================================ chute dévorante : bras en coupe
+--[[ coupe : les bras se ramassent autour d'un axe (vers la tête visée), s'évasent puis se recourbent vers l'intérieur au bout,
+comme une main prête à se refermer. ouverture = rayon de la coupe ; t sert au frémissement. ]]
+function G.cheminCoupe(B: Vector3, centre: Vector3, axe: Vector3, ouverture: number, t: number, k: number): { Vector3 }
+	local rel = B - centre; rel = rel - axe * rel:Dot(axe)
+	local r0 = rel.Magnitude
+	local d = r0 > 1e-3 and rel.Unit or axe:Cross(Vector3.new(1, 0, 0)).Unit
+	local l = axe:Cross(d)
+	local pts = { B }
+	for i = 1, 24 do
+		local s = i * 0.3
+		local r = r0 + (ouverture - r0) * math.sin(math.min(1, s / 3.5) * math.pi / 2)
+		r -= 0.9 * math.max(0, (s - 4.5) / 2.7) ^ 1.5                          -- le bout se recourbe vers l'intérieur
+		r += 0.04 * math.sin(t * 22 + k * 1.7 + s)                              -- frémissement
+		local a = 0.1 * math.sin(t * 3 + k)                                     -- léger vrillage, différent pour chaque bras
+		table.insert(pts, centre + (d * math.cos(a) + l * math.sin(a)) * r + axe * (s * 0.85))
+	end
+	return pts
+end
+
+-- ================================================================ plaquage : un bras planté sur un membre
+-- il s'enroule autour du membre (P, axe) puis s'enfonce vers le sol pour le clouer
+function G.cheminPlante(B: Vector3, P: Vector3, axe: Vector3, centre: Vector3, haut: Vector3, sens: number): { Vector3 }
+	local f = centre - P; f = f - axe * f:Dot(axe); f = f.Magnitude > 1e-3 and f.Unit or haut
+	local pts = G.cheminEnroule(B, P, axe, f, 0.42, 0, sens, 1.1)
+	local fin = pts[#pts]
+	table.insert(pts, fin - haut * 1.2); table.insert(pts, fin - haut * 2.5)
+	return pts
+end
+-- attribue les huit bras aux huit points (sans croisement) : bras et points triés par angle autour d'elle, décalage circulaire optimal
+function G.attribuer(bases: { [number]: Vector3 }, points: { Vector3 }, centre: Vector3, haut: Vector3, avant: Vector3): { [number]: number }
+	local cote = haut:Cross(avant)
+	local function angle(v: Vector3): number
+		local r = v - centre
+		return math.atan2(r:Dot(cote), r:Dot(avant))
+	end
+	local bras = {}
+	for k, b in pairs(bases) do table.insert(bras, { k = k, a = angle(b) }) end
+	table.sort(bras, function(x, y) return x.a < y.a end)
+	local pts = {}
+	for i, p in ipairs(points) do table.insert(pts, { i = i, a = angle(p) }) end
+	table.sort(pts, function(x, y) return x.a < y.a end)
+	local n = math.min(#bras, #pts)
+	local best, bd = 0, math.huge
+	for dec = 0, n - 1 do
+		local tot = 0
+		for i = 1, n do tot += (bases[bras[i].k] - points[pts[((i - 1 + dec) % n) + 1].i]).Magnitude end
+		if tot < bd then best, bd = dec, tot end
+	end
+	local out = {}
+	for i = 1, n do out[bras[i].k] = pts[((i - 1 + best) % n) + 1].i end
+	return out
+end
+
+-- ================================================================ enlèvement : bras qui sortent d'une grille du plafond
+-- passage du bras k dans l'ouverture (O = centre de la grille, juste en dessous) ; dir = direction du bras autour de l'axe vertical
+function G.passageGrille(O: Vector3, dir: Vector3): Vector3
+	return O + dir * 0.9 - Vector3.new(0, 0.3, 0)
+end
+-- du corps (caché dans la gaine) jusqu'au passage, puis la suite du chemin
+function G.parLaGrille(B: Vector3, passage: Vector3, suite: { Vector3 }): { Vector3 }
+	local pts = { B }
+	bezier(B, B + Vector3.new(0, -0.6, 0), passage + Vector3.new(0, 0.8, 0), passage, 6, pts)
+	for i = 2, #suite do table.insert(pts, suite[i]) end
+	return pts
+end
+-- bras pendant de la grille qui se balance, attiré vers la cible
+function G.cheminPendant(passage: Vector3, vers: Vector3, t: number, k: number): { Vector3 }
+	local h = Vector3.new(vers.X - passage.X, 0, vers.Z - passage.Z)
+	h = h.Magnitude > 1e-3 and h.Unit or Vector3.new(1, 0, 0)
+	local lat = Vector3.new(-h.Z, 0, h.X)
+	local pts = { passage }
+	for i = 1, 20 do
+		local s = i * 0.35
+		table.insert(pts, passage + h * (0.35 * s) - Vector3.new(0, s, 0) + lat * (0.25 * math.sin(2.5 * t - 0.8 * s + k)))
+	end
+	return pts
+end
+-- hissage par à-coups : trois tractions rapides séparées de courtes pauses ; u = 0..1 -> avancement
+function G.aCoups(u: number, nb: number?): number
+	local n: number = nb or 3
+	u = math.clamp(u, 0, 1)
+	local i = math.min(n - 1, math.floor(u * n))
+	local f = u * n - i
+	return (i + lisse(math.min(1, f / 0.45))) / n
+end
+
 return G
