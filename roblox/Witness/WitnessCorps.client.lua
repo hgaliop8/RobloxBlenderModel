@@ -552,19 +552,24 @@ local function locomotion(t: number, dt: number, actif: boolean)
 	local parent = mondeOs(osRacine)
 	local centre = parent.Position
 	local avant = vel.Magnitude > 0.5 and vel.Unit or cf.RightVector       -- RightVector du repère affiché = avant du modèle (+X)
-	local wp, wc = {}, {}
-	for j = 1, 8 do wp[j] = P_POSE[j] * poidsLoco * (1 - course); wc[j] = P_COURSE[j] * poidsLoco * course end
+	-- marche et course : la forme du bras glisse de l'une à l'autre (mélange des chemins, pas des rotations : les pieds posés
+	-- devant et le faisceau derrière sont presque opposés, un mélange de rotations y basculerait d'un coup)
+	local w = {}
+	for j = 1, 8 do w[j] = poidsLoco * (P_POSE[j] + (P_COURSE[j] - P_POSE[j]) * course) end
 	for k, chn in pairs(BRAS) do
 		local B = (parent * chn.os[1].CFrame).Position
+		local chemin
 		if course < 0.999 then
 			local F = G.pied(marcheEtat, k, t, haut)
 			local e = escDernier
 			local nF = (F and e and workspace:GetServerTimeNow() <= e.fin + 1) and G.normaleEscalade(F, e.E0, e.n, e.yH) or nil
-			if F then G.orienter(chn, parent, G.articulations(B, G.cheminPied(B, F, centre, haut, nF), chn.L), wp) end
+			if F then chemin = G.cheminPied(B, F, centre, haut, nF) end
 		end
 		if course > 0.001 then
-			G.orienter(chn, parent, G.articulations(B, G.cheminTrainee(B, centre, avant, haut, t), chn.L), wc)
+			local tr = G.cheminTrainee(B, centre, avant, haut, t)
+			chemin = chemin and G.melangerChemins(chemin, tr, course) or tr
 		end
+		if chemin then G.orienter(chn, parent, G.articulations(B, chemin, chn.L), w) end
 	end
 end
 

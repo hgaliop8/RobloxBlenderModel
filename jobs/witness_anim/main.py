@@ -303,13 +303,15 @@ def locomotion(Q, t, Mw, vel, m, poids):
     course = lisse((vel.length - MR['course_debut'])/(MR['course_plein'] - MR['course_debut']))
     Mrac = Mw @ arm.pose.bones['Racine'].bone.matrix_local; centre = Mrac.translation
     avant = vel.normalized() if vel.length > 0.5 else (Mw.to_3x3() @ Vector((1, 0, 0))).normalized()
-    wp = [x*poids*(1 - course) for x in P_POSE]; wc = [x*poids*course for x in P_COURSE]
+    w = [poids*(a + (b - a)*course) for a, b in zip(P_POSE, P_COURSE)]
     for k in range(8):
-        ch = CHAINES[k]; B = (Mrac @ rest_rel(ch[0])).translation
+        ch = CHAINES[k]; B = (Mrac @ rest_rel(ch[0])).translation; chemin = None
         if course < 0.999:
             F = pied(m, k, t, haut)
-            if F is not None: orienter(ch, Mrac, articulations(B, chemin_pied(B, F, centre, haut), LONG[k]), wp, Q)
-        if course > 0.001: orienter(ch, Mrac, articulations(B, chemin_trainee(B, centre, avant, haut, t), LONG[k]), wc, Q)
+            if F is not None: chemin = chemin_pied(B, F, centre, haut)
+        if course > 0.001:
+            tr = chemin_trainee(B, centre, avant, haut, t); chemin = melanger_chemins(chemin, tr, course) if chemin else tr
+        if chemin: orienter(ch, Mrac, articulations(B, chemin, LONG[k]), w, Q)
 
 def poser(Mw, Q, cam_pos):
     arm.matrix_world = Mw
