@@ -84,6 +84,14 @@ local ancre = Instance.new("Attachment"); ancre.Parent = osRacine or corps.Prima
 local halo = Instance.new("PointLight"); halo.Color = Color3.fromRGB(86, 224, 208); halo.Range = 10; halo.Brightness = 0.6; halo.Shadows = false; halo.Parent = ancre
 local fausseLampe = Instance.new("SpotLight"); fausseLampe.Color = Color3.fromRGB(255, 236, 205); fausseLampe.Angle = 38; fausseLampe.Range = 45
 fausseLampe.Brightness = 0; fausseLampe.Face = Enum.NormalId.Right; fausseLampe.Shadows = true; fausseLampe.Parent = ancre
+-- brûlure : fumée et vapeur qui s'échappent du corps
+local fumee = Instance.new("ParticleEmitter")
+fumee.Texture = "rbxasset://textures/particles/smoke_main.dds"; fumee.Rate = 45; fumee.Enabled = false
+fumee.Lifetime = NumberRange.new(0.7, 1.4); fumee.Speed = NumberRange.new(2, 5); fumee.SpreadAngle = Vector2.new(60, 60)
+fumee.Size = NumberSequence.new({ NumberSequenceKeypoint.new(0, 0.8), NumberSequenceKeypoint.new(1, 3.2) })
+fumee.Transparency = NumberSequence.new({ NumberSequenceKeypoint.new(0, 0.35), NumberSequenceKeypoint.new(1, 1) })
+fumee.Color = ColorSequence.new(Color3.fromRGB(255, 150, 80), Color3.fromRGB(90, 90, 90))
+fumee.LightEmission = 0.3; fumee.RotSpeed = NumberRange.new(-60, 60); fumee.Acceleration = Vector3.new(0, 4, 0); fumee.Parent = ancre
 
 -- ================================================================ animation des os
 local ROT = CFrame.Angles(0, math.pi / 2, 0)            -- le devant du modèle (+X) suit le LookVector de la racine
@@ -333,7 +341,7 @@ local function porteBras(t: number, info)
 	local parent = mondeOs(osRacine)
 	local centre = parent.Position
 	local Z = cfAffiche.ZVector
-	local p = lisse(info.x / 0.25) * (1 - lisse((info.x - info.D + 0.3) / 0.3))
+	local p = lisse(info.x / 0.4) * (1 - lisse((info.x - info.D + 0.45) / 0.45))
 	local poids = {}
 	for j = 1, 8 do poids[j] = G.poidsChaine(p, j) end
 	for _, chn in pairs(BRAS) do
@@ -488,6 +496,20 @@ local function coupe(t: number, w: number, ouverture: number)
 	for k, chn in pairs(BRAS) do
 		local B = (parent * chn.os[1].CFrame).Position
 		G.orienter(chn, parent, G.articulations(B, G.cheminCoupe(B, centre, axe, ouverture, t, k), chn.L), poids)
+	end
+end
+
+-- états : bras inertes posés au sol, avec des secousses (frequence par bras et par seconde, force 0..1+)
+local function inertes(t: number, w: number, frequence: number, force: number)
+	if not osRacine or w < 0.001 then return end
+	local parent = mondeOs(osRacine)
+	local centre = parent.Position
+	local haut = cfAffiche.UpVector
+	local poids = {}
+	for j = 1, 8 do poids[j] = G.poidsChaine(w, j) end
+	for k, chn in pairs(BRAS) do
+		local B = (parent * chn.os[1].CFrame).Position
+		G.orienter(chn, parent, G.articulations(B, G.cheminInerte(B, centre, haut, k, force * G.spasme(t, k, frequence)), chn.L), poids)
 	end
 end
 
@@ -665,8 +687,23 @@ local function animer(t, dt)
 	if coup == "descente" and chuteEtat.phase == "atterrit" then                 -- le manteau s'écrase à l'impact
 		contraction += 0.35 * math.exp(-7 * chuteEtat.tau) * math.cos(12 * chuteEtat.tau)
 	end
-	ang(os_.Manteau1, 0.05 * respi + contraction, 0.02 * math.sin(t * 0.7))
-	ang(os_.Manteau2, 0.08 * math.sin(t * 1.25 + 0.5) + contraction, 0.04 * math.sin(t * 0.6))
+	-- états : manteau affaissé (étourdie), qui pompe vite (panique), qui se vide et s'aplatit (mort)
+	local m1, m2, souffle = 0, 0, 1
+	local maintenantE = workspace:GetServerTimeNow()
+	if maintenantE < (racine:GetAttribute("Panique") or 0) and etat ~= "morte" then contraction += 0.14 * math.sin(t * 15) end
+	if etat == "etourdie" then
+		local w = lisse((maintenantE - (racine:GetAttribute("EtatT") or 0)) / 0.6)
+		m1 -= 0.3 * w; m2 -= 0.2 * w; souffle = 1 - 0.6 * w
+	end
+	local mortT = racine:GetAttribute("MortT")
+	if etat == "morte" and mortT then
+		local xm = maintenantE - mortT
+		local w = lisse(xm / 2.2)
+		m1 -= 0.45 * w; m2 -= 0.35 * w; souffle = 1 - lisse(xm / 1.2)
+		contraction += 0.25 * math.exp(-xm / 0.9) * math.sin(t * 19)               -- derniers spasmes
+	end
+	ang(os_.Manteau1, (0.05 * respi + contraction) * souffle + m1, 0.02 * math.sin(t * 0.7))
+	ang(os_.Manteau2, (0.08 * math.sin(t * 1.25 + 0.5) + contraction) * souffle + m2, 0.04 * math.sin(t * 0.6))
 	ang(os_.Tete, 0.03 * math.sin(t * 0.8), 0)
 	ang(os_.Bec, 0, 0)
 	-- marche : pieds posés au plafond et au sol, faisceau en course (hors gestes d'attaque, chute, saisie)
@@ -732,6 +769,30 @@ local function animer(t, dt)
 	if racine:GetAttribute("Devore") then cage(t) end
 	-- saisie : les deux bras avant s'enroulent autour du cou (ou du torse pour un enlèvement), les autres prennent appui au sol
 	if saisie and not racine:GetAttribute("Grille") then enrouler(t) end
+	-- états : étourdie (bras inertes au sol, secousses), mort (convulsions qui s'éteignent, puis bras qui s'enroulent)
+	if etat == "etourdie" and mode == "sol" and chuteEtat.phase == "" then
+		local xe = maintenantE - (racine:GetAttribute("EtatT") or 0)
+		inertes(t, lisse(xe / 0.5) * (1 - lisse((xe - C.ETOURDI_DUREE + 0.7) / 0.7)), 0.55, 0.9)
+	end
+	if etat == "morte" and mortT then
+		local xm = maintenantE - mortT
+		inertes(t, 1, 2.4, 1.4 * math.exp(-xm / 1.1))
+		ramasser(t, lisse((xm - 0.9) / 2.0), 1)
+	end
+	-- brûlure : les bras se tordent dans tous les sens (par-dessus tout le reste)
+	local bf = racine:GetAttribute("Brule")
+	if bf and etat ~= "morte" then
+		local xbr = maintenantE - (bf - C.BRULURE_DUREE)
+		local wb = lisse(xbr / 0.1) * (1 - lisse((xbr - C.BRULURE_DUREE + 0.4) / 0.4))
+		if xbr >= 0 and wb > 0.01 then
+			for k, chn in pairs(BRAS) do
+				for j = 2, 8 do
+					local a = wb * (0.05 + 0.03 * j)
+					chn.os[j].Transform = chn.os[j].Transform * CFrame.Angles(a * math.sin(t * 13 + j * 0.9 + k), 0, 0.8 * a * math.sin(t * 10.5 + j * 0.7 + k * 1.3))
+				end
+			end
+		end
+	end
 	-- yeux : ils suivent la caméra du joueur s'il est assez proche
 	local cam = workspace.CurrentCamera
 	if cam and (cam.CFrame.Position - racine.Position).Magnitude < 70 and etat ~= "morte" then
@@ -750,7 +811,12 @@ local function majLumieres(t)
 	local coup = racine:GetAttribute("Coup")
 	for i, l in ipairs(lumieres) do
 		local tr
-		if etat == "morte" then tr = 1
+		local mortT = racine:GetAttribute("MortT")
+		if etat == "morte" and mortT then                                             -- elles s'éteignent une à une
+			tr = math.clamp((maintenant - mortT - 0.2 - (i % 12) * 0.07) / 0.5, 0, 1)
+		elseif etat == "morte" then tr = 0.1 + 0.6 * ((t * 11 + i * 0.3) % 1)               -- en tombant : affolées
+		elseif etat == "etourdie" then tr = (math.noise(t * 7, i * 0.37) > 0.12) and 0.85 or 0.3   -- grésillent
+		elseif maintenant < (racine:GetAttribute("Panique") or 0) then tr = ((t * 9 + i * 0.13) % 1 < 0.5) and 0 or 0.9
 		elseif eteinte then tr = l.pupille and 0.6 or 1
 		elseif imitation == "voyants" and not l.pupille then
 			-- faux voyants de secours : clignotement dont la période dérive entre 1,6 et 2,6 s (les vrais : 2 s pile)
@@ -764,15 +830,21 @@ local function majLumieres(t)
 		end
 		l.part.Transparency = math.clamp(tr, 0, 1)
 	end
-	halo.Enabled = etat ~= "morte" and not eteinte
+	halo.Enabled = not eteinte and not (etat == "morte" and racine:GetAttribute("MortT") and maintenant - racine:GetAttribute("MortT") > 1.2)
 	halo.Brightness = (imitation == "voyants") and 1.2 or 0.5
 	halo.Color = (imitation == "voyants") and Color3.fromRGB(255, 70, 50) or Color3.fromRGB(86, 224, 208)
 	fausseLampe.Brightness = (imitation == "lampe" and etat ~= "morte") and 3 or 0
-	-- mort : le verre devient laiteux et opaque
+	-- mort : le verre devient peu à peu laiteux, puis opaque ; brûlure : il rougit, et fume
+	local brule = maintenant < (racine:GetAttribute("Brule") or 0)
+	fumee.Enabled = brule and etat ~= "morte"
+	local mortT = racine:GetAttribute("MortT")
+	local lait = (etat == "morte" and mortT) and lisse((maintenant - mortT - 1.0) / 3.0) or 0
 	for _, p in ipairs(verre) do
-		if etat == "morte" then p.Material = Enum.Material.SmoothPlastic; p.Transparency = 0.12; p.Color = Color3.fromRGB(230, 232, 228) end
-		local brule = maintenant < (racine:GetAttribute("Brule") or 0)
-		if brule and etat ~= "morte" then p.Color = Color3.fromRGB(255, 150, 90) elseif etat ~= "morte" then p.Color = Color3.fromRGB(216, 236, 240) end
+		if lait >= 1 then p.Material = Enum.Material.SmoothPlastic; p.Transparency = 0.12; p.Color = Color3.fromRGB(230, 232, 228)
+		elseif lait > 0 then
+			p.Transparency = 0.78 + (0.2 - 0.78) * lait; p.Color = Color3.fromRGB(216, 236, 240):Lerp(Color3.fromRGB(230, 232, 228), lait)
+		elseif brule and etat ~= "morte" then p.Color = Color3.fromRGB(255, 150, 90)
+		else p.Color = Color3.fromRGB(216, 236, 240) end
 	end
 end
 
@@ -792,6 +864,36 @@ local function regard(t)
 		end
 	else fixeDepuis = nil end
 	if t - dernierEnvoi > 0.2 or fixe then dernierEnvoi = t; evRegard:FireServer(look, fixe) end
+end
+
+-- décalage du corps selon l'état : recul à la brûlure, affaissement (étourdie), convulsions puis corps qui s'aplatit (mort)
+local function decalageEtat(t: number): CFrame
+	local maintenant = workspace:GetServerTimeNow()
+	local etat = racine:GetAttribute("Etat")
+	local cf = CFrame.identity
+	local bf = racine:GetAttribute("Brule")
+	if bf and etat ~= "morte" then
+		local xb = maintenant - (bf - C.BRULURE_DUREE)
+		if xb >= 0 and xb < 0.6 then
+			local e1 = math.sin(math.pi * xb / 0.6)
+			cf = cf * CFrame.new(-0.7 * e1, 0.3 * e1, 0) * CFrame.Angles(0, 0, 0.3 * e1)
+		end
+		if xb >= 0 and xb < C.BRULURE_DUREE then cf = cf * CFrame.new(0.03 * math.sin(t * 41), 0.02 * math.sin(t * 37), 0) end
+	end
+	if etat == "etourdie" and chuteEtat.phase == "" and racine:GetAttribute("Mode") == "sol" then
+		local xe = maintenant - (racine:GetAttribute("EtatT") or 0)
+		local w = lisse(xe / 0.6) * (1 - lisse((xe - C.ETOURDI_DUREE + 0.7) / 0.7))
+		cf = cf * CFrame.new(0, -0.35 * w, 0) * CFrame.Angles(0.1 * w * math.sin(t * 0.6), 0, -0.12 * w)
+	end
+	local mortT = racine:GetAttribute("MortT")
+	if etat == "morte" and mortT then
+		local xm = maintenant - mortT
+		local conv = math.exp(-xm / 1.0)
+		local w = lisse(xm / 1.5)
+		cf = cf * CFrame.new(0, -0.45 * w + 0.12 * conv * math.abs(math.sin(t * 17)), 0)
+			* CFrame.Angles(0.15 * conv * math.sin(t * 13), 0, 0.12 * conv * math.sin(t * 11) - 0.1 * w)
+	end
+	return cf
 end
 
 -- ================================================================ boucle
@@ -865,7 +967,7 @@ RunService.RenderStepped:Connect(function(dt)
 	local coupG = racine:GetAttribute("Coup")
 	local signeG = coupG and C.COUPS[coupG] and C.COUPS[coupG].signe or 0.5
 	if not traverseeInfo() then ecraser(0, 0) end
-	corps:PivotTo(cfAffiche * decalageGeste(coupG, workspace:GetServerTimeNow() - (racine:GetAttribute("CoupT") or 0), signeG))
+	corps:PivotTo(cfAffiche * decalageEtat(t) * decalageGeste(coupG, workspace:GetServerTimeNow() - (racine:GetAttribute("CoupT") or 0), signeG))
 	-- vitesse du corps affiché (lissé) : sert à la marche à pieds posés
 	vitesseV = vitesseV:Lerp((cfAffiche.Position - avantAff) / math.max(dt, 1e-3), math.min(1, dt * 10))
 	if not racine:GetAttribute("Grille") then                 -- hors de la grille, les bras reprennent leur longueur

@@ -774,4 +774,28 @@ function G.cheminPorte(pc, x: number, B: Vector3, lat: number, t: number): { Vec
 	return pts
 end
 
+-- ================================================================ états : étourdie, agonie
+--[[ bras inerte étalé au sol (étourdie, agonie) : il part droit, ondule un peu, et un spasme (0..1) soulève et recourbe sa
+pointe vers le corps. haut = dessus du corps. ]]
+function G.cheminInerte(B: Vector3, centre: Vector3, haut: Vector3, k: number, spasme: number): { Vector3 }
+	local dir = B - centre; dir = dir - haut * dir:Dot(haut)
+	dir = dir.Magnitude > 1e-3 and dir.Unit or haut:Cross(Vector3.new(1, 0, 0)).Unit
+	local lat = haut:Cross(dir).Unit
+	local plan = B - haut * 0.15
+	local pts = { B }
+	for i = 1, 14 do
+		local s = i * 0.45
+		local q = plan + dir * s + lat * (0.35 * math.sin(s * 0.8 + k * 1.3) * math.min(1, s / 2))
+		local bout = math.max(0, s - 2.2)
+		q += haut * (spasme * bout * 0.55) - dir * (spasme * bout * bout * 0.06)
+		table.insert(pts, q)
+	end
+	return pts
+end
+-- spasmes : brèves secousses, décalées d'un bras à l'autre ; frequence en secousses par seconde et par bras
+function G.spasme(t: number, k: number, frequence: number): number
+	local x = (t * frequence + k * 0.37 + (k % 3) * 0.21) % 1
+	return math.exp(-((x - 0.5) / 0.07) ^ 2)
+end
+
 return G

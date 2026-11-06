@@ -84,6 +84,7 @@ C.MULT_ORDINAIRE, C.MULT_FEU = 0.4, 2.5
 C.BRULURE_DPS, C.BRULURE_DUREE = 15, 3
 C.ETOURDI_SEUIL, C.ETOURDI_FENETRE, C.ETOURDI_DUREE = 0.15, 4, 6
 C.PALIERS_FUITE = { 0.75, 0.5, 0.35 }
+C.PANIQUE_DUREE, C.PANIQUE_VITESSE = 4, 1.35   -- fuite paniquée : durée (s), vitesse multipliée
 C.CAPTURE_PV, C.CAPTURE_FENETRE = 0.25, 6
 C.PEUR_FEU = 15                   -- recule devant un feu plus proche (sauf phase 4)
 C.FEU_INTERDIT = 60               -- zone brûlée interdite (s)

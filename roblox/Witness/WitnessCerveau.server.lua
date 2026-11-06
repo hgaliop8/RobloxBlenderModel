@@ -51,11 +51,14 @@ local W = {
 	chemin = nil, etape = 1, noeud = nil, occupe = false, cible = nil, jauge = {}, regard = {}, debats = {},
 	dernierSignal = nil, dernierVu = {}, cachettes = {}, recharges = {}, solDebut = 0, solFin = -100,
 	pv = C.PV_BASE, pvMax = C.PV_BASE, paliers = {}, degatsRecents = {}, brulure = 0, saisie = nil, premierMort = false,
-	fixeeJusqua = 0, etatDepuis = os.clock(), imitationJusqua = 0, historiqueChat = {}, virageJusqua = 0,
+	fixeeJusqua = 0, etatDepuis = os.clock(), imitationJusqua = 0, historiqueChat = {}, virageJusqua = 0, panique = 0,
 }
 
 local function regler(etat)
-	if W.etat ~= etat then W.etat = etat; W.etatDepuis = os.clock(); racine:SetAttribute("Etat", etat) end
+	if W.etat ~= etat then
+		W.etat = etat; W.etatDepuis = os.clock()
+		racine:SetAttribute("Etat", etat); racine:SetAttribute("EtatT", workspace:GetServerTimeNow())   -- horaire des animations d'état
+	end
 end
 local function joueursVivants()
 	local t = {}
@@ -223,6 +226,7 @@ end
 local function vitesse()
 	local v = C.VITESSE[W.mode] or 14
 	if W.mode == "plafond" and (W.etat == "chasse" or W.phase == 4) then v = C.VITESSE.plafond_pointe end
+	if W.panique > os.clock() then v *= C.PANIQUE_VITESSE end
 	return v
 end
 -- déplacement interpolé (bloquant) d'un point à un autre en t secondes, en changeant de mode à la fin
@@ -823,16 +827,26 @@ end
 local function etourdir()
 	if W.etat == "etourdie" or W.etat == "morte" then return end
 	relacher(); regler("etourdie"); W.chemin = nil
+	if W.mode == "plafond" and not W.occupe then                -- sonnée, elle lâche prise et tombe
+		task.spawn(function() W.occupe = true; sonEn(W.pos, "goutte"); tomber(solPoint(W.pos - UP * 3), 0.15); W.occupe = false end)
+	end
 	if W.pv <= W.pvMax * C.CAPTURE_PV then
 		racine:SetAttribute("Capturable", true)
 		task.delay(C.CAPTURE_FENETRE, function() racine:SetAttribute("Capturable", false) end)
 	end
 	task.delay(C.ETOURDI_DUREE, function() if W.etat == "etourdie" then regler("repli") end end)
 end
+-- mort : elle tombe (du plafond) ou glisse (ailleurs) jusqu'au sol ; l'agonie commence à « MortT » (convulsions, bras qui
+-- s'enroulent, lumières qui s'éteignent une à une, verre qui devient laiteux : WitnessCorps)
 local function mourir()
 	regler("morte"); relacher(); W.chemin = nil
 	racine:SetAttribute("PV", 0); racine.Name = "DepouilleWitness"
-	if W.mode ~= "sol" then task.spawn(function() glisser(solPoint(W.pos - UP * 3), 0.8, "sol", false) end) end
+	sonEn(W.pos, "mort")
+	task.spawn(function()
+		if W.mode == "plafond" and not W.occupe then tomber(solPoint(W.pos - UP * 3), 0.2)
+		elseif W.mode ~= "sol" then glisser(solPoint(W.pos - UP * 3), 0.8, "sol", false) end
+		racine:SetAttribute("MortT", workspace:GetServerTimeNow())
+	end)
 end
 bDegats.Event:Connect(function(montant, typ, joueur)
 	if W.etat == "morte" or W.etat == "capturee" then return end
@@ -926,6 +940,8 @@ local function decider()
 	if W.forcerFuite then
 		W.forcerFuite = false
 		if W.phase < 4 or W.pv < W.pvMax * 0.35 then
+			W.panique = os.clock() + C.PANIQUE_DUREE                 -- fuite paniquée : plus vite, manteau qui pompe, lumières affolées
+			racine:SetAttribute("Panique", workspace:GetServerTimeNow() + C.PANIQUE_DUREE)
 			task.spawn(function() W.occupe = true; coupEncre(); W.occupe = false end)
 			regler("repli"); versGaine(); return
 		end
