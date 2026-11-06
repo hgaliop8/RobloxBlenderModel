@@ -162,7 +162,7 @@ function G.majMarche(m, t: number, cf: CFrame, dirs: { [number]: Vector3 }, vel:
 		ideal[k] = surPlan(cf:PointToWorldSpace(d * M.rayon), origine, haut) + vel * M.anticipation
 		if surface then ideal[k] = surface(ideal[k]) end
 		local p = m.pieds[k]
-		if not p or (p - ideal[k]).Magnitude > 9 or (not surface and math.abs((p - origine):Dot(haut)) > 1.5) then
+		if not p or (p - ideal[k]).Magnitude > 13 or (not surface and math.abs((p - origine):Dot(haut)) > 1.5) then
 			m.pieds[k] = ideal[k]; m.air[k] = nil                -- nouveau plan (chute, changement de surface) : on repart propre
 		end
 	end
@@ -610,26 +610,30 @@ end
 G.FENTES = { -1.55, -0.93, -0.31, 0.31, 0.93, 1.55 }      -- espaces entre les barreaux d'une grille (studs, depuis le centre)
 
 -- ================================================================ escalade d'un mur (sol -> mur -> plafond)
---[[ La racine roule autour de l'arête du bas (rayon R), monte le long du mur, puis roule autour de l'arête du haut. Vitesse
-constante sur le mur, accélération et freinage doux aux extrémités. E0 = pied du mur au sol, n = normale du mur (vers la
-salle), yH = hauteur du plafond, V = vitesse. ]]
-G.ESCALADE = { rayon = 1.3, acc = 0.3 }
+--[[ La racine roule autour de l'arête du bas (rayon R), monte le long du mur, puis roule autour de l'arête du haut. Les arêtes
+se passent plus lentement (arete s chacune, départ et arrivée arrêtés) ; sur le mur, vitesse constante V, raccordée sans à-coup.
+E0 = pied du mur au sol, n = normale du mur (vers la salle), yH = hauteur du plafond. ]]
+G.ESCALADE = { rayon = 1.3, arete = 0.45 }
 function G.escaladeDuree(h: number, V: number): number
 	local R = G.ESCALADE.rayon
-	return (math.pi * R + math.max(0, h - 2 * R)) / V + G.ESCALADE.acc
+	return 2 * G.ESCALADE.arete + math.max(0, h - 2 * R) / V
 end
 function G.escalade(x: number, E0: Vector3, n: Vector3, yH: number, V: number): CFrame
-	local R, ta = G.ESCALADE.rayon, G.ESCALADE.acc
+	local R, Da = G.ESCALADE.rayon, G.ESCALADE.arete
 	local h = yH - E0.Y
 	local Lm = math.max(0, h - 2 * R)
 	local A1 = R * math.pi / 2
-	local Lt = 2 * A1 + Lm
-	local D = Lt / V + ta
-	x = math.clamp(x, 0, D)
+	local Dm = Lm / V
+	x = math.clamp(x, 0, 2 * Da + Dm)
 	local s
-	if x < ta then s = V * x * x / (2 * ta)
-	elseif x > D - ta then s = Lt - V * (D - x) ^ 2 / (2 * ta)
-	else s = V * (x - ta / 2) end
+	if x < Da then                                          -- arête du bas : part arrêtée, finit à la vitesse V (Hermite)
+		local u = x / Da
+		s = (3 * u * u - 2 * u * u * u) * A1 + (u * u * u - u * u) * V * Da
+	elseif x < Da + Dm then s = A1 + V * (x - Da)
+	else                                                    -- arête du haut : part à la vitesse V, finit arrêtée
+		local u = (x - Da - Dm) / Da
+		s = A1 + Lm + (3 * u * u - 2 * u * u * u) * A1 + (u - 2 * u * u + u * u * u) * V * Da
+	end
 	if s < A1 then
 		local phi = s / R
 		return CFrame.fromMatrix(E0 + (n * math.cos(phi) + UPV * math.sin(phi)) * R,

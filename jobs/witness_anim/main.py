@@ -264,7 +264,7 @@ def maj_marche(m, t, Mw, vel):
         p = Mw @ (d*MR['rayon']); p = p - haut*(p - orig).dot(haut); ideal[k] = p + vel*MR['anticipation']
         if surf: ideal[k] = surf(ideal[k])
         f0 = m.pieds.get(k)
-        if f0 is None or (f0 - ideal[k]).length > 9 or (not surf and abs((f0 - orig).dot(haut)) > 1.5): m.pieds[k] = ideal[k].copy(); m.air.pop(k, None)
+        if f0 is None or (f0 - ideal[k]).length > 13 or (not surf and abs((f0 - orig).dot(haut)) > 1.5): m.pieds[k] = ideal[k].copy(); m.air.pop(k, None)
     for k, a in list(m.air.items()):
         if t - a['t0'] >= a['duree']: m.pieds[k] = a['fin']; del m.air[k]; POSES_PIEDS.append((a['t0'] + a['duree'], a['fin'].copy()))
     if m.air: return
@@ -904,14 +904,14 @@ def traversee_bras(Q, Mw, u, de, vers, passage, avant0, montee):
         ordre = {0: 0, 7: 0, 1: 1, 6: 1, 2: 2, 5: 2, 3: 3, 4: 3}[k]
         p_ = lisse((u - 0.03 - 0.05*ordre)/0.3)*(1 - lisse((u - 0.86)/0.14))
         orienter(chn, Mrac, articulations(B, chemin_traversee(B, Gk, A, n, passage, r), LONG[k]), [poids_chaine(p_, j + 1) for j in range(8)], Q)
-ESC = dict(rayon=1.3, acc=0.3, V=12.0)
-def escalade_duree(h): return (math.pi*ESC['rayon'] + max(0.0, h - 2*ESC['rayon']))/ESC['V'] + ESC['acc']
+ESC = dict(rayon=1.3, arete=0.45, V=12.0)
+def escalade_duree(h): return 2*ESC['arete'] + max(0.0, h - 2*ESC['rayon'])/ESC['V']
 def escalade(x, E0, n, yH):
-    R, ta, V = ESC['rayon'], ESC['acc'], ESC['V']; h = yH - E0.z; Lm = max(0.0, h - 2*R); A1 = R*math.pi/2; Lt = 2*A1 + Lm; D = Lt/V + ta
-    x = max(0.0, min(D, x))
-    if x < ta: s_ = V*x*x/(2*ta)
-    elif x > D - ta: s_ = Lt - V*(D - x)**2/(2*ta)
-    else: s_ = V*(x - ta/2)
+    R, Da, V = ESC['rayon'], ESC['arete'], ESC['V']; h = yH - E0.z; Lm = max(0.0, h - 2*R); A1 = R*math.pi/2; Dm = Lm/V
+    x = max(0.0, min(2*Da + Dm, x))
+    if x < Da: u = x/Da; s_ = (3*u*u - 2*u**3)*A1 + (u**3 - u*u)*V*Da
+    elif x < Da + Dm: s_ = A1 + V*(x - Da)
+    else: u = (x - Da - Dm)/Da; s_ = A1 + Lm + (3*u*u - 2*u**3)*A1 + (u - 2*u*u + u**3)*V*Da
     if s_ < A1:
         ph = s_/R; return repere(E0 + (n*math.cos(ph) + UPV*math.sin(ph))*R, -n*math.cos(ph) + UPV*math.sin(ph), UPV*math.cos(ph) + n*math.sin(ph))
     if s_ < A1 + Lm: return repere(E0 + UPV*(R + s_ - A1), UPV, n)
