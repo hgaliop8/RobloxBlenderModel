@@ -152,7 +152,8 @@ end
 
 -- met à jour les pieds. cf = repère affiché du modèle, dirs[k] = direction du bras k (repère du modèle), vel = vitesse (monde)
 -- surface (facultatif) : fonction qui ramène un point sur la vraie surface (coin sol/mur/plafond pendant une escalade)
-function G.majMarche(m, t: number, cf: CFrame, dirs: { [number]: Vector3 }, vel: Vector3, surface: ((Vector3) -> Vector3)?)
+-- glisse (facultatif) : en course, les pieds suivent leur place idéale sans se poser (ils repartiront de là en ralentissant)
+function G.majMarche(m, t: number, cf: CFrame, dirs: { [number]: Vector3 }, vel: Vector3, surface: ((Vector3) -> Vector3)?, glisse: boolean?)
 	local M = G.MARCHE
 	local haut = cf.UpVector; local origine = cf.Position
 	vel = vel - haut * vel:Dot(haut)
@@ -165,6 +166,11 @@ function G.majMarche(m, t: number, cf: CFrame, dirs: { [number]: Vector3 }, vel:
 		if not p or (p - ideal[k]).Magnitude > 13 or (not surface and math.abs((p - origine):Dot(haut)) > 1.5) then
 			m.pieds[k] = ideal[k]; m.air[k] = nil                -- nouveau plan (chute, changement de surface) : on repart propre
 		end
+	end
+	if glisse then
+		for k in pairs(dirs) do m.pieds[k] = ideal[k] end
+		m.air = {}
+		return
 	end
 	for k, a in pairs(m.air) do
 		if t - a.t0 >= a.duree then m.pieds[k] = a.fin; m.air[k] = nil end

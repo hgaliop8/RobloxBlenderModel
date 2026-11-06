@@ -257,7 +257,7 @@ class Marche:
     def __init__(self): self.pieds = {}; self.air = {}; self.dernier = 0
 def haut_de(Mw): return (Mw.to_3x3() @ Vector((0, 0, 1))).normalized()
 SURFACE = [None]                     # escalade : fonction qui ramène un point sur le coin sol/mur/plafond
-def maj_marche(m, t, Mw, vel):
+def maj_marche(m, t, Mw, vel, glisse=False):
     surf = SURFACE[0]
     haut = haut_de(Mw); orig = Mw.translation; vel = vel - haut*vel.dot(haut); v = vel.length; ideal = {}
     for k, d in DIRS.items():
@@ -265,6 +265,9 @@ def maj_marche(m, t, Mw, vel):
         if surf: ideal[k] = surf(ideal[k])
         f0 = m.pieds.get(k)
         if f0 is None or (f0 - ideal[k]).length > 13 or (not surf and abs((f0 - orig).dot(haut)) > 1.5): m.pieds[k] = ideal[k].copy(); m.air.pop(k, None)
+    if glisse:
+        for k in DIRS: m.pieds[k] = ideal[k].copy()
+        m.air = {}; return
     for k, a in list(m.air.items()):
         if t - a['t0'] >= a['duree']: m.pieds[k] = a['fin']; del m.air[k]; POSES_PIEDS.append((a['t0'] + a['duree'], a['fin'].copy()))
     if m.air: return
@@ -300,7 +303,7 @@ def chemin_trainee(B, centre, avant, haut, t):
 P_POSE = [1, 1, 1, 1, 1, 1, 0.75, 0.5]; P_COURSE = [1, 1, 1, 1, 1, 1, 0.85, 0.7]
 def locomotion(Q, t, Mw, vel, m, poids):
     haut = haut_de(Mw); vel = vel - haut*vel.dot(haut)
-    course = lisse((vel.length - MR['course_debut'])/(MR['course_plein'] - MR['course_debut']))
+    course = SIM.get('course', 0.0)
     Mrac = Mw @ arm.pose.bones['Racine'].bone.matrix_local; centre = Mrac.translation
     avant = vel.normalized() if vel.length > 0.5 else (Mw.to_3x3() @ Vector((1, 0, 0))).normalized()
     w = [poids*(a + (b - a)*course) for a, b in zip(P_POSE, P_COURSE)]
@@ -474,7 +477,10 @@ def avancer(racine_fn, t_fin):
         SIM['poids'] = cible if dt is None else SIM['poids'] + (cible - SIM['poids'])*min(1.0, dt*6)
         if SIM['poids'] < 0.01: SIM['m'] = Marche()
         if SIM.get('preset'): SIM['preset'](t, SIM['m'])
-        if SIM['poids'] >= 0.01: maj_marche(SIM['m'], t, Mw, vel)
+        haut = haut_de(Mw); vh = vel - haut*vel.dot(haut)
+        brute = lisse((vh.length - MR['course_debut'])/(MR['course_plein'] - MR['course_debut']))
+        SIM['course'] = brute if dt is None else SIM.get('course', 0.0) + (brute - SIM.get('course', 0.0))*min(1.0, dt*7)
+        if SIM['poids'] >= 0.01: maj_marche(SIM['m'], t, Mw, vel, SIM['course'] > 0.6)
         SIM['t'] = t; SIM['vel'] = vel
     if SIM['t'] < 0: etape(0.0, None)
     while SIM['t'] < t_fin - 1e-9:

@@ -539,6 +539,7 @@ do
 	end
 end
 local poidsLoco = 0
+local courseLisse = 0
 local P_POSE = { 1, 1, 1, 1, 1, 1, 0.75, 0.5 }       -- les pointes gardent leur enroulement
 local P_COURSE = { 1, 1, 1, 1, 1, 1, 0.85, 0.7 }
 local function locomotion(t: number, dt: number, actif: boolean)
@@ -547,8 +548,11 @@ local function locomotion(t: number, dt: number, actif: boolean)
 	local cf = cfAffiche
 	local haut = cf.UpVector
 	local vel = vitesseV - haut * vitesseV:Dot(haut)
-	G.majMarche(marcheEtat, t, cf, DIRS, vel, surfaceMarche())
-	local course = G.lisse((vel.Magnitude - G.MARCHE.course_debut) / (G.MARCHE.course_plein - G.MARCHE.course_debut))
+	-- passage marche <-> course lissé dans le temps (un arrêt net ne fait pas basculer les bras en une image)
+	local brute = G.lisse((vel.Magnitude - G.MARCHE.course_debut) / (G.MARCHE.course_plein - G.MARCHE.course_debut))
+	courseLisse += (brute - courseLisse) * math.min(1, dt * 7)
+	local course = courseLisse
+	G.majMarche(marcheEtat, t, cf, DIRS, vel, surfaceMarche(), course > 0.6)
 	local parent = mondeOs(osRacine)
 	local centre = parent.Position
 	local avant = vel.Magnitude > 0.5 and vel.Unit or cf.RightVector       -- RightVector du repère affiché = avant du modèle (+X)
