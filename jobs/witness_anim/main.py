@@ -685,12 +685,16 @@ if PLAN == 'encre':
     bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=3, radius=1.0); NUAGE = bpy.context.object; NUAGE.name = 'Nuage'
     mn = bpy.data.materials.new('Encre'); mn.use_nodes = True; nt = mn.node_tree; nt.nodes.remove(nt.nodes['Principled BSDF'])
     pv = nt.nodes.new('ShaderNodeVolumePrincipled'); pv.inputs['Color'].default_value = (0.02, 0.07, 0.065, 1)
-    tc = nt.nodes.new('ShaderNodeTexCoord'); nz = nt.nodes.new('ShaderNodeTexNoise'); nz.inputs['Scale'].default_value = 1.6; nz.inputs['Detail'].default_value = 4.0
-    mr = nt.nodes.new('ShaderNodeMapRange'); mr.inputs['From Min'].default_value = 0.38; mr.inputs['From Max'].default_value = 0.7
+    tc = nt.nodes.new('ShaderNodeTexCoord'); nz = nt.nodes.new('ShaderNodeTexNoise'); nz.inputs['Scale'].default_value = 4.5; nz.inputs['Detail'].default_value = 6.0
+    mr = nt.nodes.new('ShaderNodeMapRange'); mr.inputs['From Min'].default_value = 0.42; mr.inputs['From Max'].default_value = 0.75
     mr.inputs['To Min'].default_value = 0.0; mr.inputs['To Max'].default_value = 1.0
-    mu = nt.nodes.new('ShaderNodeMath'); mu.operation = 'MULTIPLY'; mu.inputs[1].default_value = 1.2; mu.name = 'Densite'
+    gr = nt.nodes.new('ShaderNodeTexGradient'); gr.gradient_type = 'SPHERICAL'                  # bord du nuage adouci
+    m2 = nt.nodes.new('ShaderNodeMath'); m2.operation = 'MULTIPLY'
+    mu = nt.nodes.new('ShaderNodeMath'); mu.operation = 'MULTIPLY'; mu.inputs[1].default_value = 0.9; mu.name = 'Densite'
     nt.links.new(tc.outputs['Object'], nz.inputs['Vector']); nt.links.new(nz.outputs['Fac'], mr.inputs['Value'])
-    nt.links.new(mr.outputs['Result'], mu.inputs[0]); nt.links.new(mu.outputs[0], pv.inputs['Density'])
+    nt.links.new(tc.outputs['Object'], gr.inputs['Vector'])
+    nt.links.new(mr.outputs['Result'], m2.inputs[0]); nt.links.new(gr.outputs['Fac'], m2.inputs[1])
+    nt.links.new(m2.outputs[0], mu.inputs[0]); nt.links.new(mu.outputs[0], pv.inputs['Density'])
     nt.links.new(pv.outputs[0], nt.nodes['Material Output'].inputs['Volume'])
     NUAGE.data.materials.append(mn)
     PAILLETTES = []
@@ -711,7 +715,7 @@ def maj_encre(t):
         for g, d, D, dl in PAILLETTES: g.location = (0, 0, -50)
         return
     R_ = 12*(1 - math.exp(-a/0.5)); NUAGE.location = CENTRE_ENCRE + Vector((0, 0, 0.6*a)); NUAGE.scale = (R_, R_*0.85, R_*0.42)
-    NUAGE.active_material.node_tree.nodes['Densite'].inputs[1].default_value = 1.2*min(1, a/0.15)
+    NUAGE.active_material.node_tree.nodes['Densite'].inputs[1].default_value = 2.2*min(1, a/0.15)
     rn = 2 + 10*(1 - math.exp(-a/0.45)); NAPPE.location = (CENTRE_ENCRE.x, 0, EAU_Z + 0.03); NAPPE.scale = (rn, rn, 1)
     for g, d, D, dl in PAILLETTES:
         dist = D*(1 - math.exp(-a/dl)); g.location = CENTRE_ENCRE + d*dist + Vector((0, 0, 0.3*a))
@@ -723,7 +727,7 @@ def plan_encre(t):
     if SIM['poids'] >= 0.01: locomotion(Q, t, Mw, SIM['vel'], SIM['m'], SIM['poids'])
     maj_encre(t)
     ECLAB[:] = [(0.5, 0, TE_ENCRE, 0.2)]
-    CAM = Vector((14, -2.0, 4.6)); viser(CAM, (0, 0, 2.2)); cd.angle_y = math.radians(52)
+    CAM = Vector((22, -3.0, 6.0)); viser(CAM, (-1, 0, 2.5)); cd.angle_y = math.radians(50)
     poser(Mw, Q, CAM)
 
 def decalage_ramasse(e):
@@ -781,7 +785,7 @@ elif PLAN in ('plafond', 'sol') + ('fouet', 'balayage', 'devore', 'plaquage', 'e
     CLE = lampe((0, -12, 8), 1600, (1.0, 0.95, 0.9), 6.0)
     CONTRE = lampe((0, 5, 6), 1100, (0.6, 0.85, 1.0), 4.0)
     for L_ in (CLE, CONTRE): L_.visible_glossy = False; L_.visible_transmission = False     # pas de grande tache blanche reflétée dans l'eau
-    if PLAN == 'balayage':                              # vue plongeante : les néons se reflètent en taches ; reflet doux d'un grand plafonnier à la place
+    if PLAN in ('balayage', 'encre'):                   # vue plongeante : les néons se reflètent en taches ; reflet doux d'un grand plafonnier à la place
         for o in list(sc.objects):
             if o.type == 'LIGHT' and o.data.type == 'AREA' and o.data.shape == 'RECTANGLE': o.visible_glossy = False
         lampe((0, 0, H - 0.3), 260, (0.8, 0.9, 1.0), 26.0)
