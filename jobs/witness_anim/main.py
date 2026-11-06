@@ -84,7 +84,17 @@ def articulations(base, pts, L):
     return J
 CHAINES = {k: [arm.pose.bones[f'Bras{k}_{j}'] for j in range(1, 9)] for k in range(8)}
 LONG = {k: [pb.bone.length for pb in CHAINES[k]] for k in range(8)}
-def rest_rel(pb): return pb.parent.bone.matrix_local.inverted() @ pb.bone.matrix_local
+REST_REL = {pb.name: pb.parent.bone.matrix_local.inverted() @ pb.bone.matrix_local for pb in arm.pose.bones if pb.parent}
+ETIRE = {}                                                   # bras qui s'allongent : k -> facteur (os 2 à 8 écartés de leur parent)
+def etire_os(nm):
+    if not nm.startswith('Bras') or nm.endswith('_1'): return 1.0
+    return ETIRE.get(int(nm[4]), 1.0)
+def rest_rel(pb):
+    M = REST_REL[pb.name]; s_ = etire_os(pb.name)
+    if s_ == 1.0: return M
+    M = M.copy(); M.translation = M.translation*s_; return M
+def longueurs(k):
+    s_ = ETIRE.get(k, 1.0); return [L*s_ for L in LONG[k][:7]] + [LONG[k][7]]
 def orienter(chaine, Mparent, J, poids, Q):
     Mc = Mparent
     for j, pb in enumerate(chaine):
@@ -288,6 +298,10 @@ def locomotion(Q, t, Mw, vel, m, poids):
 def poser(Mw, Q, cam_pos):
     arm.matrix_world = Mw
     for nm, q in Q.items(): arm.pose.bones[nm].rotation_quaternion = q
+    for k in range(8):                                        # os écartés (Bone.Position dans Roblox) : déplacement de la tête de l'os
+        for pb in CHAINES[k][1:]:
+            M0 = REST_REL[pb.name]; s_ = etire_os(pb.name)
+            pb.location = M0.to_3x3().inverted() @ (M0.translation*(s_ - 1)) if s_ != 1.0 else Vector((0, 0, 0))
     bpy.context.view_layer.update()
     for nm in ('OeilG', 'OeilD'):                     # les yeux suivent la caméra (angle max 0,7 rad)
         pb = arm.pose.bones[nm]; Mb = arm.matrix_world @ pb.bone.matrix_local
@@ -564,6 +578,40 @@ def chemin_pendant(passage, vers, t, k):
     return pts
 def a_coups(u, n=3):
     u = max(0.0, min(1.0, u)); i = min(n - 1, int(u*n)); f = u*n - i; return (i + lisse(min(1, f/0.45)))/n
+def chemin_ramasse(B, centre, haut, serre, t, k):
+    rel = B - centre; rel = rel - haut*rel.dot(haut); d = rel.normalized() if rel.length > 1e-3 else haut.cross(Vector((1, 0, 0))).normalized()
+    l = haut.cross(d).normalized()*(1 if k % 2 == 0 else -1)
+    plan = centre - haut*(centre - B).dot(haut) - haut*0.12
+    R = (2.3 - 0.35*serre)*(1 + 0.025*math.sin(t*7 + k)); r0 = rel.length
+    pts = [B.copy()] + [plan + d*(r0 + (R - r0)*(i/6)) for i in range(1, 7)]
+    fin = plan + d*R; rho0 = 0.75 - 0.15*serre; C = fin + l*rho0
+    for i in range(1, 25):
+        phi = i/24*1.7*math.pi; rho = rho0*(1 - 0.55*i/24); pts.append(C + (-l*math.cos(phi) + d*math.sin(phi))*rho)
+    return pts
+def ramasser(Q, Mw, t, w, serre):
+    if w < 0.001: return
+    arm.matrix_world = Mw; bpy.context.view_layer.update()
+    Mrac = Mw @ arm.pose.bones['Racine'].bone.matrix_local; centre = Mrac.translation; haut = (Mw.to_3x3() @ UPV).normalized()
+    for k in range(8):
+        chn = CHAINES[k]; B = (Mrac @ rest_rel(chn[0])).translation
+        orienter(chn, Mrac, articulations(B, chemin_ramasse(B, centre, haut, serre, t, k), LONG[k]), [w]*8, Q)
+def longueur(pts): return sum((b - a).length for a, b in zip(pts, pts[1:]))
+def tronquer(pts, l):
+    out = [pts[0]]; s_ = 0.0
+    for a, b in zip(pts, pts[1:]):
+        seg = (b - a).length
+        if s_ + seg >= l: out.append(a.lerp(b, (l - s_)/max(seg, 1e-6))); return out
+        s_ += seg; out.append(b)
+    return out
+ETIRE_MAX = 3.2
+PLAQUE_OFF = Vector((0.6, 0, -0.4))                              # Roblox (0, -0,4, -0,6) dans le repère du joueur
+def plaque_repere(Mv):
+    R = Mv.to_3x3(); return repere(Mv @ PLAQUE_OFF, R @ Vector((0, 0, 1)), R @ Vector((1, 0, 0)))
+def bond_repere(dep, arr, hauteur, u):
+    u = max(0.0, min(1.0, u)); pos = dep.lerp(arr, u) + Vector((0, 0, 4*hauteur*u*(1 - u))); b = 0.4*(1 - 2*u)
+    dv = Vector((arr.x - dep.x, arr.y - dep.y, 0)).normalized()
+    vol = repere(pos, dv, UPV) @ Matrix.Rotation(-b, 4, 'Y'); colle = repere(pos, UPV, -dv)
+    return interp(vol, colle, lisse((u - 0.35)/0.65))
 def plan_devore(t):
     """au plafond au-dessus d'un joueur ; tension (fin du signe), décrochage bref, chute sur la tête, cage de bras, effondrement"""
     t_f = 1.2; tete_haut = 3 + 1.65 + 0.6; tf = math.sqrt(2*(H - tete_haut)/G_JEU); ti = t_f + 0.12 + tf; D = 2.0
@@ -592,9 +640,10 @@ def plan_devore(t):
         a = lisse((tt - D)/0.6); fin = Vector((3.2, 0, 0))
         pos = (tete_c - hautC*0.6).lerp(fin, a); Mw = repere(pos, avant, hautC.lerp(Vector((0, 0, 1)), a).normalized()); coup, e, ch = None, 0.0, None
     Q = animer(t, 0, coup, e, False, ch)
-    if t < t_f: coupe(Q, Mw, t, lisse(e/0.6), 1.6, tete_c)                     # signe : bras ramassés en coupe vers sa tête
-    elif t < ti: coupe(Q, Mw, t, 1.0, 1.35, tete_c)                             # chute : la coupe vise la tête
-    if 0 <= tt < 0.3: coupe(Q, Mw, t, 1.0, 1.35, tete_c)                    # la cage part de la coupe
+    if t < t_f: ramasser(Q, Mw, t, lisse(e/0.5), lisse((e - 1.5 + 0.4)/0.4))     # attente : bras enroulés à plat contre le plafond
+    elif t < ti:                                                                  # chute : les bras s'ouvrent en ombrelle vers sa tête
+        wO = lisse((t - t_f - 0.06)/0.12); ramasser(Q, Mw, t, 1 - wO, 1.0); coupe(Q, Mw, t, wO, 2.6, tete_c)
+    if 0 <= tt < 0.3: coupe(Q, Mw, t, 1.0, 2.6 - 1.25*lisse(tt/0.25), tete_c)   # l'ombrelle se referme en cage
     if 0 <= tt < D + 0.4:
         w = 1 - lisse((tt - D)/0.4); arm.matrix_world = Mw; bpy.context.view_layer.update()
         Mrac = Mw @ arm.pose.bones['Racine'].bone.matrix_local
@@ -605,56 +654,55 @@ def plan_devore(t):
     CAM = Vector((2.2, -11.5, 6.0)); viser(CAM, (0.8, 0, 5.8)); cd.angle_y = math.radians(60)
     poser(Mw, Q, CAM)
 def plan_plaquage(t):
-    """ramassé, bond en arc, le joueur bascule sur le dos ; elle se pose sur sa poitrine et lui tient poignets et chevilles"""
-    t0 = 0.3; tb = t0 + PLAQ['signe']; ta = tb + PLAQ['vol']; tp = ta + 0.25
-    dep = Vector((0, 0, 0)); arr = Vector((10, 0, 0)); dirv = Vector((1, 0, 0))
-    couche = Vector((10 + 1.0, 0, 0.75)); W_pos = couche + Vector((0, 0, 0.6)) - dirv*0.4
-    # joueur : debout, puis bascule en arrière (0,25 s), couché bras et jambes écartés, se débat
-    pieds = Vector((10, 0, 0))
-    if t < ta:
-        M = Matrix.Translation(pieds + Vector((0, 0, 3))) @ Matrix.Rotation(math.pi, 4, 'Z'); MANN.libre(M)
+    """ramassé, bond en arc qui finit collé contre sa poitrine, bras lancés chacun vers son membre ; ils se referment dès le contact
+    et il tombe à la renverse avec elle dessus (port de coupPlaquage et de WitnessCorps)"""
+    t0 = 0.3; tb = t0 + PLAQ['signe']; ta = tb + PLAQ['vol']; RENV = 0.35
+    dep = Vector((0, 0, 0)); dirv = Vector((1, 0, 0)); pieds = Vector((10, 0, 0))
+    Mdeb = Matrix.Translation(pieds + Vector((0, 0, 3))) @ Matrix.Rotation(math.pi, 4, 'Z')     # debout, il lui fait face
+    arr = Mdeb @ PLAQUE_OFF
+    couche = Vector((10 + 1.0, 0, 0.75))
+    Mall = Matrix.Translation(couche) @ Matrix(((0, 0, 1, 0), (0, -1, 0, 0), (1, 0, 0, 0), (0, 0, 0, 1)))
+    if 'assign' not in PLAQ:                                     # bras -> membres, dans la pose collée contre lui debout (une fois par bond)
+        MANN.libre(Mdeb); Mb = bond_repere(dep, arr, PLAQ['hauteur'], 1); Mc = Mb @ arm.pose.bones['Racine'].bone.matrix_local
+        PLAQ['assign'] = attribuer({k: (Mc @ rest_rel(CHAINES[k][0])).translation for k in range(8)}, [p_ for p_, _ in MANN.points_membres()],
+                                   Mc.translation, (Mb.to_3x3() @ UPV).normalized(), (Mb.to_3x3() @ Vector((1, 0, 0))).normalized())
+    if t < ta: MANN.libre(Mdeb); Mv = Mdeb
     else:
-        a = min(1, (t - ta)/0.25); a = a*a
-        Mdeb = Matrix.Translation(pieds + Vector((0, 0, 3))) @ Matrix.Rotation(math.pi, 4, 'Z')
-        Mall = Matrix.Translation(couche) @ Matrix(((0, 0, 1, 0), (0, -1, 0, 0), (1, 0, 0, 0), (0, 0, 0, 1)))
-        M = interp(Mdeb, Mall, a)
-        tt = max(0.0, t - tp); lutte = 0.12*math.sin(tt*9)*math.exp(-tt*0.3)
-        MANN.libre(M, epaules=(0.0, 0.0), ecart=1.25*a + lutte, jambes=0.35*a - lutte*0.5)
-    ECLAB[:] = [(10, 0, ta, 0.3), (10.5, 0, ta + 0.25, 0.22), (0, 0, tb, 0.12)]
+        a = min(1, (t - ta)/RENV); a = a*a; Mv = interp(Mdeb, Mall, a)
+        tt = max(0.0, t - ta - RENV); lutte = 0.12*math.sin(tt*9)*math.exp(-tt*0.3)
+        MANN.libre(Mv, epaules=(0.0, 0.0), ecart=1.25*a + lutte, jambes=0.35*a - lutte*0.5)
+    ECLAB[:] = [(10.8, 0, ta + RENV, 0.3), (11.5, 0, ta + RENV + 0.1, 0.2), (0, 0, tb, 0.12)]
     if t < tb:
         coup, e = ('plaquage', t - t0) if t >= t0 else (None, 0.0)
         Mw = decalage_ramasse(e) if coup else Matrix.Identity(4)
     elif t < ta:
-        coup, e = 'plaquage', t - t0; u = (t - tb)/PLAQ['vol']
-        p = dep.lerp(arr, u) + Vector((0, 0, 4*PLAQ['hauteur']*u*(1 - u))); b = 0.4*(1 - 2*u)
-        Mw = Matrix.Translation(p) @ Matrix.Rotation(-b, 4, 'Y')
+        coup, e = 'plaquage', t - t0; Mw = bond_repere(dep, arr, PLAQ['hauteur'], (t - tb)/PLAQ['vol'])
     else:
-        coup, e = 'plaquage', t - t0; Mw = Matrix.Translation(W_pos)
+        coup, e = 'plaquage', t - t0; Mw = plaque_repere(Mv)
     PLAQUE_ACTIF[0] = False
-    racine_fn = lambda tt_: (Matrix.Identity(4) if tt_ < tb else Matrix.Translation(W_pos), 'plaquage' if tt_ >= t0 else None, tt_ - t0, None)
+    racine_fn = lambda tt_: (Matrix.Identity(4) if tt_ < tb else Matrix.Translation(arr), 'plaquage' if tt_ >= t0 else None, tt_ - t0, None)
     avancer(racine_fn, t)
     Q = animer(t, 0, coup, e, False, None)
     if SIM['poids'] >= 0.01 and t < t0 + 0.3: locomotion(Q, t, Mw, SIM['vel'], SIM['m'], SIM['poids'])
     arm.matrix_world = Mw; bpy.context.view_layer.update()
     Mrac = Mw @ arm.pose.bones['Racine'].bone.matrix_local; centre = Mrac.translation
-    if tb <= t < ta + 0.6:                                       # en vol : faisceau, puis bras tendus vers la proie en éventail
-        u = (t - tb)/PLAQ['vol']; wT = 1 - lisse((u - 0.25)/0.3); wA = lisse((u - 0.3)/0.4)*(1 - lisse((t - ta - 0.3)/0.3))
+    pts = MANN.points_membres()
+    if tb <= t < ta + 0.5:                                       # en vol : faisceau, puis chaque bras lancé vers son membre
+        u = (t - tb)/PLAQ['vol']; fin = lisse((t - ta)/0.2)
+        wT = 1 - lisse((u - 0.2)/0.3); wA = lisse((u - 0.3)/0.35)*(1 - fin)
         for k in range(8):
             chn = CHAINES[k]; B = (Mrac @ rest_rel(chn[0])).translation
             if wT > 0.001: orienter(chn, Mrac, articulations(B, chemin_trainee(B, centre, dirv, UPV, t), LONG[k]), [wT]*8, Q)
             if wA > 0.001:
-                rad = Vector((B.x - centre.x, B.y - centre.y, 0)); rad = rad.normalized() if rad.length > 1e-3 else dirv
-                vise = arr + rad*2.5 + UPV*0.6
-                orienter(chn, Mrac, articulations(B, [B.copy(), B + (vise - B).normalized()*12], LONG[k]), [wA]*8, Q)
-    if t >= tp:                                                  # huit bras plantés, deux par membre
-        tt = t - tp; pts = MANN.points_membres()
-        if 'assign' not in PLAQ:
-            PLAQ['assign'] = attribuer({k: (Mrac @ rest_rel(CHAINES[k][0])).translation for k in range(8)}, [p_ for p_, _ in pts], centre, UPV, dirv)
+                P = pts[PLAQ['assign'][k]][0]
+                orienter(chn, Mrac, articulations(B, [B.copy(), B + (P - B).normalized()*12], LONG[k]), [wA]*8, Q)
+    if t >= ta:                                                  # huit bras plantés, deux par membre, dès le contact
+        tt = t - ta; haut = (Mw.to_3x3() @ UPV).normalized()
         for k, i in PLAQ['assign'].items():
             P, axe = pts[i]; chn = CHAINES[k]; B = (Mrac @ rest_rel(chn[0])).translation
-            c_ = centre - P; l_ = axe.cross(c_.normalized() if c_.length > 1e-3 else UPV); sens = 1 if (B - P).dot(l_) >= 0 else -1
-            orienter(chn, Mrac, articulations(B, chemin_plante(B, P, axe, centre, UPV, sens), LONG[k]), [lisse((tt - 0.02*k - 0.03*j)/0.22) for j in range(8)], Q)
-    CAM = Vector((7.5, -10.5, 7.0)); viser(CAM, (8.0, 0, 1.0)); cd.angle_y = math.radians(56)
+            c_ = centre - P; l_ = axe.cross(c_.normalized() if c_.length > 1e-3 else haut); sens = 1 if (B - P).dot(l_) >= 0 else -1
+            orienter(chn, Mrac, articulations(B, chemin_plante(B, P, axe, centre, haut, sens), LONG[k]), [lisse((tt - 0.01*k - 0.015*j)/0.15) for j in range(8)], Q)
+    CAM = Vector((7.5, -10.5, 7.0)); viser(CAM, (8.0, 0, 1.6)); cd.angle_y = math.radians(56)
     poser(Mw, Q, CAM)
 # ---------------------------------------------------------------- enlèvement par une grille du plafond, nuage d'encre
 ENL = dict(signe=1.0, trainee=1.2, levee=1.8, avalee=0.4)
@@ -702,21 +750,27 @@ def plan_enlevement(t):
         Mrac = Mw @ arm.pose.bones['Racine'].bone.matrix_local; centre = Mrac.translation
         tient = tt >= 0; w0 = lisse(e/0.3)
         N = MANN.racine.matrix_world.translation; U = (MANN.racine.matrix_world.to_3x3() @ Vector((0, 0, 1))).normalized()
+        ETIRE.clear()
         for k in range(8):
             chn = CHAINES[k]; B = (Mrac @ rest_rel(chn[0])).translation
             dv = Vector((B.x - centre.x, B.y - centre.y, 0)); dv = dv.normalized() if dv.length > 1e-3 else Vector((1, 0, 0))
             pas_ = passage_grille(O, dv)
             if k not in (0, 1, 6, 7):
-                suite = chemin_sol(pas_, dv, Vector((GRILLE.x, GRILLE.y, H - 0.25)) + dv*2.8, Vector((0, 0, -1)))
-            elif tient:
+                chemin = par_la_grille(B, pas_, chemin_sol(pas_, dv, Vector((GRILLE.x, GRILLE.y, H - 0.25)) + dv*2.8, Vector((0, 0, -1))))
+            else:                                                # s'allonge jusqu'au torse, l'enroule, puis raccourcit en le hissant
                 fv = Vector((O.x - N.x, O.y - N.y, 0)); fv = fv.normalized() if fv.length > 1e-3 else Vector((1, 0, 0))
                 l_ = U.cross(fv).normalized(); sens = 1 if (pas_ - N).dot(l_) >= 0 else -1
-                r = 1.1 + 0.4*math.exp(-tt*0.9) - 0.04*max(0, math.sin(tt*7))
-                suite = chemin_enroule(pas_, N, U, fv, r, {0: 0.3, 7: 0.5, 1: -0.5, 6: -0.3}[k], sens, 1.2)
-            else:
-                suite = chemin_pendant(pas_, N, t, k)
+                ttp = max(tt, 0.0)
+                r = 1.1 + 0.4*math.exp(-ttp*0.9) - 0.04*max(0, math.sin(ttp*7))
+                complet = par_la_grille(B, pas_, chemin_enroule(pas_, N, U, fv, r, {0: 0.3, 7: 0.5, 1: -0.5, 6: -0.3}[k], sens, 0.9))
+                contact = longueur(complet[:17]); repos = sum(LONG[k])
+                if tient: lg = contact + (longueur(complet) - contact)*lisse(tt/0.4)
+                else: lg = repos + max(0.0, contact - repos)*lisse((e - 0.15 - 0.04*(k % 4))/(ENL['signe'] - 0.35))
+                lg = max(lg, repos)
+                ETIRE[k] = max(1.0, min(ETIRE_MAX, (lg - LONG[k][7])/sum(LONG[k][:7])))
+                chemin = tronquer(complet, lg)
             poids = [max(w0, lisse((tt - 0.04*j)/0.4)) if tient else w0 for j in range(8)]
-            orienter(chn, Mrac, articulations(B, par_la_grille(B, pas_, suite), LONG[k]), poids, Q)
+            orienter(chn, Mrac, articulations(B, chemin, longueurs(k)), poids, Q)
     CAM = Vector((2.5, -9.0, 4.0)); viser(CAM, (1.2, 0, 7.4)); cd.angle_y = math.radians(62)
     poser(Mw, Q, CAM)
 NUAGE = None

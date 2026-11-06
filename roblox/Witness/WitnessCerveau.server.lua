@@ -38,6 +38,7 @@ local bCapture = obtenir("WitnessCapture", "BindableEvent")
 local bPorte = obtenir("WitnessPorte", "BindableEvent")
 
 local UP = Vector3.new(0, 1, 0)
+local ROT_MODELE = CFrame.Angles(0, math.pi / 2, 0)        -- repère affiché (avant du modèle = X) -> repère de la racine (avant = LookVector)
 
 -- ================================================================ la pièce racine (position et orientation de la créature)
 local racine = workspace:FindFirstChild("WitnessRacine") or Instance.new("Part")
@@ -586,41 +587,52 @@ local function coupPlaquage(p)
 	viser(p); signe("plaquage")
 	local r = hrp(p); if not r then recharger("plaquage"); return end
 	local depart = W.pos
-	local arrivee = solPoint(r.Position)
-	local dir = Vector3.new(arrivee.X - depart.X, 0, arrivee.Z - depart.Z)
+	local cible0 = r.Position
+	local dir = Vector3.new(cible0.X - depart.X, 0, cible0.Z - depart.Z)
 	if dir.Magnitude > P.portee + 2 or dir.Magnitude < 1 then recharger("plaquage"); return end
 	dir = dir.Unit; W.avant = dir
+	-- point d'impact : contre sa poitrine (pose collée de G.plaqueRepere pour un joueur debout qui lui fait face)
+	local face = CFrame.lookAt(cible0, cible0 - dir)
+	local arrivee = face * G.PLAQUE_OFF
+	racine:SetAttribute("Cible", p.UserId)                    -- les clients lancent chaque bras vers son membre pendant le vol
 	racine:SetAttribute("BondDepart", depart); racine:SetAttribute("BondArrivee", arrivee)
 	racine:SetAttribute("BondT", workspace:GetServerTimeNow())
 	sonEn(depart, "eclabousse", 1.2)
 	local t0 = os.clock()
 	while true do
 		local u = math.min(1, (os.clock() - t0) / P.vol)
-		W.pos = depart:Lerp(arrivee, u) + UP * (4 * P.hauteur * u * (1 - u))
-		racine.CFrame = orienter(dir, false)
+		local cf = G.bondRepere(depart, arrivee, P.hauteur, u)
+		W.pos = cf.Position
+		racine.CFrame = cf * ROT_MODELE:Inverse()
 		if u >= 1 then break end
 		RunService.Heartbeat:Wait()
 	end
-	W.pos = arrivee; W.mode = "sol"; placer(); sonEn(arrivee, "chute")
-	local horiz = Vector3.new(r.Position.X - arrivee.X, 0, r.Position.Z - arrivee.Z).Magnitude
-	if horiz > 3 or not humanoide(p) or humanoide(p).Health <= 0 then recharger("plaquage"); return end   -- raté : il a esquivé
-	-- la victime tombe sur le dos, la tête vers l'arrière ; elle se pose sur sa poitrine
-	local couche = solPoint(r.Position) + dir * 1.0 + UP * 0.75
-	r.Anchored = true
-	local debout = r.CFrame
-	local allonge = CFrame.fromMatrix(couche, dir:Cross(-UP), dir, -UP)
-	local tc = os.clock()
-	while os.clock() - tc < 0.25 do                           -- il bascule en arrière sous le choc
-		local a = (os.clock() - tc) / 0.25
-		r.CFrame = debout:Lerp(allonge, a * a)
-		RunService.Heartbeat:Wait()
+	local horiz = Vector3.new(r.Position.X - cible0.X, 0, r.Position.Z - cible0.Z).Magnitude
+	if horiz > 3 or not humanoide(p) or humanoide(p).Health <= 0 then           -- raté : il a esquivé, elle retombe au sol
+		racine:SetAttribute("Cible", nil)
+		glisser(solPoint(arrivee + UP), 0.2, "sol", false); sonEn(W.pos, "chute")
+		recharger("plaquage"); return
 	end
-	r.CFrame = allonge
-	W.pos = couche + UP * 0.6 - dir * 0.4; placer()
+	-- impact : elle se colle à sa poitrine et le saisit tout de suite ; il tombe à la renverse avec elle dessus
+	r.Anchored = true
+	local debout = CFrame.lookAt(r.Position, r.Position - dir)
+	local couche = solPoint(r.Position) + dir * 1.0 + UP * 0.75
+	local allonge = CFrame.fromMatrix(couche, dir:Cross(-UP), dir, -UP)
 	W.saisie = { victime = p, degats = 0, debut = os.clock(), feu = false }
 	W.debats[p] = 0
 	effet(p, "saisi", "plaquage")
 	racine:SetAttribute("Plaque", p.UserId); racine:SetAttribute("PlaqueT", workspace:GetServerTimeNow())
+	sonEn(r.Position, "chute")
+	local tc = os.clock()
+	while true do                                             -- il bascule en arrière sous le choc (accéléré, comme une chute)
+		local a = math.min(1, (os.clock() - tc) / P.renverse)
+		r.CFrame = debout:Lerp(allonge, a * a)
+		local cf = G.plaqueRepere(r.CFrame)
+		W.pos = cf.Position; racine.CFrame = cf * ROT_MODELE:Inverse()
+		if a >= 1 then break end
+		RunService.Heartbeat:Wait()
+	end
+	W.mode = "sol"
 	while W.saisie and W.saisie.victime == p do
 		local dt = RunService.Heartbeat:Wait()
 		local h = humanoide(p); if not h or h.Health <= 0 then break end

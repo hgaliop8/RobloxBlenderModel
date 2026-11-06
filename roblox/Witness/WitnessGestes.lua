@@ -349,6 +349,24 @@ function G.bond(depart: Vector3, arrivee: Vector3, hauteur: number, u: number): 
 	return p, 0.4 * (1 - 2 * u)                          -- avant relevé au départ, plongeant à l'arrivée
 end
 
+--[[ plaquage : à l'impact elle se colle contre la poitrine du joueur, le dessous (bras, ventouses) contre lui, la tête vers
+la sienne ; quand il tombe à la renverse, elle reste collée et finit couchée sur lui. v = repère du HumanoidRootPart. ]]
+G.PLAQUE_OFF = Vector3.new(0, -0.4, -0.6)                   -- dans le repère du joueur : devant la poitrine, un peu plus bas
+function G.plaqueRepere(v: CFrame): CFrame
+	return CFrame.fromMatrix(v * G.PLAQUE_OFF, v.UpVector, v.LookVector)   -- X (avant du modèle) = vers sa tête, Y = hors de sa poitrine
+end
+-- repère affiché pendant le bond : en vol l'avant se relève peu à peu pour présenter le dessous, si bien qu'elle arrive
+-- exactement dans la pose collée contre un joueur debout qui lui fait face
+local ROT_MODELE = CFrame.Angles(0, math.pi / 2, 0)
+function G.bondRepere(depart: Vector3, arrivee: Vector3, hauteur: number, u: number): CFrame
+	local pos, bascule = G.bond(depart, arrivee, hauteur, u)
+	local dir = Vector3.new(arrivee.X - depart.X, 0, arrivee.Z - depart.Z)
+	dir = dir.Magnitude > 1e-3 and dir.Unit or Vector3.new(0, 0, -1)
+	local vol = CFrame.lookAt(pos, pos + dir, Vector3.yAxis) * ROT_MODELE * CFrame.Angles(0, 0, bascule)
+	local colle = CFrame.fromMatrix(pos, Vector3.yAxis, -dir)
+	return vol:Lerp(colle, lisse((u - 0.35) / 0.65))
+end
+
 -- plaquage, ramassé avant le bond : le corps se tasse et recule un peu
 function G.ramasse(e: number, signe: number): CFrame
 	local a = lisse(e / signe)
@@ -386,6 +404,53 @@ function G.cheminCoupe(B: Vector3, centre: Vector3, axe: Vector3, ouverture: num
 	end
 	return pts
 end
+
+--[[ chute dévorante, pendant l'attente : bras ramassés à plat contre le plafond, chacun enroulé sur lui-même près du corps
+(rien ne pend). serre = 0..1 : les spirales se resserrent juste avant qu'elle se lâche. haut = dessus du corps (vers le sol
+quand elle est au plafond) : les bras restent du côté du plafond. ]]
+function G.cheminRamasse(B: Vector3, centre: Vector3, haut: Vector3, serre: number, t: number, k: number): { Vector3 }
+	local rel = B - centre; rel = rel - haut * rel:Dot(haut)
+	local d = rel.Magnitude > 1e-3 and rel.Unit or haut:Cross(Vector3.new(1, 0, 0)).Unit
+	local l = haut:Cross(d).Unit * ((k % 2 == 0) and 1 or -1)          -- un bras sur deux s'enroule dans l'autre sens
+	local plan = centre - haut * (centre - B):Dot(haut) - haut * 0.12
+	local R = (2.3 - 0.35 * serre) * (1 + 0.025 * math.sin(t * 7 + k))     -- frémissement de tension
+	local pts = { B }
+	local r0 = rel.Magnitude
+	for i = 1, 6 do                                                     -- droit vers l'extérieur, plaqué
+		local r = r0 + (R - r0) * (i / 6)
+		table.insert(pts, plan + d * r)
+	end
+	local fin = plan + d * R
+	local rho0 = 0.75 - 0.15 * serre
+	local C = fin + l * rho0
+	for i = 1, 24 do                                                    -- puis enroulé en spirale vers l'intérieur
+		local phi = i / 24 * 1.7 * math.pi
+		local rho = rho0 * (1 - 0.55 * i / 24)
+		table.insert(pts, C + (-l * math.cos(phi) + d * math.sin(phi)) * rho)
+	end
+	return pts
+end
+
+-- longueur d'un chemin, et le même chemin coupé à une longueur donnée
+function G.longueur(pts: { Vector3 }): number
+	local s = 0
+	for i = 2, #pts do s += (pts[i] - pts[i - 1]).Magnitude end
+	return s
+end
+function G.tronquer(pts: { Vector3 }, l: number): { Vector3 }
+	local out = { pts[1] }
+	local s = 0
+	for i = 2, #pts do
+		local seg = (pts[i] - pts[i - 1]).Magnitude
+		if s + seg >= l then
+			table.insert(out, pts[i - 1]:Lerp(pts[i], (l - s) / math.max(seg, 1e-6)))
+			return out
+		end
+		s += seg; table.insert(out, pts[i])
+	end
+	return out
+end
+G.ETIRE_MAX = 3.2                                                       -- un bras peut s'allonger jusqu'à 3,2 fois sa longueur
 
 -- ================================================================ plaquage : un bras planté sur un membre
 -- il s'enroule autour du membre (P, axe) puis s'enfonce vers le sol pour le clouer

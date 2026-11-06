@@ -118,6 +118,11 @@ local function persoDe(attribut: string): Model?
 	return pl and pl.Character or nil
 end
 
+local function plaqueRacine(): BasePart?
+	local ch = persoDe("Plaque")
+	return ch and ch:FindFirstChild("HumanoidRootPart") :: BasePart? or nil
+end
+
 local function saisieTemps() return workspace:GetServerTimeNow() - (racine:GetAttribute("SaisieT") or workspace:GetServerTimeNow()) end
 local function enrouler(t: number)
 	local victime = Players:GetPlayerByUserId(racine:GetAttribute("Saisie") or 0)
@@ -211,7 +216,25 @@ local function axeMembre(ch: Model, P: Vector3): Vector3
 	end
 	return best
 end
-local plaqueCache = { t = -1, assign = {} :: { [number]: number } }
+-- quel bras va sur quel membre : calculé une fois par bond, dans la pose où elle se colle contre lui (dessous contre sa poitrine),
+-- pour que les bras partent déjà vers leur membre pendant le vol et ne se croisent pas
+local BASES_MODELE: { [number]: Vector3 } = {}
+do
+	local piv = corps:GetPivot()
+	for k, chn in pairs(BRAS) do BASES_MODELE[k] = piv:PointToObjectSpace(chn.os[1].WorldPosition) end
+end
+local plaqueCache = { t = -1 :: number, assign = {} :: { [number]: number } }
+local function assignationPlaquage(ch: Model, bt: number, dep: Vector3, arr: Vector3): { [number]: number }?
+	if plaqueCache.t == bt then return plaqueCache.assign end
+	local points = pointsMembres(ch)
+	if #points == 0 then return nil end
+	local colle = G.bondRepere(dep, arr, C.COUPS.plaquage.hauteur, 1)
+	local bases = {}
+	for k, b in pairs(BASES_MODELE) do bases[k] = colle * b end
+	plaqueCache.t = bt
+	plaqueCache.assign = G.attribuer(bases, points, colle.Position, colle.UpVector, colle.RightVector)
+	return plaqueCache.assign
+end
 local function plaquer(t: number)
 	local ch = persoDe("Plaque"); if not ch or not osRacine then return end
 	local pt0 = racine:GetAttribute("PlaqueT") or 0
@@ -221,13 +244,15 @@ local function plaquer(t: number)
 	local haut = cfAffiche.UpVector
 	local points = pointsMembres(ch)
 	if #points == 0 then return end
-	if plaqueCache.t ~= pt0 then
-		plaqueCache.t = pt0
+	local dep, arr = racine:GetAttribute("BondDepart"), racine:GetAttribute("BondArrivee")
+	local assign = (typeof(dep) == "Vector3" and typeof(arr) == "Vector3")
+		and assignationPlaquage(ch, racine:GetAttribute("BondT") or 0, dep, arr) or nil
+	if not assign then
 		local bases = {}
 		for k, chn in pairs(BRAS) do bases[k] = (parent * chn.os[1].CFrame).Position end
-		plaqueCache.assign = G.attribuer(bases, points, centre, haut, cfAffiche.RightVector)
+		assign = G.attribuer(bases, points, centre, haut, cfAffiche.RightVector)
 	end
-	for k, i in pairs(plaqueCache.assign) do
+	for k, i in pairs(assign :: { [number]: number }) do
 		local chn = BRAS[k]
 		local P = points[i]
 		if chn and P then
@@ -236,15 +261,38 @@ local function plaquer(t: number)
 			local l = axe:Cross((centre - P).Magnitude > 1e-3 and (centre - P).Unit or haut)
 			local sens = ((B - P):Dot(l) >= 0) and 1 or -1
 			local poids = {}
-			for j = 1, 8 do poids[j] = lisse((tt - 0.02 * k - 0.03 * (j - 1)) / 0.22) end
+			for j = 1, 8 do poids[j] = lisse((tt - 0.01 * k - 0.015 * (j - 1)) / 0.15) end   -- ils se referment dès le contact
 			G.orienter(chn, parent, G.articulations(B, G.cheminPlante(B, P, axe, centre, haut, sens), chn.L), poids)
 		end
 	end
 	_ = t
 end
 
+-- bras qui s'allongent : on écarte les os d'un bras (Bone.Position), la peau s'étire entre eux
+local POS0: { [number]: { [number]: Vector3 } } = {}
+local ETIRE: { [number]: number } = {}
+local BASE_L: { [number]: number } = {}                 -- longueur étirable d'un bras (os 1 à 7), la pointe (os 8) ne s'étire pas
+for k, chn in pairs(BRAS) do
+	POS0[k] = {}; ETIRE[k] = 1; BASE_L[k] = 0
+	for j = 2, 8 do POS0[k][j] = chn.os[j].Position end
+	for j = 1, 7 do BASE_L[k] += chn.L[j] end
+end
+local function etirer(k: number, s: number)
+	if math.abs((ETIRE[k] or 1) - s) < 1e-3 then return end
+	ETIRE[k] = s
+	local chn = BRAS[k]
+	for j = 2, 8 do chn.os[j].Position = POS0[k][j] * s end
+end
+local function longueursEtirees(k: number, s: number): { number }
+	local chn = BRAS[k]; local L = {}
+	for j = 1, 7 do L[j] = chn.L[j] * s end
+	L[8] = chn.L[8]
+	return L
+end
+
 -- enlèvement : son corps est caché dans la gaine ; ses bras passent entre les barreaux de la grille.
--- Quatre bras agrippent le rebord du plafond, les quatre bras avant pendent vers la proie puis l'enroulent.
+-- Quatre bras agrippent le rebord du plafond ; les quatre bras avant s'allongent jusqu'à la proie, l'enroulent,
+-- puis raccourcissent à mesure qu'ils la hissent.
 local function grille(t: number)
 	local g = racine:GetAttribute("Grille")
 	if typeof(g) ~= "Vector3" or not osRacine then return end
@@ -254,18 +302,19 @@ local function grille(t: number)
 	local e = workspace:GetServerTimeNow() - (racine:GetAttribute("CoupT") or 0)
 	local tient = racine:GetAttribute("Saisie") ~= nil
 	local tt = tient and (workspace:GetServerTimeNow() - (racine:GetAttribute("SaisieT") or 0)) or 0
-	local ch = persoDe("Cible")
+	local ch = persoDe("Saisie") or persoDe("Cible")
 	local torse = ch and (ch:FindFirstChild("UpperTorso") or ch:FindFirstChild("Torso")) :: BasePart?
 	local w0 = lisse(e / 0.3)
+	local signe = C.COUPS.enlevement.signe
 	for k, chn in pairs(BRAS) do
 		local B = (parent * chn.os[1].CFrame).Position
 		local dir = Vector3.new(B.X - centre.X, 0, B.Z - centre.Z); dir = dir.Magnitude > 1e-3 and dir.Unit or Vector3.new(1, 0, 0)
 		local passage = G.passageGrille(O, dir)
 		local avantBras = (k == 0 or k == 1 or k == 6 or k == 7)
-		local suite
-		if not avantBras then                                          -- agrippé au rebord, à plat sous le plafond
-			suite = G.cheminSol(passage, dir, Vector3.new(g.X, g.Y - 0.25, g.Z) + dir * 2.8, Vector3.new(0, -1, 0))
-		elseif tient and torse then                                     -- enroulé autour du torse
+		local chemin
+		local s = 1
+		if avantBras and torse then
+			-- vers le torse, puis autour : le bras s'allonge le long de ce chemin (jusqu'au contact pendant le signe)
 			local U = torse.CFrame.UpVector
 			local N = torse.Position
 			local f = Vector3.new(O.X - N.X, 0, O.Z - N.Z); f = f.Magnitude > 1e-3 and f.Unit or Vector3.new(1, 0, 0)
@@ -273,17 +322,41 @@ local function grille(t: number)
 			local sens = ((passage - N):Dot(l) >= 0) and 1 or -1
 			local r = 1.1 + 0.4 * math.exp(-tt * 0.9) - 0.04 * math.max(0, math.sin(tt * 7))
 			local h0 = ({ [0] = 0.3, [7] = 0.5, [1] = -0.5, [6] = -0.3 })[k] or 0
-			suite = G.cheminEnroule(passage, N, U, f, r, h0, sens, 1.2)
-		else                                                            -- pendant, attiré vers la proie
-			suite = G.cheminPendant(passage, torse and torse.Position or (O + dir * 4 - Vector3.new(0, 4, 0)), t, k)
+			local complet = G.parLaGrille(B, passage, G.cheminEnroule(passage, N, U, f, r, h0, sens, 0.9))
+			local contact = G.longueur(table.move(complet, 1, math.min(#complet, 17), 1, {}))   -- jusqu'au premier contact
+			local repos = BASE_L[k] + chn.L[8]
+			local lg
+			if tient then lg = contact + (G.longueur(complet) - contact) * lisse(tt / 0.4)
+			else lg = repos + math.max(0, contact - repos) * lisse((e - 0.15 - 0.04 * (k % 4)) / (signe - 0.35)) end
+			lg = math.max(lg, repos)
+			s = math.clamp((lg - chn.L[8]) / BASE_L[k], 1, G.ETIRE_MAX)
+			chemin = G.tronquer(complet, lg)
+		elseif avantBras then
+			chemin = G.parLaGrille(B, passage, G.cheminPendant(passage, O + dir * 4 - Vector3.new(0, 4, 0), t, k))
+		else                                                            -- agrippé au rebord, à plat sous le plafond
+			chemin = G.parLaGrille(B, passage, G.cheminSol(passage, dir, Vector3.new(g.X, g.Y - 0.25, g.Z) + dir * 2.8, Vector3.new(0, -1, 0)))
 		end
+		etirer(k, s)
 		local poids = {}
 		for j = 1, 8 do poids[j] = tient and math.max(w0, lisse((tt - 0.04 * (j - 1)) / 0.4)) or w0 end
-		G.orienter(chn, parent, G.articulations(B, G.parLaGrille(B, passage, suite), chn.L), poids)
+		G.orienter(chn, parent, G.articulations(B, chemin, longueursEtirees(k, s)), poids)
 	end
 end
 
--- chute dévorante : pendant le signe et la chute, ses bras se ramassent en coupe vers la tête visée
+-- chute dévorante, pendant l'attente : bras enroulés à plat contre le plafond ; serre = resserrement juste avant de se lâcher
+local function ramasser(t: number, w: number, serre: number)
+	if not osRacine or w < 0.001 then return end
+	local parent = mondeOs(osRacine)
+	local centre = parent.Position
+	local haut = cfAffiche.UpVector
+	local poids = {}
+	for j = 1, 8 do poids[j] = w end
+	for k, chn in pairs(BRAS) do
+		local B = (parent * chn.os[1].CFrame).Position
+		G.orienter(chn, parent, G.articulations(B, G.cheminRamasse(B, centre, haut, serre, t, k), chn.L), poids)
+	end
+end
+-- chute dévorante : en tombant, ses bras s'ouvrent en ombrelle vers la tête visée
 local function coupe(t: number, w: number, ouverture: number)
 	if not osRacine or w < 0.001 then return end
 	local parent = mondeOs(osRacine)
@@ -488,31 +561,49 @@ local function animer(t, dt)
 	local bt = racine:GetAttribute("BondT")
 	local xb = bt and (workspace:GetServerTimeNow() - bt) or -1
 	local volB = C.COUPS.plaquage.vol
-	if coup == "plaquage" and xb >= 0 and xb < volB + 0.6 and osRacine and typeof(racine:GetAttribute("BondArrivee")) == "Vector3" then
+	if coup == "plaquage" and xb >= 0 and xb < volB + 0.5 and osRacine and typeof(racine:GetAttribute("BondArrivee")) == "Vector3" then
 		local dep, arr = racine:GetAttribute("BondDepart"), racine:GetAttribute("BondArrivee")
 		local u = xb / volB
 		local dir = Vector3.new(arr.X - dep.X, 0, arr.Z - dep.Z); dir = dir.Magnitude > 1e-3 and dir.Unit or cfAffiche.RightVector
 		local parent = mondeOs(osRacine)
-		local wT = 1 - lisse((u - 0.25) / 0.3)                     -- d'abord ramenés en faisceau...
-		local wA = lisse((u - 0.3) / 0.4) * (1 - lisse((xb - volB - 0.3) / 0.3))   -- ...puis tendus vers la proie, jusqu'à ce qu'ils se plantent
+		local pt0 = racine:GetAttribute("PlaqueT")
+		local fin = pt0 and lisse((workspace:GetServerTimeNow() - pt0) / 0.2) or lisse((xb - volB - 0.1) / 0.3)
+		local wT = 1 - lisse((u - 0.2) / 0.3)                      -- d'abord ramenés en faisceau...
+		local wA = lisse((u - 0.3) / 0.35) * (1 - fin)             -- ...puis lancés chacun vers le membre qu'il va saisir
 		local pT, pA = {}, {}
 		for j = 1, 8 do pT[j] = wT; pA[j] = wA end
 		local centre = parent.Position
-		for _, chn in pairs(BRAS) do
+		local ch = persoDe("Cible")
+		local assign = ch and assignationPlaquage(ch, bt, dep, arr)
+		local points = ch and pointsMembres(ch)
+		for k, chn in pairs(BRAS) do
 			local B = (parent * chn.os[1].CFrame).Position
 			if wT > 0.001 then G.orienter(chn, parent, G.articulations(B, G.cheminTrainee(B, centre, dir, UP, t), chn.L), pT) end
 			if wA > 0.001 then
-				local rad = Vector3.new(B.X - centre.X, 0, B.Z - centre.Z); rad = rad.Magnitude > 1e-3 and rad.Unit or dir
-				local vise = arr + rad * 2.5 + UP * 0.6
+				local P = assign and points and points[assign[k]]
+				if not P then
+					local rad = Vector3.new(B.X - centre.X, 0, B.Z - centre.Z); rad = rad.Magnitude > 1e-3 and rad.Unit or dir
+					P = arr + dir + rad * 1.5
+				end
+				local vise = P :: Vector3
 				G.orienter(chn, parent, G.articulations(B, { B, B + (vise - B).Unit * 12 }, chn.L), pA)
 			end
 		end
 	end
 	if racine:GetAttribute("Plaque") then plaquer(t) end
 	if racine:GetAttribute("Grille") then grille(t) end
-	if coup == "chute" and e < signe + 0.5 then coupe(t, lisse(e / 0.6), 1.6)
-	elseif racine:GetAttribute("Devore") and (not racine:GetAttribute("DevoreT")
-		or workspace:GetServerTimeNow() - racine:GetAttribute("DevoreT") < 0.3) then coupe(t, 1, 1.35) end   -- la cage part de la coupe
+	-- chute dévorante : pendant l'attente, bras ramassés à plat contre le plafond (rien ne pend) ; en tombant ils s'ouvrent
+	-- en ombrelle sous elle, centrée sur la tête ; à l'impact l'ombrelle se referme en cage
+	if coup == "chute" and e < signe + 0.5 then
+		ramasser(t, lisse(e / 0.5) * (1 - lisse((e - signe - 0.1) / 0.4)), lisse((e - signe + 0.4) / 0.4))
+	elseif racine:GetAttribute("Devore") and not racine:GetAttribute("DevoreT") then
+		local d = racine:GetAttribute("ChuteDecroche") or C.DECROCHAGE_EMBUSCADE
+		local wO = coup == "descente" and lisse((e - d * 0.5) / 0.12) or 0
+		ramasser(t, 1 - wO, 1)
+		coupe(t, wO, 2.6)
+	elseif racine:GetAttribute("Devore") and workspace:GetServerTimeNow() - racine:GetAttribute("DevoreT") < 0.3 then
+		coupe(t, 1, 2.6 - 1.25 * lisse((workspace:GetServerTimeNow() - racine:GetAttribute("DevoreT")) / 0.25))   -- l'ombrelle se referme
+	end
 	if racine:GetAttribute("Devore") then cage(t) end
 	-- saisie : les deux bras avant s'enroulent autour du cou (ou du torse pour un enlèvement), les autres prennent appui au sol
 	if saisie and not racine:GetAttribute("Grille") then enrouler(t) end
@@ -611,9 +702,18 @@ RunService.RenderStepped:Connect(function(dt)
 		local dep, arr = racine:GetAttribute("BondDepart"), racine:GetAttribute("BondArrivee")
 		local P = C.COUPS.plaquage
 		local u = (workspace:GetServerTimeNow() - (racine:GetAttribute("BondT") or 0)) / P.vol
-		local pos, bascule = G.bond(dep, arr, P.hauteur, u)
-		local dir = Vector3.new(arr.X - dep.X, 0, arr.Z - dep.Z); dir = dir.Magnitude > 1e-3 and dir.Unit or Vector3.new(0, 0, -1)
-		cfAffiche = CFrame.lookAt(pos, pos + dir, UP) * ROT * CFrame.Angles(0, 0, bascule)
+		cfAffiche = G.bondRepere(dep, arr, P.hauteur, u)
+	elseif racine:GetAttribute("Plaque") and plaqueRacine() then
+		-- plaquée sur lui : elle reste collée à sa poitrine pendant qu'il tombe à la renverse, puis couchée sur lui
+		chuteEtat.phase = ""
+		local hrp = plaqueRacine() :: BasePart
+		local colle = G.plaqueRepere(hrp.CFrame)
+		local x = workspace:GetServerTimeNow() - (racine:GetAttribute("PlaqueT") or 0)
+		local dep, arr = racine:GetAttribute("BondDepart"), racine:GetAttribute("BondArrivee")
+		if x < 0.12 and typeof(dep) == "Vector3" and typeof(arr) == "Vector3" then      -- raccord avec la fin du vol
+			colle = G.bondRepere(dep, arr, C.COUPS.plaquage.hauteur, 1):Lerp(colle, lisse(x / 0.12))
+		end
+		cfAffiche = colle
 	else
 		chuteEtat.phase = ""
 		if racine:GetAttribute("Saisie") and racine:GetAttribute("SaisieType") ~= "enlevement" then
@@ -626,6 +726,12 @@ RunService.RenderStepped:Connect(function(dt)
 	corps:PivotTo(cfAffiche * decalageGeste(coupG, workspace:GetServerTimeNow() - (racine:GetAttribute("CoupT") or 0), signeG))
 	-- vitesse du corps affiché (lissé) : sert à la marche à pieds posés
 	vitesseV = vitesseV:Lerp((cfAffiche.Position - avantAff) / math.max(dt, 1e-3), math.min(1, dt * 10))
+	if not racine:GetAttribute("Grille") then                 -- hors de la grille, les bras reprennent leur longueur
+		for k in pairs(BRAS) do
+			local ns = 1 + ((ETIRE[k] or 1) - 1) * math.exp(-dt * 10)
+			etirer(k, ns < 1.003 and 1 or ns)
+		end
+	end
 	animer(t, dt)
 	majLumieres(t)
 	regard(t)

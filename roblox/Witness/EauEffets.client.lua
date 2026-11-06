@@ -193,7 +193,8 @@ local function creature(t: number, dt: number)
 	-- plaquage : gerbe à l'atterrissage du bond ; chute dévorante : la victime s'effondre dans l'eau
 	local bt = racine:GetAttribute("BondT")
 	local arr = racine:GetAttribute("BondArrivee")
-	if bt and typeof(arr) == "Vector3" and dejaVu.bond ~= bt and workspace:GetServerTimeNow() >= bt + C.COUPS.plaquage.vol then
+	-- (le bond finit contre sa poitrine : l'eau gicle quand ils tombent ensemble, ou quand elle retombe si elle l'a raté)
+	if bt and typeof(arr) == "Vector3" and dejaVu.bond ~= bt and workspace:GetServerTimeNow() >= bt + C.COUPS.plaquage.vol + C.COUPS.plaquage.renverse then
 		dejaVu.bond = bt
 		local s0 = Eau.surface(arr, 3)
 		if s0 then

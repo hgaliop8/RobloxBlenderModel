@@ -73,7 +73,7 @@ C.COUPS = {
 	enlevement= { portee_grille = 12, portee = 8, trainee = 1.2, levee = 1.8, avalee = 0.4, liberation = 100, signe = 1.0, recharge = 0, phase = 3 },
 	chute     = { rayon = 3, signe = 1.5, recharge = 0, phase = 2, etreinte = 2.0 },   -- étreinte : s entre l'impact et l'élimination
 	-- plaquage : bond sur un joueur, renversé sur le dos, poignets et chevilles tenus par quatre bras
-	plaquage  = { portee_min = 5, portee = 14, signe = 0.5, vol = 0.45, hauteur = 4, duree = 6, dps = 10, liberation = 120, recharge = 15, phase = 2 },
+	plaquage  = { portee_min = 5, portee = 14, signe = 0.5, vol = 0.45, hauteur = 4, renverse = 0.35, duree = 6, dps = 10, liberation = 120, recharge = 15, phase = 2 },
 	encre     = { rayon = 12, duree = 4, signe = 0.5, recharge = 30, phase = 1 },
 }
 C.REPLI_APRES_ELIMINATION = 0.7   -- probabilité de filer dans les gaines après une élimination (phases 1 à 3)
