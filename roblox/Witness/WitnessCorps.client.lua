@@ -306,8 +306,10 @@ local function grille(t: number)
 	local tt = tient and (workspace:GetServerTimeNow() - (racine:GetAttribute("SaisieT") or 0)) or 0
 	local ch = persoDe("Saisie") or persoDe("Cible")
 	local torse = ch and (ch:FindFirstChild("UpperTorso") or ch:FindFirstChild("Torso")) :: BasePart?
-	local w0 = lisse(e / 0.3)
 	local signe = C.COUPS.enlevement.signe
+	local E = C.COUPS.enlevement
+	-- arrivée des bras (0,5 s), puis relâchement pendant qu'il est avalé (la gaine le prend)
+	local p0 = lisse(e / 0.5) * (1 - 0.85 * lisse((tt - E.trainee - E.levee) / E.avalee))
 	local nouveaux = false
 	for k, chn in pairs(BRAS) do
 		local B = (parent * chn.os[1].CFrame).Position
@@ -347,7 +349,7 @@ local function grille(t: number)
 		end
 		etirer(k, s)
 		local poids = {}
-		for j = 1, 8 do poids[j] = tient and math.max(w0, lisse((tt - 0.04 * (j - 1)) / 0.4)) or w0 end
+		for j = 1, 8 do poids[j] = G.poidsChaine(p0, j) end
 		G.orienter(chn, parent, G.articulations(B, chemin, longueursEtirees(k, s)), poids)
 	end
 	if nouveaux then grilleCache.t = racine:GetAttribute("SaisieT") end

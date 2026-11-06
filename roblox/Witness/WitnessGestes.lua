@@ -431,6 +431,15 @@ function G.cheminRamasse(B: Vector3, centre: Vector3, haut: Vector3, serre: numb
 	return pts
 end
 
+--[[ poids d'orientation pour l'os j d'une chaîne quand on veut que tout le bras ait fait la fraction p du chemin :
+chaque os se tourne d'une part de ce qui reste après ses parents, donc des poids égaux s'additionnent vers la pointe
+(un bras « claque » en quelques images). Ce poids-là donne une progression régulière. ]]
+function G.poidsChaine(p: number, j: number): number
+	p = math.clamp(p, 0, 1)
+	if p >= 1 then return 1 end
+	return 1 - (1 - p) ^ (1 / j)
+end
+
 -- longueur d'un chemin, et le même chemin coupé à une longueur donnée
 function G.longueur(pts: { Vector3 }): number
 	local s = 0

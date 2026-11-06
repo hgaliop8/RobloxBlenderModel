@@ -596,6 +596,8 @@ def ramasser(Q, Mw, t, w, serre):
     for k in range(8):
         chn = CHAINES[k]; B = (Mrac @ rest_rel(chn[0])).translation
         orienter(chn, Mrac, articulations(B, chemin_ramasse(B, centre, haut, serre, t, k), LONG[k]), [w]*8, Q)
+def poids_chaine(p, j):
+    p = max(0.0, min(1.0, p)); return 1.0 if p >= 1 else 1 - (1 - p)**(1/j)
 def longueur(pts): return sum((b - a).length for a, b in zip(pts, pts[1:]))
 def tronquer(pts, l):
     out = [pts[0]]; s_ = 0.0
@@ -749,7 +751,8 @@ def plan_enlevement(t):
     if coup:
         arm.matrix_world = Mw; bpy.context.view_layer.update()
         Mrac = Mw @ arm.pose.bones['Racine'].bone.matrix_local; centre = Mrac.translation
-        tient = tt >= 0; w0 = lisse(e/0.3)
+        tient = tt >= 0
+        p0 = lisse(e/0.5)*(1 - 0.85*lisse((tt - T2)/ENL['avalee']))
         N = MANN.racine.matrix_world.translation; U = (MANN.racine.matrix_world.to_3x3() @ Vector((0, 0, 1))).normalized()
         ETIRE.clear()
         for k in range(8):
@@ -770,7 +773,7 @@ def plan_enlevement(t):
                 else: lp = BL + max(0.0, contact - DL - BL)*lisse((e - 0.15 - 0.04*(k % 4))/(ENL['signe'] - 0.35))
                 ETIRE[k] = max(1.0, min(ETIRE_MAX, lp/BL))
                 chemin = complet
-            poids = [max(w0, lisse((tt - 0.04*j)/0.4)) if tient else w0 for j in range(8)]
+            poids = [poids_chaine(p0, j + 1) for j in range(8)]
             orienter(chn, Mrac, articulations(B, chemin, longueurs(k)), poids, Q)
     CAM = Vector((2.5, -9.0, 4.0)); viser(CAM, (1.2, 0, 7.4)); cd.angle_y = math.radians(62)
     poser(Mw, Q, CAM)
