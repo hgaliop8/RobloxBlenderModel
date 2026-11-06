@@ -235,7 +235,7 @@ G.FOUET = {
 	frappe = 0.18,        -- s : la base passe de l'armé au bout de sa course (le reste du bras suit en retard)
 	retard = 0.018,       -- s de retard de chaque os sur le précédent : la boucle se déroule et le bout claque en dernier
 	suite = 0.55,         -- s : le bras continue, retombe dans l'eau et se reprend
-	arme = 2.3,           -- rad : bras levé en arrière (0 = vers la cible, à l'horizontale)
+	arme = 2.0,           -- rad : bras levé en arrière (0 = vers la cible, à l'horizontale)
 	courbure = 0.24,      -- rad par os : le bras s'enroule vers la pointe pendant l'armé
 	depasse = 0.3,        -- rad : la base passe sous la cible
 	portee_bras = 5.5,    -- au-delà, elle bondit vers sa cible

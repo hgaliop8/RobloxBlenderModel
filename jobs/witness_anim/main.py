@@ -137,7 +137,7 @@ def animer(t, vit, coup, e, saisie, ch):
     return Q
 
 # ---------------------------------------------------------------- attaques au contact (port de WitnessGestes)
-FOUET = dict(frappe=0.18, retard=0.018, suite=0.55, arme=2.3, courbure=0.24, depasse=0.3, portee_bras=5.5, contact=0.28)
+FOUET = dict(frappe=0.18, retard=0.018, suite=0.55, arme=2.0, courbure=0.24, depasse=0.3, portee_bras=5.5, contact=0.28)
 TOUR_B, ENF_B = 0.35, 0.3
 MORS = dict(bond=1.8, tenue=0.1, retour=0.35)
 def angle_fouet(x, signe, a_repos, a_cible):
