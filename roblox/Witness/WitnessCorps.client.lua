@@ -456,6 +456,23 @@ local function animer(t, dt)
 		end
 	end
 	if racine:GetAttribute("Plaque") then plaquer(t) end
+	-- enlèvement, pendant le signe : elle se laisse pendre de la grille, les bras arrière agrippent le plafond
+	if coup == "enlevement" and not saisie and mode == "plafond" and e < signe + 0.2 and osRacine then
+		local parent = mondeOs(osRacine); local centre = parent.Position
+		local surf = racine.CFrame.UpVector; local plan = racine.Position
+		local w = 0.9 * lisse(e / signe)
+		local pw = {}
+		for j = 1, 8 do pw[j] = w end
+		for _, k in ipairs({ 2, 3, 4, 5 }) do
+			local chn = BRAS[k]
+			if chn then
+				local B = (parent * chn.os[1].CFrame).Position
+				local dir = B - centre; dir = dir - surf * dir:Dot(surf); dir = dir.Magnitude > 1e-3 and dir.Unit or cfAffiche.RightVector
+				local c0 = centre - surf * (centre - plan):Dot(surf)
+				G.orienter(chn, parent, G.articulations(B, G.cheminSol(B, dir, c0 + dir * 4.2, surf), chn.L), pw)
+			end
+		end
+	end
 	if racine:GetAttribute("Devore") then cage(t) end
 	-- saisie : les deux bras avant s'enroulent autour du cou (ou du torse pour un enlèvement), les autres prennent appui au sol
 	if saisie then enrouler(t) end

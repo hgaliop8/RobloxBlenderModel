@@ -653,9 +653,16 @@ def plan_enlevement(t):
     else: Mm = Matrix.Identity(4)
     Mw = Matrix.Translation(GRILLE) @ RETOURNE @ Mm
     Q = animer(t, 0, coup, e, tt >= 0, None)
-    if tt >= 0:
+    if coup:
         arm.matrix_world = Mw; bpy.context.view_layer.update()
         Mrac = Mw @ arm.pose.bones['Racine'].bone.matrix_local; centre = Mrac.translation
+    if coup and tt < 0:                                          # pendant le signe : les bras arrière agrippent le plafond
+        surf = Vector((0, 0, -1)); w = 0.9*lisse(e/ENL['signe'])
+        for k in (2, 3, 4, 5):
+            chn = CHAINES[k]; B = (Mrac @ rest_rel(chn[0])).translation
+            dv = B - centre; dv = dv - surf*dv.dot(surf); dv = dv.normalized() if dv.length > 1e-3 else Vector((1, 0, 0))
+            orienter(chn, Mrac, articulations(B, chemin_sol(B, dv, Vector((centre.x, centre.y, H)) + dv*4.2, surf), LONG[k]), [w]*8, Q)
+    if tt >= 0:
         N = MANN.racine.matrix_world.translation; U = (MANN.racine.matrix_world.to_3x3() @ Vector((0, 0, 1))).normalized()
         r = 1.1 + 0.5*math.exp(-tt*0.9) - 0.04*max(0, math.sin(tt*7))
         fv = Vector((centre.x - N.x, centre.y - N.y, 0)); fv = fv.normalized() if fv.length > 1e-3 else Vector((-1, 0, 0))
@@ -677,7 +684,7 @@ if PLAN == 'encre':
     rg_ = _r.Random(11)
     bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=3, radius=1.0); NUAGE = bpy.context.object; NUAGE.name = 'Nuage'
     mn = bpy.data.materials.new('Encre'); mn.use_nodes = True; nt = mn.node_tree; nt.nodes.remove(nt.nodes['Principled BSDF'])
-    pv = nt.nodes.new('ShaderNodePrincipledVolume'); pv.inputs['Color'].default_value = (0.02, 0.07, 0.065, 1)
+    pv = nt.nodes.new('ShaderNodeVolumePrincipled'); pv.inputs['Color'].default_value = (0.02, 0.07, 0.065, 1)
     tc = nt.nodes.new('ShaderNodeTexCoord'); nz = nt.nodes.new('ShaderNodeTexNoise'); nz.inputs['Scale'].default_value = 1.6; nz.inputs['Detail'].default_value = 4.0
     mr = nt.nodes.new('ShaderNodeMapRange'); mr.inputs['From Min'].default_value = 0.38; mr.inputs['From Max'].default_value = 0.7
     mr.inputs['To Min'].default_value = 0.0; mr.inputs['To Max'].default_value = 1.0
