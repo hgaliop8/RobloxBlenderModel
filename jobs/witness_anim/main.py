@@ -32,7 +32,7 @@ log('modèle prêt')
 
 # ================================================================ formules partagées avec Roblox (WitnessConfig / WitnessGestes)
 G_JEU = 196.2; DECROCHAGE = 0.3; ATTERR = 0.45
-SIGNE = {'fouet': 0.5, 'balayage': 0.6, 'morsure': 0.35, 'saisie': 0.7, 'enlevement': 1.0, 'chute': 1.5, 'encre': 0.5}
+SIGNE = {'plaquage': 0.5, 'fouet': 0.5, 'balayage': 0.6, 'morsure': 0.35, 'saisie': 0.7, 'enlevement': 1.0, 'chute': 1.5, 'encre': 0.5}
 P_ARR = Vector((-2.2, 0, 0)); P_CAB = Vector((-1.8, 0, 0)); UPV = Vector((0, 0, 1))
 def lisse(a): a = max(0.0, min(1.0, a)); return a*a*(3 - 2*a)
 # repère du modèle : Roblox (avant X, haut Y, côté Z) = Blender (avant X, haut Z, côté -Y) ; Roblox Rz(+a) = Blender Ry(-a)
@@ -96,6 +96,7 @@ def orienter(chaine, Mparent, J, poids, Q):
         Q[pb.name] = q; Mc = repos @ q.to_matrix().to_4x4()
 
 phases = {k: k*0.79 + (k % 3)*0.4 for k in range(8)}
+PLAQUE_ACTIF = [False]
 def animer(t, vit, coup, e, saisie, ch):
     """port de WitnessCorps.animer : quaternion de chaque os"""
     signe = SIGNE.get(coup, 0.5); Q = {}
@@ -110,7 +111,11 @@ def animer(t, vit, coup, e, saisie, ch):
                     a = lisse(e/signe); pitch += a*(0.5 if j == 1 else (0.06 if j <= 4 else 0.12)); yaw += a*(0.2 if k <= 1 else -0.2)
             elif coup == 'fouet':
                 pitch -= 0.05*lisse(e/signe)
-            elif coup == 'balayage':
+            elif coup == 'chute':
+                pitch += 0.12 + 0.03*math.sin(t*22 + k)
+            elif PLAQUE_ACTIF[0] and k in (0, 7):
+                pitch += 0.35 if j == 1 else 0.08
+            elif coup == 'balayage' or (coup == 'plaquage' and e < signe):
                 a = lisse(e/signe) if e < signe else 1.0
                 pitch += (-0.1 if j <= 2 else (0.3 if j >= 6 else 0.0))*a
             elif coup == 'descente' and ch:
@@ -292,7 +297,7 @@ sc = bpy.context.scene; sc.render.engine = 'CYCLES'; sc.cycles.samples = int(os.
 sc.cycles.max_bounces = 12; sc.cycles.transmission_bounces = 12; sc.cycles.transparent_max_bounces = 12
 sc.render.resolution_x, sc.render.resolution_y = (int(x) for x in os.environ.get('RES', '1280x720').split('x'))
 sc.view_settings.view_transform = 'AgX'; sc.view_settings.look = 'AgX - Medium High Contrast'
-EXPO = {'couloir': 0.0, 'chute': 0.0, 'etrangle': 0.0, 'plafond': 0.0, 'sol': 0.0, 'fouet': 0.0, 'balayage': 0.0, 'morsure': 0.0}[PLAN]
+EXPO = {'couloir': 0.0, 'chute': 0.0, 'etrangle': 0.0, 'plafond': 0.0, 'sol': 0.0, 'fouet': 0.0, 'balayage': 0.0, 'morsure': 0.0, 'devore': 0.0, 'plaquage': 0.0}[PLAN]
 sc.view_settings.exposure = float(os.environ.get('EXPO', EXPO))
 w = bpy.data.worlds.new('W'); w.use_nodes = True; w.node_tree.nodes['Background'].inputs['Color'].default_value = (0.01, 0.012, 0.016, 1); sc.world = w
 H = 12.0; LARG = 12.0
@@ -337,12 +342,19 @@ class Mannequin:
         for s in (-1, 1): boite(f'Bras{s}', (0.95, 0.95, 2.0), (0, 0, -0.8), bleu, self.epaule[s]); boite(f'Main{s}', (0.9, 0.9, 0.4), (0, 0, -1.85), peau, self.epaule[s])
         self.hanche = {s: piv(f'Hanche{s}', (0, s*0.5, -1.0)) for s in (-1, 1)}
         for s in (-1, 1): boite(f'Jambe{s}', (0.95, 0.95, 2.0), (0, 0, -1.0), bleu, self.hanche[s])
-    def libre(self, M, epaules=(0.0, 0.0), ecart=0.0, hanches=(0.0, 0.0)):
+    def extremites(self):
+        """mains et pieds (position, axe du membre vers l'extrémité)"""
+        out = {}
+        for s_, nom in ((1, 'G'), (-1, 'D')):
+            e_ = self.epaule[s_].matrix_world; m = e_ @ Vector((0, 0, -1.85)); out['main' + nom] = (m, (m - e_.translation).normalized())
+            h_ = self.hanche[s_].matrix_world; f_ = h_ @ Vector((0, 0, -1.9)); out['pied' + nom] = (f_, (f_ - h_.translation).normalized())
+        return out
+    def libre(self, M, epaules=(0.0, 0.0), ecart=0.0, hanches=(0.0, 0.0), jambes=0.0):
         """pose quelconque : M = repère du centre du torse ; épaules : bras levés vers l'avant (rad) ; ecart : bras ouverts sur le côté"""
         self.racine.matrix_world = M
         for i, s_ in enumerate((-1, 1)):
             self.epaule[s_].rotation_mode = 'XYZ'; self.epaule[s_].rotation_euler = (s_*ecart, -epaules[i], 0)
-            self.hanche[s_].rotation_mode = 'XYZ'; self.hanche[s_].rotation_euler = (0, hanches[i], 0)
+            self.hanche[s_].rotation_mode = 'XYZ'; self.hanche[s_].rotation_euler = (s_*jambes, hanches[i], 0)
         bpy.context.view_layer.update()
     def poser(self, hrp, face, tt, saisi):
         """hrp = centre du torse ; face = direction regardée ; tt = temps depuis la saisie"""
@@ -452,7 +464,7 @@ def plan_chute(t):
     Q = animer(t, vit, coup, e, False, ch)
     CAM = Vector((3.5, -19.0, 6.2)); viser(CAM, (0.8, 0, 5.6)); cd.angle_y = math.radians(46)
     poser(Matrix.Translation(pos) @ Mm, Q, CAM)
-MANN = Mannequin() if PLAN in ('etrangle', 'fouet', 'morsure') else None
+MANN = Mannequin() if PLAN in ('etrangle', 'fouet', 'morsure', 'devore', 'plaquage') else None
 MANNS = [Mannequin() for _ in range(3)] if PLAN == 'balayage' else []
 T0_ATT = {'fouet': 0.4, 'balayage': 0.3, 'morsure': 0.4}
 def bascule(pieds, yaw, angle, lever=0.0):
@@ -489,6 +501,118 @@ def mannequins(t):
         eclab += [(0, 0, T0_ATT['balayage'] + 0.6, 0.3), (0, 0, T0_ATT['balayage'] + 0.75, 0.18)]
         return None, eclab
     return None, eclab
+# ---------------------------------------------------------------- chute dévorante et plaquage (port de WitnessGestes / WitnessCerveau)
+def chemin_cage(B, N, U, sens):
+    rel = B - N; rel = rel - U*rel.dot(U); d = rel.normalized() if rel.length > 1e-3 else U.cross(Vector((1, 0, 0))).normalized()
+    l = U.cross(d).normalized(); pts = [B.copy()]
+    for i in range(1, 25):
+        s_ = i*0.25; a = sens*0.35*s_; r = 1.05 + 0.25*min(1, s_)
+        pts.append(N + (d*math.cos(a) + l*math.sin(a))*r - U*(0.15 + s_*0.75))
+    return pts
+def repere(pos, avant, haut):
+    """matrice monde : avant du modèle = X, haut = Z"""
+    av = avant - haut*avant.dot(haut); av = av.normalized(); y = haut.cross(av)
+    M = Matrix((av, y, haut)).transposed().to_4x4(); M.translation = pos; return M
+PLAQ = dict(signe=0.5, vol=0.45, hauteur=4)
+def plan_devore(t):
+    """au plafond au-dessus d'un joueur ; tension (fin du signe), décrochage bref, chute sur la tête, cage de bras, effondrement"""
+    t_f = 0.6; tete_haut = 3 + 1.65 + 0.6; tf = math.sqrt(2*(H - tete_haut)/G_JEU); ti = t_f + 0.12 + tf; D = 2.0
+    pieds = Vector((0.3, 0, 0)); avant = Vector((1, 0, 0)); axe = Vector((0, 0, 1)).cross(avant)
+    tt = t - ti
+    bas = 1.45*lisse((tt - 0.9)/1.0) if tt > 0 else 0.0
+    sec = 0.06*math.sin(tt*38) if 0.3 < tt < 1.1 else 0.0
+    rot = Matrix.Rotation(-bas, 4, axe)
+    M = Matrix.Translation(pieds) @ rot @ Matrix.Translation((sec, 0, 3)) ; M = Matrix.Translation((0, 0, 0.6*math.sin(bas))) @ M
+    M = M @ Matrix.Rotation(math.pi, 4, 'Z')                    # le joueur fait face à la créature
+    bras = lisse((tt - 0.25)/0.3)*(1 - lisse((tt - 1.0)/0.5)) if tt > 0 else 0.0
+    MANN.libre(M, epaules=(2.4*bras + 0.15*math.sin(tt*21)*bras, 2.2*bras + 0.15*math.sin(tt*17 + 1)*bras), ecart=0.3*bras)
+    ECLAB[:] = [(1.8, 0, ti + D - 0.15, 0.28), (1.8, 0, ti + D, 0.14)]
+    hautC = (rot.to_3x3() @ Vector((0, 0, 1))).normalized()
+    tete_c = MANN.tete.matrix_world.translation
+    if t < t_f:
+        Mw = Matrix.Translation((0, 0, H)) @ RETOURNE; coup, e, ch = 'chute', t + 0.9, None
+    elif t < ti:
+        Mm, tombe, phase, prog, tau = chute(t - t_f, 0.12, tf)
+        Mw = Matrix.Translation((0, 0, H - tombe)) @ Mm; coup, e = 'descente', t - t_f
+        ch = {'phase': phase, 'prog': prog, 'tau': tau, 'hautY': (Mm.to_3x3().inverted() @ UPV).z}
+    elif tt < D:
+        g = min(1, tt/0.3); pos = (tete_c + hautC*0.6).lerp(tete_c - hautC*0.6, g)
+        Mw = repere(pos, avant, hautC); coup, e, ch = 'descente', 99.0, None
+    else:
+        a = lisse((tt - D)/0.6); fin = Vector((3.2, 0, 0))
+        pos = (tete_c - hautC*0.6).lerp(fin, a); Mw = repere(pos, avant, hautC.lerp(Vector((0, 0, 1)), a).normalized()); coup, e, ch = None, 0.0, None
+    Q = animer(t, 0, coup, e, False, ch)
+    if 0 <= tt < D + 0.4:
+        w = lisse(tt/0.25)*(1 - lisse((tt - D)/0.4)); arm.matrix_world = Mw; bpy.context.view_layer.update()
+        Mrac = Mw @ arm.pose.bones['Racine'].bone.matrix_local
+        U = (MANN.tete.matrix_world.to_3x3() @ Vector((0, 0, 1))).normalized(); N = tete_c - U*0.6
+        for k in range(8):
+            chn = CHAINES[k]; B = (Mrac @ rest_rel(chn[0])).translation
+            orienter(chn, Mrac, articulations(B, chemin_cage(B, N, U, 1 if k % 2 == 0 else -1), LONG[k]), [w*lisse((tt - 0.03*j)/0.25) for j in range(8)], Q)
+    CAM = Vector((2.5, -13.5, 5.6)); viser(CAM, (0.6, 0, 4.6)); cd.angle_y = math.radians(56)
+    poser(Mw, Q, CAM)
+def plan_plaquage(t):
+    """ramassé, bond en arc, le joueur bascule sur le dos ; elle se pose sur sa poitrine et lui tient poignets et chevilles"""
+    t0 = 0.3; tb = t0 + PLAQ['signe']; ta = tb + PLAQ['vol']; tp = ta + 0.25
+    dep = Vector((0, 0, 0)); arr = Vector((10, 0, 0)); dirv = Vector((1, 0, 0))
+    couche = Vector((10 + 1.0, 0, 0.55)); W_pos = couche + Vector((0, 0, 0.6)) - dirv*0.4
+    # joueur : debout, puis bascule en arrière (0,25 s), couché bras et jambes écartés, se débat
+    pieds = Vector((10, 0, 0))
+    if t < ta:
+        M = Matrix.Translation(pieds + Vector((0, 0, 3))) @ Matrix.Rotation(math.pi, 4, 'Z'); MANN.libre(M)
+    else:
+        a = min(1, (t - ta)/0.25); a = a*a
+        Mdeb = Matrix.Translation(pieds + Vector((0, 0, 3))) @ Matrix.Rotation(math.pi, 4, 'Z')
+        Mall = Matrix.Translation(couche) @ Matrix(((0, 0, 1, 0), (0, -1, 0, 0), (1, 0, 0, 0), (0, 0, 0, 1)))
+        M = interp(Mdeb, Mall, a)
+        tt = max(0.0, t - tp); lutte = 0.12*math.sin(tt*9)*math.exp(-tt*0.3)
+        MANN.libre(M, epaules=(0.0, 0.0), ecart=1.25*a + lutte, jambes=0.35*a - lutte*0.5)
+    ECLAB[:] = [(10, 0, ta, 0.3), (10.5, 0, ta + 0.25, 0.22), (0, 0, tb, 0.12)]
+    if t < tb:
+        coup, e = ('plaquage', t - t0) if t >= t0 else (None, 0.0)
+        Mw = decalage_ramasse(e) if coup else Matrix.Identity(4)
+    elif t < ta:
+        coup, e = 'plaquage', t - t0; u = (t - tb)/PLAQ['vol']
+        p = dep.lerp(arr, u) + Vector((0, 0, 4*PLAQ['hauteur']*u*(1 - u))); b = 0.4*(1 - 2*u)
+        Mw = Matrix.Translation(p) @ Matrix.Rotation(-b, 4, 'Y')
+    else:
+        coup, e = 'plaquage', t - t0; Mw = Matrix.Translation(W_pos)
+    PLAQUE_ACTIF[0] = t >= tp
+    racine_fn = lambda tt_: (Matrix.Identity(4) if tt_ < tb else Matrix.Translation(W_pos), 'plaquage' if tt_ >= t0 else None, tt_ - t0, None)
+    avancer(racine_fn, t)
+    Q = animer(t, 0, coup, e, False, None)
+    if SIM['poids'] >= 0.01 and t < t0 + 0.3: locomotion(Q, t, Mw, SIM['vel'], SIM['m'], SIM['poids'])
+    arm.matrix_world = Mw; bpy.context.view_layer.update()
+    Mrac = Mw @ arm.pose.bones['Racine'].bone.matrix_local; centre = Mrac.translation
+    if tb <= t < ta:                                             # en vol : bras ramenés en faisceau
+        u = (t - tb)/PLAQ['vol']; w = 1 - lisse((u - 0.55)/0.45)
+        for k in range(8):
+            chn = CHAINES[k]; B = (Mrac @ rest_rel(chn[0])).translation
+            orienter(chn, Mrac, articulations(B, chemin_trainee(B, centre, dirv, UPV, t), LONG[k]), [w]*8, Q)
+    if t >= tp:
+        tt = t - tp; ext = MANN.extremites()
+        if 'assign' not in PLAQ:
+            libres = [1, 2, 5, 6]; PLAQ['assign'] = {}
+            for m in ('mainG', 'mainD', 'piedG', 'piedD'):
+                P = ext[m][0]; k = min(libres, key=lambda k_: ((Mrac @ rest_rel(CHAINES[k_][0])).translation - P).length)
+                PLAQ['assign'][k] = m; libres.remove(k)
+        for k, m in PLAQ['assign'].items():
+            P, axe = ext[m]; chn = CHAINES[k]; B = (Mrac @ rest_rel(chn[0])).translation
+            f_ = centre - P; f_ = f_ - axe*f_.dot(axe); f_ = f_.normalized() if f_.length > 1e-3 else UPV
+            l_ = axe.cross(f_); sens = 1 if (B - P).dot(l_) >= 0 else -1
+            serre = 0.45 - 0.03*max(0, math.sin(tt*6 + k))
+            orienter(chn, Mrac, articulations(B, chemin_enroule(B, P, axe, f_, serre, -0.2, sens, 1.5), LONG[k]), [lisse((tt - 0.04*j)/0.35) for j in range(8)], Q)
+        w = 0.9*lisse(tt/0.4)
+        for k in (3, 4):
+            chn = CHAINES[k]; B = (Mrac @ rest_rel(chn[0])).translation
+            dv = Vector((B.x - centre.x, B.y - centre.y, 0)); dv = dv.normalized() if dv.length > 1e-3 else -dirv
+            F = Vector((centre.x, centre.y, 0)) + dv*4
+            orienter(chn, Mrac, articulations(B, chemin_sol(B, dv, F, UPV), LONG[k]), [w]*8, Q)
+    CAM = Vector((6.5, -13.0, 5.2)); viser(CAM, (6.0, 0, 1.6)); cd.angle_y = math.radians(54)
+    poser(Mw, Q, CAM)
+def decalage_ramasse(e):
+    a = lisse(e/PLAQ['signe']); return Matrix.Translation((-0.4*a, 0, -0.3*a)) @ autour(P_CAB, 0.1*a)
+
 ECLAB = []
 def plan_attaque(t):
     nom = PLAN; t0 = T0_ATT[nom]; signe = SIGNE[nom]
@@ -534,7 +658,7 @@ if PLAN == 'couloir':
         lampe((x + 12, 0, H - 0.8), 250, (1.0, 0.2, 0.12), 1.0)                                  # voyants de secours
     torche = bpy.data.lights.new('Torche', 'SPOT'); torche.energy = 4000; torche.spot_size = math.radians(36); torche.spot_blend = 0.5; torche.color = (1.0, 0.95, 0.85)
     tob = bpy.data.objects.new('Torche', torche); sc.collection.objects.link(tob); tob.location = (96.6, -2.0, 4.2)
-elif PLAN in ('plafond', 'sol') + ('fouet', 'balayage', 'morsure'):
+elif PLAN in ('plafond', 'sol') + ('fouet', 'balayage', 'devore', 'plaquage'):
     for x in range(-36, 40, 10):
         lampe((x, 4.2, H - 0.4), 700, (0.85, 0.93, 1.0), 3.0, forme='RECTANGLE', size_y=0.5)
         lampe((x + 5, -4.2, H - 0.4), 500, (0.85, 0.93, 1.0), 3.0, forme='RECTANGLE', size_y=0.5)
@@ -545,7 +669,7 @@ elif PLAN in ('plafond', 'sol') + ('fouet', 'balayage', 'morsure'):
         for o in list(sc.objects):
             if o.type == 'LIGHT' and o.data.type == 'AREA' and o.data.shape == 'RECTANGLE': o.visible_glossy = False
         lampe((0, 0, H - 0.3), 260, (0.8, 0.9, 1.0), 26.0)
-    if PLAN in ('sol',) + ('fouet', 'balayage', 'morsure'):                                   # sol et eau prolongés côté caméra : pas de bord coupé dans le champ
+    if PLAN in ('sol',) + ('fouet', 'balayage', 'devore', 'plaquage'):                                   # sol et eau prolongés côté caméra : pas de bord coupé dans le champ
         K.box_uv(K.cube('SolAvant', (LX, 16, 0.4), (CX, -14, -0.2), K.mat('tole_striee', (120, 124, 126)), 0))
 elif PLAN == 'chute':
     lampe((-6, -2, H - 0.5), 1400, (0.85, 0.93, 1.0), 3.0, forme='RECTANGLE', size_y=0.6)
@@ -561,7 +685,7 @@ else:
 import numpy as np
 EAU_Z = 1.1
 EAU = None
-if PLAN in ('sol', 'couloir') + ('fouet', 'balayage', 'morsure'):
+if PLAN in ('sol', 'couloir') + ('fouet', 'balayage', 'devore', 'plaquage'):
     me_ = bpy.data.materials.new('Eau'); me_.use_nodes = True; nt = me_.node_tree; b = nt.nodes['Principled BSDF']
     b.inputs['Base Color'].default_value = (0.03, 0.07, 0.075, 1); b.inputs['Roughness'].default_value = 0.03
     b.inputs['Transmission Weight'].default_value = 1.0; b.inputs['IOR'].default_value = 1.33
@@ -582,7 +706,7 @@ if PLAN in ('sol', 'couloir') + ('fouet', 'balayage', 'morsure'):
         so = ob.modifiers.new('volume', 'SOLIDIFY'); so.thickness = EAU_Z + 0.05; so.offset = -1; so.use_even_offset = False
         return ob, X.ravel(), Y.ravel()
     if PLAN == 'sol': EAU = nappe('Eau', -40, 40, -21, 6, 0.24)
-    elif PLAN in ('fouet', 'balayage', 'morsure'): EAU = nappe('Eau', -14, 20, -20, 6, 0.2)
+    elif PLAN in ('fouet', 'balayage', 'devore', 'plaquage'): EAU = nappe('Eau', -14, 20, -20, 6, 0.2)
     else:
         EAU = nappe('Eau', 40, 100, -6, 6, 0.25)
         o = K.cube('EauLoin', (120, 12, EAU_Z + 0.05), (-20, 0, (EAU_Z - 0.05)/2), me_, 0)
@@ -597,7 +721,7 @@ if PLAN in ('sol', 'couloir') + ('fouet', 'balayage', 'morsure'):
             GOUTTES.append((g, Vector((math.cos(a)*rad, math.sin(a)*rad, 0)), Vector((math.cos(a)*rg.uniform(2, 7), math.sin(a)*rg.uniform(2, 7), rg.uniform(6, 13))), rg.uniform(0, 0.06)))
 def emetteurs(t):
     """sources d'ondes : le corps qui avance dans l'eau, les pieds qui se reposent, l'impact de la chute"""
-    if PLAN in ('fouet', 'balayage', 'morsure'):
+    if PLAN in ('fouet', 'balayage', 'devore', 'plaquage'):
         return [x for x in ECLAB if x[2] <= t] + [(pp.x, pp.y, te, 0.05) for te, pp in POSES_PIEDS if t - 2.4 < te <= t]
     out = []; fn = racine_sol if PLAN == 'sol' else racine_couloir
     for i in range(max(0, int((t - 2.4)*24)), int(t*24) + 1):
@@ -635,7 +759,7 @@ def maj_eau(t):
 
 PLANS = {'couloir': lambda t: plan_marche(t, racine_couloir, cam_couloir), 'chute': plan_chute, 'etrangle': plan_etrangle,
          'plafond': lambda t: plan_marche(t, racine_plafond, cam_plafond), 'sol': lambda t: plan_marche(t, racine_sol, cam_sol),
-         'fouet': plan_attaque, 'balayage': plan_attaque, 'morsure': plan_attaque}
+         'fouet': plan_attaque, 'balayage': plan_attaque, 'devore': plan_devore, 'plaquage': plan_plaquage}
 IM = os.environ.get('IMAGES', '1-24')
 if '-' in IM: i0, i1 = (int(x) for x in IM.split('-')); LISTE = range(i0, i1 + 1)
 else: LISTE = [int(x) for x in IM.split('_')]
@@ -643,8 +767,9 @@ for fr in LISTE:
     t = (fr - 1)/FPS
     PLANS[PLAN](t)
     maj_eau(t)
-    if PLAN in ('plafond', 'sol') + ('fouet', 'balayage', 'morsure'):                     # lumière principale et contre-jour qui suivent la créature
-        c = arm.matrix_world.translation; cz = 9.0 if PLAN == 'plafond' else 2.0
+    if PLAN in ('plafond', 'sol') + ('fouet', 'balayage', 'devore', 'plaquage'):                     # lumière principale et contre-jour qui suivent la créature
+        c = arm.matrix_world.translation.copy(); cz = 9.0 if PLAN == 'plafond' else 2.0
+        if PLAN == 'devore': c.z = 2.0; cz = 4.5
         CLE.location = c + Vector((2, -11, 6 if PLAN == 'sol' else -6)); CLE.rotation_euler = (Vector((c.x, 0, cz)) - CLE.location).to_track_quat('-Z', 'Y').to_euler()
         CONTRE.location = c + Vector((-3, 5, 4 if PLAN == 'sol' else -3)); CONTRE.rotation_euler = (Vector((c.x, 0, cz)) - CONTRE.location).to_track_quat('-Z', 'Y').to_euler()
     if PLAN == 'couloir':

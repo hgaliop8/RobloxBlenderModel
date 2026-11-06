@@ -325,4 +325,34 @@ function G.cheminBalayage(B: Vector3, centre: Vector3, haut: Vector3, omega: num
 	return pts
 end
 
+-- ================================================================ chute dévorante, plaquage
+--[[ cage : les huit bras descendent le long du torse de la victime en se croisant (N = base de la tête, U = axe du corps).
+Chaque bras part de son côté et tourne autour du corps en descendant (sens alterné d'un bras à l'autre). ]]
+function G.cheminCage(B: Vector3, N: Vector3, U: Vector3, sens: number): { Vector3 }
+	local rel = B - N; rel = rel - U * rel:Dot(U)
+	local d = rel.Magnitude > 1e-3 and rel.Unit or U:Cross(Vector3.new(1, 0, 0)).Unit
+	local l = U:Cross(d).Unit
+	local pts = { B }
+	for i = 1, 24 do
+		local s = i * 0.25
+		local a = sens * 0.35 * s
+		local r = 1.05 + 0.25 * math.min(1, s)
+		table.insert(pts, N + (d * math.cos(a) + l * math.sin(a)) * r - U * (0.15 + s * 0.75))
+	end
+	return pts
+end
+
+-- bond (plaquage) : position et bascule du corps le long d'une parabole ; u = avancement 0..1
+function G.bond(depart: Vector3, arrivee: Vector3, hauteur: number, u: number): (Vector3, number)
+	u = math.clamp(u, 0, 1)
+	local p = depart:Lerp(arrivee, u) + Vector3.new(0, 4 * hauteur * u * (1 - u), 0)
+	return p, 0.4 * (1 - 2 * u)                          -- avant relevé au départ, plongeant à l'arrivée
+end
+
+-- plaquage, ramassé avant le bond : le corps se tasse et recule un peu
+function G.ramasse(e: number, signe: number): CFrame
+	local a = lisse(e / signe)
+	return CFrame.new(-0.4 * a, -0.3 * a, 0) * autourPivot(G.CABRE_PIVOT, 0.1 * a)
+end
+
 return G

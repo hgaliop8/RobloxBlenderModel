@@ -312,7 +312,7 @@ local function solPoint(p)
 end
 --[[ se laisser tomber du plafond, en trois temps partagés avec les clients (attributs Chute*) :
 décrochage (elle reste accrochée par l'arrière), chute libre avec la gravité du jeu, atterrissage. Bloquant. ]]
-local function tomber(sol, decrochage)
+local function tomber(sol, decrochage, sansReception)
 	local depart = W.pos
 	local h = math.max(0.5, depart.Y - sol.Y)
 	local g = workspace.Gravity
@@ -331,7 +331,7 @@ local function tomber(sol, decrochage)
 		RunService.Heartbeat:Wait()
 	end
 	W.pos = sol; W.mode = "sol"; placer(); sonEn(sol, "chute")
-	task.wait(C.ATTERRISSAGE)
+	if not sansReception then task.wait(C.ATTERRISSAGE) end
 end
 local function descendre()
 	W.occupe = true
@@ -465,6 +465,7 @@ local function coupSaisie(p, versGrille)
 	relacher()
 	recharger("saisie")
 end
+-- chute dévorante : elle se laisse tomber sur la tête du joueur, l'englobe, l'enserre de ses bras ; il s'effondre dans l'eau
 local function coupChute(p)
 	signe("chute")
 	local r = hrp(p); if not r then return end
@@ -473,12 +474,101 @@ local function coupChute(p)
 		racine:SetAttribute("Coup", "avorte"); W.forcerFuite = true; return
 	end
 	local h = Vector3.new(r.Position.X - W.pos.X, 0, r.Position.Z - W.pos.Z).Magnitude
-	if h <= C.COUPS.chute.rayon + 0.5 then
-		local sol = solPoint(r.Position)
-		tomber(sol, C.DECROCHAGE_EMBUSCADE)
-		eliminer(p, "devore")
-		task.wait(1.2)
+	if h > C.COUPS.chute.rayon + 0.5 then return end
+	local ch = p.Character
+	local tete = ch and ch:FindFirstChild("Head") :: BasePart?
+	if not tete then return end
+	r.Anchored = true
+	effet(p, "englouti", C.COUPS.chute.etreinte)
+	local haut = tete.Position + UP * (tete.Size.Y * 0.5)
+	tomber(haut, C.DECROCHAGE_EMBUSCADE, true)
+	-- étreinte : elle glisse sur la tête, la victime se débat puis s'effondre en arrière, elle reste accrochée
+	racine:SetAttribute("Devore", p.UserId); racine:SetAttribute("DevoreT", workspace:GetServerTimeNow())
+	local pieds = solPoint(r.Position)
+	local avant = W.avant
+	local axe = UP:Cross(avant).Unit                           -- elle tombe en arrière, loin de la créature
+	local depart = r.CFrame
+	local t0 = os.clock()
+	local D = C.COUPS.chute.etreinte
+	while os.clock() - t0 < D do
+		RunService.Heartbeat:Wait()
+		if not r.Parent then break end
+		local tt = os.clock() - t0
+		local bascule = 1.45 * (function(x) x = math.clamp(x, 0, 1); return x * x * (3 - 2 * x) end)((tt - 0.9) / 1.0)
+		local secousse = (tt > 0.3 and tt < 1.1) and 0.06 * math.sin(tt * 38) or 0
+		local rot = CFrame.fromAxisAngle(axe, -bascule)
+		local base = CFrame.new(pieds) * rot * CFrame.new(0, 0, 0)
+		r.CFrame = base * (CFrame.new(pieds):Inverse() * depart) * CFrame.new(secousse, 0, 0) + UP * (0.6 * math.sin(bascule))
+		local hautCorps = rot:VectorToWorldSpace(UP)
+		local glisse = math.min(1, tt / 0.3)
+		W.pos = (tete.Position + hautCorps * (tete.Size.Y * 0.5)):Lerp(tete.Position - hautCorps * (tete.Size.Y * 0.5), glisse)
+		local av = avant - hautCorps * avant:Dot(hautCorps)
+		racine.CFrame = CFrame.lookAt(W.pos, W.pos + (av.Magnitude > 1e-3 and av.Unit or avant), hautCorps)
 	end
+	eliminer(p, "devore")
+	racine:SetAttribute("Devore", nil)
+	r.Anchored = false
+	W.pos = solPoint(W.pos + UP * 2); W.mode = "sol"; placer()
+	task.wait(0.6)
+end
+
+-- plaquage : bond sur le joueur, il tombe sur le dos ; elle s'assoit sur sa poitrine et lui tient poignets et chevilles
+local function coupPlaquage(p)
+	local P = C.COUPS.plaquage
+	viser(p); signe("plaquage")
+	local r = hrp(p); if not r then recharger("plaquage"); return end
+	local depart = W.pos
+	local arrivee = solPoint(r.Position)
+	local dir = Vector3.new(arrivee.X - depart.X, 0, arrivee.Z - depart.Z)
+	if dir.Magnitude > P.portee + 2 or dir.Magnitude < 1 then recharger("plaquage"); return end
+	dir = dir.Unit; W.avant = dir
+	racine:SetAttribute("BondDepart", depart); racine:SetAttribute("BondArrivee", arrivee)
+	racine:SetAttribute("BondT", workspace:GetServerTimeNow())
+	sonEn(depart, "eclabousse", 1.2)
+	local t0 = os.clock()
+	while true do
+		local u = math.min(1, (os.clock() - t0) / P.vol)
+		W.pos = depart:Lerp(arrivee, u) + UP * (4 * P.hauteur * u * (1 - u))
+		racine.CFrame = orienter(dir, false)
+		if u >= 1 then break end
+		RunService.Heartbeat:Wait()
+	end
+	W.pos = arrivee; W.mode = "sol"; placer(); sonEn(arrivee, "chute")
+	local horiz = Vector3.new(r.Position.X - arrivee.X, 0, r.Position.Z - arrivee.Z).Magnitude
+	if horiz > 3 or not humanoide(p) or humanoide(p).Health <= 0 then recharger("plaquage"); return end   -- raté : il a esquivé
+	-- la victime tombe sur le dos, la tête vers l'arrière ; elle se pose sur sa poitrine
+	local couche = solPoint(r.Position) + dir * 1.0 + UP * 0.55
+	r.Anchored = true
+	local debout = r.CFrame
+	local allonge = CFrame.fromMatrix(couche, dir:Cross(-UP), dir, -UP)
+	local tc = os.clock()
+	while os.clock() - tc < 0.25 do                           -- il bascule en arrière sous le choc
+		local a = (os.clock() - tc) / 0.25
+		r.CFrame = debout:Lerp(allonge, a * a)
+		RunService.Heartbeat:Wait()
+	end
+	r.CFrame = allonge
+	W.pos = couche + UP * 0.6 - dir * 0.4; placer()
+	W.saisie = { victime = p, degats = 0, debut = os.clock(), feu = false }
+	W.debats[p] = 0
+	effet(p, "saisi", "plaquage")
+	racine:SetAttribute("Plaque", p.UserId); racine:SetAttribute("PlaqueT", workspace:GetServerTimeNow())
+	while W.saisie and W.saisie.victime == p do
+		local dt = RunService.Heartbeat:Wait()
+		local h = humanoide(p); if not h or h.Health <= 0 then break end
+		if W.saisie.degats >= P.liberation or W.saisie.feu or W.etat == "etourdie" then break end
+		if os.clock() - W.saisie.debut > P.duree then break end
+		local deb = (W.debats[p] or 0) > 0 and 0.5 or 1; W.debats[p] = math.max(0, (W.debats[p] or 0) - dt * 4)
+		h:TakeDamage(P.dps * deb * dt)
+	end
+	racine:SetAttribute("Plaque", nil)
+	local hv = humanoide(p)
+	if hv and hv.Health <= 0 then effet(p, "elimine", "plaque") end
+	relacher()
+	if hv and hv.Health > 0 then effet(p, "renverse", 0.8) end
+	-- elle saute en arrière et repart
+	glisser(solPoint(W.pos - dir * 6), 0.4, "sol", false)
+	recharger("plaquage")
 end
 local function coupEncre()
 	signe("encre")
@@ -508,6 +598,7 @@ local function attaquer(p)
 	elseif W.mode == "sol" and groupe >= 2 and pret("balayage") then coupBalayage()
 	elseif W.phase >= 3 and grilleProche(C.COUPS.enlevement.portee_grille) and dist <= C.COUPS.saisie.portee and pret("enlevement") then coupSaisie(p, grilleProche(C.COUPS.enlevement.portee_grille))
 	elseif W.mode == "sol" and dist <= C.COUPS.saisie.portee and pret("saisie") then coupSaisie(p, nil)
+	elseif W.mode == "sol" and horiz >= C.COUPS.plaquage.portee_min and horiz <= C.COUPS.plaquage.portee and pret("plaquage") then coupPlaquage(p)
 	elseif dist <= C.COUPS.fouet.portee and pret("fouet") then coupFouet(p)
 	end
 	racine:SetAttribute("Coup", nil)

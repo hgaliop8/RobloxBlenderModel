@@ -104,6 +104,19 @@ end
 
 local chuteEtat = { phase = "", prog = 0, tau = 0, hautY = 1 }
 
+-- plaquage : vrai pendant le vol du bond
+local function bondEnVol(): boolean
+	local dep, arr = racine:GetAttribute("BondDepart"), racine:GetAttribute("BondArrivee")
+	if typeof(dep) ~= "Vector3" or typeof(arr) ~= "Vector3" then return false end
+	local x = workspace:GetServerTimeNow() - (racine:GetAttribute("BondT") or 0)
+	return x >= 0 and x <= C.COUPS.plaquage.vol
+end
+local function persoDe(attribut: string): Model?
+	local id = racine:GetAttribute(attribut); if not id then return nil end
+	local pl = Players:GetPlayerByUserId(id)
+	return pl and pl.Character or nil
+end
+
 local function saisieTemps() return workspace:GetServerTimeNow() - (racine:GetAttribute("SaisieT") or workspace:GetServerTimeNow()) end
 local function enrouler(t: number)
 	local victime = Players:GetPlayerByUserId(racine:GetAttribute("Saisie") or 0)
@@ -151,6 +164,92 @@ local function enrouler(t: number)
 		end
 	end
 end
+-- chute dévorante : ses huit bras descendent en cage autour du torse de la victime
+local function cage(t: number)
+	local ch = persoDe("Devore"); if not ch or not osRacine then return end
+	local tete = ch:FindFirstChild("Head") :: BasePart?; if not tete then return end
+	local U = tete.CFrame.UpVector
+	local N = tete.Position - U * (tete.Size.Y * 0.5)
+	local tt = workspace:GetServerTimeNow() - (racine:GetAttribute("DevoreT") or 0)
+	local parent = mondeOs(osRacine)
+	local poids = {}
+	for j = 1, 8 do poids[j] = lisse((tt - 0.03 * (j - 1)) / 0.25) end
+	for k, chn in pairs(BRAS) do
+		local B = (parent * chn.os[1].CFrame).Position
+		G.orienter(chn, parent, G.articulations(B, G.cheminCage(B, N, U, (k % 2 == 0) and 1 or -1), chn.L), poids)
+	end
+	_ = t
+end
+
+-- plaquage : quatre bras s'enroulent autour des poignets et des chevilles, deux s'appuient au sol, les deux avant restent levés
+local membresCache = { t = -1, assign = {} :: { [number]: string } }
+local function extremite(ch: Model, nom: string): (Vector3?, Vector3?)
+	local noms = {
+		mainG = { "LeftHand", "Left Arm" }, mainD = { "RightHand", "Right Arm" },
+		piedG = { "LeftFoot", "Left Leg" }, piedD = { "RightFoot", "Right Leg" },
+	}
+	for i, n in ipairs(noms[nom]) do
+		local pt = ch:FindFirstChild(n) :: BasePart?
+		if pt then
+			local axe = pt.CFrame.UpVector
+			if i == 2 then return pt.Position - axe * (pt.Size.Y * 0.35), axe end      -- R6 : bout du membre
+			return pt.Position, axe
+		end
+	end
+	return nil, nil
+end
+local function plaquer(t: number)
+	local ch = persoDe("Plaque"); if not ch or not osRacine then return end
+	local pt0 = racine:GetAttribute("PlaqueT") or 0
+	local tt = workspace:GetServerTimeNow() - pt0
+	local parent = mondeOs(osRacine)
+	local centre = parent.Position
+	local haut = cfAffiche.UpVector
+	if membresCache.t ~= pt0 then                                 -- chaque membre au bras libre le plus proche
+		membresCache.t = pt0; membresCache.assign = {}
+		local libres = { 1, 2, 5, 6 }
+		for _, m in ipairs({ "mainG", "mainD", "piedG", "piedD" }) do
+			local P = extremite(ch, m)
+			if P then
+				local best, bd, bi = nil, math.huge, 0
+				for i, k in ipairs(libres) do
+					local chn = BRAS[k]
+					local d = chn and ((parent * chn.os[1].CFrame).Position - P).Magnitude or math.huge
+					if d < bd then best, bd, bi = k, d, i end
+				end
+				if best then membresCache.assign[best] = m; table.remove(libres, bi) end
+			end
+		end
+	end
+	local poids = {}
+	for j = 1, 8 do poids[j] = lisse((tt - 0.04 * (j - 1)) / 0.35) end
+	for k, m in pairs(membresCache.assign) do
+		local chn = BRAS[k]
+		local P, axe = extremite(ch, m)
+		if chn and P and axe then
+			local B = (parent * chn.os[1].CFrame).Position
+			local f = centre - P; f = f - axe * f:Dot(axe); f = f.Magnitude > 1e-3 and f.Unit or haut
+			local l = axe:Cross(f)
+			local sens = ((B - P):Dot(l) >= 0) and 1 or -1
+			local serre = 0.45 - 0.03 * math.max(0, math.sin(tt * 6 + k))
+			G.orienter(chn, parent, G.articulations(B, G.cheminEnroule(B, P, axe, f, serre, -0.2, sens, 1.5), chn.L), poids)
+		end
+	end
+	local w = 0.9 * lisse(tt / 0.4)
+	local pw = {}
+	for j = 1, 8 do pw[j] = w end
+	for _, k in ipairs({ 3, 4 }) do
+		local chn = BRAS[k]
+		if chn then
+			local B = (parent * chn.os[1].CFrame).Position
+			local dir = Vector3.new(B.X - centre.X, 0, B.Z - centre.Z); dir = dir.Magnitude > 1e-3 and dir.Unit or -cfAffiche.RightVector
+			local F = Vector3.new(centre.X, racine.Position.Y - 0.6, centre.Z) + dir * 4
+			G.orienter(chn, parent, G.articulations(B, G.cheminSol(B, dir, F, UP), chn.L), pw)
+		end
+	end
+	_ = t
+end
+
 -- ================================================================ marche à pieds posés
 local DIRS = {}                       -- direction de chaque bras au repos, dans le repère du modèle
 do
@@ -205,6 +304,8 @@ local function decalageGeste(coup: string?, e: number, signe: number): CFrame
 		local T = cibleAttaque()
 		local dist = T and horizontal(T - racine.Position).Magnitude or 0
 		return G.fouetCorps(e, signe, dist, (fouetBras.k == 7) and -1 or 1)
+	elseif coup == "plaquage" and e < signe then
+		return G.ramasse(e, signe)
 	elseif coup == "balayage" and e < signe + G.BALAYAGE.tour + 0.4 then
 		local corpsCF = G.balayage(e, signe)
 		return corpsCF
@@ -280,7 +381,9 @@ local function animer(t, dt)
 			if coup == "fouet" then
 				-- le bras qui frappe est posé plus bas (gestesAttaque) ; les autres se tendent
 				pitch -= 0.05 * lisse(e / signe)
-			elseif coup == "balayage" then
+			elseif racine:GetAttribute("Plaque") and (k == 0 or k == 7) then
+				pitch += (j == 1) and 0.35 or 0.08                                     -- bras avant levés, menaçants
+			elseif coup == "balayage" or (coup == "plaquage" and e < signe) then
 				-- elle s'aplatit, pointes enroulées ; les bras tendus du tour sont posés plus bas (gestesAttaque)
 				local a = (e < signe) and lisse(e / signe) or 1
 				pitch += (j <= 2 and -0.1 or (j >= 6 and 0.3 or 0)) * a
@@ -328,10 +431,27 @@ local function animer(t, dt)
 	ang(os_.Bec, 0, 0)
 	-- marche : pieds posés au plafond et au sol, faisceau en course (hors gestes d'attaque, chute, saisie)
 	local geste = saisie or chuteEtat.phase ~= "" or (coup ~= nil and coup ~= "avorte" and e < signe + 0.8)
+		or racine:GetAttribute("Plaque") ~= nil or racine:GetAttribute("Devore") ~= nil or bondEnVol()
 		or etat == "morte" or etat == "etourdie"
 	locomotion(t, dt, not geste and (mode == "plafond" or mode == "sol"))
 	-- attaques au contact : bras du fouet, bras tendus du balayage
 	gestesAttaque(coup, e, signe, coupT)
+	-- plaquage : en vol, bras ramenés en faisceau ; une fois posée, poignets et chevilles tenus ; chute dévorante : cage de bras
+	if coup == "plaquage" and bondEnVol() and osRacine then
+		local dep, arr = racine:GetAttribute("BondDepart"), racine:GetAttribute("BondArrivee")
+		local u = (workspace:GetServerTimeNow() - (racine:GetAttribute("BondT") or 0)) / C.COUPS.plaquage.vol
+		local dir = Vector3.new(arr.X - dep.X, 0, arr.Z - dep.Z); dir = dir.Magnitude > 1e-3 and dir.Unit or cfAffiche.RightVector
+		local parent = mondeOs(osRacine)
+		local w = 1 - lisse((u - 0.55) / 0.45)
+		local pw = {}
+		for j = 1, 8 do pw[j] = w end
+		for _, chn in pairs(BRAS) do
+			local B = (parent * chn.os[1].CFrame).Position
+			G.orienter(chn, parent, G.articulations(B, G.cheminTrainee(B, parent.Position, dir, UP, t), chn.L), pw)
+		end
+	end
+	if racine:GetAttribute("Plaque") then plaquer(t) end
+	if racine:GetAttribute("Devore") then cage(t) end
 	-- saisie : les deux bras avant s'enroulent autour du cou (ou du torse pour un enlèvement), les autres prennent appui au sol
 	if saisie then enrouler(t) end
 	-- yeux : ils suivent la caméra du joueur s'il est assez proche
@@ -408,7 +528,8 @@ RunService.RenderStepped:Connect(function(dt)
 	local depart = racine:GetAttribute("ChuteDepart")
 	local e = workspace:GetServerTimeNow() - (racine:GetAttribute("CoupT") or 0)
 	local d, tf = racine:GetAttribute("ChuteDecroche") or C.DECROCHAGE, racine:GetAttribute("ChuteTf") or 0.35
-	if coup == "descente" and typeof(depart) == "Vector3" and e < d + tf + C.ATTERRISSAGE then
+	if coup == "descente" and typeof(depart) == "Vector3" and e < d + tf + C.ATTERRISSAGE
+		and not (racine:GetAttribute("Devore") and e > d + tf) then
 		-- chute : position et orientation calculées ici, à partir du même horaire que le serveur (pas de retard d'affichage)
 		local sol = racine:GetAttribute("ChuteSol"); if typeof(sol) ~= "Vector3" then sol = p end
 		local modele, tombe, phase, prog, tau = G.chute(e, d, tf, workspace.Gravity, C.ATTERRISSAGE)
@@ -422,6 +543,15 @@ RunService.RenderStepped:Connect(function(dt)
 		cfAffiche = CFrame.lookAt(pos, pos + avant.Unit, UP) * ROT * modele
 		chuteEtat.phase, chuteEtat.prog, chuteEtat.tau = phase, prog, tau
 		chuteEtat.hautY = cfAffiche:VectorToObjectSpace(UP).Y
+	elseif coup == "plaquage" and bondEnVol() then
+		-- bond : parabole calculée ici, avant relevé au départ et plongeant à l'arrivée
+		chuteEtat.phase = ""
+		local dep, arr = racine:GetAttribute("BondDepart"), racine:GetAttribute("BondArrivee")
+		local P = C.COUPS.plaquage
+		local u = (workspace:GetServerTimeNow() - (racine:GetAttribute("BondT") or 0)) / P.vol
+		local pos, bascule = G.bond(dep, arr, P.hauteur, u)
+		local dir = Vector3.new(arr.X - dep.X, 0, arr.Z - dep.Z); dir = dir.Magnitude > 1e-3 and dir.Unit or Vector3.new(0, 0, -1)
+		cfAffiche = CFrame.lookAt(pos, pos + dir, UP) * ROT * CFrame.Angles(0, 0, bascule)
 	else
 		chuteEtat.phase = ""
 		if racine:GetAttribute("Saisie") and racine:GetAttribute("SaisieType") ~= "enlevement" then
@@ -510,6 +640,22 @@ evEffet.OnClientEvent:Connect(function(quoi, a, b, c)
 		if a ~= "enlevement" then etouffer(true) end
 		debat = UserInputService.InputBegan:Connect(function(io, traite)
 			if not traite and (io.KeyCode == Enum.KeyCode.Space or io.KeyCode == Enum.KeyCode.ButtonA) then evDebat:FireServer() end
+		end)
+	elseif quoi == "englouti" then
+		local duree = a or 2
+		local cc = Instance.new("ColorCorrectionEffect"); cc.Parent = Lighting
+		local fl = Instance.new("BlurEffect"); fl.Size = 0; fl.Parent = Lighting
+		task.spawn(function()
+			local t0 = os.clock()
+			while os.clock() - t0 < duree + 0.3 do
+				local u = math.clamp((os.clock() - t0) / duree, 0, 1)
+				cc.TintColor = Color3.new(1 - 0.55 * u, 1 - 0.1 * u, 1 - 0.35 * u)
+				cc.Brightness = -0.6 * u * u; cc.Saturation = -0.4 * u
+				fl.Size = 6 + 20 * u
+				noir.BackgroundTransparency = 1 - u * u
+				task.wait()
+			end
+			cc:Destroy(); fl:Destroy()
 		end)
 	elseif quoi == "relache" then
 		aide.Text = ""; if debat then debat:Disconnect(); debat = nil end

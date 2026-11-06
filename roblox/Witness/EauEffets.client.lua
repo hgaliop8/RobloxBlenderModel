@@ -136,7 +136,7 @@ local precedent = racine.Position; local vitesse = 0
 local prochainSillage, prochainRemous = 0, 0
 local derniereGerbe = 0
 local pointesY: { [number]: number } = {}
-local dejaVu: { [string]: number } = {}
+local dejaVu: { [string]: number } = {}   -- coup -> instant déjà traité
 local function creature(t: number, dt: number)
 	local p = racine.Position
 	local d = Vector3.new(p.X - precedent.X, 0, p.Z - precedent.Z)
@@ -188,6 +188,29 @@ local function creature(t: number, dt: number)
 					end
 				end
 			end
+		end
+	end
+	-- plaquage : gerbe à l'atterrissage du bond ; chute dévorante : la victime s'effondre dans l'eau
+	local bt = racine:GetAttribute("BondT")
+	local arr = racine:GetAttribute("BondArrivee")
+	if bt and typeof(arr) == "Vector3" and dejaVu.bond ~= bt and workspace:GetServerTimeNow() >= bt + C.COUPS.plaquage.vol then
+		dejaVu.bond = bt
+		local s0 = Eau.surface(arr, 3)
+		if s0 then
+			local q = Vector3.new(arr.X, s0 + 0.03, arr.Z)
+			rond(q, 4.5, 1.4, 1); eclabousser(gerbe, q, 30); eclabousser(gouttes, q, 20); son(q, "eclabousse", 1.4)
+		end
+	end
+	local dt0 = racine:GetAttribute("DevoreT")
+	local idv = racine:GetAttribute("Devore")
+	if dt0 and idv and dejaVu.devore ~= dt0 and workspace:GetServerTimeNow() >= dt0 + (C.COUPS.chute.etreinte or 2) - 0.2 then
+		dejaVu.devore = dt0
+		local pl = Players:GetPlayerByUserId(idv)
+		local r = pl and pl.Character and pl.Character:FindFirstChild("HumanoidRootPart") :: BasePart?
+		local s0 = r and Eau.surface(r.Position, 3)
+		if r and s0 then
+			local q = Vector3.new(r.Position.X, s0 + 0.03, r.Position.Z)
+			rond(q, 4, 1.5, 1); eclabousser(gerbe, q, 25); son(q, "eclabousse", 1.4)
 		end
 	end
 	if mode ~= "sol" then table.clear(pointesY); return end
