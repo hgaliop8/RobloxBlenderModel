@@ -204,12 +204,15 @@ function G.pied(m, k: number, t: number, haut: Vector3): Vector3?
 end
 
 -- chemin d'un bras posé : il se cambre au-dessus de la surface jusqu'au pied, puis s'étale au-delà
-function G.cheminPied(B: Vector3, F: Vector3, centre: Vector3, haut: Vector3): { Vector3 }
-	local dehors = F - centre; dehors = dehors - haut * dehors:Dot(haut)
+-- nF (facultatif) = normale de la surface sous le pied, quand ce n'est pas celle du corps (pied resté au sol pendant
+-- qu'elle monte le mur, par exemple) : le bout du bras s'étale alors le long de cette surface-là
+function G.cheminPied(B: Vector3, F: Vector3, centre: Vector3, haut: Vector3, nF: Vector3?): { Vector3 }
+	local nS = nF or haut
+	local dehors = F - centre; dehors = dehors - nS * dehors:Dot(nS)
 	dehors = dehors.Magnitude > 1e-3 and dehors.Unit or Vector3.new(1, 0, 0)
-	local Fp = F + haut * 0.2
+	local Fp = F + nS * 0.2
 	local pts = { B }
-	bezier(B, B + (Fp - B) * 0.35 + haut * 0.5, Fp - dehors * 1.0 + haut * 0.25, Fp, 10, pts)
+	bezier(B, B + (Fp - B) * 0.35 + haut * 0.5, Fp - dehors * 1.0 + nS * 0.25, Fp, 10, pts)
 	table.insert(pts, Fp + dehors * 1.5); table.insert(pts, Fp + dehors * 4)
 	return pts
 end
@@ -645,6 +648,11 @@ local function coin(p: Vector3, E: Vector3, L: Vector3, dA: Vector3, dB: Vector3
 	local x, y, l = r:Dot(dA), r:Dot(dB), r:Dot(L)
 	if y <= x then return E + L * l + dA * math.max(x, 0) end
 	return E + L * l + dB * math.max(y, 0)
+end
+function G.normaleEscalade(p: Vector3, E0: Vector3, n: Vector3, yH: number): Vector3
+	if p.Y < E0.Y + 0.05 then return UPV end
+	if p.Y > yH - 0.05 then return -UPV end
+	return n
 end
 function G.surfaceEscalade(p: Vector3, E0: Vector3, n: Vector3, yH: number): Vector3
 	local L = n:Cross(UPV)

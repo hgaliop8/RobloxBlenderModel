@@ -499,7 +499,9 @@ local function locomotion(t: number, dt: number, actif: boolean)
 		local B = (parent * chn.os[1].CFrame).Position
 		if course < 0.999 then
 			local F = G.pied(marcheEtat, k, t, haut)
-			if F then G.orienter(chn, parent, G.articulations(B, G.cheminPied(B, F, centre, haut), chn.L), wp) end
+			local e = escDernier
+			local nF = (F and e and workspace:GetServerTimeNow() <= e.fin + 1) and G.normaleEscalade(F, e.E0, e.n, e.yH) or nil
+			if F then G.orienter(chn, parent, G.articulations(B, G.cheminPied(B, F, centre, haut, nF), chn.L), wp) end
 		end
 		if course > 0.001 then
 			G.orienter(chn, parent, G.articulations(B, G.cheminTrainee(B, centre, avant, haut, t), chn.L), wc)

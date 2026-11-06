@@ -284,10 +284,12 @@ def pied(m, k, t, haut):
     a = m.air.get(k)
     if a: u = lisse((t - a['t0'])/a['duree']); return a['debut'].lerp(a['fin'], u) + haut*(a['hauteur']*math.sin(math.pi*u))
     return m.pieds.get(k)
+NORMALE = [None]                     # escalade : normale de la surface sous un pied
 def chemin_pied(B, F, centre, haut):
-    dh = F - centre; dh = dh - haut*dh.dot(haut); dh = dh.normalized() if dh.length > 1e-3 else Vector((1, 0, 0))
-    Fp = F + haut*0.2; pts = [B.copy()]
-    bezier(B, B + (Fp - B)*0.35 + haut*0.5, Fp - dh*1.0 + haut*0.25, Fp, 10, pts); pts += [Fp + dh*1.5, Fp + dh*4]; return pts
+    nS = NORMALE[0](F) if NORMALE[0] else haut
+    dh = F - centre; dh = dh - nS*dh.dot(nS); dh = dh.normalized() if dh.length > 1e-3 else Vector((1, 0, 0))
+    Fp = F + nS*0.2; pts = [B.copy()]
+    bezier(B, B + (Fp - B)*0.35 + haut*0.5, Fp - dh*1.0 + nS*0.25, Fp, 10, pts); pts += [Fp + dh*1.5, Fp + dh*4]; return pts
 def chemin_trainee(B, centre, avant, haut, t):
     cote = haut.cross(avant).normalized(); rel = B - centre; lat = rel.dot(cote)
     E = centre - avant*5.6 + cote*lat*2.0 + haut*0.25
@@ -350,8 +352,6 @@ for nom, size, loc, mt in (('Sol', (LX, LARG, 0.4), (CX, 0, -0.2), K.mat('tole_s
         for (sx, sy_, x_, y_) in ((4.8, 0.2, 0, 2.3), (4.8, 0.2, 0, -2.3), (0.2, 4.8, 2.3, 0), (0.2, 4.8, -2.3, 0)):
             K.cube('Cadre', (sx, sy_, 0.3), (x_, y_, H + 0.25), K.mat('metal_peint', (70, 72, 70)), 0.03)
         for i in range(7): K.cube('Barreau', (0.18, 4.4, 0.25), (-1.86 + i*0.62, 0, H + 0.05), K.mat('metal_peint', (54, 56, 56)), 0.02)
-        lampe((-4, 1.2, H + 4.8), 260, (0.85, 0.93, 1.0), 2.0, forme='RECTANGLE', size_y=0.4)       # néon de la gaine
-        lampe((6, 1.2, H + 4.8), 200, (0.85, 0.93, 1.0), 2.0, forme='RECTANGLE', size_y=0.4)
         continue
     o = K.cube(nom, size, loc, mt, 0); K.box_uv(o)
 for x in range(int(L0) + 6, int(L1), 8):
@@ -936,10 +936,11 @@ def racine_escalade(t):
     return repere(fin + ESC_N*(2.0*a), ESC_N, -UPV), None, 0.0, None
 def plan_escalade(t):
     SURFACE[0] = lambda p_: surface_escalade(p_, ESC_E0, ESC_N, H)
+    NORMALE[0] = lambda p_: UPV if p_.z < 0.05 else (-UPV if p_.z > H - 0.05 else ESC_N)
     Mw, coup, e, ch = avancer(racine_escalade, t)
     Q = animer(t, 0, None, 0.0, False, None)
     if SIM['poids'] >= 0.01: locomotion(Q, t, Mw, SIM['vel'], SIM['m'], SIM['poids'])
-    CAM = Vector((-8.5, -9.0, 5.5)); viser(CAM, (2.5, 3.5, 6.2)); cd.angle_y = math.radians(64)
+    CAM = Vector((-4.0, -6.5, 4.5)); viser(CAM, (2.0, 4.5, 6.3)); cd.angle_y = math.radians(74)
     poser(Mw, Q, CAM)
 # plan « traversee » : montée par la grille dans la gaine, pause, redescente
 TR_PAS = Vector((0, 0, H)); TR_BAS = Vector((-3.5, 0, H)); TR_HAUT = Vector((3.2, 0, H + 0.5)); TR_T1 = 0.5; TR_T2 = 3.1
@@ -1024,7 +1025,10 @@ elif PLAN in ('plafond', 'sol') + ('fouet', 'balayage', 'devore', 'plaquage', 'e
     CLE = lampe((0, -12, 8), 1600, (1.0, 0.95, 0.9), 6.0)
     CONTRE = lampe((0, 5, 6), 1100, (0.6, 0.85, 1.0), 4.0)
     for L_ in (CLE, CONTRE): L_.visible_glossy = False; L_.visible_transmission = False     # pas de grande tache blanche reflétée dans l'eau
-    if PLAN in ('balayage', 'encre', 'plaquage'):       # vue plongeante : les néons se reflètent en taches ; reflet doux d'un grand plafonnier à la place
+    if PLAN == 'traversee':                             # néons de la gaine
+        lampe((-4, 1.2, H + 4.8), 260, (0.85, 0.93, 1.0), 2.0, forme='RECTANGLE', size_y=0.4)
+        lampe((6, 1.2, H + 4.8), 200, (0.85, 0.93, 1.0), 2.0, forme='RECTANGLE', size_y=0.4)
+    if PLAN in ('balayage', 'encre', 'plaquage', 'escalade'):       # vue plongeante : les néons se reflètent en taches ; reflet doux d'un grand plafonnier à la place
         for o in list(sc.objects):
             if o.type == 'LIGHT' and o.data.type == 'AREA' and o.data.shape == 'RECTANGLE': o.visible_glossy = False
         lampe((0, 0, H - 0.3), 260, (0.8, 0.9, 1.0), 26.0)
