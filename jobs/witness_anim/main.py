@@ -869,19 +869,19 @@ def traversee(u, de, vers, passage, avant0, montee):
     a1, a2 = TRAV['a1'], TRAV['a2']; u = max(0.0, min(1.0, u)); a0 = dir_h(avant0, Vector((1, 0, 0)))
     serre = math.sin(math.pi*max(0.0, min(1.0, (u - a1)/(0.9 - a1)))); etire = math.sin(math.pi*max(0.0, min(1.0, (u - 0.5)/0.45)))
     if montee:
-        d = dir_h(vers - passage, a0); Q1 = Vector((passage.x, passage.y, de.z)); Q2 = Vector((passage.x, passage.y, vers.z))
+        axe = dir_h(vers - passage, a0); d = axe if axe.dot(a0) <= 0 else -axe; Q1 = Vector((passage.x, passage.y, de.z)); Q2 = Vector((passage.x, passage.y, vers.z))
         if u < a1:
             s_ = lisse(u/a1); psi = angle_h(a0) + ecart_angle(angle_h(a0), angle_h(-d))*s_
             return repere(de.lerp(Q1, s_), vers_h(psi), -UPV), 0.0, 0.0
         if u < a2: v = a_coups((u - a1)/(a2 - a1)); pos = Q1.lerp(Q2, v); th = math.pi/2*v
-        else: w = lisse((u - a2)/(1 - a2)); pos = Q2.lerp(vers, w) + UPV*(0.3*math.sin(math.pi*w)); th = math.pi/2*(1 + w)
+        else: w = lisse((u - a2)/(1 - a2)); pos = Q2.lerp(Q2 + d*1.2, w) + UPV*(0.3*math.sin(math.pi*w)); th = math.pi/2*(1 + w)
         return repere(pos, -d*math.cos(th) + UPV*math.sin(th), -d*math.sin(th) - UPV*math.cos(th)), serre, etire
-    d = dir_h(passage - de, a0); Q2 = Vector((passage.x, passage.y, de.z)); Q1 = Vector((passage.x, passage.y, vers.z))
+    axe = dir_h(passage - de, a0); d = axe if axe.dot(a0) >= 0 else -axe; Q2 = Vector((passage.x, passage.y, de.z)); Q1 = Vector((passage.x, passage.y, vers.z))
     if u < a1:
         s_ = lisse(u/a1); psi = angle_h(a0) + ecart_angle(angle_h(a0), angle_h(d))*s_
         return repere(de.lerp(Q2, s_), vers_h(psi), UPV), 0.0, 0.0
     if u < a2: v = a_coups((u - a1)/(a2 - a1)); pos = Q2.lerp(Q1, v); th = math.pi/2*v
-    else: w = lisse((u - a2)/(1 - a2)); pos = Q1.lerp(vers, w) - UPV*(0.3*math.sin(math.pi*w)); th = math.pi/2*(1 + w)
+    else: w = lisse((u - a2)/(1 - a2)); pos = Q1.lerp(Q1 - d*1.2, w) - UPV*(0.3*math.sin(math.pi*w)); th = math.pi/2*(1 + w)
     return repere(pos, d*math.cos(th) - UPV*math.sin(th), d*math.sin(th) + UPV*math.cos(th)), serre, etire
 def chemin_traversee(B, Gk, A, n, passage, dehors):
     h = (B - passage).dot(n); V = Gk.lerp(B, lisse(h/0.8)); pts = [B.copy()]
@@ -891,7 +891,7 @@ def ancres_traversee(de, vers, passage, avant0, montee):
     n = UPV if montee else -UPV
     fin, _, _ = traversee(1, de, vers, passage, avant0, montee)
     base = Vector((passage.x, passage.y, vers.z)) + n*0.05
-    d = fin.to_3x3() @ Vector((1, 0, 0)); d = Vector((d.x, d.y, 0)).normalized(); lat = Vector((-d.y, d.x, 0))
+    f_ = fin.to_3x3() @ Vector((1, 0, 0)); d = dir_h((vers - passage) if montee else (de - passage), Vector((f_.x, f_.y, 0)).normalized()); lat = Vector((-d.y, d.x, 0))
     barre, fente = Vector((0, 1, 0)), Vector((1, 0, 0)); A, R, Gs = {}, {}, {}
     for k in range(8):
         a = k*math.pi/4 + math.pi/8
@@ -949,6 +949,7 @@ def plan_escalade(t):
     poser(Mw, Q, CAM)
 # plan « traversee » : montée par la grille dans la gaine, pause, redescente
 TR_PAS = Vector((0, 0, H)); TR_BAS = Vector((-3.5, 0, H)); TR_HAUT = Vector((3.2, 0, H + 0.5)); TR_T1 = 0.5; TR_T2 = 3.1
+TR_DE2 = traversee(1, TR_BAS, TR_HAUT, TR_PAS, Vector((1, 0, 0)), True)[0].translation.copy()     # où la montée l'a laissée
 def racine_traversee(t):
     """marche au plafond seulement (dans la gaine, bras au repos) : 'trav' coupe la marche"""
     D = TRAV['duree']
@@ -959,15 +960,15 @@ def racine_traversee(t):
     if t < TR_T2: return fin_m, None, 0.0, 'trav'
     av = fin_m.to_3x3() @ Vector((1, 0, 0))
     if t < TR_T2 + D:
-        u = (t - TR_T2)/D; return traversee(u, TR_HAUT, TR_BAS, TR_PAS, av, False)[0], None, 0.0, (None if u >= 0.75 else 'trav')
-    return traversee(1, TR_HAUT, TR_BAS, TR_PAS, av, False)[0], None, 0.0, None
+        u = (t - TR_T2)/D; return traversee(u, TR_DE2, TR_BAS, TR_PAS, av, False)[0], None, 0.0, (None if u >= 0.75 else 'trav')
+    return traversee(1, TR_DE2, TR_BAS, TR_PAS, av, False)[0], None, 0.0, None
 def preset_traversee(t, m):
     """relais vers la marche (descente, u = 0,75) : les pieds sont là où les bras se sont agrippés"""
     D = TRAV['duree']; u = (t - TR_T2)/D
     if u >= 0.75 and not SIM.get('relais'):
         SIM['relais'] = True
         av = traversee(1, TR_BAS, TR_HAUT, TR_PAS, Vector((1, 0, 0)), True)[0].to_3x3() @ Vector((1, 0, 0))
-        A = ancres_traversee(TR_HAUT, TR_BAS, TR_PAS, av, False)[0]
+        A = ancres_traversee(TR_DE2, TR_BAS, TR_PAS, av, False)[0]
         m.pieds = {k: A[k].copy() for k in range(8)}; m.air = {}
 def plan_traversee(t):
     SIM['preset'] = preset_traversee
@@ -977,13 +978,13 @@ def plan_traversee(t):
         _, ECRASE['serre'], ECRASE['etire'] = traversee((t - TR_T1)/D, TR_BAS, TR_HAUT, TR_PAS, Vector((1, 0, 0)), True)
     elif TR_T2 <= t < TR_T2 + D:
         av = traversee(1, TR_BAS, TR_HAUT, TR_PAS, Vector((1, 0, 0)), True)[0].to_3x3() @ Vector((1, 0, 0))
-        _, ECRASE['serre'], ECRASE['etire'] = traversee((t - TR_T2)/D, TR_HAUT, TR_BAS, TR_PAS, av, False)
+        _, ECRASE['serre'], ECRASE['etire'] = traversee((t - TR_T2)/D, TR_DE2, TR_BAS, TR_PAS, av, False)
     Q = animer(t, 0, None, 0.0, False, None)
     if SIM['poids'] >= 0.01: locomotion(Q, t, Mw, SIM['vel'], SIM['m'], SIM['poids'])
     if TR_T1 <= t < TR_T1 + D: traversee_bras(Q, Mw, (t - TR_T1)/D, TR_BAS, TR_HAUT, TR_PAS, Vector((1, 0, 0)), True)
     elif TR_T2 <= t < TR_T2 + D:
         av = traversee(1, TR_BAS, TR_HAUT, TR_PAS, Vector((1, 0, 0)), True)[0].to_3x3() @ Vector((1, 0, 0))
-        traversee_bras(Q, Mw, (t - TR_T2)/D, TR_HAUT, TR_BAS, TR_PAS, av, False)
+        traversee_bras(Q, Mw, (t - TR_T2)/D, TR_DE2, TR_BAS, TR_PAS, av, False)
     CAM = Vector((1.0, -12.5, 10.6)); viser(CAM, (0.3, 0, 12.6)); cd.angle_y = math.radians(56)
     poser(Mw, Q, CAM)
 

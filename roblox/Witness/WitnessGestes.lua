@@ -547,7 +547,7 @@ local function ecartAngle(a: number, b: number): number return (b - a + math.pi)
 --[[ Montée (plafond -> gaine) : sous la grille, elle se tourne (tête à l'opposé de la gaine où elle va) pendant que ses bras
 passent entre les barreaux et s'agrippent au fond de la gaine ; puis elle s'y hisse par à-coups en basculant (tête d'abord,
 le ventre contre la paroi), le manteau passe en dernier et se rabat derrière elle. Descente : l'inverse, tête la première.
-u = 0..1 ; de / vers = positions de la racine au départ et à l'arrivée ; passage = centre de la grille ; avant0 = direction
+u = 0..1 ; de = position de la racine au départ, vers = un point de l'autre côté (seule sa hauteur compte, et l'axe de la gaine) ; passage = centre de la grille ; avant0 = direction
 du corps au départ. Renvoie le repère affiché (X = avant du modèle, Y = dessus) et deux réglages d'écrasement du corps :
 serre (bras ramenés contre le corps quand il passe les barreaux) et etire (manteau allongé quand il passe). ]]
 G.TRAV = { a1 = 0.28, a2 = 0.72 }
@@ -558,7 +558,8 @@ function G.traversee(u: number, de: Vector3, vers: Vector3, passage: Vector3, av
 	local serre = math.sin(math.pi * math.clamp((u - T.a1) / (0.9 - T.a1), 0, 1))
 	local etire = math.sin(math.pi * math.clamp((u - 0.5) / 0.45, 0, 1))
 	if montee then
-		local d = dirH(vers - passage, a0)
+		local axe = dirH(vers - passage, a0)                   -- axe de la gaine ; le sens le plus proche du sien (jamais plus d'un quart de tour)
+		local d = axe:Dot(a0) <= 0 and axe or -axe
 		local Q1 = Vector3.new(passage.X, de.Y, passage.Z)
 		local Q2 = Vector3.new(passage.X, vers.Y, passage.Z)
 		if u < T.a1 then
@@ -572,11 +573,12 @@ function G.traversee(u: number, de: Vector3, vers: Vector3, passage: Vector3, av
 			pos = Q1:Lerp(Q2, v); th = math.pi / 2 * v
 		else
 			local w = lisse((u - T.a2) / (1 - T.a2))
-			pos = Q2:Lerp(vers, w) + UPV * (0.3 * math.sin(math.pi * w)); th = math.pi / 2 * (1 + w)
+			pos = Q2:Lerp(Q2 + d * 1.2, w) + UPV * (0.3 * math.sin(math.pi * w)); th = math.pi / 2 * (1 + w)   -- elle se couche vers l'avant
 		end
 		return CFrame.fromMatrix(pos, -d * math.cos(th) + UPV * math.sin(th), -d * math.sin(th) - UPV * math.cos(th)), serre, etire
 	else
-		local d = dirH(passage - de, a0)
+		local axe = dirH(passage - de, a0)
+		local d = axe:Dot(a0) >= 0 and axe or -axe
 		local Q2 = Vector3.new(passage.X, de.Y, passage.Z)
 		local Q1 = Vector3.new(passage.X, vers.Y, passage.Z)
 		if u < T.a1 then
@@ -590,7 +592,7 @@ function G.traversee(u: number, de: Vector3, vers: Vector3, passage: Vector3, av
 			pos = Q2:Lerp(Q1, v); th = math.pi / 2 * v
 		else
 			local w = lisse((u - T.a2) / (1 - T.a2))
-			pos = Q1:Lerp(vers, w) - UPV * (0.3 * math.sin(math.pi * w)); th = math.pi / 2 * (1 + w)
+			pos = Q1:Lerp(Q1 - d * 1.2, w) - UPV * (0.3 * math.sin(math.pi * w)); th = math.pi / 2 * (1 + w)
 		end
 		return CFrame.fromMatrix(pos, d * math.cos(th) - UPV * math.sin(th), d * math.sin(th) + UPV * math.cos(th)), serre, etire
 	end
@@ -614,7 +616,8 @@ function G.ancresTraversee(de: Vector3, vers: Vector3, passage: Vector3, avant0:
 	local n = montee and UPV or -UPV
 	local fin = G.traversee(1, de, vers, passage, avant0, montee)
 	local base = Vector3.new(passage.X, vers.Y, passage.Z) + n * 0.05
-	local d = Vector3.new(fin.RightVector.X, 0, fin.RightVector.Z); d = d.Magnitude > 1e-3 and d.Unit or Vector3.xAxis
+	local d = dirH(montee and (vers - passage) or (de - passage), Vector3.new(fin.RightVector.X, 0, fin.RightVector.Z))   -- le long de la gaine
+	if d.Magnitude < 1e-3 then d = Vector3.xAxis end
 	local lat = Vector3.new(-d.Z, 0, d.X)
 	local A, R, Gs = {}, {}, {}
 	for k = 0, 7 do

@@ -289,7 +289,7 @@ local function franchirArete(et)
 		end
 		local fin = Vector3.new(cf.RightVector.X, 0, cf.RightVector.Z)
 		if fin.Magnitude > 1e-3 then W.avant = fin.Unit end
-		W.pos = vers; W.mode = montee and "gaine" or "plafond"; placer()
+		W.pos = cf.Position; W.mode = montee and "gaine" or "plafond"; placer()     -- elle reprend son chemin de là
 		racine:SetAttribute("TravT", nil)
 		W.occupe = false
 	elseif et.type == "porte" and et.passage then
