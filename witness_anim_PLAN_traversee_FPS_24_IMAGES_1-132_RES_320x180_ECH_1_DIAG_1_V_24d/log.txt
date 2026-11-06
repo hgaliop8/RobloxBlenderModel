@@ -1,0 +1,12 @@
+>> peau : 146042 faces remaillées -> 11000 triangles
+>> échelle ×2.258 (envergure 5.36 m -> 12.1 studs)
+>> modèle prêt
+Blender 4.2.3 LTS (hash 0e22e4fcea03 built 2024-10-14 23:31:34)
+Traceback (most recent call last):
+  File "/home/runner/work/RobloxBlenderModel/RobloxBlenderModel/jobs/witness_anim/main.py", line 353, in <module>
+    lampe((-4, 1.2, H + 4.8), 260, (0.85, 0.93, 1.0), 2.0, forme='RECTANGLE', size_y=0.4)       # néon de la gaine
+    ^^^^^
+NameError: name 'lampe' is not defined
+
+Blender quit
+duree_s=23
