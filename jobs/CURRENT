@@ -1,1 +1,9 @@
-witness_anim PLAN=enlevement FPS=24 IMAGES=1-120 RES=320x180 ECH=1 DIAG=1 V=23h
+witness_anim PLAN=enlevement FPS=24 IMAGES=1-13 RES=960x540 ECH=24 V=23
+witness_anim PLAN=enlevement FPS=24 IMAGES=14-26 RES=960x540 ECH=24 V=23
+witness_anim PLAN=enlevement FPS=24 IMAGES=27-39 RES=960x540 ECH=24 V=23
+witness_anim PLAN=enlevement FPS=24 IMAGES=40-52 RES=960x540 ECH=24 V=23
+witness_anim PLAN=enlevement FPS=24 IMAGES=53-65 RES=960x540 ECH=24 V=23
+witness_anim PLAN=enlevement FPS=24 IMAGES=66-78 RES=960x540 ECH=24 V=23
+witness_anim PLAN=enlevement FPS=24 IMAGES=79-91 RES=960x540 ECH=24 V=23
+witness_anim PLAN=enlevement FPS=24 IMAGES=92-104 RES=960x540 ECH=24 V=23
+witness_anim PLAN=enlevement FPS=24 IMAGES=105-116 RES=960x540 ECH=24 V=23
