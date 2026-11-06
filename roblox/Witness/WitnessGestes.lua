@@ -222,7 +222,11 @@ end
 -- qu'elle monte le mur, par exemple) : le bout du bras s'étale alors le long de cette surface-là
 function G.cheminPied(B: Vector3, F: Vector3, centre: Vector3, haut: Vector3, nF: Vector3?): { Vector3 }
 	local nS = nF or haut
+	-- direction où la pointe s'étale : vers l'extérieur du pied, stabilisée par la direction de la base du bras (sinon,
+	-- quand un pied passe sous le corps pendant un pas, la pointe changerait de côté d'un coup)
+	local rb = B - centre; rb = rb - nS * rb:Dot(nS)
 	local dehors = F - centre; dehors = dehors - nS * dehors:Dot(nS)
+	dehors += (rb.Magnitude > 1e-3 and rb.Unit or Vector3.zero) * 2.0
 	dehors = dehors.Magnitude > 1e-3 and dehors.Unit or Vector3.new(1, 0, 0)
 	local Fp = F + nS * 0.2
 	local pts = { B }

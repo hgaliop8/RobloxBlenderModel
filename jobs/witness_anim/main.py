@@ -295,7 +295,9 @@ def pied(m, k, t, haut):
 NORMALE = [None]                     # escalade : normale de la surface sous un pied
 def chemin_pied(B, F, centre, haut):
     nS = NORMALE[0](F) if NORMALE[0] else haut
-    dh = F - centre; dh = dh - nS*dh.dot(nS); dh = dh.normalized() if dh.length > 1e-3 else Vector((1, 0, 0))
+    rb = B - centre; rb = rb - nS*rb.dot(nS)
+    dh = F - centre; dh = dh - nS*dh.dot(nS) + (rb.normalized()*2.0 if rb.length > 1e-3 else Vector((0, 0, 0)))
+    dh = dh.normalized() if dh.length > 1e-3 else Vector((1, 0, 0))
     Fp = F + nS*0.2; pts = [B.copy()]
     bezier(B, B + (Fp - B)*0.35 + haut*0.5, Fp - dh*1.0 + nS*0.25, Fp, 10, pts); pts += [Fp + dh*1.5, Fp + dh*4]; return pts
 def chemin_trainee(B, centre, avant, haut, t):
