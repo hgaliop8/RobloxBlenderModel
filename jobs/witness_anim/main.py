@@ -266,7 +266,9 @@ def maj_marche(m, t, Mw, vel, glisse=False):
         f0 = m.pieds.get(k)
         if f0 is None or (f0 - ideal[k]).length > 25 or (not surf and abs((f0 - orig).dot(haut)) > 1.5): m.pieds[k] = ideal[k].copy(); m.air.pop(k, None)
     if glisse:
-        for k in DIRS: m.pieds[k] = ideal[k].copy()
+        for k in DIRS:
+            cur = pied(m, k, t, haut); cur = cur if cur is not None else ideal[k]
+            m.pieds[k] = cur.lerp(ideal[k], 0.25)
         m.air = {}; return
     for k, a in list(m.air.items()):
         if t - a['t0'] >= a['duree']: m.pieds[k] = a['fin']; del m.air[k]; POSES_PIEDS.append((a['t0'] + a['duree'], a['fin'].copy()))

@@ -167,8 +167,11 @@ function G.majMarche(m, t: number, cf: CFrame, dirs: { [number]: Vector3 }, vel:
 			m.pieds[k] = ideal[k]; m.air[k] = nil                -- nouveau plan (chute, changement de surface) : on repart propre
 		end
 	end
-	if glisse then
-		for k in pairs(dirs) do m.pieds[k] = ideal[k] end
+	if glisse then                                          -- ils y glissent depuis là où ils sont (en l'air ou posés)
+		for k in pairs(dirs) do
+			local cur = G.pied(m, k, t, haut) or ideal[k]
+			m.pieds[k] = cur:Lerp(ideal[k], 0.25)
+		end
 		m.air = {}
 		return
 	end
